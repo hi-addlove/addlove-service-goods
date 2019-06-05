@@ -33,6 +33,7 @@ public class AddloveServiceGoodsApplicationTests {
         System.out.println(model.getResult());
     }
     
+    @SuppressWarnings("unchecked")
     @Test
     public void testQueryOrderJhDetail() {
         OrdJhQueryDetailReq req = new OrdJhQueryDetailReq();
