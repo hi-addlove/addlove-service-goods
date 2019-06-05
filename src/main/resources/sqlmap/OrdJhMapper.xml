@@ -2,24 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.addlove.service.goods.dao.OrdJhDao">
   <resultMap id="BaseResultMapHead" type="com.addlove.service.goods.model.OrdJhHeadModel">
-    <id column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
     <result column="LRDATE" jdbcType="TIMESTAMP" property="lrDate" />
     <result column="USERID" jdbcType="NUMERIC" property="userId" />
     <result column="USERCODE" jdbcType="VARCHAR" property="userCode" />
     <result column="USERNAME" jdbcType="VARCHAR" property="userName" />
     <result column="ISNEEDTJWL" jdbcType="VARCHAR" property="isNeedTjwl" />
-    <result column="TJDATE" jdbcType="TIMESTAMP" property="tjDate" />
+    <result column="TJDATE" jdbcType="DATE" property="tjDate" />
     <result column="TJRID" jdbcType="NUMERIC" property="tjrId" />
     <result column="TJRCODE" jdbcType="VARCHAR" property="tjrCode" />
     <result column="TJRNAME" jdbcType="VARCHAR" property="tjrName" />
-    <result column="JZDATE" jdbcType="TIMESTAMP" property="jzDate" />
+    <result column="JZDATE" jdbcType="DATE" property="jzDate" />
     <result column="JZRID" jdbcType="NUMERIC" property="jzrId" />
     <result column="JZRCODE" jdbcType="VARCHAR" property="jzrCode" />
     <result column="JZRNAME" jdbcType="VARCHAR" property="jzrName" />
     <result column="JZTYPE" jdbcType="VARCHAR" property="jzType" />
     <result column="RPTDATE" jdbcType="VARCHAR" property="rptDate" />
     <result column="PRNTIMES" jdbcType="NUMERIC" property="prnTimes" />
-    <result column="PRNDATE" jdbcType="TIMESTAMP" property="prnDate" />
+    <result column="PRNDATE" jdbcType="DATE" property="prnDate" />
     <result column="TIMEMARK" jdbcType="NUMERIC" property="timeMark" />
     <result column="YWTYPE" jdbcType="VARCHAR" property="ywType" />
     <result column="YWIOTYPE" jdbcType="VARCHAR" property="ywIoType" />
@@ -72,7 +72,7 @@
     <result column="WPSCOST" jdbcType="NUMERIC" property="wPsCost" />
     <result column="XTAXTOTAL" jdbcType="NUMERIC" property="xtaxTotal" />
     <result column="ORIGINTYPE" jdbcType="VARCHAR" property="originType" />
-    <result column="PICKDATE" jdbcType="TIMESTAMP" property="pickDate" />
+    <result column="PICKDATE" jdbcType="DATE" property="pickDate" />
     <result column="FBBILLNO" jdbcType="VARCHAR" property="fbBillNo" />
     <result column="FBSTATUS" jdbcType="VARCHAR" property="fbStatus" />
     <result column="SHETPCODE" jdbcType="VARCHAR" property="shetpCode" />
@@ -84,10 +84,10 @@
     <result column="SHRID" jdbcType="NUMERIC" property="shrId" />
     <result column="SHRCODE" jdbcType="VARCHAR" property="shrCode" />
     <result column="SHRNAME" jdbcType="VARCHAR" property="shrName" />
-    <result column="SHRDATE" jdbcType="TIMESTAMP" property="shrDate" />
+    <result column="SHRDATE" jdbcType="DATE" property="shrDate" />
     <result column="REVIEWMAN" jdbcType="VARCHAR" property="reviewMan" />
     <result column="MDBILLNO" jdbcType="VARCHAR" property="mdBillNo" />
-    <result column="QRDATE" jdbcType="TIMESTAMP" property="qrDate" />
+    <result column="QRDATE" jdbcType="DATE" property="qrDate" />
     <result column="QRTYPE" jdbcType="VARCHAR" property="qrType" />
     <result column="QRRID" jdbcType="NUMERIC" property="qrrId" />
     <result column="QRRCODE" jdbcType="VARCHAR" property="qrrCode" />
@@ -100,8 +100,8 @@
   </resultMap>
   
    <resultMap id="BaseResultMapBody" type="com.addlove.service.goods.model.OrdJhBodyModel">
-    <id column="BILLNO" jdbcType="VARCHAR" property="billNo" />
-    <id column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
     <result column="TOSERIALNO" jdbcType="NUMERIC" property="toSerialNo" />
     <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
     <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
@@ -190,4 +190,71 @@
     STLCURRPSCOST, ASKTYPE, GRPCODE, SHOPBILLNO, SHOPSERIALNO, YJHCOUNT, LHJPRICE, LWJPRICE, 
     TRACEREMARK
   </sql>
+  
+  <!-- 分页查询配送验收信息 -->
+  <select id="queryOrdJhHeadModelByPage" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO,
+                t.REFBILLNO,
+                t.JZDATE,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.ZBORGCODE,
+                t.ZBORGNAME,
+                t.JHCOUNT,
+                t.STOTAL,
+                t.TAG,
+                t.PICKDATE,
+                t.YSRCODE,
+                t.YSRNAME,
+                t.SUPCODE,
+                t.SUPNAME
+    From TORDJHHEAD t
+    Where t.YWTYPE = '0908'
+    <if test="queryModel.billNo != '' and queryModel.billNo != null">
+        and t.BILLNO = #{queryModel.billNo,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.startDate != '' and queryModel.startDate != null">
+        and t.JZDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.endDate != '' and queryModel.endDate != null">
+        and t.JZDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.timeType != null and queryModel.timeType == 0 ">
+        and trunc(t.JZDATE) = trunc(SYSDATE)
+    </if>
+    <if test="queryModel.timeType != null and queryModel.timeType == 1 ">
+        and t.JZDATE &gt; SYSDATE - (to_char(SYSDATE-1,'D'))
+    </if>
+    <if test="queryModel.timeType != null and queryModel.timeType == 2 ">
+        and t.JZDATE &gt;= TRUNC(SYSDATE, 'MM') and t.JZDATE &lt;= last_day(SYSDATE)
+    </if>
+    <if test="queryModel.tag != null and queryModel.tag == 0 ">
+        and t.TAG = 0
+    </if>
+    <if test="queryModel.tag != null and queryModel.tag == 1 ">
+        and t.TAG = 1
+    </if>
+    <if test="queryModel.tag != null and queryModel.tag == 2 ">
+        and t.TAG = 2
+    </if>
+    and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+    Order By t.TAG,t.JZDATE Desc
+  </select>
+  
+  <!-- 根据配送验收单号查询商品信息 -->
+  <select id="querySkusByBillNo" resultMap="BaseResultMapBody">
+    Select Distinct t.SERIALNO,
+                t.PLUCODE,
+                t.PLUNAME,
+                t.BARCODE,
+                t.SPEC,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.PRICE,
+                t.JHCOUNT,
+                t.PSSHCOUNT
+    From TORDJHBODY t
+    Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+    Order By t.SERIALNO
+  </select>
 </mapper>
