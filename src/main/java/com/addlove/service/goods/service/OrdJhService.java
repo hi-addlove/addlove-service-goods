@@ -50,4 +50,12 @@ public class OrdJhService {
     public List<OrdJhBodyModel> queryBodysByBillNo(String billNo) {
         return this.ordJhDao.queryBodysByBillNo(billNo);
     }
+    
+    /**
+     * 更新配送验收单：验收人、验收状态、送货确认时间
+     * @param model
+     */
+    public void updateJhHeadYsrCodeAndStatus(OrdJhHeadModel model) {
+        this.ordJhDao.updateJhHeadYsrCodeAndStatus(model);
+    }
 }

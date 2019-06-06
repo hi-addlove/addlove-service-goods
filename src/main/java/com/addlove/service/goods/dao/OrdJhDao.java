@@ -29,4 +29,10 @@ public interface OrdJhDao {
      * @return List<OrdJhBodyModel>
      */
     List<OrdJhBodyModel> queryBodysByBillNo(String billNo);
+    
+    /**
+     * 更新配送验收单：验收人、验收状态、送货确认时间
+     * @param model
+     */
+    void updateJhHeadYsrCodeAndStatus(OrdJhHeadModel model);
 }

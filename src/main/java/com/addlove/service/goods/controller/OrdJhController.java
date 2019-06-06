@@ -16,6 +16,8 @@ import com.addlove.service.goods.model.OrdJhQueryPageModel;
 import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdJhQueryPageReq;
+import com.addlove.service.goods.model.valid.OrdThApplyBodyDiffReq;
+import com.addlove.service.goods.model.valid.OrdThApplyHeadDiffReq;
 import com.addlove.service.goods.service.OrdJhService;
 import com.github.pagehelper.Page;
 
@@ -71,5 +73,27 @@ public class OrdJhController extends BaseController{
     public ResponseMessage queryOrderJhDetail(@RequestBody @Valid OrdJhQueryDetailReq req) {
         List<OrdJhBodyModel> ordJhSkus = this.ordJhService.queryBodysByBillNo(req.getBillNo());
         return ResponseMessage.ok(ordJhSkus);
+    }
+    
+    /**
+     * 产生配送验收差异单
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/generateDifferentBill", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage generateDifferentBill(@RequestBody @Valid OrdThApplyHeadDiffReq req) {
+        List<OrdThApplyBodyDiffReq> bodyList = req.getBodyList();
+        //没有差异商品，直接更新配送验收主表
+        if (null == bodyList || bodyList.isEmpty()) {
+            OrdJhHeadModel model = new OrdJhHeadModel();
+            model.setYsrId(123L);
+            model.setYsrCode("");
+            model.setYsrName("");
+            this.ordJhService.updateJhHeadYsrCodeAndStatus(model);
+        }else {
+            
+        }
+        return ResponseMessage.ok();
     }
 }
