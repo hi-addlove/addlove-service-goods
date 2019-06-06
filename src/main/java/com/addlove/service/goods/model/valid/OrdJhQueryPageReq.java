@@ -16,8 +16,6 @@ public class OrdJhQueryPageReq {
     private String startDate;
     /**结束日期 */
     private String endDate;
-    /**时间查询类型：0-当天；1-近一周；2：近一月 */
-    private Integer timeType;
     /**收货状态：0-未验收；1-正常验收；2-异常验收 */
     private String tag;
     /**
@@ -91,18 +89,6 @@ public class OrdJhQueryPageReq {
      */
     public void setEndDate(String endDate) {
         this.endDate = endDate;
-    }
-    /**
-     * @return the timeType
-     */
-    public Integer getTimeType() {
-        return timeType;
-    }
-    /**
-     * @param timeType the timeType to set
-     */
-    public void setTimeType(Integer timeType) {
-        this.timeType = timeType;
     }
     /**
      * @return the tag

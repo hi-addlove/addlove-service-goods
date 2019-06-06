@@ -219,7 +219,7 @@
     <if test="queryModel.endDate != '' and queryModel.endDate != null">
         and t.JZDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
     </if>
-    <if test="queryModel.timeType != null and queryModel.timeType == 0 ">
+    <!-- <if test="queryModel.timeType != null and queryModel.timeType == 0 ">
         and trunc(t.JZDATE) = trunc(SYSDATE)
     </if>
     <if test="queryModel.timeType != null and queryModel.timeType == 1 ">
@@ -227,7 +227,7 @@
     </if>
     <if test="queryModel.timeType != null and queryModel.timeType == 2 ">
         and t.JZDATE &gt;= TRUNC(SYSDATE, 'MM') and t.JZDATE &lt;= last_day(SYSDATE)
-    </if>
+    </if> -->
     <if test="queryModel.tag != null and queryModel.tag == 0 ">
         and t.TAG = 0
     </if>

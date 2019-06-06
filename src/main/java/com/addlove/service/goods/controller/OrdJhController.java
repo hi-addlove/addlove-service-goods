@@ -17,7 +17,6 @@ import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdJhQueryPageReq;
 import com.addlove.service.goods.service.OrdJhService;
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 
 /**
@@ -51,12 +50,8 @@ public class OrdJhController extends BaseController{
         if (StringUtils.isNotBlank(req.getEndDate())) {
             queryModel.setEndDate(req.getEndDate() + " 23:59:59");
         }
-        queryModel.setTimeType(req.getTimeType());
         queryModel.setTag(req.getTag());
         List<OrdJhHeadModel> ordJhHeadList = this.ordJhService.queryOrdJhHeadModelByPage(queryModel);
-        for (OrdJhHeadModel model : ordJhHeadList) {
-            System.out.println(JSONObject.toJSONString(model));
-        }
         PageModel pageModel = new PageModel();
         Page<OrdJhHeadModel> page = (Page<OrdJhHeadModel>) ordJhHeadList;
         pageModel.setPageNo(page.getPageNum());
