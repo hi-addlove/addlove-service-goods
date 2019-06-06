@@ -5,17 +5,23 @@ import org.hibernate.validator.constraints.NotBlank;
 public class OrdJhQueryPageReq {
     /**默认页数 */
     private int pageNo = 1;
+    
     /**每页默认记录数 */
     private int pageSize = 10;
+    
     /**组织编码 */
     @NotBlank(message = "组织编码不能为空")
     private String orgCode;
+    
     /**单据号 */
     private String billNo;
+    
     /**开始日期 */
     private String startDate;
+    
     /**结束日期 */
     private String endDate;
+    
     /**收货状态：0-未验收；1-正常验收；2-异常验收 */
     private String tag;
     /**

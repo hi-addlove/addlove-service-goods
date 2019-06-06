@@ -215,7 +215,6 @@
                 t.HCOST,
                 t.WCOST,
                 t.JTAXTOTAL,
-                t.STOTAL,
                 t.CJTOTAL,
                 t.PSCOST
     From TORDJHHEAD t

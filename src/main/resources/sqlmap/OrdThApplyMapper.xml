@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.addlove.service.goods.dao.OrdThApplyDao">
-  <resultMap id="BaseResultMapHead" type="com.addlove.service.goods.model.OrdThApplyheadModel">
+  <resultMap id="BaseResultMapHead" type="com.addlove.service.goods.model.OrdThApplyHeadModel">
     <id column="BILLNO" jdbcType="VARCHAR" property="billno" />
     <result column="LRDATE" jdbcType="TIMESTAMP" property="lrdate" />
     <result column="USERID" jdbcType="NUMERIC" property="userid" />
@@ -89,7 +89,7 @@
     <result column="SUPDEPNAME" jdbcType="VARCHAR" property="supdepname" />
   </resultMap>
   
-  <resultMap id="BaseResultMapBody" type="com.addlove.service.goods.model.OrdThApplybodyModel">
+  <resultMap id="BaseResultMapBody" type="com.addlove.service.goods.model.OrdThApplyBodyModel">
     <id column="BILLNO" jdbcType="VARCHAR" property="billno" />
     <id column="SERIALNO" jdbcType="NUMERIC" property="serialno" />
     <result column="PLUID" jdbcType="NUMERIC" property="pluid" />
