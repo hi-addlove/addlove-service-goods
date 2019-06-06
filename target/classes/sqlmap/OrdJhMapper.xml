@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.addlove.service.goods.dao.OrdJhDao">
+  <resultMap id="BaseResultMapHead" type="com.addlove.service.goods.model.OrdJhHeadModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="LRDATE" jdbcType="TIMESTAMP" property="lrDate" />
+    <result column="USERID" jdbcType="NUMERIC" property="userId" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="userName" />
+    <result column="ISNEEDTJWL" jdbcType="VARCHAR" property="isNeedTjwl" />
+    <result column="TJDATE" jdbcType="DATE" property="tjDate" />
+    <result column="TJRID" jdbcType="NUMERIC" property="tjrId" />
+    <result column="TJRCODE" jdbcType="VARCHAR" property="tjrCode" />
+    <result column="TJRNAME" jdbcType="VARCHAR" property="tjrName" />
+    <result column="JZDATE" jdbcType="DATE" property="jzDate" />
+    <result column="JZRID" jdbcType="NUMERIC" property="jzrId" />
+    <result column="JZRCODE" jdbcType="VARCHAR" property="jzrCode" />
+    <result column="JZRNAME" jdbcType="VARCHAR" property="jzrName" />
+    <result column="JZTYPE" jdbcType="VARCHAR" property="jzType" />
+    <result column="RPTDATE" jdbcType="VARCHAR" property="rptDate" />
+    <result column="PRNTIMES" jdbcType="NUMERIC" property="prnTimes" />
+    <result column="PRNDATE" jdbcType="DATE" property="prnDate" />
+    <result column="TIMEMARK" jdbcType="NUMERIC" property="timeMark" />
+    <result column="YWTYPE" jdbcType="VARCHAR" property="ywType" />
+    <result column="YWIOTYPE" jdbcType="VARCHAR" property="ywIoType" />
+    <result column="YSPLUTYPE" jdbcType="VARCHAR" property="ysPluType" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="INORGCODE" jdbcType="VARCHAR" property="inOrgCode" />
+    <result column="HORGCODE" jdbcType="VARCHAR" property="hOrgCode" />
+    <result column="HORGNAME" jdbcType="VARCHAR" property="hOrgName" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depId" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depCode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depName" />
+    <result column="ZBORGCODE" jdbcType="VARCHAR" property="zbOrgCode" />
+    <result column="ZBORGNAME" jdbcType="VARCHAR" property="zbOrgName" />
+    <result column="SUPCODE" jdbcType="VARCHAR" property="supCode" />
+    <result column="SUPNAME" jdbcType="VARCHAR" property="supName" />
+    <result column="CNTID" jdbcType="NUMERIC" property="cntId" />
+    <result column="HTCODE" jdbcType="VARCHAR" property="htCode" />
+    <result column="HTNAME" jdbcType="VARCHAR" property="htName" />
+    <result column="JYMODE" jdbcType="VARCHAR" property="jyMode" />
+    <result column="JSCODE" jdbcType="VARCHAR" property="jsCode" />
+    <result column="PSCNTID" jdbcType="NUMERIC" property="psCntid" />
+    <result column="PSHTCODE" jdbcType="VARCHAR" property="psHtCode" />
+    <result column="PSHTNAME" jdbcType="VARCHAR" property="psHtName" />
+    <result column="PSJYMODE" jdbcType="VARCHAR" property="psJyMode" />
+    <result column="PSJSCODE" jdbcType="VARCHAR" property="psJsCode" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckCode" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckName" />
+    <result column="JHCOUNT" jdbcType="NUMERIC" property="jhCount" />
+    <result column="HCOST" jdbcType="NUMERIC" property="hCost" />
+    <result column="WCOST" jdbcType="NUMERIC" property="wCost" />
+    <result column="JTAXTOTAL" jdbcType="NUMERIC" property="jtaxTotal" />
+    <result column="PSCOST" jdbcType="NUMERIC" property="psCost" />
+    <result column="STOTAL" jdbcType="NUMERIC" property="sTotal" />
+    <result column="CJTOTAL" jdbcType="NUMERIC" property="cjTotal" />
+    <result column="REFBILLTYPE" jdbcType="VARCHAR" property="refBillType" />
+    <result column="REFBILLNO" jdbcType="VARCHAR" property="refBillNo" />
+    <result column="YSRID" jdbcType="NUMERIC" property="ysRid" />
+    <result column="YSRCODE" jdbcType="VARCHAR" property="ysrCode" />
+    <result column="YSRNAME" jdbcType="VARCHAR" property="ysrName" />
+    <result column="ISFP" jdbcType="VARCHAR" property="isFp" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="DATASTATUS" jdbcType="VARCHAR" property="dataStatus" />
+    <result column="ISYKYS" jdbcType="VARCHAR" property="isYkYs" />
+    <result column="TAG" jdbcType="VARCHAR" property="tag" />
+    <result column="TELEPHONE" jdbcType="VARCHAR" property="telePhone" />
+    <result column="FAX" jdbcType="VARCHAR" property="fax" />
+    <result column="LINKMAN" jdbcType="VARCHAR" property="linkMan" />
+    <result column="LKMTEL" jdbcType="VARCHAR" property="lkmTel" />
+    <result column="WPSCOST" jdbcType="NUMERIC" property="wPsCost" />
+    <result column="XTAXTOTAL" jdbcType="NUMERIC" property="xtaxTotal" />
+    <result column="ORIGINTYPE" jdbcType="VARCHAR" property="originType" />
+    <result column="PICKDATE" jdbcType="DATE" property="pickDate" />
+    <result column="FBBILLNO" jdbcType="VARCHAR" property="fbBillNo" />
+    <result column="FBSTATUS" jdbcType="VARCHAR" property="fbStatus" />
+    <result column="SHETPCODE" jdbcType="VARCHAR" property="shetpCode" />
+    <result column="SHETPNAME" jdbcType="VARCHAR" property="shetpName" />
+    <result column="CURRCODE" jdbcType="VARCHAR" property="currCode" />
+    <result column="ISSTDCURR" jdbcType="VARCHAR" property="isStdCurr" />
+    <result column="EXCHANGERATE" jdbcType="NUMERIC" property="exchangErate" />
+    <result column="STLCURRPSCOST" jdbcType="NUMERIC" property="stlCurrPsCost" />
+    <result column="SHRID" jdbcType="NUMERIC" property="shrId" />
+    <result column="SHRCODE" jdbcType="VARCHAR" property="shrCode" />
+    <result column="SHRNAME" jdbcType="VARCHAR" property="shrName" />
+    <result column="SHRDATE" jdbcType="DATE" property="shrDate" />
+    <result column="REVIEWMAN" jdbcType="VARCHAR" property="reviewMan" />
+    <result column="MDBILLNO" jdbcType="VARCHAR" property="mdBillNo" />
+    <result column="QRDATE" jdbcType="DATE" property="qrDate" />
+    <result column="QRTYPE" jdbcType="VARCHAR" property="qrType" />
+    <result column="QRRID" jdbcType="NUMERIC" property="qrrId" />
+    <result column="QRRCODE" jdbcType="VARCHAR" property="qrrCode" />
+    <result column="QRRNAME" jdbcType="VARCHAR" property="qrrName" />
+    <result column="ZBTHCKCODE" jdbcType="VARCHAR" property="zbThckCode" />
+    <result column="REMARK2" jdbcType="VARCHAR" property="remark2" />
+    <result column="SCMQRDATE" jdbcType="VARCHAR" property="scmqrDate" />
+    <result column="SCMQRTIME" jdbcType="VARCHAR" property="scmqrTime" />
+    <result column="SCMQROPINION" jdbcType="VARCHAR" property="scmqrOpinion" />
+  </resultMap>
+  
+   <resultMap id="BaseResultMapBody" type="com.addlove.service.goods.model.OrdJhBodyModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
+    <result column="TOSERIALNO" jdbcType="NUMERIC" property="toSerialNo" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="EXPLUCODE" jdbcType="VARCHAR" property="exPluCode" />
+    <result column="EXPLUNAME" jdbcType="VARCHAR" property="exPluName" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="CARGONO" jdbcType="VARCHAR" property="carGoNo" />
+    <result column="PLUTYPE" jdbcType="VARCHAR" property="pluType" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depId" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depCode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depName" />
+    <result column="HJPRICE" jdbcType="NUMERIC" property="hjPrice" />
+    <result column="WJPRICE" jdbcType="NUMERIC" property="wjPrice" />
+    <result column="PSPRICE" jdbcType="NUMERIC" property="psPrice" />
+    <result column="PRICE" jdbcType="NUMERIC" property="price" />
+    <result column="JTAXRATE" jdbcType="NUMERIC" property="jTaxRate" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckCode" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckName" />
+    <result column="PACKUNIT" jdbcType="VARCHAR" property="packUnit" />
+    <result column="PACKQTY" jdbcType="NUMERIC" property="packQty" />
+    <result column="PACKCOUNT" jdbcType="NUMERIC" property="packCount" />
+    <result column="SGLCOUNT" jdbcType="NUMERIC" property="sglCount" />
+    <result column="JHCOUNT" jdbcType="NUMERIC" property="jhCount" />
+    <result column="PSSHCOUNT" jdbcType="NUMERIC" property="psShCount" />
+    <result column="HCOST" jdbcType="NUMERIC" property="hCost" />
+    <result column="WCOST" jdbcType="NUMERIC" property="wCost" />
+    <result column="JTAXTOTAL" jdbcType="NUMERIC" property="jTaxTotal" />
+    <result column="PSCOST" jdbcType="NUMERIC" property="psCost" />
+    <result column="STOTAL" jdbcType="NUMERIC" property="sTotal" />
+    <result column="CJTOTAL" jdbcType="NUMERIC" property="cjTotal" />
+    <result column="CJRATE" jdbcType="NUMERIC" property="cjRate" />
+    <result column="SCDATE" jdbcType="VARCHAR" property="scDate" />
+    <result column="DQDATE" jdbcType="VARCHAR" property="dqDate" />
+    <result column="BZDAYS" jdbcType="NUMERIC" property="bzDays" />
+    <result column="ZPTYPE" jdbcType="VARCHAR" property="zpType" />
+    <result column="CXINFO" jdbcType="VARCHAR" property="cxInfo" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="HJSTOTAL" jdbcType="NUMERIC" property="hjsTotal" />
+    <result column="WJSTOTAL" jdbcType="NUMERIC" property="wjsTotal" />
+    <result column="JTAXCALTYPE" jdbcType="VARCHAR" property="jTaxCalType" />
+    <result column="PRICETYPE" jdbcType="VARCHAR" property="priceType" />
+    <result column="JDRATE" jdbcType="NUMERIC" property="jdRate" />
+    <result column="KWCODE" jdbcType="VARCHAR" property="kwCode" />
+    <result column="WPSPRICE" jdbcType="NUMERIC" property="wPsPrice" />
+    <result column="WPSCOST" jdbcType="NUMERIC" property="wPsCost" />
+    <result column="XTAXRATE" jdbcType="NUMERIC" property="xTaxRate" />
+    <result column="XTAXTOTAL" jdbcType="NUMERIC" property="xTaxTotal" />
+    <result column="BARCODE_P" jdbcType="VARCHAR" property="barCodeP" />
+    <result column="MATERIALCODE" jdbcType="VARCHAR" property="materialCode" />
+    <result column="STLCURRPSPRICE" jdbcType="NUMERIC" property="stlCurrPsPrice" />
+    <result column="STLCURRPSCOST" jdbcType="NUMERIC" property="stlCurrPsCost" />
+    <result column="ASKTYPE" jdbcType="VARCHAR" property="askType" />
+    <result column="GRPCODE" jdbcType="VARCHAR" property="grpCode" />
+    <result column="SHOPBILLNO" jdbcType="VARCHAR" property="shopBillNo" />
+    <result column="SHOPSERIALNO" jdbcType="NUMERIC" property="shopSerialNo" />
+    <result column="YJHCOUNT" jdbcType="NUMERIC" property="yjhCount" />
+    <result column="LHJPRICE" jdbcType="NUMERIC" property="lhjPrice" />
+    <result column="LWJPRICE" jdbcType="NUMERIC" property="lwjPrice" />
+    <result column="TRACEREMARK" jdbcType="VARCHAR" property="traceRemark" />
+  </resultMap>
+  
+  <sql id="Base_Column_List_Head">
+    BILLNO, LRDATE, USERID, USERCODE, USERNAME, ISNEEDTJWL, TJDATE, TJRID, TJRCODE, TJRNAME, 
+    JZDATE, JZRID, JZRCODE, JZRNAME, JZTYPE, RPTDATE, PRNTIMES, PRNDATE, TIMEMARK, YWTYPE, 
+    YWIOTYPE, YSPLUTYPE, ORGCODE, ORGNAME, INORGCODE, HORGCODE, HORGNAME, DEPID, DEPCODE, 
+    DEPNAME, ZBORGCODE, ZBORGNAME, SUPCODE, SUPNAME, CNTID, HTCODE, HTNAME, JYMODE, JSCODE, 
+    PSCNTID, PSHTCODE, PSHTNAME, PSJYMODE, PSJSCODE, CKCODE, CKNAME, JHCOUNT, HCOST, 
+    WCOST, JTAXTOTAL, PSCOST, STOTAL, CJTOTAL, REFBILLTYPE, REFBILLNO, YSRID, YSRCODE, 
+    YSRNAME, ISFP, REMARK, DATASTATUS, ISYKYS, TAG, TELEPHONE, FAX, LINKMAN, LKMTEL, 
+    WPSCOST, XTAXTOTAL, ORIGINTYPE, PICKDATE, FBBILLNO, FBSTATUS, SHETPCODE, SHETPNAME, 
+    CURRCODE, ISSTDCURR, EXCHANGERATE, STLCURRPSCOST, SHRID, SHRCODE, SHRNAME, SHRDATE, 
+    REVIEWMAN, MDBILLNO, QRDATE, QRTYPE, QRRID, QRRCODE, QRRNAME, ZBTHCKCODE, REMARK2, 
+    SCMQRDATE, SCMQRTIME, SCMQROPINION
+  </sql>
+  
+  <sql id="Base_Column_List_Body">
+    BILLNO, SERIALNO, TOSERIALNO, PLUID, PLUCODE, PLUNAME, EXPLUCODE, EXPLUNAME, BARCODE, 
+    SPEC, UNIT, CARGONO, PLUTYPE, DEPID, DEPCODE, DEPNAME, HJPRICE, WJPRICE, PSPRICE, 
+    PRICE, JTAXRATE, CKCODE, CKNAME, PACKUNIT, PACKQTY, PACKCOUNT, SGLCOUNT, JHCOUNT, 
+    PSSHCOUNT, HCOST, WCOST, JTAXTOTAL, PSCOST, STOTAL, CJTOTAL, CJRATE, SCDATE, DQDATE, 
+    BZDAYS, ZPTYPE, CXINFO, REMARK, HJSTOTAL, WJSTOTAL, JTAXCALTYPE, PRICETYPE, JDRATE, 
+    KWCODE, WPSPRICE, WPSCOST, XTAXRATE, XTAXTOTAL, BARCODE_P, MATERIALCODE, STLCURRPSPRICE, 
+    STLCURRPSCOST, ASKTYPE, GRPCODE, SHOPBILLNO, SHOPSERIALNO, YJHCOUNT, LHJPRICE, LWJPRICE, 
+    TRACEREMARK
+  </sql>
+  
+  <!-- 分页查询配送验收信息 -->
+  <select id="queryOrdJhHeadModelByPage" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO,
+                t.REFBILLNO,
+                t.JZDATE,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.ZBORGCODE,
+                t.ZBORGNAME,
+                t.JHCOUNT,
+                t.STOTAL,
+                t.TAG,
+                t.PICKDATE,
+                t.YSRCODE,
+                t.YSRNAME,
+                t.SUPCODE,
+                t.SUPNAME
+    From TORDJHHEAD t
+    Where t.YWTYPE = '0908'
+    <if test="queryModel.billNo != '' and queryModel.billNo != null">
+        and t.BILLNO = #{queryModel.billNo,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.startDate != '' and queryModel.startDate != null">
+        and t.JZDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.endDate != '' and queryModel.endDate != null">
+        and t.JZDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <!-- <if test="queryModel.timeType != null and queryModel.timeType == 0 ">
+        and trunc(t.JZDATE) = trunc(SYSDATE)
+    </if>
+    <if test="queryModel.timeType != null and queryModel.timeType == 1 ">
+        and t.JZDATE &gt; SYSDATE - (to_char(SYSDATE-1,'D'))
+    </if>
+    <if test="queryModel.timeType != null and queryModel.timeType == 2 ">
+        and t.JZDATE &gt;= TRUNC(SYSDATE, 'MM') and t.JZDATE &lt;= last_day(SYSDATE)
+    </if> -->
+    <if test="queryModel.tag != null and queryModel.tag == 0 ">
+        and t.TAG = 0
+    </if>
+    <if test="queryModel.tag != null and queryModel.tag == 1 ">
+        and t.TAG = 1
+    </if>
+    <if test="queryModel.tag != null and queryModel.tag == 2 ">
+        and t.TAG = 2
+    </if>
+    and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+    Order By t.TAG,t.JZDATE Desc
+  </select>
+  
+  <!-- 根据配送验收单号查询商品信息 -->
+  <select id="querySkusByBillNo" resultMap="BaseResultMapBody">
+    Select Distinct t.SERIALNO,
+                t.PLUCODE,
+                t.PLUNAME,
+                t.BARCODE,
+                t.SPEC,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.PRICE,
+                t.JHCOUNT,
+                t.PSSHCOUNT
+    From TORDJHBODY t
+    Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+    Order By t.SERIALNO
+  </select>
+</mapper>
