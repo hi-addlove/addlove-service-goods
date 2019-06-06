@@ -207,7 +207,17 @@
                 t.YSRCODE,
                 t.YSRNAME,
                 t.SUPCODE,
-                t.SUPNAME
+                t.SUPNAME,
+                t.INORGCODE,
+                t.CNTID,
+                t.CKCODE,
+                t.CKNAME,
+                t.HCOST,
+                t.WCOST,
+                t.JTAXTOTAL,
+                t.STOTAL,
+                t.CJTOTAL,
+                t.PSCOST
     From TORDJHHEAD t
     Where t.YWTYPE = '0908'
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
@@ -242,17 +252,35 @@
   </select>
   
   <!-- 根据配送验收单号查询商品信息 -->
-  <select id="querySkusByBillNo" resultMap="BaseResultMapBody">
+  <select id="queryBodysByBillNo" resultMap="BaseResultMapBody">
     Select Distinct t.SERIALNO,
+                t.PLUID,
                 t.PLUCODE,
                 t.PLUNAME,
+                t.EXPLUCODE,
+                t.EXPLUNAME,
                 t.BARCODE,
                 t.SPEC,
+                t.DEPID,
                 t.DEPCODE,
                 t.DEPNAME,
                 t.PRICE,
                 t.JHCOUNT,
-                t.PSSHCOUNT
+                t.PSSHCOUNT,
+                t.PSPRICE,
+                t.PACKUNIT,
+                t.PACKQTY,
+                t.PACKCOUNT,
+                t.SGLCOUNT,
+                t.HCOST,
+                t.WCOST,
+                t.JTAXTOTAL,
+                t.STOTAL,
+                t.CJTOTAL,
+                t.CJRATE,
+                t.PSCOST,
+                t.HJSTOTAL,
+                t.WJSTOTAL
     From TORDJHBODY t
     Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
     Order By t.SERIALNO

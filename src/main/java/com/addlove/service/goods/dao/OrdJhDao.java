@@ -28,5 +28,5 @@ public interface OrdJhDao {
      * @param billNo
      * @return List<OrdJhBodyModel>
      */
-    List<OrdJhBodyModel> querySkusByBillNo(String billNo);
+    List<OrdJhBodyModel> queryBodysByBillNo(String billNo);
 }

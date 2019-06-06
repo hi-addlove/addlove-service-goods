@@ -69,7 +69,7 @@ public class OrdJhController extends BaseController{
     @RequestMapping(value = "/queryOrderJhDetail", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage queryOrderJhDetail(@RequestBody @Valid OrdJhQueryDetailReq req) {
-        List<OrdJhBodyModel> ordJhSkus = this.ordJhService.querySkusByBillNo(req.getBillNo());
+        List<OrdJhBodyModel> ordJhSkus = this.ordJhService.queryBodysByBillNo(req.getBillNo());
         return ResponseMessage.ok(ordJhSkus);
     }
 }

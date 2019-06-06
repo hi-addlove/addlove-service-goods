@@ -47,7 +47,7 @@ public class OrdJhService {
      * @param billNo
      * @return List<OrdJhBodyModel>
      */
-    public List<OrdJhBodyModel> querySkusByBillNo(String billNo) {
-        return this.ordJhDao.querySkusByBillNo(billNo);
+    public List<OrdJhBodyModel> queryBodysByBillNo(String billNo) {
+        return this.ordJhDao.queryBodysByBillNo(billNo);
     }
 }
