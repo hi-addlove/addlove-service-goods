@@ -1,6 +1,8 @@
 package com.addlove.service.goods.service;
 
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.addlove.service.goods.dao.OrdJhDao;
@@ -27,6 +29,16 @@ public class OrdJhService {
     public List<OrdJhHeadModel> queryOrdJhHeadModelByPage(OrdJhQueryPageModel queryModel) {
         PageHelper.startPage(queryModel.getPageNo(), queryModel.getPageSize(), true);
         List<OrdJhHeadModel> ordJhHeadList = this.ordJhDao.queryOrdJhHeadModelByPage(queryModel);
+        if (null != ordJhHeadList && !ordJhHeadList.isEmpty()) {
+            for (OrdJhHeadModel model : ordJhHeadList) {
+                if (StringUtils.isNotBlank(model.getJzDate()) && model.getJzDate().length() > 19) {
+                    model.setJzDate(model.getJzDate().substring(0, 19));
+                }
+                if (StringUtils.isNotBlank(model.getPickDate()) && model.getPickDate().length() > 19) {
+                    model.setPickDate(model.getPickDate().substring(0, 19));
+                }
+            }
+        }
         return ordJhHeadList;
     }
     

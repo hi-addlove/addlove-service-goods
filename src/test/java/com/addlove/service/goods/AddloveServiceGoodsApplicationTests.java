@@ -14,6 +14,7 @@ import com.addlove.service.goods.model.OrdJhBodyModel;
 import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdJhQueryPageReq;
+import com.alibaba.fastjson.JSONObject;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -40,6 +41,7 @@ public class AddloveServiceGoodsApplicationTests {
         req.setBillNo("1JHYW2019060400002");
         ResponseMessage res = this.ordJhController.queryOrderJhDetail(req);
         List<OrdJhBodyModel> ordJhSkus = (List<OrdJhBodyModel>) res.getData();
+        System.out.println(JSONObject.toJSONString(ordJhSkus));
         if (null != ordJhSkus) {
             for (OrdJhBodyModel sku : ordJhSkus) {
                 System.out.println(sku.getSerialNo() + "_" + sku.getPluCode() + "_" + sku.getPluName());
