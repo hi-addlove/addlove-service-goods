@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.addlove.service.goods.dao.OrdThApplyDao">
+  <resultMap id="BaseResultMapHead" type="com.addlove.service.goods.model.OrdThApplyheadModel">
+    <id column="BILLNO" jdbcType="VARCHAR" property="billno" />
+    <result column="LRDATE" jdbcType="TIMESTAMP" property="lrdate" />
+    <result column="USERID" jdbcType="NUMERIC" property="userid" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="usercode" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="ISNEEDTJWL" jdbcType="VARCHAR" property="isneedtjwl" />
+    <result column="TJDATE" jdbcType="TIMESTAMP" property="tjdate" />
+    <result column="TJRID" jdbcType="NUMERIC" property="tjrid" />
+    <result column="TJRCODE" jdbcType="VARCHAR" property="tjrcode" />
+    <result column="TJRNAME" jdbcType="VARCHAR" property="tjrname" />
+    <result column="JZDATE" jdbcType="TIMESTAMP" property="jzdate" />
+    <result column="JZRID" jdbcType="NUMERIC" property="jzrid" />
+    <result column="JZRCODE" jdbcType="VARCHAR" property="jzrcode" />
+    <result column="JZRNAME" jdbcType="VARCHAR" property="jzrname" />
+    <result column="JZTYPE" jdbcType="VARCHAR" property="jztype" />
+    <result column="RPTDATE" jdbcType="VARCHAR" property="rptdate" />
+    <result column="PRNTIMES" jdbcType="NUMERIC" property="prntimes" />
+    <result column="PRNDATE" jdbcType="TIMESTAMP" property="prndate" />
+    <result column="TIMEMARK" jdbcType="NUMERIC" property="timemark" />
+    <result column="YWTYPE" jdbcType="VARCHAR" property="ywtype" />
+    <result column="YWIOTYPE" jdbcType="VARCHAR" property="ywiotype" />
+    <result column="ZDRID" jdbcType="NUMERIC" property="zdrid" />
+    <result column="ZDRCODE" jdbcType="VARCHAR" property="zdrcode" />
+    <result column="ZDRNAME" jdbcType="VARCHAR" property="zdrname" />
+    <result column="BILLTYPE" jdbcType="VARCHAR" property="billtype" />
+    <result column="REFBILLTYPE" jdbcType="VARCHAR" property="refbilltype" />
+    <result column="REFBILLNO" jdbcType="VARCHAR" property="refbillno" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgcode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgname" />
+    <result column="INORGCODE" jdbcType="VARCHAR" property="inorgcode" />
+    <result column="ZBORGCODE" jdbcType="VARCHAR" property="zborgcode" />
+    <result column="ZBORGNAME" jdbcType="VARCHAR" property="zborgname" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depid" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depcode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depname" />
+    <result column="SUPCODE" jdbcType="VARCHAR" property="supcode" />
+    <result column="SUPNAME" jdbcType="VARCHAR" property="supname" />
+    <result column="CNTID" jdbcType="NUMERIC" property="cntid" />
+    <result column="HTCODE" jdbcType="VARCHAR" property="htcode" />
+    <result column="HTNAME" jdbcType="VARCHAR" property="htname" />
+    <result column="JYMODE" jdbcType="VARCHAR" property="jymode" />
+    <result column="JSCODE" jdbcType="VARCHAR" property="jscode" />
+    <result column="PSCNTID" jdbcType="NUMERIC" property="pscntid" />
+    <result column="PSHTCODE" jdbcType="VARCHAR" property="pshtcode" />
+    <result column="PSHTNAME" jdbcType="VARCHAR" property="pshtname" />
+    <result column="PSJYMODE" jdbcType="VARCHAR" property="psjymode" />
+    <result column="PSJSCODE" jdbcType="VARCHAR" property="psjscode" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckcode" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckname" />
+    <result column="BGRID" jdbcType="NUMERIC" property="bgrid" />
+    <result column="BGYCODE" jdbcType="VARCHAR" property="bgycode" />
+    <result column="BGYNAME" jdbcType="VARCHAR" property="bgyname" />
+    <result column="ISZDJPRICE" jdbcType="VARCHAR" property="iszdjprice" />
+    <result column="ISZT" jdbcType="VARCHAR" property="iszt" />
+    <result column="DATASTATUS" jdbcType="VARCHAR" property="datastatus" />
+    <result column="THCOUNT" jdbcType="NUMERIC" property="thcount" />
+    <result column="HCOST" jdbcType="NUMERIC" property="hcost" />
+    <result column="WCOST" jdbcType="NUMERIC" property="wcost" />
+    <result column="JTAXTOTAL" jdbcType="NUMERIC" property="jtaxtotal" />
+    <result column="STOTAL" jdbcType="NUMERIC" property="stotal" />
+    <result column="CJTOTAL" jdbcType="NUMERIC" property="cjtotal" />
+    <result column="PSCOST" jdbcType="NUMERIC" property="pscost" />
+    <result column="THREASON" jdbcType="VARCHAR" property="threason" />
+    <result column="CKMODE" jdbcType="VARCHAR" property="ckmode" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CHECKSTATUS" jdbcType="VARCHAR" property="checkstatus" />
+    <result column="APPLYSTATUS" jdbcType="VARCHAR" property="applystatus" />
+    <result column="CLSCODE" jdbcType="VARCHAR" property="clscode" />
+    <result column="CLSNAME" jdbcType="VARCHAR" property="clsname" />
+    <result column="CHECKUSERID" jdbcType="NUMERIC" property="checkuserid" />
+    <result column="CHECKUSERCODE" jdbcType="VARCHAR" property="checkusercode" />
+    <result column="CHECKUSERNAME" jdbcType="VARCHAR" property="checkusername" />
+    <result column="CHECKDATE" jdbcType="TIMESTAMP" property="checkdate" />
+    <result column="THBILLNO" jdbcType="VARCHAR" property="thbillno" />
+    <result column="ISCREATETHBILL" jdbcType="VARCHAR" property="iscreatethbill" />
+    <result column="CREATEUSERID" jdbcType="NUMERIC" property="createuserid" />
+    <result column="CREATEUSERCODE" jdbcType="VARCHAR" property="createusercode" />
+    <result column="CREATEUSERNAME" jdbcType="VARCHAR" property="createusername" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="CREATEBILLNO" jdbcType="VARCHAR" property="createbillno" />
+    <result column="SUPCKCODE" jdbcType="VARCHAR" property="supckcode" />
+    <result column="SUPCKNAME" jdbcType="VARCHAR" property="supckname" />
+    <result column="SUPDEPID" jdbcType="NUMERIC" property="supdepid" />
+    <result column="SUPDEPCODE" jdbcType="VARCHAR" property="supdepcode" />
+    <result column="SUPDEPNAME" jdbcType="VARCHAR" property="supdepname" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapBody" type="com.addlove.service.goods.model.OrdThApplybodyModel">
+    <id column="BILLNO" jdbcType="VARCHAR" property="billno" />
+    <id column="SERIALNO" jdbcType="NUMERIC" property="serialno" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluid" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="plucode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluname" />
+    <result column="EXPLUCODE" jdbcType="VARCHAR" property="explucode" />
+    <result column="EXPLUNAME" jdbcType="VARCHAR" property="expluname" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barcode" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="CARGONO" jdbcType="VARCHAR" property="cargono" />
+    <result column="PLUTYPE" jdbcType="VARCHAR" property="plutype" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depid" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depcode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depname" />
+    <result column="HJPRICE" jdbcType="NUMERIC" property="hjprice" />
+    <result column="WJPRICE" jdbcType="NUMERIC" property="wjprice" />
+    <result column="JTAXRATE" jdbcType="NUMERIC" property="jtaxrate" />
+    <result column="PRICE" jdbcType="NUMERIC" property="price" />
+    <result column="PSPRICE" jdbcType="NUMERIC" property="psprice" />
+    <result column="PACKUNIT" jdbcType="VARCHAR" property="packunit" />
+    <result column="PACKQTY" jdbcType="NUMERIC" property="packqty" />
+    <result column="PACKCOUNT" jdbcType="NUMERIC" property="packcount" />
+    <result column="SGLCOUNT" jdbcType="NUMERIC" property="sglcount" />
+    <result column="THCOUNT" jdbcType="NUMERIC" property="thcount" />
+    <result column="HCOST" jdbcType="NUMERIC" property="hcost" />
+    <result column="WCOST" jdbcType="NUMERIC" property="wcost" />
+    <result column="JTAXTOTAL" jdbcType="NUMERIC" property="jtaxtotal" />
+    <result column="STOTAL" jdbcType="NUMERIC" property="stotal" />
+    <result column="CJTOTAL" jdbcType="NUMERIC" property="cjtotal" />
+    <result column="CJRATE" jdbcType="NUMERIC" property="cjrate" />
+    <result column="PSCOST" jdbcType="NUMERIC" property="pscost" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="HJSTOTAL" jdbcType="NUMERIC" property="hjstotal" />
+    <result column="WJSTOTAL" jdbcType="NUMERIC" property="wjstotal" />
+    <result column="THREASON" jdbcType="VARCHAR" property="threason" />
+    <result column="CHECKINFO" jdbcType="VARCHAR" property="checkinfo" />
+    <result column="CHECKUSERID" jdbcType="NUMERIC" property="checkuserid" />
+    <result column="CHECKUSERCODE" jdbcType="VARCHAR" property="checkusercode" />
+    <result column="CHECKUSERNAME" jdbcType="VARCHAR" property="checkusername" />
+    <result column="CHECKDATE" jdbcType="TIMESTAMP" property="checkdate" />
+    <result column="CLSCODE" jdbcType="VARCHAR" property="clscode" />
+    <result column="CLSNAME" jdbcType="VARCHAR" property="clsname" />
+    <result column="ISSELECT" jdbcType="VARCHAR" property="isselect" />
+    <result column="ETPCODE" jdbcType="VARCHAR" property="etpcode" />
+    <result column="DSTTYPE" jdbcType="VARCHAR" property="dsttype" />
+  </resultMap>
+  
+  <sql id="Base_Column_List_head">
+    BILLNO, LRDATE, USERID, USERCODE, USERNAME, ISNEEDTJWL, TJDATE, TJRID, TJRCODE, TJRNAME, 
+    JZDATE, JZRID, JZRCODE, JZRNAME, JZTYPE, RPTDATE, PRNTIMES, PRNDATE, TIMEMARK, YWTYPE, 
+    YWIOTYPE, ZDRID, ZDRCODE, ZDRNAME, BILLTYPE, REFBILLTYPE, REFBILLNO, ORGCODE, ORGNAME, 
+    INORGCODE, ZBORGCODE, ZBORGNAME, DEPID, DEPCODE, DEPNAME, SUPCODE, SUPNAME, CNTID, 
+    HTCODE, HTNAME, JYMODE, JSCODE, PSCNTID, PSHTCODE, PSHTNAME, PSJYMODE, PSJSCODE, 
+    CKCODE, CKNAME, BGRID, BGYCODE, BGYNAME, ISZDJPRICE, ISZT, DATASTATUS, THCOUNT, HCOST, 
+    WCOST, JTAXTOTAL, STOTAL, CJTOTAL, PSCOST, THREASON, CKMODE, REMARK, CHECKSTATUS, 
+    APPLYSTATUS, CLSCODE, CLSNAME, CHECKUSERID, CHECKUSERCODE, CHECKUSERNAME, CHECKDATE, 
+    THBILLNO, ISCREATETHBILL, CREATEUSERID, CREATEUSERCODE, CREATEUSERNAME, CREATEDATE, 
+    CREATEBILLNO, SUPCKCODE, SUPCKNAME, SUPDEPID, SUPDEPCODE, SUPDEPNAME
+  </sql>
+  
+  <sql id="Base_Column_List_body">
+    BILLNO, SERIALNO, PLUID, PLUCODE, PLUNAME, EXPLUCODE, EXPLUNAME, BARCODE, SPEC, UNIT, 
+    CARGONO, PLUTYPE, DEPID, DEPCODE, DEPNAME, HJPRICE, WJPRICE, JTAXRATE, PRICE, PSPRICE, 
+    PACKUNIT, PACKQTY, PACKCOUNT, SGLCOUNT, THCOUNT, HCOST, WCOST, JTAXTOTAL, STOTAL, 
+    CJTOTAL, CJRATE, PSCOST, REMARK, HJSTOTAL, WJSTOTAL, THREASON, CHECKINFO, CHECKUSERID, 
+    CHECKUSERCODE, CHECKUSERNAME, CHECKDATE, CLSCODE, CLSNAME, ISSELECT, ETPCODE, DSTTYPE
+  </sql>
+</mapper>
