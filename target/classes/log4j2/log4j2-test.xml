@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="INFO" monitorInterval="120">
+    <properties>
+        <property name="LOG_HOME">/tmp/log/addlove/test</property>
+        <property name="PROJECT_NAME">addlove-service-goods</property>
+    </properties>
+
+    <Appenders>
+        <!--添加一个控制台追加器-->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout>
+                <pattern>[%d] [%-5p] [%t] [%c] - %m%n</pattern>
+            </PatternLayout>
+        </Console>
+        <!-- 服务端的接口正常日志 -->
+        <RollingRandomAccessFile name="interfaceLogAppender"
+            immediateFlush="true" fileName="${LOG_HOME}/${PROJECT_NAME}-interface.log"
+            filePattern="${LOG_HOME}/${PROJECT_NAME}-interface-%d{yyyyMMdd}.log">
+            <Filters>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT"
+                    onMismatch="DENY" />
+            </Filters>
+            <PatternLayout pattern="%m" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="360" />
+        </RollingRandomAccessFile>
+
+        <!-- 服务端的接口异常日志 -->
+        <RollingRandomAccessFile name="interfaceErrorAppender"
+            immediateFlush="true" fileName="${LOG_HOME}/${PROJECT_NAME}-interface-error.log"
+            filePattern="${LOG_HOME}/${PROJECT_NAME}-interface-error-%d{yyyyMMdd}.log">
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT"
+                    onMismatch="DENY" />
+            </Filters>
+            <PatternLayout pattern="%m" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="360" />
+        </RollingRandomAccessFile>
+
+        <!-- 服务端作为客户端的调用其他服务接口的正常日志 -->
+        <RollingRandomAccessFile name="invokeInterfaceLogAppender"
+            immediateFlush="true" fileName="${LOG_HOME}/${PROJECT_NAME}-interface-invoke.log"
+            filePattern="${LOG_HOME}/${PROJECT_NAME}-interface-invoke-%d{yyyyMMdd}.log">
+            <Filters>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT"
+                    onMismatch="DENY" />
+            </Filters>
+            <PatternLayout pattern="%m" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="360" />
+        </RollingRandomAccessFile>
+
+        <!-- 服务端作为客户端的调用其他服务接口的异常日志 -->
+        <RollingRandomAccessFile name="invokeInterfaceErrorAppender"
+            immediateFlush="true" fileName="${LOG_HOME}/${PROJECT_NAME}-interface-invoke-error.log"
+            filePattern="${LOG_HOME}/${PROJECT_NAME}-interface-invoke-error-%d{yyyyMMdd}.log">
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT"
+                    onMismatch="DENY" />
+            </Filters>
+            <PatternLayout pattern="%m" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="360" />
+        </RollingRandomAccessFile>
+
+        <!-- 标准业务日志 -->
+        <RollingRandomAccessFile name="BusinessAppender"
+            immediateFlush="true" fileName="${LOG_HOME}/syslog/${PROJECT_NAME}-business.log"
+            filePattern="${LOG_HOME}/syslog/${PROJECT_NAME}-business-%d{yyyyMMdd}.log">
+            <Filters>
+                <ThresholdFilter level="DEBUG" onMatch="ACCEPT"
+                    onMismatch="DENY" />
+            </Filters>
+            <PatternLayout pattern="^A001[%d] [%-5p] [%t] [%c] -^,%m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="360" />
+        </RollingRandomAccessFile>
+
+        <!-- 异常业务日志 -->
+        <RollingRandomAccessFile name="ErrorBusinessAppender"
+            immediateFlush="true" fileName="${LOG_HOME}/syslog/${PROJECT_NAME}-business-error.log"
+            filePattern="${LOG_HOME}/syslog/${PROJECT_NAME}-business-error-%d{yyyyMMdd}.log">
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT"
+                    onMismatch="DENY" />
+            </Filters>
+            <PatternLayout pattern="^A001[%d] [%-5p] [%t] [%c] -^,%m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="360" />
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="allLogAppender"
+            immediateFlush="true" fileName="${LOG_HOME}/syslog/${PROJECT_NAME}-all.log"
+            filePattern="${LOG_HOME}/syslog/${PROJECT_NAME}-all-%d{yyyyMMdd}.log">
+            <Filters>
+                <ThresholdFilter level="DEBUG" onMatch="ACCEPT"
+                    onMismatch="DENY" />
+            </Filters>
+            <PatternLayout pattern="^A001[%d] [%-5p] [%t] [%c] -^,%m%n" /> 
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="360" />
+        </RollingRandomAccessFile>
+        
+        <!-- 输出调用物流接口日志（正常和异常） -->
+        <RollingRandomAccessFile name="invokIotAppender"
+            immediateFlush="true" fileName="${LOG_HOME}/${PROJECT_NAME}-invoke-iot.log"
+            filePattern="${LOG_HOME}/${PROJECT_NAME}-invoke-iot-%d{yyyyMMdd}.log">
+            <Filters>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT"
+                    onMismatch="DENY" />
+            </Filters>
+            <PatternLayout pattern="%m" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="360" />
+        </RollingRandomAccessFile>
+        
+        <!-- 输出调用物流接口异常日志 -->
+        <RollingRandomAccessFile name="invokIotErrorAppender"
+            immediateFlush="true" fileName="${LOG_HOME}/${PROJECT_NAME}-invoke-iot-error.log"
+            filePattern="${LOG_HOME}/${PROJECT_NAME}-invoke-iot-error-%d{yyyyMMdd}.log">
+            <Filters>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT"
+                    onMismatch="DENY" />
+            </Filters>
+            <PatternLayout pattern="%m" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="360" />
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- 输出接口调用日志 -->
+        <AsyncLogger name="common.interfaceLogger"
+            additivity="false" level="INFO">
+            <appender-ref ref="interfaceLogAppender" />
+        </AsyncLogger>
+        <!-- 输出接口异常日志 -->
+        <AsyncLogger name="common.interfaceErrorLogger"
+            additivity="false" level="ERROR">
+            <appender-ref ref="interfaceErrorAppender" />
+        </AsyncLogger>
+        <!-- 输出调用接口日志 -->
+        <AsyncLogger name="common.invoke.interfaceLogger"
+            additivity="false" level="INFO">
+            <appender-ref ref="invokeInterfaceLogAppender" />
+        </AsyncLogger>
+        <!-- 输出调用接口异常日志 -->
+        <AsyncLogger name="common.invoke.interfaceErrorLogger"
+            additivity="false" level="ERROR">
+            <appender-ref ref="invokeInterfaceErrorAppender" />
+        </AsyncLogger>
+        <!-- 输出调用物流接口日志（正常和异常） -->
+        <AsyncLogger name="logistics.invok.iot.log"
+            additivity="false" level="INFO">
+            <appender-ref ref="invokIotAppender" />
+        </AsyncLogger>
+        <!-- 输出调用物流接口异常日志 -->
+        <AsyncLogger name="logistics.invok.iot.error.log"
+            additivity="false" level="INFO">
+            <appender-ref ref="invokIotErrorAppender" />
+        </AsyncLogger>
+        <!-- 输出业务日志 -->
+        <AsyncLogger name="com.addlove.service.goods" additivity="true" level="debug">
+            <appender-ref ref="BusinessAppender" />
+            <appender-ref ref="ErrorBusinessAppender" />
+        </AsyncLogger>
+        <asyncRoot level="debug">
+            <appender-ref ref="Console" />
+            <appender-ref ref="allLogAppender" />
+        </asyncRoot>
+    </Loggers>
+</Configuration>
