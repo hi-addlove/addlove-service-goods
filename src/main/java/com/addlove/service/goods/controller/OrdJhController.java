@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.addlove.service.goods.constants.GoodsOrdJhConstants.ModelTags;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.OrdJhBodyModel;
 import com.addlove.service.goods.model.OrdJhHeadModel;
@@ -19,6 +21,7 @@ import com.addlove.service.goods.model.valid.OrdJhQueryPageReq;
 import com.addlove.service.goods.model.valid.OrdThApplyBodyDiffReq;
 import com.addlove.service.goods.model.valid.OrdThApplyHeadDiffReq;
 import com.addlove.service.goods.service.OrdJhService;
+import com.addlove.service.goods.util.DateUtil;
 import com.github.pagehelper.Page;
 
 /**
@@ -87,9 +90,13 @@ public class OrdJhController extends BaseController{
         //没有差异商品，直接更新配送验收主表
         if (null == bodyList || bodyList.isEmpty()) {
             OrdJhHeadModel model = new OrdJhHeadModel();
+            model.setBillNo(req.getBillNo());
             model.setYsrId(123L);
             model.setYsrCode("");
             model.setYsrName("");
+            //送货确认时间
+            model.setShrDate(DateUtil.getCurrentTime());
+            model.setTag(ModelTags.NORMAL_ACCEPTANCE.getValue());
             this.ordJhService.updateJhHeadYsrCodeAndStatus(model);
         }else {
             
