@@ -90,8 +90,8 @@ public class OrdThApplyController extends BaseController{
             OrdJhHeadModel model = new OrdJhHeadModel();
             model.setBillNo(req.getBillNo());
             model.setYsrId(123L);
-            model.setYsrCode("");
-            model.setYsrName("");
+            model.setYsrCode("lf0913");
+            model.setYsrName("李飞");
             //送货确认时间
             model.setShrDate(DateUtil.getCurrentTime());
             model.setTag(ModelTags.NORMAL_ACCEPTANCE.getValue());

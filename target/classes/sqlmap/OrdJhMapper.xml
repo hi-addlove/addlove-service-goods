@@ -290,8 +290,8 @@
   <!-- 更新配送验收单：验收人、验收状态、送货确认时间 -->
   <update id="updateJhHeadYsrCodeAndStatus">
     Update TORDJHHEAD 
-    Set YSRID={ysrId,jdbcType=NUMERIC}, YSRCODE={ysrCode,jdbcType=VARCHAR}, YSRNAME={ysrName,jdbcType=VARCHAR}, 
-    SHRDATE=to_date(#{shrDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss'), TAG={tag,jdbcType=VARCHAR}
+    Set YSRID=#{ysrId,jdbcType=NUMERIC}, YSRCODE=#{ysrCode,jdbcType=VARCHAR}, YSRNAME=#{ysrName,jdbcType=VARCHAR}, 
+    SHRDATE=to_date(#{shrDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), TAG=#{tag,jdbcType=VARCHAR}
     Where BILLNO = #{billNo,jdbcType=VARCHAR}
   </update>
 </mapper>
