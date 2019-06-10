@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.addlove.service.goods.constants.GoodsOrdJhConstants.BillType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.ModelTags;
+import com.addlove.service.goods.constants.GoodsOrdThConstants.BillType;
+import com.addlove.service.goods.constants.GoodsOrdThConstants.YwType;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.OrdJhHeadModel;
 import com.addlove.service.goods.model.OrdThApplyBodyModel;
@@ -123,7 +121,7 @@ public class OrdThApplyController extends BaseController{
             headModel.setsTotal(req.getsTotal());
             headModel.setCjTotal(req.getCjTotal());
             headModel.setPsCost(req.getPsCost());
-            headModel.setYwType(BillType.RETURN_APPLY.getValue());
+            headModel.setYwType(YwType.SHOP_TO_ZB.getValue());
             //组装商品明细
             List<OrdThApplyBodyModel> bodyModelList = new LinkedList<OrdThApplyBodyModel>();
             for (OrdThApplyBodyDiffReq bodyReq : bodyReqList) {

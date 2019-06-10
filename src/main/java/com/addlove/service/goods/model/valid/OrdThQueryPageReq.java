@@ -22,7 +22,7 @@ public class OrdThQueryPageReq {
     /**结束日期 */
     private String endDate;
     
-    /**申请状态:0-保存，1-审批1，2-审批2，3-审批3，4-审批4 */
+    /**审核状态:0-保存，1-审批1，2-审批2，3-审批3，4-审批4 */
     private String checkStatus;
    
     /**提交人（操作人） */

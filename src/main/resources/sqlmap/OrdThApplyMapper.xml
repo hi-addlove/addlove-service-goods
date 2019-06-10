@@ -166,6 +166,7 @@
                 t.ORGCODE,
                 t.ORGNAME,
                 t.TJDATE,
+                t.TJRCODE,
                 t.TJRNAME,
                 t.APPLYSTATUS,
                 t.THCOUNT,
@@ -329,7 +330,7 @@
                 <!-- t.SQThCOUNT -->
     From TORDTHAPPLYBODY t
     Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
-     Order By t.SERIALNO
+    Order By t.SERIALNO
   </select>
   
   <!-- 调用存储过程生成单据号  -->
