@@ -23,8 +23,8 @@ import com.addlove.service.goods.service.UserService;
 @Controller
 @RequestMapping(value = "/goods/gateway")
 public class LoginController extends BaseController{
-    @Autowired
-    private UserService userService;
+    /*@Autowired
+    private UserService userService;*/
     
     /**
      * 登录

@@ -1,19 +1,14 @@
 package com.addlove.service.goods.service;
 
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.addlove.service.goods.dao.OrdJhDao;
-import com.addlove.service.goods.dao.OrdThApplyDao;
 import com.addlove.service.goods.model.OrdJhBodyModel;
 import com.addlove.service.goods.model.OrdJhHeadModel;
 import com.addlove.service.goods.model.OrdJhQueryPageModel;
-import com.addlove.service.goods.model.OrdThApplyBodyModel;
-import com.addlove.service.goods.model.OrdThApplyHeadModel;
 import com.github.pagehelper.PageHelper;
 
 /**
@@ -25,9 +20,6 @@ import com.github.pagehelper.PageHelper;
 public class OrdJhService {
     @Autowired
     private OrdJhDao ordJhDao;
-    
-    @Autowired
-    private OrdThApplyDao ordThApplyDao;
     
     /**
      * 分页查询配送验收数据
@@ -66,16 +58,5 @@ public class OrdJhService {
     @Transactional
     public void updateJhHeadYsrCodeAndStatus(OrdJhHeadModel model) {
         this.ordJhDao.updateJhHeadYsrCodeAndStatus(model);
-    }
-    
-    /**
-     * 将配送差异插入退货申请单
-     * @param headModel
-     * @param bodyModelList
-     */
-    @Transactional
-    public void insertOrdThApply(OrdThApplyHeadModel headModel, List<OrdThApplyBodyModel> bodyList) {
-        this.ordThApplyDao.insertOrdThApplyHead(headModel);
-        this.ordThApplyDao.insertOrdThApplyBody(bodyList);
     }
 }

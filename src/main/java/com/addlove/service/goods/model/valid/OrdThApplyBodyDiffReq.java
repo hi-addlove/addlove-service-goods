@@ -109,6 +109,10 @@ public class OrdThApplyBodyDiffReq {
     /**无税结算金额 */
     @NotNull(message = "无税结算金额不能为空")
     private Double wjsTotal;
+    
+    /**申请退货数量 */
+    @NotNull(message = "申请退货数量不能为空")
+    private Double sqThCount;
 
     /**
      * @return the serialNo
@@ -486,5 +490,19 @@ public class OrdThApplyBodyDiffReq {
      */
     public void setWjsTotal(Double wjsTotal) {
         this.wjsTotal = wjsTotal;
+    }
+
+    /**
+     * @return the sqThCount
+     */
+    public Double getSqThCount() {
+        return sqThCount;
+    }
+
+    /**
+     * @param sqThCount the sqThCount to set
+     */
+    public void setSqThCount(Double sqThCount) {
+        this.sqThCount = sqThCount;
     }
 }

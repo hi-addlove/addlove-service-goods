@@ -136,6 +136,7 @@
     <result column="ISSELECT" jdbcType="VARCHAR" property="isSelect" />
     <result column="ETPCODE" jdbcType="VARCHAR" property="etpCode" />
     <result column="DSTTYPE" jdbcType="VARCHAR" property="dstType" />
+    <result column="SQThCOUNT" jdbcType="NUMERIC" property="sqThCount" />
   </resultMap>
   
   <sql id="Base_Column_List_head">
@@ -156,8 +157,44 @@
     CARGONO, PLUTYPE, DEPID, DEPCODE, DEPNAME, HJPRICE, WJPRICE, JTAXRATE, PRICE, PSPRICE, 
     PACKUNIT, PACKQTY, PACKCOUNT, SGLCOUNT, THCOUNT, HCOST, WCOST, JTAXTOTAL, STOTAL, 
     CJTOTAL, CJRATE, PSCOST, REMARK, HJSTOTAL, WJSTOTAL, THREASON, CHECKINFO, CHECKUSERID, 
-    CHECKUSERCODE, CHECKUSERNAME, CHECKDATE, CLSCODE, CLSNAME, ISSELECT, ETPCODE, DSTTYPE
+    CHECKUSERCODE, CHECKUSERNAME, CHECKDATE, CLSCODE, CLSNAME, ISSELECT, ETPCODE, DSTTYPE, SQThCOUNT
   </sql>
+  
+  <!-- 分页查询差异单信息 -->
+  <select id="queryOrdThHeadModelByPage" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO,
+                t.TJDATE,
+                t.APPLYSTATUS,
+                t.THCOUNT,
+                t.CHECKUSERID,
+                t.CHECKUSERCODE,
+                t.CHECKUSERNAME,
+                t.SUPCKCODE,
+                t.SUPCKNAME,
+                t.SUPDEPID,
+                t.SUPDEPCODE,
+                t.SUPDEPNAME,
+                t.CREATEBILLNO,
+                t.REFBILLTYPE
+    From TORDTHAPPLYHEAD t
+    Where t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+    <if test="queryModel.billNo != '' and queryModel.billNo != null">
+        and t.BILLNO = #{queryModel.billNo,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.startDate != '' and queryModel.startDate != null">
+        and t.TJDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.endDate != '' and queryModel.endDate != null">
+        and t.TJDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.checkStatus != '' and queryModel.checkStatus != null">
+        and t.CHECKSTATUS = #{queryModel.checkStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.createUserName != '' and queryModel.createUserName != null">
+        and t.CREATEUSERNAME like CONCAT('%',#{queryModel.createUserName,jdbcType=VARCHAR})
+    </if>
+    Order By t.CHECKSTATUS,t.TJDATE Desc
+  </select>
   
   <!-- 将配送差异插入退货申请单:头部信息 -->
   <insert id="insertOrdThApplyHead" parameterType="com.addlove.service.goods.model.OrdThApplyHeadModel">
@@ -181,7 +218,9 @@
         JTAXTOTAL,
         STOTAL,
         CJTOTAL,
-        PSCOST
+        PSCOST,
+        YWTYPE,
+        APPLYSTATUS
     )
     VALUES
     (
@@ -203,7 +242,9 @@
         #{jTaxTotal,jdbcType=NUMERIC},
         #{sTotal,jdbcType=NUMERIC},
         #{cjTotal,jdbcType=NUMERIC},
-        #{psCost,jdbcType=NUMERIC}
+        #{psCost,jdbcType=NUMERIC},
+        #{ywType,jdbcType=VARCHAR},
+        #{applyStatus,jdbcType=VARCHAR}
     )
   </insert>
   
@@ -239,6 +280,7 @@
         CJRATE,
         HJSTOTAL,
         WJSTOTAL
+        <!-- SQThCOUNT -->
     )
     VALUES
     <foreach collection="bodys" item="body" separator=",">
@@ -271,7 +313,15 @@
         #{body.cjRate,jdbcType=NUMERIC},
         #{body.hjsTotal,jdbcType=NUMERIC},
         #{body.wjsTotal,jdbcType=NUMERIC}
+        <!-- #{body.sqThCount,jdbcType=NUMERIC} -->
     )
     </foreach>
   </insert>
+  
+  <!-- 调用存储过程生成单据号  -->
+  <select id="getBillNoByCallProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
+    <![CDATA[
+       {CALL sSysGetBillNo(#{ps_BillType,mode=IN,jdbcType=VARCHAR}, #{ps_BillNo,mode=OUT,jdbcType=VARCHAR})}
+    ]]>
+  </select>
 </mapper>

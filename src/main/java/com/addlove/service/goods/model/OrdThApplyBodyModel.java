@@ -372,6 +372,11 @@ public class OrdThApplyBodyModel {
      * @mbggenerated Thu Jun 06 13:47:09 CST 2019
      */
     private String dstType;
+    
+    /**
+     * 申请退货数量
+     */
+    private Double sqThCount;
 
     /**
      * @return the billNo
@@ -1015,5 +1020,19 @@ public class OrdThApplyBodyModel {
      */
     public void setDstType(String dstType) {
         this.dstType = dstType;
+    }
+
+    /**
+     * @return the sqThCount
+     */
+    public Double getSqThCount() {
+        return sqThCount;
+    }
+
+    /**
+     * @param sqThCount the sqThCount to set
+     */
+    public void setSqThCount(Double sqThCount) {
+        this.sqThCount = sqThCount;
     }
 }

@@ -195,6 +195,8 @@
   <select id="queryOrdJhHeadModelByPage" resultMap="BaseResultMapHead">
     Select Distinct t.BILLNO,
                 t.REFBILLNO,
+                t.ORGCODE,
+                t.ORGNAME,
                 t.JZDATE,
                 t.JZRCODE,
                 t.JZRNAME,

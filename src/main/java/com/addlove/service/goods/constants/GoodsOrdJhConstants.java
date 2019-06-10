@@ -22,9 +22,9 @@ public interface GoodsOrdJhConstants {
         private String value;
         private String name;
         
-        private ModelTags(String name, String value) {
-            this.name = name;
+        private ModelTags(String value, String name) {
             this.value = value;
+            this.name = name;
         }
 
         /**
@@ -53,6 +53,54 @@ public interface GoodsOrdJhConstants {
          */
         public void setValue(String value) {
             this.value = value;
+        }
+    }
+    
+    /**
+     * 单据类型
+     * @author lw
+     *
+     */
+    public enum BillType{
+        /**
+         * 退货申请业务类型
+         */
+        RETURN_APPLY("0918", "退货申请");
+        
+        private String value;
+        private String name;
+        
+        private BillType(String value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        /**
+         * @return the value
+         */
+        public String getValue() {
+            return value;
+        }
+
+        /**
+         * @param value the value to set
+         */
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.addlove.service.goods.controller;
 
-import java.util.LinkedList;
 import java.util.List;
 import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
@@ -10,21 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.addlove.service.goods.constants.GoodsOrdJhConstants.ModelTags;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.OrdJhBodyModel;
 import com.addlove.service.goods.model.OrdJhHeadModel;
 import com.addlove.service.goods.model.OrdJhQueryPageModel;
-import com.addlove.service.goods.model.OrdThApplyBodyModel;
-import com.addlove.service.goods.model.OrdThApplyHeadModel;
 import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdJhQueryPageReq;
-import com.addlove.service.goods.model.valid.OrdThApplyBodyDiffReq;
-import com.addlove.service.goods.model.valid.OrdThApplyHeadDiffReq;
 import com.addlove.service.goods.service.OrdJhService;
-import com.addlove.service.goods.util.DateUtil;
 import com.github.pagehelper.Page;
 
 /**
@@ -50,7 +42,7 @@ public class OrdJhController extends BaseController{
         queryModel.setPageNo(req.getPageNo());
         queryModel.setPageSize(req.getPageSize());
         queryModel.setOrgCode(req.getOrgCode());
-        queryModel.setOrgCode("690246");//组织编码暂时写死：德阳一中新店
+        queryModel.setOrgCode("999999");//组织编码暂时写死
         queryModel.setBillNo(req.getBillNo());
         if (StringUtils.isNotBlank(req.getStartDate())) {
             queryModel.setStartDate(req.getStartDate() + " 00:00:00");
@@ -79,87 +71,5 @@ public class OrdJhController extends BaseController{
     public ResponseMessage queryOrderJhDetail(@RequestBody @Valid OrdJhQueryDetailReq req) {
         List<OrdJhBodyModel> ordJhSkus = this.ordJhService.queryBodysByBillNo(req.getBillNo());
         return ResponseMessage.ok(ordJhSkus);
-    }
-    
-    /**
-     * 产生配送验收差异单
-     * @param req
-     * @return ResponseMessage
-     */
-    @RequestMapping(value = "/generateDifferentBill", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseMessage generateDifferentBill(@RequestBody @Valid OrdThApplyHeadDiffReq req) {
-        List<OrdThApplyBodyDiffReq> bodyReqList = req.getBodyList();
-        //没有差异商品，直接更新配送验收主表
-        if (null == bodyReqList || bodyReqList.isEmpty()) {
-            OrdJhHeadModel model = new OrdJhHeadModel();
-            model.setBillNo(req.getBillNo());
-            model.setYsrId(123L);
-            model.setYsrCode("");
-            model.setYsrName("");
-            //送货确认时间
-            model.setShrDate(DateUtil.getCurrentTime());
-            model.setTag(ModelTags.NORMAL_ACCEPTANCE.getValue());
-            this.ordJhService.updateJhHeadYsrCodeAndStatus(model);
-        }else {
-            OrdThApplyHeadModel headModel = new OrdThApplyHeadModel();
-            //调用存储过程生成差异单号
-            String billNo = "";
-            headModel.setBillNo(billNo);
-            headModel.setRefBillNo(req.getBillNo());
-            headModel.setOrgCode(req.getOrgCode());
-            headModel.setOrgName(req.getOrgName());
-            headModel.setInOrgCode(req.getInOrgCode());
-            headModel.setZbOrgCode(req.getZbOrgCode());
-            headModel.setZbOrgName(req.getZbOrgName());
-            headModel.setSupCode(req.getSupCode());
-            headModel.setSupName(req.getSupName());
-            headModel.setCntId(req.getCntId());
-            headModel.setCkCode(req.getCkCode());
-            headModel.setCkName(req.getCkName());
-            headModel.setThCount(req.getThCount());
-            headModel.sethCost(req.gethCost());
-            headModel.setwCost(req.getwCost());
-            headModel.setjTaxTotal(req.getJtaxTotal());
-            headModel.setsTotal(req.getsTotal());
-            headModel.setCjTotal(req.getCjTotal());
-            headModel.setPsCost(req.getPsCost());
-            //组装商品明细
-            List<OrdThApplyBodyModel> bodyModelList = new LinkedList<OrdThApplyBodyModel>();
-            for (OrdThApplyBodyDiffReq bodyReq : bodyReqList) {
-                OrdThApplyBodyModel bodyModel = new OrdThApplyBodyModel();
-                bodyModel.setBillNo(billNo);
-                bodyModel.setSerialNo(bodyReq.getSerialNo());
-                bodyModel.setPluId(bodyReq.getPluId());
-                bodyModel.setPluCode(bodyReq.getPluCode());
-                bodyModel.setPluName(bodyReq.getPluName());
-                bodyModel.setExPluCode(bodyReq.getExPluCode());
-                bodyModel.setBarCode(bodyReq.getBarCode());
-                bodyModel.setSpec(bodyReq.getSpec());
-                bodyModel.setUnit(bodyReq.getUnit());
-                bodyModel.setCarGoNo(bodyReq.getCarGoNo());
-                bodyModel.setDepId(bodyReq.getDepId());
-                bodyModel.setDepCode(bodyReq.getDepCode());
-                bodyModel.setDepName(bodyReq.getDepName());
-                bodyModel.setPsPrice(bodyReq.getPsPrice());
-                bodyModel.setPackUnit(bodyReq.getPackUnit());
-                bodyModel.setPackQty(bodyReq.getPackQty());
-                bodyModel.setPackCount(bodyReq.getPackCount());
-                bodyModel.setSglCount(bodyReq.getSglCount());
-                bodyModel.setThCount(bodyReq.getThCount());
-                bodyModel.sethCost(bodyReq.gethCost());
-                bodyModel.setwCost(bodyReq.getwCost());
-                bodyModel.setjTaxTotal(bodyReq.getjTaxTotal());
-                bodyModel.setPsCost(bodyReq.getPsCost());
-                bodyModel.setsTotal(bodyReq.getsTotal());
-                bodyModel.setCjTotal(bodyReq.getCjTotal());
-                bodyModel.setCjRate(bodyReq.getCjRate());
-                bodyModel.setHjsTotal(bodyReq.getHjsTotal());
-                bodyModel.setWjsTotal(bodyReq.getWjsTotal());
-                bodyModelList.add(bodyModel);
-            }
-            this.ordJhService.insertOrdThApply(headModel, bodyModelList);
-        }
-        return ResponseMessage.ok();
     }
 }

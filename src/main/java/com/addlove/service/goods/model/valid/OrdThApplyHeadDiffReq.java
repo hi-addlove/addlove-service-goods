@@ -78,6 +78,10 @@ public class OrdThApplyHeadDiffReq {
     @NotNull(message = "配送金额不能为空")
     private Double psCost;
     
+    @NotNull(message = "申请状态不能为空")
+    /**申请状态:0-未申请(对应前端的“保存操作”),1-已申请(对应前端的“提交操作”),2-退货中,3-退货完毕,9-驳回 */
+    private String applyStatus;
+    
     /**差异明细*/
     private List<OrdThApplyBodyDiffReq> bodyList;
     /**
@@ -295,6 +299,18 @@ public class OrdThApplyHeadDiffReq {
      */
     public void setPsCost(Double psCost) {
         this.psCost = psCost;
+    }
+    /**
+     * @return the applyStatus
+     */
+    public String getApplyStatus() {
+        return applyStatus;
+    }
+    /**
+     * @param applyStatus the applyStatus to set
+     */
+    public void setApplyStatus(String applyStatus) {
+        this.applyStatus = applyStatus;
     }
     /**
      * @return the bodyList

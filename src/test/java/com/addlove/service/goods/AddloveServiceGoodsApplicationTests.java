@@ -1,19 +1,21 @@
 package com.addlove.service.goods;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import com.addlove.service.goods.constants.GoodsOrdJhConstants.BillType;
 import com.addlove.service.goods.controller.OrdJhController;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.OrdJhBodyModel;
 import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdJhQueryPageReq;
+import com.addlove.service.goods.service.OrdThApplyService;
 import com.alibaba.fastjson.JSONObject;
 
 @RunWith(SpringRunner.class)
@@ -21,6 +23,9 @@ import com.alibaba.fastjson.JSONObject;
 public class AddloveServiceGoodsApplicationTests {
     @Autowired
     private OrdJhController ordJhController;
+    
+    @Autowired
+    private OrdThApplyService ordThApplyService;
     
     @Test
     public void contextLoads() {}
@@ -47,5 +52,14 @@ public class AddloveServiceGoodsApplicationTests {
                 System.out.println(sku.getSerialNo() + "_" + sku.getPluCode() + "_" + sku.getPluName());
             }
         }
+    }
+    
+    @Test
+    public void testGetBillNo() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("ps_BillType", BillType.RETURN_APPLY.getValue());
+        //map.put("ps_BillNo", "");
+        String billNo = this.ordThApplyService.getBillNoByCallProcedure(map);
+        System.out.println("billNo=================" + billNo);
     }
 }
