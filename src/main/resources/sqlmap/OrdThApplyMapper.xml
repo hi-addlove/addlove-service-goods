@@ -163,7 +163,10 @@
   <!-- 分页查询差异单信息 -->
   <select id="queryOrdThHeadModelByPage" resultMap="BaseResultMapHead">
     Select Distinct t.BILLNO,
+                t.ORGCODE,
+                t.ORGNAME,
                 t.TJDATE,
+                t.TJRNAME,
                 t.APPLYSTATUS,
                 t.THCOUNT,
                 t.CHECKUSERID,
@@ -175,7 +178,7 @@
                 t.SUPDEPCODE,
                 t.SUPDEPNAME,
                 t.CREATEBILLNO,
-                t.REFBILLTYPE
+                t.REFBILLNO
     From TORDTHAPPLYHEAD t
     Where t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
@@ -190,8 +193,8 @@
     <if test="queryModel.checkStatus != '' and queryModel.checkStatus != null">
         and t.CHECKSTATUS = #{queryModel.checkStatus,jdbcType=VARCHAR}
     </if>
-    <if test="queryModel.createUserName != '' and queryModel.createUserName != null">
-        and t.CREATEUSERNAME like CONCAT('%',#{queryModel.createUserName,jdbcType=VARCHAR})
+    <if test="queryModel.tjrName != '' and queryModel.tjrName != null">
+        and t.TJRNAME like CONCAT('%',#{queryModel.tjrName,jdbcType=VARCHAR})
     </if>
     Order By t.CHECKSTATUS,t.TJDATE Desc
   </select>
@@ -317,6 +320,17 @@
     )
     </foreach>
   </insert>
+  
+  <!-- 根据退货差异单号查询退货单详情 -->
+  <select id="queryThBodysByBillNo" resultMap="BaseResultMapBody">
+    Select Distinct t.SERIALNO,
+                t.PLUCODE,
+                t.PLUNAME
+                <!-- t.SQThCOUNT -->
+    From TORDTHAPPLYBODY t
+    Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+     Order By t.SERIALNO
+  </select>
   
   <!-- 调用存储过程生成单据号  -->
   <select id="getBillNoByCallProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">

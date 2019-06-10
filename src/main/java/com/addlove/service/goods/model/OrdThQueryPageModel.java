@@ -22,8 +22,8 @@ public class OrdThQueryPageModel {
     /**申请状态:0-保存，1-审批1，2-审批2，3-审批3，4-审批4 */
     private String checkStatus;
    
-   /**生成人姓名（操作人） */
-    private String createUserName;
+    /**提交人（操作人） */
+    private String tjrName;
 
     /**
      * @return the pageNo
@@ -122,18 +122,18 @@ public class OrdThQueryPageModel {
     public void setCheckStatus(String checkStatus) {
         this.checkStatus = checkStatus;
     }
-    
+
     /**
-     * @return the createUserName
+     * @return the tjrName
      */
-    public String getCreateUserName() {
-        return createUserName;
+    public String getTjrName() {
+        return tjrName;
     }
-    
+
     /**
-     * @param createUserName the createUserName to set
+     * @param tjrName the tjrName to set
      */
-    public void setCreateUserName(String createUserName) {
-        this.createUserName = createUserName;
+    public void setTjrName(String tjrName) {
+        this.tjrName = tjrName;
     }
 }

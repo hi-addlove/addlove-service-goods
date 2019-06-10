@@ -47,6 +47,15 @@ public class OrdThApplyService {
     }
     
     /**
+     * 根据退货差异单号查询退货单详情
+     * @param billNo
+     * @return List<OrdThApplyBodyModel>
+     */
+    public List<OrdThApplyBodyModel> queryThBodysByBillNo(String billNo) {
+        return this.ordThApplyDao.queryThBodysByBillNo(billNo);
+    }
+    
+    /**
      * 调用存储过程生成退货差异单据号
      * @param map
      * @return billNo

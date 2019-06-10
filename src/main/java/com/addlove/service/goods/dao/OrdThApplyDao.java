@@ -37,6 +37,13 @@ public interface OrdThApplyDao {
     void insertOrdThApplyBody(@Param("bodys") List<OrdThApplyBodyModel> bodyList);
     
     /**
+     * 根据退货差异单号查询退货单详情
+     * @param billNo
+     * @return List<OrdThApplyBodyModel>
+     */
+    List<OrdThApplyBodyModel> queryThBodysByBillNo(String billNo);
+    
+    /**
      * 调用存储过程生成单据号
      * @param map
      */

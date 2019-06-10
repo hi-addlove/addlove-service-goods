@@ -23,6 +23,7 @@ import com.addlove.service.goods.model.OrdThApplyBodyModel;
 import com.addlove.service.goods.model.OrdThApplyHeadModel;
 import com.addlove.service.goods.model.OrdThQueryPageModel;
 import com.addlove.service.goods.model.PageModel;
+import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdThApplyBodyDiffReq;
 import com.addlove.service.goods.model.valid.OrdThApplyHeadDiffReq;
 import com.addlove.service.goods.model.valid.OrdThQueryPageReq;
@@ -66,7 +67,7 @@ public class OrdThApplyController extends BaseController{
             queryModel.setEndDate(req.getEndDate() + " 23:59:59");
         }
         queryModel.setCheckStatus(req.getCheckStatus());
-        queryModel.setCreateUserName(req.getCreateUserName());
+        queryModel.setTjrName(req.getTjrName());
         List<OrdThApplyHeadModel> ordThHeadList = this.ordThApplyService.queryOrdThHeadModelByPage(queryModel);
         PageModel pageModel = new PageModel();
         Page<OrdThApplyHeadModel> page = (Page<OrdThApplyHeadModel>) ordThHeadList;
@@ -161,5 +162,17 @@ public class OrdThApplyController extends BaseController{
             this.ordThApplyService.insertOrdThApply(headModel, bodyModelList);
         }
         return ResponseMessage.ok();
+    }
+    
+    /**
+     * 查询退货差异单详情
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/queryOrderThDetail", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage queryOrderThDetail(@RequestBody @Valid OrdJhQueryDetailReq req) {
+        List<OrdThApplyBodyModel> ordJhBodys = this.ordThApplyService.queryThBodysByBillNo(req.getBillNo());
+        return ResponseMessage.ok(ordJhBodys);
     }
 }
