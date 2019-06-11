@@ -253,38 +253,65 @@
   </select>
   
   <!-- 根据配送验收单号查询商品信息 -->
-  <select id="queryBodysByBillNo" resultMap="BaseResultMapBody">
-    Select Distinct t.SERIALNO,
-                t.PLUID,
-                t.PLUCODE,
-                t.PLUNAME,
-                t.EXPLUCODE,
-                t.EXPLUNAME,
-                t.BARCODE,
-                t.SPEC,
-                t.DEPID,
-                t.DEPCODE,
-                t.DEPNAME,
-                t.PRICE,
-                t.JHCOUNT,
-                t.PSSHCOUNT,
-                t.PSPRICE,
-                t.PACKUNIT,
-                t.PACKQTY,
-                t.PACKCOUNT,
-                t.SGLCOUNT,
-                t.HCOST,
-                t.WCOST,
-                t.JTAXTOTAL,
-                t.STOTAL,
-                t.CJTOTAL,
-                t.CJRATE,
-                t.PSCOST,
-                t.HJSTOTAL,
-                t.WJSTOTAL
-    From TORDJHBODY t
+  <select id="queryBodysByBillNo" resultType="java.util.HashMap">
+    Select t.BILLNO,
+           t.REFBILLNO,
+           t.ORGCODE,
+           t.ORGNAME,
+           t.JZDATE,
+           t.JZRCODE,
+           t.JZRNAME,
+           t.ZBORGCODE,
+           t.ZBORGNAME,
+           t.JHCOUNT,
+           t.STOTAL,
+           t.TAG,
+           t.PICKDATE,
+           t.YSRCODE,
+           t.YSRNAME,
+           t.SUPCODE,
+           t.SUPNAME,
+           t.INORGCODE,
+           t.CNTID,
+           t.CKCODE,
+           t.CKNAME,
+           t.HCOST,
+           t.WCOST,
+           t.JTAXTOTAL,
+           t.CJTOTAL,
+           t.PSCOST,
+           t1.SERIALNO,
+           t1.TOSERIALNO,
+           t1.PLUID,
+           t1.PLUCODE,
+           t1.PLUNAME,
+           t1.EXPLUCODE,
+           t1.EXPLUNAME,
+           t1.BARCODE,
+           t1.SPEC,
+           t1.DEPID,
+           t1.DEPCODE,
+           t1.DEPNAME,
+           t1.PRICE,
+           t1.JHCOUNT,
+           t1.PSSHCOUNT,
+           t1.PSPRICE,
+           t1.PACKUNIT,
+           t1.PACKQTY,
+           t1.PACKCOUNT,
+           t1.SGLCOUNT,
+           t1.HCOST,
+           t1.WCOST,
+           t1.JTAXTOTAL,
+           t1.STOTAL,
+           t1.CJTOTAL,
+           t1.CJRATE,
+           t1.PSCOST,
+           t1.HJSTOTAL,
+           t1.WJSTOTAL
+    From TORDJHHEAD t Left Join TORDJHBODY t1 On t.BILLNO = t1.BILLNO
     Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
-    Order By t.SERIALNO
+    Order By t1.SERIALNO
   </select>
   
   <!-- 更新配送验收单：验收人、验收状态、送货确认时间 -->
@@ -294,4 +321,28 @@
     SHRDATE=to_date(#{shrDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), TAG=#{tag,jdbcType=VARCHAR}
     Where BILLNO = #{billNo,jdbcType=VARCHAR}
   </update>
+  
+  <!-- 更新配送验收单明细配送收货数量 -->
+  <update id="updateJhBodyPsShCount" parameterType="java.util.List">
+    <foreach collection="list" item="body" open="begin" close=";end;" separator=";">
+      Update TORDJHBODY 
+      <set>
+        PSSHCOUNT = #{body.psShCount,jdbcType=NUMERIC}
+      </set>
+      Where BILLNO = #{body.billNo,jdbcType=VARCHAR} And SERIALNO = #{body.serialNo,jdbcType=NUMERIC}
+    </foreach>
+  </update>
+  
+  <!-- 查询分货单部门信息 -->
+  <select id="queryFhDepCode" resultType="java.util.HashMap">
+    Select t.BILLNO,
+           t.DEPID,
+           t.DEPCODE,
+           t.DEPNAME
+   From TORDCDADLFHHEAD t
+   Where t.BILLNO In
+   <foreach collection="list" item="item" separator="," open="(" close=")">
+     #{item.billNo,jdbcType=VARCHAR}
+   </foreach>
+  </select>
 </mapper>

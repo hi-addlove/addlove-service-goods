@@ -103,4 +103,56 @@ public interface GoodsOrdThConstants {
             this.name = name;
         }
     }
+    
+    /**
+     * 申请状态:0-未申请,1-已申请,2-退货中,3-退货完毕,9-驳回
+     * @author lw
+     *
+     */
+    public enum ApplyStatus{
+        /**
+         * 申请状态
+         */
+        NOT_APPLY("0", "未申请"),
+        HAVE_APPLYED("1", "已申请"),
+        RETURN_ING("2", "退货中"),
+        RETURN_OVER("3", "退货完毕"),
+        REJECT("9", "驳回");
+        
+        private String value;
+        private String name;
+        
+        private ApplyStatus(String value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        /**
+         * @return the value
+         */
+        public String getValue() {
+            return value;
+        }
+
+        /**
+         * @param value the value to set
+         */
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
 }

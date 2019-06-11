@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.ModelTags;
+import com.addlove.service.goods.constants.GoodsOrdThConstants.ApplyStatus;
 import com.addlove.service.goods.constants.GoodsOrdThConstants.BillType;
 import com.addlove.service.goods.constants.GoodsOrdThConstants.YwType;
 import com.addlove.service.goods.message.ResponseMessage;
+import com.addlove.service.goods.model.OrdJhBodyModel;
 import com.addlove.service.goods.model.OrdJhHeadModel;
 import com.addlove.service.goods.model.OrdThApplyBodyModel;
 import com.addlove.service.goods.model.OrdThApplyHeadModel;
@@ -28,6 +30,8 @@ import com.addlove.service.goods.model.valid.OrdThQueryPageReq;
 import com.addlove.service.goods.service.OrdJhService;
 import com.addlove.service.goods.service.OrdThApplyService;
 import com.addlove.service.goods.util.DateUtil;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 
 /**
@@ -64,7 +68,7 @@ public class OrdThApplyController extends BaseController{
         if (StringUtils.isNotBlank(req.getEndDate())) {
             queryModel.setEndDate(req.getEndDate() + " 23:59:59");
         }
-        queryModel.setCheckStatus(req.getCheckStatus());
+        queryModel.setApplyStatus(req.getApplyStatus());
         queryModel.setTjrName(req.getTjrName());
         List<OrdThApplyHeadModel> ordThHeadList = this.ordThApplyService.queryOrdThHeadModelByPage(queryModel);
         PageModel pageModel = new PageModel();
@@ -122,9 +126,23 @@ public class OrdThApplyController extends BaseController{
             headModel.setCjTotal(req.getCjTotal());
             headModel.setPsCost(req.getPsCost());
             headModel.setYwType(YwType.SHOP_TO_ZB.getValue());
-            //组装商品明细
+            headModel.setApplyStatus(ApplyStatus.HAVE_APPLYED.getValue());
+            headModel.setTjDate(DateUtil.getCurrentTime());
+            headModel.setTjrId(123L);
+            headModel.setTjrCode("lf0913");
+            headModel.setTjrName("李飞");
+            //差异单商品明细集合
             List<OrdThApplyBodyModel> bodyModelList = new LinkedList<OrdThApplyBodyModel>();
+            //验收配送单明细集合
+            List<OrdJhBodyModel> jhModelList = new LinkedList<OrdJhBodyModel>();
             for (OrdThApplyBodyDiffReq bodyReq : bodyReqList) {
+                //验收配送单明细
+                OrdJhBodyModel jhModel = new OrdJhBodyModel();
+                jhModel.setBillNo(req.getBillNo());
+                jhModel.setSerialNo(bodyReq.getSerialNo());
+                jhModel.setPsShCount(bodyReq.getPsShCount());
+                jhModelList.add(jhModel);
+                //退货差异单
                 OrdThApplyBodyModel bodyModel = new OrdThApplyBodyModel();
                 bodyModel.setBillNo(billNo);
                 bodyModel.setSerialNo(bodyReq.getSerialNo());
@@ -157,7 +175,13 @@ public class OrdThApplyController extends BaseController{
                 bodyModel.setSqThCount(bodyReq.getSqThCount());
                 bodyModelList.add(bodyModel);
             }
-            this.ordThApplyService.insertOrdThApply(headModel, bodyModelList);
+            //页面执行“保存”操作：不生成差异单，只改变验收单确认数量
+            if (ApplyStatus.NOT_APPLY.getValue().equals(req.getApplyStatus())) {
+                this.ordJhService.updateJhBodyPsShCount(jhModelList);
+            }else {
+                //页面执行“提交”操作：生成差异单
+                this.ordThApplyService.insertOrdThApply(headModel, bodyModelList);
+            }
         }
         return ResponseMessage.ok();
     }
@@ -170,7 +194,47 @@ public class OrdThApplyController extends BaseController{
     @RequestMapping(value = "/queryOrderThDetail", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage queryOrderThDetail(@RequestBody @Valid OrdJhQueryDetailReq req) {
-        List<OrdThApplyBodyModel> ordJhBodys = this.ordThApplyService.queryThBodysByBillNo(req.getBillNo());
-        return ResponseMessage.ok(ordJhBodys);
+        List<Map<String, Object>> resultList = this.ordThApplyService.queryThBodysByBillNo(req.getBillNo());
+        JSONObject backJson = new JSONObject();
+        if (null != resultList && !resultList.isEmpty()) {
+            JSONObject headJson = new JSONObject();
+            Map<String, Object> headMap = resultList.get(0);
+            headJson.put("billNo", headMap.get("BILLNO"));
+            headJson.put("orgCode", headMap.get("ORGCODE"));
+            headJson.put("orgName", headMap.get("ORGNAME"));
+            headJson.put("tjDate", headMap.get("TJDATE"));
+            headJson.put("tjrCode", headMap.get("TJRCODE"));
+            headJson.put("tjrName", headMap.get("TJRNAME"));
+            headJson.put("applyStatus", headMap.get("APPLYSTATUS"));
+            headJson.put("thCount", headMap.get("THCOUNT"));
+            headJson.put("checkUserId", headMap.get("CHECKUSERID"));
+            headJson.put("checkUserCode", headMap.get("CHECKUSERCODE"));
+            headJson.put("checkUserName", headMap.get("CHECKUSERNAME"));
+            headJson.put("supCkCode", headMap.get("SUPCKCODE"));
+            headJson.put("supCkName", headMap.get("SUPCKNAME"));
+            headJson.put("supDepId", headMap.get("SUPDEPID"));
+            headJson.put("supDepCode", headMap.get("SUPDEPCODE"));
+            headJson.put("supdepname", headMap.get("SUPDEPNAME"));
+            headJson.put("createBillNo", headMap.get("CREATEBILLNO"));
+            headJson.put("refBillNo", headMap.get("REFBILLNO"));
+            backJson.put("headInfo", headJson);
+            JSONArray bodyArray = new JSONArray();
+            for (Map<String, Object> map : resultList) {
+                JSONObject bodyJson = new JSONObject();
+                bodyJson.put("serialNo", map.get("SERIALNO"));
+                bodyJson.put("pluCode", map.get("PLUCODE"));
+                bodyJson.put("pluName", map.get("PLUNAME"));
+                bodyJson.put("checkInfo", map.get("CHECKINFO"));
+                bodyJson.put("checkUserId", map.get("CHECKUSERID"));
+                bodyJson.put("checkUserCode", map.get("CHECKUSERCODE"));
+                bodyJson.put("checkUserName", map.get("CHECKUSERNAME"));
+                bodyJson.put("checkDate", map.get("CHECKDATE"));
+                bodyJson.put("sqThCount", map.get("SQThCOUNT"));
+                bodyJson.put("thCount", map.get("THCOUNT"));
+                bodyArray.add(bodyJson);
+            }
+            backJson.put("bodyInfo", bodyArray);
+        }
+        return ResponseMessage.ok(backJson);
     }
 }

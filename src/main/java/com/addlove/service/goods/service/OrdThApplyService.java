@@ -3,6 +3,8 @@ package com.addlove.service.goods.service;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,9 @@ import com.github.pagehelper.PageHelper;
  */
 @Service
 public class OrdThApplyService {
+    /**OrdThApplyService类日志 */
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrdThApplyService.class);
+    
     @Autowired
     private OrdThApplyDao ordThApplyDao;
     
@@ -51,7 +56,7 @@ public class OrdThApplyService {
      * @param billNo
      * @return List<OrdThApplyBodyModel>
      */
-    public List<OrdThApplyBodyModel> queryThBodysByBillNo(String billNo) {
+    public List<Map<String, Object>> queryThBodysByBillNo(String billNo) {
         return this.ordThApplyDao.queryThBodysByBillNo(billNo);
     }
     
@@ -62,7 +67,10 @@ public class OrdThApplyService {
      */
     @Transactional
     public String getBillNoByCallProcedure(Map<String, Object> map) {
+        long startTime = System.currentTimeMillis();
         this.ordThApplyDao.getBillNoByCallProcedure(map);
+        long endTime = System.currentTimeMillis();
+        LOGGER.info("调用生成差异单号存储过程-【CALL sSysGetBillNo()】消耗时间:{}", (endTime - startTime));
         if (null == map || map.isEmpty()) {
             return "";
         }

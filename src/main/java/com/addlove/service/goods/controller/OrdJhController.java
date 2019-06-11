@@ -1,6 +1,7 @@
 package com.addlove.service.goods.controller;
 
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.addlove.service.goods.message.ResponseMessage;
-import com.addlove.service.goods.model.OrdJhBodyModel;
-import com.addlove.service.goods.model.OrdJhHeadModel;
 import com.addlove.service.goods.model.OrdJhQueryPageModel;
 import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdJhQueryPageReq;
 import com.addlove.service.goods.service.OrdJhService;
-import com.github.pagehelper.Page;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 
 /**
  * 配送验收控制层
@@ -51,12 +52,12 @@ public class OrdJhController extends BaseController{
             queryModel.setEndDate(req.getEndDate() + " 23:59:59");
         }
         queryModel.setTag(req.getTag());
-        List<OrdJhHeadModel> ordJhHeadList = this.ordJhService.queryOrdJhHeadModelByPage(queryModel);
+        List<JSONObject> backList = this.ordJhService.queryOrdJhHeadModelByPage(queryModel);
         PageModel pageModel = new PageModel();
-        Page<OrdJhHeadModel> page = (Page<OrdJhHeadModel>) ordJhHeadList;
+        PageInfo<JSONObject> page = new PageInfo<>(backList);
         pageModel.setPageNo(page.getPageNum());
         pageModel.setPageSize(page.getPageSize());
-        pageModel.setResult(page.getResult());
+        pageModel.setResult(page.getList());
         pageModel.setTotal(page.getTotal());
         return ResponseMessage.ok(pageModel);
     }
@@ -69,7 +70,74 @@ public class OrdJhController extends BaseController{
     @RequestMapping(value = "/queryOrderJhDetail", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage queryOrderJhDetail(@RequestBody @Valid OrdJhQueryDetailReq req) {
-        List<OrdJhBodyModel> ordJhSkus = this.ordJhService.queryBodysByBillNo(req.getBillNo());
-        return ResponseMessage.ok(ordJhSkus);
+        List<Map<String, Object>> resultList = this.ordJhService.queryBodysByBillNo(req.getBillNo());
+        JSONObject backJson = new JSONObject();
+        if (null != resultList && !resultList.isEmpty()) {
+            JSONObject headJson = new JSONObject();
+            Map<String, Object> headMap = resultList.get(0);
+            headJson.put("billNo", headMap.get("BILLNO"));
+            headJson.put("refBillNo", headMap.get("REFBILLNO"));
+            headJson.put("orgCode", headMap.get("ORGCODE"));
+            headJson.put("orgName", headMap.get("ORGNAME"));
+            headJson.put("jzDate", headMap.get("JZDATE"));
+            headJson.put("jzrCode", headMap.get("JZRCODE"));
+            headJson.put("jzrName", headMap.get("JZRNAME"));
+            headJson.put("zbOrgCode", headMap.get("ZBORGCODE"));
+            headJson.put("zbOrgName", headMap.get("ZBORGNAME"));
+            headJson.put("jhCount", headMap.get("JHCOUNT"));
+            headJson.put("sTotal", headMap.get("STOTAL"));
+            headJson.put("tag", headMap.get("TAG"));
+            headJson.put("pickDate", headMap.get("PICKDATE"));
+            headJson.put("ysrCode", headMap.get("YSRCODE"));
+            headJson.put("ysrName", headMap.get("YSRNAME"));
+            headJson.put("supCode", headMap.get("SUPCODE"));
+            headJson.put("supName", headMap.get("SUPNAME"));
+            headJson.put("inOrgCode", headMap.get("INORGCODE"));
+            headJson.put("cntId", headMap.get("CNTID"));
+            headJson.put("ckCode", headMap.get("CKCODE"));
+            headJson.put("ckName", headMap.get("CKNAME"));
+            headJson.put("hCost", headMap.get("HCOST"));
+            headJson.put("wCost", headMap.get("WCOST"));
+            headJson.put("jtaxTotal", headMap.get("JTAXTOTAL"));
+            headJson.put("cjTotal", headMap.get("CJTOTAL"));
+            headJson.put("psCost", headMap.get("PSCOST"));
+            backJson.put("headInfo", headJson);
+            JSONArray bodyArray = new JSONArray();
+            for (Map<String, Object> map : resultList) {
+                JSONObject bodyJson = new JSONObject();
+                bodyJson.put("serialNo", map.get("SERIALNO"));
+                bodyJson.put("toSerialNo", map.get("TOSERIALNO"));
+                bodyJson.put("pluId", map.get("PLUID"));
+                bodyJson.put("pluCode", map.get("PLUCODE"));
+                bodyJson.put("pluName", map.get("PLUNAME"));
+                bodyJson.put("exPluCode", map.get("EXPLUCODE"));
+                bodyJson.put("exPluName", map.get("EXPLUNAME"));
+                bodyJson.put("barCode", map.get("BARCODE"));
+                bodyJson.put("spec", map.get("SPEC"));
+                bodyJson.put("depId", map.get("DEPID"));
+                bodyJson.put("depCode", map.get("DEPCODE"));
+                bodyJson.put("depName", map.get("DEPNAME"));
+                bodyJson.put("price", map.get("PRICE"));
+                bodyJson.put("jhCount", map.get("JHCOUNT"));
+                bodyJson.put("psShCount", map.get("PSSHCOUNT"));
+                bodyJson.put("psPrice", map.get("PSPRICE"));
+                bodyJson.put("packUnit", map.get("PACKUNIT"));
+                bodyJson.put("packQty", map.get("PACKQTY"));
+                bodyJson.put("packCount", map.get("PACKCOUNT"));
+                bodyJson.put("sglCount", map.get("SGLCOUNT"));
+                bodyJson.put("hCost", map.get("HCOST"));
+                bodyJson.put("wCost", map.get("WCOST"));
+                bodyJson.put("jTaxTotal", map.get("JTAXTOTAL"));
+                bodyJson.put("sTotal", map.get("STOTAL"));
+                bodyJson.put("cjTotal", map.get("CJTOTAL"));
+                bodyJson.put("cjRate", map.get("CJRATE"));
+                bodyJson.put("psCost", map.get("PSCOST"));
+                bodyJson.put("hjsTotal", map.get("HJSTOTAL"));
+                bodyJson.put("wjsTotal", map.get("WJSTOTAL"));
+                bodyArray.add(bodyJson);
+            }
+            backJson.put("bodyInfo", bodyArray);
+        }
+        return ResponseMessage.ok(backJson);
     }
 }

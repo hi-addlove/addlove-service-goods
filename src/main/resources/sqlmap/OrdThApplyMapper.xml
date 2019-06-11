@@ -157,7 +157,8 @@
     CARGONO, PLUTYPE, DEPID, DEPCODE, DEPNAME, HJPRICE, WJPRICE, JTAXRATE, PRICE, PSPRICE, 
     PACKUNIT, PACKQTY, PACKCOUNT, SGLCOUNT, THCOUNT, HCOST, WCOST, JTAXTOTAL, STOTAL, 
     CJTOTAL, CJRATE, PSCOST, REMARK, HJSTOTAL, WJSTOTAL, THREASON, CHECKINFO, CHECKUSERID, 
-    CHECKUSERCODE, CHECKUSERNAME, CHECKDATE, CLSCODE, CLSNAME, ISSELECT, ETPCODE, DSTTYPE, SQThCOUNT
+    CHECKUSERCODE, CHECKUSERNAME, CHECKDATE, CLSCODE, CLSNAME, ISSELECT, ETPCODE, DSTTYPE,
+    SQThCOUNT
   </sql>
   
   <!-- 分页查询差异单信息 -->
@@ -191,13 +192,13 @@
     <if test="queryModel.endDate != '' and queryModel.endDate != null">
         and t.TJDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
     </if>
-    <if test="queryModel.checkStatus != '' and queryModel.checkStatus != null">
-        and t.CHECKSTATUS = #{queryModel.checkStatus,jdbcType=VARCHAR}
+    <if test="queryModel.applyStatus != '' and queryModel.applyStatus != null">
+        and t.APPLYSTATUS = #{queryModel.applyStatus,jdbcType=VARCHAR}
     </if>
     <if test="queryModel.tjrName != '' and queryModel.tjrName != null">
         and t.TJRNAME like CONCAT('%',#{queryModel.tjrName,jdbcType=VARCHAR})
     </if>
-    Order By t.CHECKSTATUS,t.TJDATE Desc
+    Order By t.APPLYSTATUS,t.TJDATE Desc
   </select>
   
   <!-- 将配送差异插入退货申请单:头部信息 -->
@@ -224,7 +225,11 @@
         CJTOTAL,
         PSCOST,
         YWTYPE,
-        APPLYSTATUS
+        APPLYSTATUS,
+        TJDATE,
+        TJRID,
+        TJRCODE,
+        TJRNAME
     )
     VALUES
     (
@@ -248,7 +253,11 @@
         #{cjTotal,jdbcType=NUMERIC},
         #{psCost,jdbcType=NUMERIC},
         #{ywType,jdbcType=VARCHAR},
-        #{applyStatus,jdbcType=VARCHAR}
+        #{applyStatus,jdbcType=VARCHAR},
+        to_date(#{tjDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'),
+        #{tjrId,jdbcType=NUMERIC},
+        #{tjrCode,jdbcType=VARCHAR},
+        #{tjrName,jdbcType=VARCHAR}
     )
   </insert>
   
@@ -283,12 +292,12 @@
         CJTOTAL,
         CJRATE,
         HJSTOTAL,
-        WJSTOTAL
-        <!-- SQThCOUNT -->
+        WJSTOTAL,
+        SQThCOUNT
     )
-    VALUES
-    <foreach collection="bodys" item="body" separator=",">
+    <foreach collection="bodys" item="body" separator="union all">
     (
+      SELECT
         #{body.billNo,jdbcType=VARCHAR},
         #{body.serialNo,jdbcType=NUMERIC},
         #{body.pluId,jdbcType=NUMERIC},
@@ -317,20 +326,45 @@
         #{body.cjRate,jdbcType=NUMERIC},
         #{body.hjsTotal,jdbcType=NUMERIC},
         #{body.wjsTotal,jdbcType=NUMERIC}
-        <!-- #{body.sqThCount,jdbcType=NUMERIC} -->
+        #{body.sqThCount,jdbcType=NUMERIC}
+      FROM DUAL
     )
     </foreach>
   </insert>
   
   <!-- 根据退货差异单号查询退货单详情 -->
-  <select id="queryThBodysByBillNo" resultMap="BaseResultMapBody">
-    Select Distinct t.SERIALNO,
-                t.PLUCODE,
-                t.PLUNAME
-                <!-- t.SQThCOUNT -->
-    From TORDTHAPPLYBODY t
+  <select id="queryThBodysByBillNo" resultType="java.util.HashMap">
+    Select t.BILLNO,
+           t.ORGCODE,
+           t.ORGNAME,
+           t.TJDATE,
+           t.TJRCODE,
+           t.TJRNAME,
+           t.APPLYSTATUS,
+           t.THCOUNT,
+           t.CHECKUSERID,
+           t.CHECKUSERCODE,
+           t.CHECKUSERNAME,
+           t.SUPCKCODE,
+           t.SUPCKNAME,
+           t.SUPDEPID,
+           t.SUPDEPCODE,
+           t.SUPDEPNAME,
+           t.CREATEBILLNO,
+           t.REFBILLNO,
+           t1.SERIALNO,
+           t1.PLUCODE,
+           t1.PLUNAME,
+           t1.CHECKINFO,
+           t1.CHECKUSERID,
+           t1.CHECKUSERCODE,
+           t1.CHECKUSERNAME,
+           t1.CHECKDATE,
+           t1.SQThCOUNT,
+           t1.THCOUNT
+    From TORDTHAPPLYHEAD t Left Join TORDTHAPPLYBODY t1 On t.BILLNO = t1.BILLNO
     Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
-    Order By t.SERIALNO
+    Order By t1.SERIALNO
   </select>
   
   <!-- 调用存储过程生成单据号  -->

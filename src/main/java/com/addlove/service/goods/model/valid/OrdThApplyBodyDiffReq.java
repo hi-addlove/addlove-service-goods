@@ -113,7 +113,11 @@ public class OrdThApplyBodyDiffReq {
     /**申请退货数量 */
     @NotNull(message = "申请退货数量不能为空")
     private Double sqThCount;
-
+    
+    /**配送收货数量 */
+    @NotNull(message = "配送收货数量不能为空")
+    private Double psShCount;
+    
     /**
      * @return the serialNo
      */
@@ -504,5 +508,19 @@ public class OrdThApplyBodyDiffReq {
      */
     public void setSqThCount(Double sqThCount) {
         this.sqThCount = sqThCount;
+    }
+
+    /**
+     * @return the psShCount
+     */
+    public Double getPsShCount() {
+        return psShCount;
+    }
+
+    /**
+     * @param psShCount the psShCount to set
+     */
+    public void setPsShCount(Double psShCount) {
+        this.psShCount = psShCount;
     }
 }

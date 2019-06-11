@@ -19,8 +19,8 @@ public class OrdThQueryPageModel {
     /**结束日期 */
     private String endDate;
     
-    /**申请状态:0-保存，1-审批1，2-审批2，3-审批3，4-审批4 */
-    private String checkStatus;
+    /**申请状态:0-未申请,1-已申请,2-退货中,3-退货完毕,9-驳回 */
+    private String applyStatus;
    
     /**提交人（操作人） */
     private String tjrName;
@@ -110,17 +110,17 @@ public class OrdThQueryPageModel {
     }
     
     /**
-     * @return the checkStatus
+     * @return the applyStatus
      */
-    public String getCheckStatus() {
-        return checkStatus;
+    public String getApplyStatus() {
+        return applyStatus;
     }
-    
+
     /**
-     * @param checkStatus the checkStatus to set
+     * @param applyStatus the applyStatus to set
      */
-    public void setCheckStatus(String checkStatus) {
-        this.checkStatus = checkStatus;
+    public void setApplyStatus(String applyStatus) {
+        this.applyStatus = applyStatus;
     }
 
     /**

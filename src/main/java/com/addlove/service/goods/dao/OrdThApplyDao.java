@@ -41,7 +41,7 @@ public interface OrdThApplyDao {
      * @param billNo
      * @return List<OrdThApplyBodyModel>
      */
-    List<OrdThApplyBodyModel> queryThBodysByBillNo(String billNo);
+    List<Map<String, Object>> queryThBodysByBillNo(String billNo);
     
     /**
      * 调用存储过程生成单据号
