@@ -224,13 +224,13 @@ public class OrdThApplyController extends BaseController{
                 bodyJson.put("serialNo", map.get("SERIALNO"));
                 bodyJson.put("pluCode", map.get("PLUCODE"));
                 bodyJson.put("pluName", map.get("PLUNAME"));
-                bodyJson.put("checkInfo", map.get("CHECKINFO"));
-                bodyJson.put("checkUserId", map.get("CHECKUSERID"));
-                bodyJson.put("checkUserCode", map.get("CHECKUSERCODE"));
-                bodyJson.put("checkUserName", map.get("CHECKUSERNAME"));
-                bodyJson.put("checkDate", map.get("CHECKDATE"));
-                bodyJson.put("sqThCount", map.get("SQThCOUNT"));
-                bodyJson.put("thCount", map.get("THCOUNT"));
+                bodyJson.put("checkInfo", map.get("CHECKINFO2"));
+                bodyJson.put("checkUserId", map.get("CHECKUSERID2"));
+                bodyJson.put("checkUserCode", map.get("CHECKUSERCODE2"));
+                bodyJson.put("checkUserName", map.get("CHECKUSERNAME2"));
+                bodyJson.put("checkDate", map.get("CHECKDATE2"));
+                bodyJson.put("sqThCount", map.get("SQThCOUNT2"));
+                bodyJson.put("thCount", map.get("THCOUNT2"));
                 bodyArray.add(bodyJson);
             }
             backJson.put("bodyInfo", bodyArray);

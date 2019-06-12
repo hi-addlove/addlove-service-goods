@@ -325,7 +325,7 @@
         #{body.cjTotal,jdbcType=NUMERIC},
         #{body.cjRate,jdbcType=NUMERIC},
         #{body.hjsTotal,jdbcType=NUMERIC},
-        #{body.wjsTotal,jdbcType=NUMERIC}
+        #{body.wjsTotal,jdbcType=NUMERIC},
         #{body.sqThCount,jdbcType=NUMERIC}
       FROM DUAL
     )
@@ -355,13 +355,13 @@
            t1.SERIALNO,
            t1.PLUCODE,
            t1.PLUNAME,
-           t1.CHECKINFO,
-           t1.CHECKUSERID,
-           t1.CHECKUSERCODE,
-           t1.CHECKUSERNAME,
-           t1.CHECKDATE,
-           t1.SQThCOUNT,
-           t1.THCOUNT
+           t1.CHECKINFO AS CHECKINFO2,
+           t1.CHECKUSERID AS CHECKUSERID2,
+           t1.CHECKUSERCODE AS CHECKUSERCODE2,
+           t1.CHECKUSERNAME AS CHECKUSERNAME2,
+           t1.CHECKDATE AS CHECKDATE2,
+           t1.SQThCOUNT AS SQThCOUNT2,
+           t1.THCOUNT AS THCOUNT2
     From TORDTHAPPLYHEAD t Left Join TORDTHAPPLYBODY t1 On t.BILLNO = t1.BILLNO
     Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
     Order By t1.SERIALNO

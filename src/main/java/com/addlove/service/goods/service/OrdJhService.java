@@ -51,16 +51,24 @@ public class OrdJhService {
             }
         }
         //查询出所有分货单的部门信息
-        List<Map<String, Object>> fhDepts = this.ordJhDao.queryFhDepCode(billNos);
-        if (null != fhDepts && !fhDepts.isEmpty()) {
-            for (Map<String, Object> dept : fhDepts) {
-                for (JSONObject json : backList) {
-                    if (json.getString("refBillNo").equals(dept.get("BILLNO"))) {
-                        json.put("fhDepId", dept.get("DEPID"));
-                        json.put("fhDepCode", dept.get("DEPCODE"));
-                        json.put("fhDepName", dept.get("DEPNAME"));
+        if (null != billNos && !billNos.isEmpty()) {
+            List<Map<String, Object>> fhDepts = this.ordJhDao.queryFhDepCode(billNos);
+            if (null != fhDepts && !fhDepts.isEmpty()) {
+                for (Map<String, Object> dept : fhDepts) {
+                    for (JSONObject json : backList) {
+                        if (json.getString("refBillNo").equals(dept.get("BILLNO"))) {
+                            json.put("fhDepId", dept.get("DEPID"));
+                            json.put("fhDepCode", dept.get("DEPCODE"));
+                            json.put("fhDepName", dept.get("DEPNAME"));
+                        }
                     }
                 }
+            }
+        }else {
+            for (JSONObject json : backList) {
+                json.put("fhDepId", "");
+                json.put("fhDepCode", "");
+                json.put("fhDepName", "");
             }
         }
         return backList;
