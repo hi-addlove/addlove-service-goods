@@ -131,6 +131,9 @@ public class OrdThApplyController extends BaseController{
             headModel.setTjrId(123L);
             headModel.setTjrCode("lf0913");
             headModel.setTjrName("李飞");
+            headModel.setDepId(req.getDepId());
+            headModel.setDepCode(req.getDepCode());
+            headModel.setDepName(req.getDepName());
             //差异单商品明细集合
             List<OrdThApplyBodyModel> bodyModelList = new LinkedList<OrdThApplyBodyModel>();
             //验收配送单明细集合
@@ -180,6 +183,15 @@ public class OrdThApplyController extends BaseController{
                 this.ordJhService.updateJhBodyPsShCount(jhModelList);
             }else {
                 //页面执行“提交”操作：生成差异单
+                OrdJhHeadModel model = new OrdJhHeadModel();
+                model.setBillNo(req.getBillNo());
+                model.setYsrId(123L);
+                model.setYsrCode("lf0913");
+                model.setYsrName("李飞");
+                //送货确认时间
+                model.setShrDate(DateUtil.getCurrentTime());
+                model.setTag(ModelTags.ABNORMAL_ACCEPTANCE.getValue());
+                this.ordJhService.updateJhHeadYsrCodeAndStatus(model);
                 this.ordThApplyService.insertOrdThApply(headModel, bodyModelList);
             }
         }

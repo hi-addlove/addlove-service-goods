@@ -78,9 +78,20 @@ public class OrdThApplyHeadDiffReq {
     @NotNull(message = "配送金额不能为空")
     private Double psCost;
     
-    @NotNull(message = "申请状态不能为空")
     /**申请状态:0-未申请(对应前端的“保存操作”),1-已申请(对应前端的“提交操作”),2-退货中,3-退货完毕,9-驳回 */
+    @NotNull(message = "申请状态不能为空")
     private String applyStatus;
+    
+    /**部门Id */
+    @NotNull(message = "部门Id不能为空")
+    private Long depId;
+    
+    /**部门编码 */
+    @NotNull(message = "部门编码不能为空")
+    private String depCode;
+    
+    /**部门名称 */
+    private String depName;
     
     /**差异明细*/
     private List<OrdThApplyBodyDiffReq> bodyList;
@@ -311,6 +322,42 @@ public class OrdThApplyHeadDiffReq {
      */
     public void setApplyStatus(String applyStatus) {
         this.applyStatus = applyStatus;
+    }
+    /**
+     * @return the depId
+     */
+    public Long getDepId() {
+        return depId;
+    }
+    /**
+     * @param depId the depId to set
+     */
+    public void setDepId(Long depId) {
+        this.depId = depId;
+    }
+    /**
+     * @return the depCode
+     */
+    public String getDepCode() {
+        return depCode;
+    }
+    /**
+     * @param depCode the depCode to set
+     */
+    public void setDepCode(String depCode) {
+        this.depCode = depCode;
+    }
+    /**
+     * @return the depName
+     */
+    public String getDepName() {
+        return depName;
+    }
+    /**
+     * @param depName the depName to set
+     */
+    public void setDepName(String depName) {
+        this.depName = depName;
     }
     /**
      * @return the bodyList

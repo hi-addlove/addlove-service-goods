@@ -180,7 +180,10 @@
                 t.SUPDEPCODE,
                 t.SUPDEPNAME,
                 t.CREATEBILLNO,
-                t.REFBILLNO
+                t.REFBILLNO,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME
     From TORDTHAPPLYHEAD t
     Where t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
@@ -229,7 +232,10 @@
         TJDATE,
         TJRID,
         TJRCODE,
-        TJRNAME
+        TJRNAME,
+        DEPID,
+        DEPCODE,
+        DEPNAME
     )
     VALUES
     (
@@ -257,7 +263,10 @@
         to_date(#{tjDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'),
         #{tjrId,jdbcType=NUMERIC},
         #{tjrCode,jdbcType=VARCHAR},
-        #{tjrName,jdbcType=VARCHAR}
+        #{tjrName,jdbcType=VARCHAR},
+        #{depId,jdbcType=NUMERIC},
+        #{depCode,jdbcType=VARCHAR},
+        #{depName,jdbcType=VARCHAR}
     )
   </insert>
   
