@@ -280,6 +280,7 @@
            t.JTAXTOTAL,
            t.CJTOTAL,
            t.PSCOST,
+           t.SHRDATE,
            t1.SERIALNO,
            t1.TOSERIALNO,
            t1.PLUID,

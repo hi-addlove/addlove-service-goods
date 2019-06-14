@@ -58,7 +58,7 @@ public class AddloveServiceGoodsApplicationTests {
     @Test
     public void testQueryOrderThDetail() {
         OrdJhQueryDetailReq req = new OrdJhQueryDetailReq();
-        req.setBillNo("1THSQ201906110013");
+        req.setBillNo("1THSQ201906130002");
         ResponseMessage res = this.ordThApplyController.queryOrderThDetail(req);
         JSONObject json = (JSONObject) res.getData();
         System.out.println(json);

@@ -233,6 +233,11 @@ public class OrdThApplyController extends BaseController{
             JSONArray bodyArray = new JSONArray();
             for (Map<String, Object> map : resultList) {
                 JSONObject bodyJson = new JSONObject();
+                for (Map.Entry<String, Object> entry : map.entrySet()) {
+                    if ("SQTHCOUNT2".equals(entry.getKey().toString().trim())) {
+                        bodyJson.put("sqThCount", entry.getValue());
+                    }
+                }
                 bodyJson.put("serialNo", map.get("SERIALNO"));
                 bodyJson.put("pluCode", map.get("PLUCODE"));
                 bodyJson.put("pluName", map.get("PLUNAME"));
@@ -241,8 +246,11 @@ public class OrdThApplyController extends BaseController{
                 bodyJson.put("checkUserCode", map.get("CHECKUSERCODE2"));
                 bodyJson.put("checkUserName", map.get("CHECKUSERNAME2"));
                 bodyJson.put("checkDate", map.get("CHECKDATE2"));
-                bodyJson.put("sqThCount", map.get("SQThCOUNT2"));
                 bodyJson.put("thCount", map.get("THCOUNT2"));
+                bodyJson.put("supCode", map.get("SUPCODE"));
+                bodyJson.put("supName", map.get("SUPNAME"));
+                bodyJson.put("supCkCode", map.get("SUPCKCODE"));
+                bodyJson.put("supCkName", map.get("SUPCKNAME"));
                 bodyArray.add(bodyJson);
             }
             backJson.put("bodyInfo", bodyArray);

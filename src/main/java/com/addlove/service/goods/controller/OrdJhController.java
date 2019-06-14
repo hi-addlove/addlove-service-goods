@@ -101,6 +101,7 @@ public class OrdJhController extends BaseController{
             headJson.put("jtaxTotal", headMap.get("JTAXTOTAL"));
             headJson.put("cjTotal", headMap.get("CJTOTAL"));
             headJson.put("psCost", headMap.get("PSCOST"));
+            headJson.put("shrDate", headMap.get("SHRDATE"));
             backJson.put("headInfo", headJson);
             JSONArray bodyArray = new JSONArray();
             for (Map<String, Object> map : resultList) {

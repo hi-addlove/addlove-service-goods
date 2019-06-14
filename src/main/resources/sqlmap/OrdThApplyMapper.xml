@@ -361,6 +361,8 @@
            t.SUPDEPNAME,
            t.CREATEBILLNO,
            t.REFBILLNO,
+           t.SUPCODE,
+           t.SUPNAME,
            t1.SERIALNO,
            t1.PLUCODE,
            t1.PLUNAME,
