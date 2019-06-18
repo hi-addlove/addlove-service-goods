@@ -220,7 +220,7 @@
                 t.CJTOTAL,
                 t.PSCOST
     From TORDJHHEAD t
-    Where t.YWTYPE = '0908'
+    Where t.YWTYPE = #{queryModel.ywType,jdbcType=VARCHAR}
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
         and t.BILLNO = #{queryModel.billNo,jdbcType=VARCHAR}
     </if>

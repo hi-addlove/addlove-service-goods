@@ -21,7 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 
 /**
- * 配送验收控制层
+ * 配送验收/无采购验收控制层
  * @author lw
  *
  */
@@ -32,7 +32,7 @@ public class OrdJhController extends BaseController{
     private OrdJhService ordJhService;
     
     /**
-     * 分页查询配送验收单
+     * 分页查询配送验收单/无采购验收单
      * @param req
      * @return ResponseMessage
      */
@@ -52,6 +52,7 @@ public class OrdJhController extends BaseController{
             queryModel.setEndDate(req.getEndDate() + " 23:59:59");
         }
         queryModel.setTag(req.getTag());
+        queryModel.setYwType(req.getYwType());
         List<JSONObject> backList = this.ordJhService.queryOrdJhHeadModelByPage(queryModel);
         PageModel pageModel = new PageModel();
         PageInfo<JSONObject> page = new PageInfo<>(backList);
@@ -63,7 +64,7 @@ public class OrdJhController extends BaseController{
     }
     
     /**
-     * 查询配送验收单详情
+     * 查询配送验收单/无采购验收单详情
      * @param req
      * @return queryOrderJhDetail
      */

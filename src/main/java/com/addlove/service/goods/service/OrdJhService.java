@@ -16,7 +16,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 
 /**
- * 配送验收逻辑层
+ * 配送验收/无采购验收逻辑层
  * @author lw
  *
  */

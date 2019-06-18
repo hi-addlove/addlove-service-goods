@@ -15,6 +15,8 @@ public class OrdJhQueryPageModel {
     private String endDate;
     /**收货状态：0-未验收；1-正常验收；2-异常验收 */
     private String tag;
+    /**0904-物流采购验收 0905-门店采购验收 0906-无采购验收 0907-直送验收 0908-配送验收 */
+    private String ywType;
     
     /**
      * @return the pageNo
@@ -99,5 +101,17 @@ public class OrdJhQueryPageModel {
      */
     public void setTag(String tag) {
         this.tag = tag;
+    }
+    /**
+     * @return the ywType
+     */
+    public String getYwType() {
+        return ywType;
+    }
+    /**
+     * @param ywType the ywType to set
+     */
+    public void setYwType(String ywType) {
+        this.ywType = ywType;
     }
 }
