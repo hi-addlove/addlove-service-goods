@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.addlove.service.goods.constants.GoodsCommonConstants.BillType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.ModelTags;
 import com.addlove.service.goods.constants.GoodsOrdThConstants.ApplyStatus;
-import com.addlove.service.goods.constants.GoodsOrdThConstants.BillType;
 import com.addlove.service.goods.constants.GoodsOrdThConstants.YwType;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.OrdJhBodyModel;

@@ -1,28 +1,29 @@
 package com.addlove.service.goods.constants;
 /**
- * 退货申请枚举类
+ * 配送验收枚举类
  * @author lw
  *
  */
-public interface GoodsOrdThConstants {
+public interface GoodsCommonConstants {
     /**
-     * 退货申请业务类型
+     * 单据类型
      * @author lw
      *
      */
-    public enum YwType{
+    public enum BillType{
         /**
          * 退货申请业务类型
          */
-        SHOP_PURCHASE_RETURN("0911", "门店采购退货"),
-        SHOP_TO_ZB("0912", "门店采购退货"),
-        SHOP_TO_SUPPLIER("0913", "门店采购退货"),
-        ZB_PURCHASE_RETURN("0914", "门店采购退货");
+        RETURN_APPLY("0918", "退货申请"),
+        /**
+         * 验收申请单据类型
+         */
+        ACCEPTANCE_APPLY("0904", "验收申请");
         
         private String value;
         private String name;
         
-        private YwType(String value, String name) {
+        private BillType(String value, String name) {
             this.value = value;
             this.name = name;
         }
@@ -57,24 +58,28 @@ public interface GoodsOrdThConstants {
     }
     
     /**
-     * 申请状态:0-未申请,1-已申请,2-退货中,3-退货完毕,9-驳回
+     * 存储过程结果
      * @author lw
      *
      */
-    public enum ApplyStatus{
+    public enum ProcedureResult {
         /**
-         * 申请状态
+         * 1-执行成功
          */
-        NOT_APPLY("0", "未申请"),
-        HAVE_APPLYED("1", "已申请"),
-        RETURN_ING("2", "退货中"),
-        RETURN_OVER("3", "退货完毕"),
-        REJECT("9", "驳回");
+        EXEC_SUCCESS(0, "执行成功"),
+        /**
+         * -1-错误：记录日志，返回错误信息
+         */
+        EXEC_ERROR_RECORD(-1, "错误：记录日志，返回错误信息"),
+        /**
+         * -2-错误：中途退出，返回错误信息
+         */
+        EXEC_ERROR_EXIT(-2, "错误：中途退出，返回错误信息");
         
-        private String value;
+        private int value;
         private String name;
         
-        private ApplyStatus(String value, String name) {
+        private ProcedureResult(int value, String name) {
             this.value = value;
             this.name = name;
         }
@@ -82,14 +87,14 @@ public interface GoodsOrdThConstants {
         /**
          * @return the value
          */
-        public String getValue() {
+        public int getValue() {
             return value;
         }
 
         /**
          * @param value the value to set
          */
-        public void setValue(String value) {
+        public void setValue(int value) {
             this.value = value;
         }
 

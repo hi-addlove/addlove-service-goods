@@ -218,7 +218,8 @@
                 t.WCOST,
                 t.JTAXTOTAL,
                 t.CJTOTAL,
-                t.PSCOST
+                t.PSCOST,
+                t.DATASTATUS
     From TORDJHHEAD t
     Where t.YWTYPE = #{queryModel.ywType,jdbcType=VARCHAR}
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
@@ -346,4 +347,203 @@
      #{item.billNo,jdbcType=VARCHAR}
    </foreach>
   </select>
+  
+  
+  <!-- 插入验收主表 -->
+  <insert id="insertOrdJhHead" parameterType="com.addlove.service.goods.model.OrdJhHeadModel">
+    INSERT INTO TORDJHHEAD
+    (
+        BILLNO,
+        LRDATE,
+        USERID,
+        USERCODE,
+        USERNAME,
+        YWTYPE,
+        ORGCODE,
+        ORGNAME,
+        INORGCODE,
+        HORGCODE,
+        DEPID,
+        DEPCODE,
+        DEPNAME,
+        SUPCODE,
+        SUPNAME,
+        CNTID,
+        HTCODE,
+        HTNAME,
+        JHCOUNT,
+        HCOST,
+        WCOST,
+        JTAXTOTAL,
+        PSCOST,
+        STOTAL,
+        CJTOTAL,
+        REMARK,
+        DATASTATUS,
+        TAG,
+        TELEPHONE,
+        FAX,
+        LINKMAN,
+        LKMTEL
+    )
+    VALUES
+    (
+        #{billNo,jdbcType=VARCHAR},
+        to_date(#{lrDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'),
+        #{userId,jdbcType=NUMERIC},
+        #{userCode,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR},
+        #{ywType,jdbcType=VARCHAR},
+        #{orgCode,jdbcType=VARCHAR},
+        #{orgName,jdbcType=VARCHAR},
+        #{inOrgCode,jdbcType=VARCHAR},
+        #{hOrgCode,jdbcType=VARCHAR},
+        #{depId,jdbcType=NUMERIC},
+        #{depCode,jdbcType=VARCHAR},
+        #{depName,jdbcType=VARCHAR},
+        #{supCode,jdbcType=VARCHAR},
+        #{supName,jdbcType=VARCHAR},
+        #{cntId,jdbcType=NUMERIC},
+        #{htCode,jdbcType=VARCHAR},
+        #{htName,jdbcType=VARCHAR},
+        #{jhCount,jdbcType=NUMERIC},
+        #{hCost,jdbcType=NUMERIC},
+        #{wCost,jdbcType=NUMERIC},
+        #{jtaxTotal,jdbcType=NUMERIC},
+        #{psCost,jdbcType=NUMERIC},
+        #{sTotal,jdbcType=NUMERIC},
+        #{cjTotal,jdbcType=NUMERIC},
+        #{remark,jdbcType=VARCHAR},
+        #{dataStatus,jdbcType=VARCHAR},
+        #{tag,jdbcType=VARCHAR},
+        #{telePhone,jdbcType=VARCHAR},
+        #{fax,jdbcType=VARCHAR},
+        #{linkMan,jdbcType=VARCHAR},
+        #{lkmTel,jdbcType=VARCHAR}
+    )
+  </insert>
+  
+  <!-- 插入验收明细表 -->
+  <insert id="insertOrdJhBody">
+    INSERT INTO TORDJHBODY
+    (
+        BILLNO,
+        SERIALNO,
+        TOSERIALNO,
+        PLUID,
+        PLUCODE,
+        PLUNAME,
+        EXPLUCODE,
+        EXPLUNAME,
+        BARCODE,
+        SPEC,
+        UNIT,
+        CARGONO,
+        PLUTYPE,
+        DEPID,
+        DEPCODE,
+        DEPNAME,
+        HJPRICE,
+        WJPRICE,
+        PSPRICE,
+        PRICE,
+        JTAXRATE,
+        PACKUNIT,
+        PACKQTY,
+        PACKCOUNT,
+        SGLCOUNT,
+        JHCOUNT,
+        PSSHCOUNT,
+        HCOST,
+        WCOST,
+        JTAXTOTAL,
+        PSCOST,
+        STOTAL,
+        CJTOTAL,
+        CJRATE,
+        SCDATE,
+        DQDATE,
+        BZDAYS,
+        CXINFO,
+        REMARK,
+        HJSTOTAL,
+        WJSTOTAL,
+        WPSPRICE,
+        WPSCOST,
+        XTAXRATE,
+        XTAXTOTAL,
+        MATERIALCODE
+    )
+    <foreach collection="bodys" item="body" separator="union all">
+    (
+        SELECT
+          #{body.billNo,jdbcType=VARCHAR},
+          #{body.serialNo,jdbcType=NUMERIC},
+          #{body.toSerialNo,jdbcType=NUMERIC},
+          #{body.pluId,jdbcType=VARCHAR},
+          #{body.pluCode,jdbcType=VARCHAR},
+          #{body.pluName,jdbcType=VARCHAR},
+          #{body.exPluCode,jdbcType=VARCHAR},
+          #{body.exPluName,jdbcType=VARCHAR},
+          #{body.barCode,jdbcType=VARCHAR},
+          #{body.spec,jdbcType=VARCHAR},
+          #{body.unit,jdbcType=VARCHAR},
+          #{body.carGoNo,jdbcType=VARCHAR},
+          #{body.pluType,jdbcType=VARCHAR},
+          #{body.depId,jdbcType=NUMERIC},
+          #{body.depCode,jdbcType=VARCHAR},
+          #{body.depName,jdbcType=VARCHAR},
+          #{body.hjPrice,jdbcType=NUMERIC},
+          #{body.wjPrice,jdbcType=NUMERIC},
+          #{body.psPrice,jdbcType=NUMERIC},
+          #{body.price,jdbcType=NUMERIC},
+          #{body.jTaxRate,jdbcType=NUMERIC},
+          #{body.packUnit,jdbcType=NUMERIC},
+          #{body.packQty,jdbcType=NUMERIC},
+          #{body.packCount,jdbcType=NUMERIC},
+          #{body.sglCount,jdbcType=NUMERIC},
+          #{body.jhCount,jdbcType=NUMERIC},
+          #{body.psShCount,jdbcType=NUMERIC},
+          #{body.hCost,jdbcType=NUMERIC},
+          #{body.wCost,jdbcType=NUMERIC},
+          #{body.jTaxTotal,jdbcType=NUMERIC},
+          #{body.psCost,jdbcType=NUMERIC},
+          #{body.sTotal,jdbcType=NUMERIC},
+          #{body.cjTotal,jdbcType=NUMERIC},
+          #{body.cjRate,jdbcType=NUMERIC},
+          #{body.scDate,jdbcType=VARCHAR},
+          #{body.dqDate,jdbcType=VARCHAR},
+          #{body.bzDays,jdbcType=NUMERIC},
+          #{body.cxInfo,jdbcType=VARCHAR},
+          #{body.remark,jdbcType=VARCHAR},
+          #{body.hjsTotal,jdbcType=NUMERIC},
+          #{body.wjsTotal,jdbcType=NUMERIC},
+          #{body.wPsPrice,jdbcType=NUMERIC},
+          #{body.wPsCost,jdbcType=NUMERIC},
+          #{body.xTaxRate,jdbcType=NUMERIC},
+          #{body.xTaxTotal,jdbcType=NUMERIC},
+          #{body.materialCode,jdbcType=VARCHAR}
+        FROM DUAL
+    )
+    </foreach>
+  </insert>
+  
+  <!-- 更新记账信息 -->
+  <update id="updateJhHeadAccountInfo">
+    Update TORDJHHEAD
+    Set TJDATE=to_date(#{tjDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), TJRID=#{tjrId,jdbcType=NUMERIC}, TJRCODE=#{tjrCode,jdbcType=VARCHAR}, 
+    TJRNAME=#{tjrName,jdbcType=VARCHAR}, JZDATE=to_date(#{jzDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), JZRID=#{jzrId,jdbcType=NUMERIC}, 
+    JZRCODE=#{jzrCode,jdbcType=VARCHAR}, JZRNAME=#{jzrName,jdbcType=VARCHAR}, DATASTATUS=#{dataStatus,jdbcType=VARCHAR}
+    Where BILLNO = #{billNo,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 删除主表 -->
+  <delete id="deleteJhHeadModel" parameterType="java.lang.String">
+    DELETE FROM TORDJHHEAD WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 删除明细表 -->
+  <delete id="deleteJhBodyModel" parameterType="java.lang.String">
+    DELETE FROM TORDJHBODY WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
 </mapper>

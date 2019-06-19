@@ -48,4 +48,34 @@ public interface OrdJhDao {
      * @return Map<String, Object>
      */
     List<Map<String, Object>> queryFhDepCode(@Param("list") List<Map<String, Object>> billNos);
+    
+    /**
+     * 插入验收主表
+     * @param headModel
+     */
+    void insertOrdJhHead(OrdJhHeadModel headModel);
+    
+    /**
+     * 插入验收明细表
+     * @param bodyList
+     */
+    void insertOrdJhBody(@Param("bodys") List<OrdJhBodyModel> bodyList);
+    
+    /**
+     * 更新记账信息
+     * @param model
+     */
+    void updateJhHeadAccountInfo(OrdJhHeadModel model);
+    
+    /**
+     * 删除主表
+     * @param billNo
+     */
+    void deleteJhHeadModel(String billNo);
+    
+    /**
+     * 删除明细表
+     * @param billNo
+     */
+    void deleteJhBodyModel(String billNo);
 }

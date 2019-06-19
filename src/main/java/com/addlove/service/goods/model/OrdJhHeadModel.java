@@ -1,4 +1,7 @@
 package com.addlove.service.goods.model;
+
+import java.util.List;
+
 /**
  * 验收单主表
  * @author lw
@@ -764,6 +767,8 @@ public class OrdJhHeadModel {
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
     private String scmqrOpinion;
+    
+    private List<OrdJhBodyModel> bodyList;
 
     /**
      * @return the billNo
@@ -2093,5 +2098,19 @@ public class OrdJhHeadModel {
      */
     public void setScmqrOpinion(String scmqrOpinion) {
         this.scmqrOpinion = scmqrOpinion;
+    }
+
+    /**
+     * @return the bodyList
+     */
+    public List<OrdJhBodyModel> getBodyList() {
+        return bodyList;
+    }
+
+    /**
+     * @param bodyList the bodyList to set
+     */
+    public void setBodyList(List<OrdJhBodyModel> bodyList) {
+        this.bodyList = bodyList;
     }
 }

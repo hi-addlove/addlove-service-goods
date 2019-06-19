@@ -8,7 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.addlove.service.goods.constants.GoodsCommonConstants.ProcedureResult;
+import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.dao.OrdJhDao;
+import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.model.OrdJhBodyModel;
 import com.addlove.service.goods.model.OrdJhHeadModel;
 import com.addlove.service.goods.model.OrdJhQueryPageModel;
@@ -24,6 +28,9 @@ import com.github.pagehelper.PageHelper;
 public class OrdJhService {
     @Autowired
     private OrdJhDao ordJhDao;
+    
+    @Autowired
+    private GoodsCommonService commonService;
     
     /**
      * 分页查询配送验收数据
@@ -99,5 +106,64 @@ public class OrdJhService {
     @Transactional
     public void updateJhBodyPsShCount(List<OrdJhBodyModel> jhModelList) {
         this.ordJhDao.updateJhBodyPsShCount(jhModelList);
+    }
+    
+    /**
+     * 插入验收单
+     * @param headModel
+     */
+    @Transactional
+    public void insertOrdJh(OrdJhHeadModel headModel) {
+        this.ordJhDao.insertOrdJhHead(headModel);
+        this.ordJhDao.insertOrdJhBody(headModel.getBodyList());
+    }
+    
+    /**
+     * 编辑整个验收信息
+     * @param headModel
+     */
+    @Transactional
+    public void updateAllJhInfo(OrdJhHeadModel headModel) {
+        this.ordJhDao.deleteJhHeadModel(headModel.getBillNo());
+        this.ordJhDao.deleteJhBodyModel(headModel.getBillNo());
+        this.ordJhDao.insertOrdJhHead(headModel);
+        this.ordJhDao.insertOrdJhBody(headModel.getBodyList());
+    }
+    
+    /**
+     * 更新jhHead记账信息后完成记账
+     * @param model
+     */
+    @Transactional
+    public void updateAndExecAccount(OrdJhHeadModel headModel) {
+        this.ordJhDao.updateJhHeadAccountInfo(headModel);
+        Map<String, Object> accountMap = new HashMap<String, Object>();
+        accountMap.put("ps_BillNo", headModel.getBillNo());
+        accountMap.put("ps_YwType", headModel.getYwType());
+        accountMap.put("pi_UserId", headModel.getJzrId());
+        accountMap.put("ps_UserCode", headModel.getJzrCode());
+        accountMap.put("ps_UserName", headModel.getJzrName());
+        accountMap.put("pd_JzDate", headModel.getJzDate());
+        Map<String, Object> resultMap = this.commonService.execAccountByCallProcedure(accountMap);
+        if (null == resultMap) {
+            throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
+                    GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
+        }
+        int resultCode = null != resultMap.get("pi_Result") ? Integer.valueOf(resultMap.get("pi_Result").toString()) : -1;
+        if (ProcedureResult.EXEC_ERROR_RECORD.getValue() == resultCode 
+                || ProcedureResult.EXEC_ERROR_EXIT.getValue() == resultCode) {
+            throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
+                    GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
+        }
+    }
+    
+    /**
+     * 删除验收单数据
+     * @param billNo
+     */
+    @Transactional
+    public void deleteJhData(String billNo) {
+        this.ordJhDao.deleteJhHeadModel(billNo);
+        this.ordJhDao.deleteJhBodyModel(billNo);
     }
 }

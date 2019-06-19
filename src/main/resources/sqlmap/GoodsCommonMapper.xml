@@ -323,4 +323,11 @@
     select t.ORGCODE,t.INORGCODE,t.ORGNAME,t.PREORGCODE,t.ORGCLASS,t.FORGCODE,t.ZBORGCODE
     From TORGMANAGE t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR}
   </select>
+  
+  <!-- 调用存储过程生成单据号  -->
+  <select id="getBillNoByCallProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
+    <![CDATA[
+       {CALL sSysGetBillNo(#{ps_BillType,mode=IN,jdbcType=VARCHAR}, #{ps_BillNo,mode=OUT,jdbcType=VARCHAR})}
+    ]]>
+  </select>
 </mapper>

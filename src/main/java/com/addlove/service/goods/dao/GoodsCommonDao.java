@@ -1,6 +1,7 @@
 package com.addlove.service.goods.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -54,4 +55,16 @@ public interface GoodsCommonDao {
      * @return OrgManageModel
      */
     OrgManageModel getOrgModel(String orgCode);
+    
+    /**
+     * 调用存储过程生成单据号
+     * @param map
+     */
+    void getBillNoByCallProcedure(Map<String, Object> map);
+    
+    /**
+     * 调用存储过程进行单据记账
+     * @param map
+     */
+    void execAccountByCallProcedure(Map<String, Object> map);
 }
