@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.addlove.service.goods.model.CntContractModel;
 import com.addlove.service.goods.model.EtpSupplierModel;
+import com.addlove.service.goods.model.OrgDeptModel;
+import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.SkuPluModel;
 
 /**
@@ -38,4 +40,18 @@ public interface GoodsCommonDao {
      * @return List<SkuPluModel>
      */
     List<SkuPluModel> getSkuList(@Param("orgCode")String orgCode, @Param("cntId")Long cntId);
+    
+    /**
+     * 获取部门
+     * @param orgCode
+     * @return List<OrgDeptModel>
+     */
+    List<OrgDeptModel> getDeptList(String orgCode);
+    
+    /**
+     * 获取组织
+     * @param orgCode
+     * @return OrgManageModel
+     */
+    OrgManageModel getOrgModel(String orgCode);
 }

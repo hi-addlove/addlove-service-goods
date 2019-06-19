@@ -13,6 +13,7 @@ import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.CntContractModel;
 import com.addlove.service.goods.model.EtpSupplierModel;
+import com.addlove.service.goods.model.OrgDeptModel;
 import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.model.valid.CommonOrgAndSupAndCntReq;
 import com.addlove.service.goods.service.GoodsCommonService;
@@ -104,5 +105,22 @@ public class GoodsCommonController extends BaseController{
         }
        List<SkuPluModel> skuList = this.commonService.getSkuList(orgCode, cntId);
        return ResponseMessage.ok(skuList);
+    }
+    
+    /**
+     * 通过组织编码获取部门
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getDeptList", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getDeptList(@RequestBody CommonOrgAndSupAndCntReq req) {
+        String orgCode = req.getOrgCode();
+        if (StringUtils.isBlank(orgCode)) {
+            throw new ServiceException(GoodsResponseCode.ORGCODE_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.ORGCODE_NOT_BLANK.getMsg());
+        }
+        List<OrgDeptModel> deptList = this.commonService.getDeptList(orgCode);
+        return ResponseMessage.ok(deptList);
     }
 }

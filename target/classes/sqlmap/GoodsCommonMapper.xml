@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.addlove.service.goods.dao.GoodsCommonDao">
    <resultMap id="BaseResultMapSupplier" type="com.addlove.service.goods.model.EtpSupplierModel">
-    <id column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
-    <id column="ETPCODE" jdbcType="VARCHAR" property="etpCode" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ETPCODE" jdbcType="VARCHAR" property="etpCode" />
     <result column="ETPNAME" jdbcType="VARCHAR" property="etpName" />
     <result column="ETPORGCODE" jdbcType="VARCHAR" property="etpOrgCode" />
     <result column="DATASTATUS" jdbcType="VARCHAR" property="dataStatus" />
@@ -35,7 +35,7 @@
   </resultMap>
   
   <resultMap id="BaseResultMapCnt" type="com.addlove.service.goods.model.CntContractModel">
-    <id column="CNTID" jdbcType="NUMERIC" property="cntId" />
+    <result column="CNTID" jdbcType="NUMERIC" property="cntId" />
     <result column="HTCODE" jdbcType="VARCHAR" property="htCode" />
     <result column="HTNAME" jdbcType="VARCHAR" property="htName" />
     <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
@@ -100,7 +100,7 @@
   </resultMap>
   
   <resultMap id="BaseResultMapSku" type="com.addlove.service.goods.model.SkuPluModel">
-    <id column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
     <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
     <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
     <result column="PLUENAME" jdbcType="VARCHAR" property="pluEName" />
@@ -187,6 +187,57 @@
     <result column="PLUDESC" jdbcType="VARCHAR" property="pluDesc" />
   </resultMap>
   
+  <resultMap id="BaseResultMapOrg" type="com.addlove.service.goods.model.OrgManageModel">
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgcode" />
+    <result column="INORGCODE" jdbcType="VARCHAR" property="inorgcode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgname" />
+    <result column="AREA" jdbcType="NUMERIC" property="area" />
+    <result column="ORGTYPE" jdbcType="VARCHAR" property="orgtype" />
+    <result column="PREORGCODE" jdbcType="VARCHAR" property="preorgcode" />
+    <result column="ORGCLASS" jdbcType="VARCHAR" property="orgclass" />
+    <result column="ISMANASTOCK" jdbcType="VARCHAR" property="ismanastock" />
+    <result column="FORGCODE" jdbcType="VARCHAR" property="forgcode" />
+    <result column="ZBORGCODE" jdbcType="VARCHAR" property="zborgcode" />
+    <result column="WLAREACODE" jdbcType="VARCHAR" property="wlareacode" />
+    <result column="ACCLEVEL" jdbcType="VARCHAR" property="acclevel" />
+    <result column="DBSVRNAME" jdbcType="VARCHAR" property="dbsvrname" />
+    <result column="DBNAME" jdbcType="VARCHAR" property="dbname" />
+    <result column="COMMMODE" jdbcType="VARCHAR" property="commmode" />
+    <result column="BUSINESSMODE" jdbcType="VARCHAR" property="businessmode" />
+    <result column="FACECODE" jdbcType="VARCHAR" property="facecode" />
+    <result column="COMMPATHOUT" jdbcType="VARCHAR" property="commpathout" />
+    <result column="COMMPATHIN" jdbcType="VARCHAR" property="commpathin" />
+    <result column="YHPRI" jdbcType="NUMERIC" property="yhpri" />
+    <result column="ISMBZQ" jdbcType="VARCHAR" property="ismbzq" />
+    <result column="RKBJRATE" jdbcType="NUMERIC" property="rkbjrate" />
+    <result column="CKBJRATE" jdbcType="NUMERIC" property="ckbjrate" />
+    <result column="GQBJRATE" jdbcType="NUMERIC" property="gqbjrate" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="DBID" jdbcType="VARCHAR" property="dbid" />
+    <result column="ISENABLE" jdbcType="VARCHAR" property="isenable" />
+    <result column="PRICEMODE" jdbcType="VARCHAR" property="pricemode" />
+    <result column="POSCOUNT" jdbcType="NUMERIC" property="poscount" />
+    <result column="POSCOUNTVERIFY" jdbcType="VARCHAR" property="poscountverify" />
+    <result column="SHORPGRADE" jdbcType="VARCHAR" property="shorpgrade" />
+    <result column="MODALSHOP" jdbcType="VARCHAR" property="modalshop" />
+    <result column="QUOTEAREA" jdbcType="VARCHAR" property="quotearea" />
+    <result column="MACHINECONFIG" jdbcType="VARCHAR" property="machineconfig" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDept" type="com.addlove.service.goods.model.OrgDeptModel">
+    <result column="DEPID" jdbcType="NUMERIC" property="depid" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgcode" />
+    <result column="ORGCLASS" jdbcType="VARCHAR" property="orgclass" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depcode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depname" />
+    <result column="DEPENAME" jdbcType="VARCHAR" property="depename" />
+    <result column="AREA" jdbcType="NUMERIC" property="area" />
+    <result column="ISLAST" jdbcType="VARCHAR" property="islast" />
+    <result column="ISYW" jdbcType="VARCHAR" property="isyw" />
+    <result column="ISACTIVE" jdbcType="VARCHAR" property="isactive" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
   <sql id="Base_Column_List_Supplier">
     ORGCODE, ETPCODE, ETPNAME, ETPORGCODE, DATASTATUS, YWSTATUS, ETPATTRIBUTE, ETPTYPE, 
     ETPLEVEL, LOGINDATE, LOGOUTDATE, JSETPCODE, ISQK, QKTOTAL, PDTOTAL, JHTOTAL, XSTOTAL, 
@@ -218,9 +269,22 @@
     ISONLINE, LINEDATE, PLUDESC
   </sql>
   
+  <sql id="Base_Column_List_Org">
+    ORGCODE, INORGCODE, ORGNAME, AREA, ORGTYPE, PREORGCODE, ORGCLASS, ISMANASTOCK, FORGCODE, 
+    ZBORGCODE, WLAREACODE, ACCLEVEL, DBSVRNAME, DBNAME, COMMMODE, BUSINESSMODE, FACECODE, 
+    COMMPATHOUT, COMMPATHIN, YHPRI, ISMBZQ, RKBJRATE, CKBJRATE, GQBJRATE, REMARK, DBID, 
+    ISENABLE, PRICEMODE, POSCOUNT, POSCOUNTVERIFY, SHORPGRADE, MODALSHOP, QUOTEAREA, 
+    MACHINECONFIG
+  </sql>
+  
+  <sql id="Base_Column_List_Dept">
+    DEPID, ORGCODE, ORGCLASS, DEPCODE, DEPNAME, DEPENAME, AREA, ISLAST, ISYW, ISACTIVE, 
+    REMARK
+  </sql>
+  
   <!-- 获取供应商 -->
   <select id="getSupplierList" parameterType="java.lang.String" resultMap="BaseResultMapSupplier">
-    Select Distinct t.ETPCODE, t.ETPNAME, t.ETPORGCODE From TETPSUPPLIER t
+    Select Distinct t.ETPCODE, t.ETPNAME, t.ETPORGCODE,t.ETPORGCODE From TETPSUPPLIER t
     Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t.ISACTIVE = '1'
   </select>
   
@@ -246,5 +310,17 @@
     And t2.PLUID=t.PLUID and t2.ISJH='1') And 
     Exists(Select t3.PLUID from TCNTPLU t3,TCNTCONTRACT t4 Where t3.PLUID=t.PLUID And t3.CNTID=t4.CNTID
     And t4.ISMNGJPRICE in ('0','1','2') and t4.CNTID = #{cntId,jdbcType=NUMERIC})
+  </select>
+  
+  <!-- 获取部门 -->
+  <select id="getDeptList" parameterType="java.lang.String" resultMap="BaseResultMapDept">
+    select t.DEPID,t.ORGCODE,t.ORGCLASS,t.DEPCODE,t.DEPNAME,t.DEPENAME
+    From TORGDEPT t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 获取组织 -->
+  <select id="getOrgModel" parameterType="java.lang.String" resultMap="BaseResultMapOrg">
+    select t.ORGCODE,t.INORGCODE,t.ORGNAME,t.PREORGCODE,t.ORGCLASS,t.FORGCODE,t.ZBORGCODE
+    From TORGMANAGE t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR}
   </select>
 </mapper>
