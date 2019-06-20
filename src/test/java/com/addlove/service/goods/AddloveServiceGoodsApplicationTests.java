@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.addlove.service.goods.constants.GoodsCommonConstants.BillType;
+import com.addlove.service.goods.constants.GoodsOrdJhConstants.YwType;
 import com.addlove.service.goods.controller.OrdJhController;
 import com.addlove.service.goods.controller.OrdThApplyController;
 import com.addlove.service.goods.message.ResponseMessage;
@@ -19,7 +20,7 @@ import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdJhQueryPageReq;
 import com.addlove.service.goods.model.valid.OrdThApplyBodyDiffReq;
 import com.addlove.service.goods.model.valid.OrdThApplyHeadDiffReq;
-import com.addlove.service.goods.service.OrdThApplyService;
+import com.addlove.service.goods.service.GoodsCommonService;
 import com.alibaba.fastjson.JSONObject;
 
 @RunWith(SpringRunner.class)
@@ -29,10 +30,10 @@ public class AddloveServiceGoodsApplicationTests {
     private OrdJhController ordJhController;
     
     @Autowired
-    private OrdThApplyService ordThApplyService;
+    private OrdThApplyController ordThApplyController;
     
     @Autowired
-    private OrdThApplyController ordThApplyController;
+    private GoodsCommonService commonService;
     
     @Test
     public void contextLoads() {}
@@ -41,6 +42,7 @@ public class AddloveServiceGoodsApplicationTests {
     public void testQueryOrderJh() {
         OrdJhQueryPageReq req = new OrdJhQueryPageReq();
         req.setOrgCode("111");
+        req.setYwType(YwType.DELIVERY_ACCEPTANCE.getValue());
         ResponseMessage res = this.ordJhController.queryOrderJh(req);
         PageModel model = (PageModel) res.getData();
         System.out.println(model.getResult());
@@ -67,9 +69,9 @@ public class AddloveServiceGoodsApplicationTests {
     @Test
     public void testGetBillNo() {
         Map<String, Object> map = new HashMap<>();
-        map.put("ps_BillType", BillType.RETURN_APPLY.getValue());
+        map.put("ps_BillType", BillType.ACCEPTANCE_APPLY.getValue());
         //map.put("ps_BillNo", "");
-        String billNo = this.ordThApplyService.getBillNoByCallProcedure(map);
+        String billNo = this.commonService.getBillNoByCallProcedure(map);
         System.out.println("billNo=================" + billNo);
     }
     

@@ -14,6 +14,7 @@ import com.addlove.service.goods.model.EtpSupplierModel;
 import com.addlove.service.goods.model.OrgDeptModel;
 import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.SkuPluModel;
+import com.addlove.service.goods.util.LoggerEnhance;
 
 /**
  * 公共service层：如供应商、合同、商品等
@@ -85,7 +86,7 @@ public class GoodsCommonService {
         long startTime = System.currentTimeMillis();
         this.commonDao.getBillNoByCallProcedure(map);
         long endTime = System.currentTimeMillis();
-        LOGGER.info("调用生成单据号存储过程-【CALL sSysGetBillNo()】消耗时间:{}", (endTime - startTime));
+        LoggerEnhance.info(LOGGER, "调用生成单据号存储过程-【CALL sSysGetBillNo()】消耗时间:{}", (endTime - startTime));
         if (null == map || map.isEmpty()) {
             return "";
         }
@@ -102,7 +103,7 @@ public class GoodsCommonService {
         long startTime = System.currentTimeMillis();
         this.commonDao.execAccountByCallProcedure(map);
         long endTime = System.currentTimeMillis();
-        LOGGER.info("调用单据记账存储过程-【CALL PSSY_DB.sStk_LetsGo_ORA()】消耗时间:{}", (endTime - startTime));
+        LoggerEnhance.info(LOGGER, "调用单据记账存储过程-【CALL PSSY_DB.sStk_LetsGo_ORA()】消耗时间:{}", (endTime - startTime));
         return map;
     }
 }

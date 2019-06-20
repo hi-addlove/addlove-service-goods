@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,7 @@ import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.model.OrdJhBodyModel;
 import com.addlove.service.goods.model.OrdJhHeadModel;
 import com.addlove.service.goods.model.OrdJhQueryPageModel;
+import com.addlove.service.goods.util.LoggerEnhance;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 
@@ -26,6 +29,9 @@ import com.github.pagehelper.PageHelper;
  */
 @Service
 public class OrdJhService {
+    /**OrdJhService类日志 */
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrdJhService.class);
+    
     @Autowired
     private OrdJhDao ordJhDao;
     
@@ -155,6 +161,7 @@ public class OrdJhService {
             throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
                     GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
         }
+        LoggerEnhance.info(LOGGER, "验收单记账结果为--------------------：{}", null != resultMap.get("ps_message") ? resultMap.get("ps_message").toString() : "");
     }
     
     /**

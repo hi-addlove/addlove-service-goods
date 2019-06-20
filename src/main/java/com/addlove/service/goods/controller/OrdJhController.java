@@ -136,6 +136,18 @@ public class OrdJhController extends BaseController{
     }
     
     /**
+     * 删除验收单据
+     * @param req
+     * @return
+     */
+    @RequestMapping(value = "/delOrdJh", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage delOrdJh(@RequestBody @Valid OrdJhQueryDetailReq req) {
+        this.ordJhService.deleteJhData(req.getBillNo());
+        return ResponseMessage.ok();
+    }
+    
+    /**
      * 查询配送验收单/无采购验收单详情
      * @param req
      * @return queryOrderJhDetail
@@ -155,6 +167,12 @@ public class OrdJhController extends BaseController{
             headJson.put("depId", headMap.get("DEPID"));
             headJson.put("depCode", headMap.get("DEPCODE"));
             headJson.put("depName", headMap.get("DEPNAME"));
+            headJson.put("lrDate", headMap.get("LRDATE"));
+            headJson.put("userCode", headMap.get("USERCODE"));
+            headJson.put("userName", headMap.get("USERNAME"));
+            headJson.put("tjDate", headMap.get("TJDATE"));
+            headJson.put("tjrCode", headMap.get("TJRCODE"));
+            headJson.put("tjrName", headMap.get("TJRNAME"));
             headJson.put("jzDate", headMap.get("JZDATE"));
             headJson.put("jzrCode", headMap.get("JZRCODE"));
             headJson.put("jzrName", headMap.get("JZRNAME"));
@@ -259,9 +277,9 @@ public class OrdJhController extends BaseController{
         int saveType = req.getSaveType();
         OrdJhHeadModel headModel = new OrdJhHeadModel();
         headModel.setLrDate(DateUtil.getCurrentTime());
-        headModel.setUserId(123L);
-        headModel.setUserCode("lf0913");
-        headModel.setUserName("李飞");
+        headModel.setUserId(91L);
+        headModel.setUserCode("0000");
+        headModel.setUserName("Admin");
         headModel.setYwType(YwType.NO_PURCHASE_ACCEPTANCE.getValue());
         headModel.setOrgCode(req.getOrgCode());
         headModel.setOrgName(req.getOrgName());
@@ -301,13 +319,13 @@ public class OrdJhController extends BaseController{
         }
         if (saveType == SaveType.EXEC_ACCOUNT.getValue()) {
             headModel.setTjDate(DateUtil.getCurrentTime());
-            headModel.setTjrId(123L);
-            headModel.setTjrCode("lf0913");
-            headModel.setTjrName("李飞");
+            headModel.setTjrId(91L);
+            headModel.setTjrCode("0000");
+            headModel.setTjrName("Admin");
             headModel.setJzDate(DateUtil.getCurrentTime());
-            headModel.setJzrId(123L);
-            headModel.setJzrCode("lf0913");
-            headModel.setJzrName("李飞");
+            headModel.setJzrId(91L);
+            headModel.setJzrCode("0000");
+            headModel.setJzrName("Admin");
             headModel.setDataStatus(DataStatus.CLOSED.getValue());
             headModel.setBillNo(req.getBillNo());
         }
@@ -316,18 +334,17 @@ public class OrdJhController extends BaseController{
         for (OrdJhBodyReq bodyReq : bodyList) {
             OrdJhBodyModel bodyModel = new OrdJhBodyModel();
             bodyModel.setBillNo(headModel.getBillNo());
-            bodyModel.setSerialNo(serialNo++);
-            bodyModel.setToSerialNo(serialNo++);
+            serialNo++;
+            bodyModel.setSerialNo(serialNo);
+            bodyModel.setToSerialNo(serialNo);
             bodyModel.setPluId(bodyReq.getPluId());
             bodyModel.setPluCode(bodyReq.getPluCode());
             bodyModel.setPluName(bodyReq.getPluName());
-            bodyModel.setExPluCode(bodyReq.getExPluCode());
-            bodyModel.setExPluName(bodyReq.getExPluName());
+            bodyModel.setExPluCode("*");
             bodyModel.setBarCode(bodyReq.getBarCode());
             bodyModel.setSpec(bodyReq.getSpec());
             bodyModel.setUnit(bodyReq.getUnit());
             bodyModel.setCarGoNo(bodyReq.getCarGoNo());
-            bodyModel.setPluType(bodyReq.getPluType());
             bodyModel.setDepId(bodyReq.getDepId());
             bodyModel.setDepCode(bodyReq.getDepCode());
             bodyModel.setDepName(bodyReq.getDepName());
@@ -360,7 +377,6 @@ public class OrdJhController extends BaseController{
             bodyModel.setwPsCost(bodyReq.getwPsCost());
             bodyModel.setxTaxRate(bodyReq.getxTaxRate());
             bodyModel.setxTaxTotal(bodyReq.getxTaxTotal());
-            bodyModel.setMaterialCode(bodyReq.getMaterialCode());
             bodyModels.add(bodyModel);
         }
         headModel.setBodyList(bodyModels);

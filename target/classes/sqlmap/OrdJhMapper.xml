@@ -197,6 +197,12 @@
                 t.REFBILLNO,
                 t.ORGCODE,
                 t.ORGNAME,
+                t.LRDATE,
+                t.USERCODE,
+                t.USERNAME,
+                t.TJDATE,
+                t.TJRCODE,
+                t.TJRNAME,
                 t.JZDATE,
                 t.JZRCODE,
                 t.JZRNAME,
@@ -212,6 +218,8 @@
                 t.SUPNAME,
                 t.INORGCODE,
                 t.CNTID,
+                t.HTCODE,
+                t.HTNAME,
                 t.CKCODE,
                 t.CKNAME,
                 t.HCOST,
@@ -262,6 +270,12 @@
            t.DEPID,
            t.DEPCODE,
            t.DEPNAME,
+           t.LRDATE,
+           t.USERCODE,
+           t.USERNAME,
+           t.TJDATE,
+           t.TJRCODE,
+           t.TJRNAME,
            t.JZDATE,
            t.JZRCODE,
            t.JZRNAME,
@@ -378,7 +392,6 @@
    </foreach>
   </select>
   
-  
   <!-- 插入验收主表 -->
   <insert id="insertOrdJhHead" parameterType="com.addlove.service.goods.model.OrdJhHeadModel">
     INSERT INTO TORDJHHEAD
@@ -464,12 +477,10 @@
         PLUCODE,
         PLUNAME,
         EXPLUCODE,
-        EXPLUNAME,
         BARCODE,
         SPEC,
         UNIT,
         CARGONO,
-        PLUTYPE,
         DEPID,
         DEPCODE,
         DEPNAME,
@@ -501,8 +512,7 @@
         WPSPRICE,
         WPSCOST,
         XTAXRATE,
-        XTAXTOTAL,
-        MATERIALCODE
+        XTAXTOTAL
     )
     <foreach collection="bodys" item="body" separator="union all">
     (
@@ -514,12 +524,10 @@
           #{body.pluCode,jdbcType=VARCHAR},
           #{body.pluName,jdbcType=VARCHAR},
           #{body.exPluCode,jdbcType=VARCHAR},
-          #{body.exPluName,jdbcType=VARCHAR},
           #{body.barCode,jdbcType=VARCHAR},
           #{body.spec,jdbcType=VARCHAR},
           #{body.unit,jdbcType=VARCHAR},
           #{body.carGoNo,jdbcType=VARCHAR},
-          #{body.pluType,jdbcType=VARCHAR},
           #{body.depId,jdbcType=NUMERIC},
           #{body.depCode,jdbcType=VARCHAR},
           #{body.depName,jdbcType=VARCHAR},
@@ -551,8 +559,7 @@
           #{body.wPsPrice,jdbcType=NUMERIC},
           #{body.wPsCost,jdbcType=NUMERIC},
           #{body.xTaxRate,jdbcType=NUMERIC},
-          #{body.xTaxTotal,jdbcType=NUMERIC},
-          #{body.materialCode,jdbcType=VARCHAR}
+          #{body.xTaxTotal,jdbcType=NUMERIC}
         FROM DUAL
     )
     </foreach>

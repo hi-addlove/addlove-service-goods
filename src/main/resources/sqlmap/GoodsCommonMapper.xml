@@ -188,53 +188,53 @@
   </resultMap>
   
   <resultMap id="BaseResultMapOrg" type="com.addlove.service.goods.model.OrgManageModel">
-    <result column="ORGCODE" jdbcType="VARCHAR" property="orgcode" />
-    <result column="INORGCODE" jdbcType="VARCHAR" property="inorgcode" />
-    <result column="ORGNAME" jdbcType="VARCHAR" property="orgname" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="INORGCODE" jdbcType="VARCHAR" property="inOrgCode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgName" />
     <result column="AREA" jdbcType="NUMERIC" property="area" />
-    <result column="ORGTYPE" jdbcType="VARCHAR" property="orgtype" />
-    <result column="PREORGCODE" jdbcType="VARCHAR" property="preorgcode" />
-    <result column="ORGCLASS" jdbcType="VARCHAR" property="orgclass" />
-    <result column="ISMANASTOCK" jdbcType="VARCHAR" property="ismanastock" />
-    <result column="FORGCODE" jdbcType="VARCHAR" property="forgcode" />
-    <result column="ZBORGCODE" jdbcType="VARCHAR" property="zborgcode" />
-    <result column="WLAREACODE" jdbcType="VARCHAR" property="wlareacode" />
-    <result column="ACCLEVEL" jdbcType="VARCHAR" property="acclevel" />
-    <result column="DBSVRNAME" jdbcType="VARCHAR" property="dbsvrname" />
-    <result column="DBNAME" jdbcType="VARCHAR" property="dbname" />
-    <result column="COMMMODE" jdbcType="VARCHAR" property="commmode" />
-    <result column="BUSINESSMODE" jdbcType="VARCHAR" property="businessmode" />
-    <result column="FACECODE" jdbcType="VARCHAR" property="facecode" />
-    <result column="COMMPATHOUT" jdbcType="VARCHAR" property="commpathout" />
-    <result column="COMMPATHIN" jdbcType="VARCHAR" property="commpathin" />
-    <result column="YHPRI" jdbcType="NUMERIC" property="yhpri" />
-    <result column="ISMBZQ" jdbcType="VARCHAR" property="ismbzq" />
-    <result column="RKBJRATE" jdbcType="NUMERIC" property="rkbjrate" />
-    <result column="CKBJRATE" jdbcType="NUMERIC" property="ckbjrate" />
-    <result column="GQBJRATE" jdbcType="NUMERIC" property="gqbjrate" />
+    <result column="ORGTYPE" jdbcType="VARCHAR" property="orgType" />
+    <result column="PREORGCODE" jdbcType="VARCHAR" property="preOrgCode" />
+    <result column="ORGCLASS" jdbcType="VARCHAR" property="orgClass" />
+    <result column="ISMANASTOCK" jdbcType="VARCHAR" property="isManaStock" />
+    <result column="FORGCODE" jdbcType="VARCHAR" property="fOrgCode" />
+    <result column="ZBORGCODE" jdbcType="VARCHAR" property="zbOrgCode" />
+    <result column="WLAREACODE" jdbcType="VARCHAR" property="wlAreaCode" />
+    <result column="ACCLEVEL" jdbcType="VARCHAR" property="accLevel" />
+    <result column="DBSVRNAME" jdbcType="VARCHAR" property="dbSvrName" />
+    <result column="DBNAME" jdbcType="VARCHAR" property="dbName" />
+    <result column="COMMMODE" jdbcType="VARCHAR" property="commMode" />
+    <result column="BUSINESSMODE" jdbcType="VARCHAR" property="businessMode" />
+    <result column="FACECODE" jdbcType="VARCHAR" property="faceCode" />
+    <result column="COMMPATHOUT" jdbcType="VARCHAR" property="commPathOut" />
+    <result column="COMMPATHIN" jdbcType="VARCHAR" property="commPathIn" />
+    <result column="YHPRI" jdbcType="NUMERIC" property="yhPri" />
+    <result column="ISMBZQ" jdbcType="VARCHAR" property="isMbzq" />
+    <result column="RKBJRATE" jdbcType="NUMERIC" property="rkBjRate" />
+    <result column="CKBJRATE" jdbcType="NUMERIC" property="ckBjRate" />
+    <result column="GQBJRATE" jdbcType="NUMERIC" property="gqBjRate" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
-    <result column="DBID" jdbcType="VARCHAR" property="dbid" />
-    <result column="ISENABLE" jdbcType="VARCHAR" property="isenable" />
-    <result column="PRICEMODE" jdbcType="VARCHAR" property="pricemode" />
-    <result column="POSCOUNT" jdbcType="NUMERIC" property="poscount" />
-    <result column="POSCOUNTVERIFY" jdbcType="VARCHAR" property="poscountverify" />
-    <result column="SHORPGRADE" jdbcType="VARCHAR" property="shorpgrade" />
-    <result column="MODALSHOP" jdbcType="VARCHAR" property="modalshop" />
-    <result column="QUOTEAREA" jdbcType="VARCHAR" property="quotearea" />
-    <result column="MACHINECONFIG" jdbcType="VARCHAR" property="machineconfig" />
+    <result column="DBID" jdbcType="VARCHAR" property="dbId" />
+    <result column="ISENABLE" jdbcType="VARCHAR" property="isEnable" />
+    <result column="PRICEMODE" jdbcType="VARCHAR" property="priceMode" />
+    <result column="POSCOUNT" jdbcType="NUMERIC" property="posCount" />
+    <result column="POSCOUNTVERIFY" jdbcType="VARCHAR" property="posCountVerify" />
+    <result column="SHORPGRADE" jdbcType="VARCHAR" property="shorpGrade" />
+    <result column="MODALSHOP" jdbcType="VARCHAR" property="modalShop" />
+    <result column="QUOTEAREA" jdbcType="VARCHAR" property="quoteArea" />
+    <result column="MACHINECONFIG" jdbcType="VARCHAR" property="machineConfig" />
   </resultMap>
   
   <resultMap id="BaseResultMapDept" type="com.addlove.service.goods.model.OrgDeptModel">
-    <result column="DEPID" jdbcType="NUMERIC" property="depid" />
-    <result column="ORGCODE" jdbcType="VARCHAR" property="orgcode" />
-    <result column="ORGCLASS" jdbcType="VARCHAR" property="orgclass" />
-    <result column="DEPCODE" jdbcType="VARCHAR" property="depcode" />
-    <result column="DEPNAME" jdbcType="VARCHAR" property="depname" />
-    <result column="DEPENAME" jdbcType="VARCHAR" property="depename" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depId" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORGCLASS" jdbcType="VARCHAR" property="orgClass" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depCode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depName" />
+    <result column="DEPENAME" jdbcType="VARCHAR" property="depEName" />
     <result column="AREA" jdbcType="NUMERIC" property="area" />
-    <result column="ISLAST" jdbcType="VARCHAR" property="islast" />
-    <result column="ISYW" jdbcType="VARCHAR" property="isyw" />
-    <result column="ISACTIVE" jdbcType="VARCHAR" property="isactive" />
+    <result column="ISLAST" jdbcType="VARCHAR" property="isLast" />
+    <result column="ISYW" jdbcType="VARCHAR" property="isYw" />
+    <result column="ISACTIVE" jdbcType="VARCHAR" property="isActive" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   
@@ -306,7 +306,7 @@
     t.LRUSERCODE,t.LRUSERNAME,t.ZXDATE,t.ZXUSERCODE,t.ZXUSERNAME,t.UDP1,t.UDP2,t.UDP3,t.UDP4,t.PLUCLS,
     t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,t.MINTHDAYS,t.MAXTHDAYS,t.ISONLINE,t.LINEDATE,t.PLUDESC
     From TSKUPLU t Where t.ISACTIVE = '1' And t.ISKC='1' And t.PLUCLS != '3' And 
-    Exists(Select t2.PLUID From TSKUPLUEX t2 Where t2.ORGCODE = #{orgCode,jdbcType=VARCHAR})
+    Exists(Select t2.PLUID From TSKUPLUEX t2 Where t2.ORGCODE = #{orgCode,jdbcType=VARCHAR}
     And t2.PLUID=t.PLUID and t2.ISJH='1') And 
     Exists(Select t3.PLUID from TCNTPLU t3,TCNTCONTRACT t4 Where t3.PLUID=t.PLUID And t3.CNTID=t4.CNTID
     And t4.ISMNGJPRICE in ('0','1','2') and t4.CNTID = #{cntId,jdbcType=NUMERIC})
@@ -338,7 +338,7 @@
        CALL PSSY_DB.sStk_LetsGo_ORA
        (
          #{ps_BillNo,mode=IN,jdbcType=VARCHAR}, #{ps_YwType,mode=IN,jdbcType=VARCHAR}, #{pi_UserId,mode=IN,jdbcType=NUMERIC}, 
-         #{ps_UserCode,mode=IN,jdbcType=VARCHAR}, #{ps_UserName,mode=IN,jdbcType=VARCHAR}, #{pd_JzDate,mode=IN,jdbcType=VARCHAR}, 
+         #{ps_UserCode,mode=IN,jdbcType=VARCHAR}, #{ps_UserName,mode=IN,jdbcType=VARCHAR}, to_date(#{pd_JzDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), 
          #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR}
        )
      }

@@ -28,6 +28,7 @@ import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdThApplyBodyDiffReq;
 import com.addlove.service.goods.model.valid.OrdThApplyHeadDiffReq;
 import com.addlove.service.goods.model.valid.OrdThQueryPageReq;
+import com.addlove.service.goods.service.GoodsCommonService;
 import com.addlove.service.goods.service.OrdJhService;
 import com.addlove.service.goods.service.OrdThApplyService;
 import com.addlove.service.goods.util.DateUtil;
@@ -45,6 +46,9 @@ import com.github.pagehelper.Page;
 public class OrdThApplyController extends BaseController{
     @Autowired
     private OrdJhService ordJhService;
+    
+    @Autowired
+    private GoodsCommonService commonService;
     
     @Autowired
     private OrdThApplyService ordThApplyService;
@@ -106,7 +110,7 @@ public class OrdThApplyController extends BaseController{
             //调用存储过程生成差异单号
             Map<String, Object> map = new HashMap<>();
             map.put("ps_BillType", BillType.RETURN_APPLY.getValue());
-            String billNo = this.ordThApplyService.getBillNoByCallProcedure(map);
+            String billNo = this.commonService.getBillNoByCallProcedure(map);
             headModel.setBillNo(billNo);
             headModel.setRefBillNo(req.getBillNo());
             headModel.setOrgCode(req.getOrgCode());

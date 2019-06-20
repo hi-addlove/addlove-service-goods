@@ -59,21 +59,4 @@ public class OrdThApplyService {
     public List<Map<String, Object>> queryThBodysByBillNo(String billNo) {
         return this.ordThApplyDao.queryThBodysByBillNo(billNo);
     }
-    
-    /**
-     * 调用存储过程生成退货差异单据号
-     * @param map
-     * @return billNo
-     */
-    @Transactional
-    public String getBillNoByCallProcedure(Map<String, Object> map) {
-        long startTime = System.currentTimeMillis();
-        this.ordThApplyDao.getBillNoByCallProcedure(map);
-        long endTime = System.currentTimeMillis();
-        LOGGER.info("调用生成差异单号存储过程-【CALL sSysGetBillNo()】消耗时间:{}", (endTime - startTime));
-        if (null == map || map.isEmpty()) {
-            return "";
-        }
-        return map.get("ps_BillNo") != null ? map.get("ps_BillNo").toString() : "";
-    }
 }
