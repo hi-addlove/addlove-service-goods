@@ -208,6 +208,7 @@ public class OrdJhHeadReq {
     /**
      * 保存类型：1-保存；2-记账
      */
+    @NotBlank(message = "保存类型不能为空")
     private Integer saveType;
     
     /**

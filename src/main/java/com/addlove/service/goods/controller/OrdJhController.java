@@ -152,6 +152,9 @@ public class OrdJhController extends BaseController{
             headJson.put("refBillNo", headMap.get("REFBILLNO"));
             headJson.put("orgCode", headMap.get("ORGCODE"));
             headJson.put("orgName", headMap.get("ORGNAME"));
+            headJson.put("depId", headMap.get("DEPID"));
+            headJson.put("depCode", headMap.get("DEPCODE"));
+            headJson.put("depName", headMap.get("DEPNAME"));
             headJson.put("jzDate", headMap.get("JZDATE"));
             headJson.put("jzrCode", headMap.get("JZRCODE"));
             headJson.put("jzrName", headMap.get("JZRNAME"));
@@ -167,14 +170,23 @@ public class OrdJhController extends BaseController{
             headJson.put("supName", headMap.get("SUPNAME"));
             headJson.put("inOrgCode", headMap.get("INORGCODE"));
             headJson.put("cntId", headMap.get("CNTID"));
+            headJson.put("htCode", headMap.get("HTCODE"));
+            headJson.put("htName", headMap.get("HTNAME"));
             headJson.put("ckCode", headMap.get("CKCODE"));
             headJson.put("ckName", headMap.get("CKNAME"));
+            headJson.put("jhCount", headMap.get("JHCOUNT"));
             headJson.put("hCost", headMap.get("HCOST"));
             headJson.put("wCost", headMap.get("WCOST"));
             headJson.put("jtaxTotal", headMap.get("JTAXTOTAL"));
             headJson.put("cjTotal", headMap.get("CJTOTAL"));
+            headJson.put("remark", headMap.get("REMARK"));
             headJson.put("psCost", headMap.get("PSCOST"));
             headJson.put("shrDate", headMap.get("SHRDATE"));
+            headJson.put("telePhone", headMap.get("TELEPHONE"));
+            headJson.put("fax", headMap.get("FAX"));
+            headJson.put("linkMan", headMap.get("LINKMAN"));
+            headJson.put("lkmTel", headMap.get("LKMTEL"));
+            headJson.put("dataStatus", headMap.get("DATASTATUS"));
             backJson.put("headInfo", headJson);
             JSONArray bodyArray = new JSONArray();
             for (Map<String, Object> map : resultList) {
@@ -188,9 +200,14 @@ public class OrdJhController extends BaseController{
                 bodyJson.put("exPluName", map.get("EXPLUNAME"));
                 bodyJson.put("barCode", map.get("BARCODE2"));
                 bodyJson.put("spec", map.get("SPEC2"));
+                bodyJson.put("unit", map.get("UNIT2"));
+                bodyJson.put("carGoNo", map.get("CARGONO2"));
+                bodyJson.put("pluType", map.get("PLUTYPE2"));
                 bodyJson.put("depId", map.get("DEPID2"));
                 bodyJson.put("depCode", map.get("DEPCODE2"));
                 bodyJson.put("depName", map.get("DEPNAME2"));
+                bodyJson.put("hjPrice", map.get("HJPRICE2"));
+                bodyJson.put("wjPrice", map.get("WJPRICE2"));
                 bodyJson.put("price", map.get("PRICE2"));
                 bodyJson.put("jhCount", map.get("JHCOUNT2"));
                 bodyJson.put("psShCount", map.get("PSSHCOUNT2"));
@@ -201,6 +218,7 @@ public class OrdJhController extends BaseController{
                 bodyJson.put("sglCount", map.get("SGLCOUNT2"));
                 bodyJson.put("hCost", map.get("HCOST2"));
                 bodyJson.put("wCost", map.get("WCOST2"));
+                bodyJson.put("jTaxRate", map.get("JTAXRATE2"));
                 bodyJson.put("jTaxTotal", map.get("JTAXTOTAL2"));
                 bodyJson.put("sTotal", map.get("STOTAL2"));
                 bodyJson.put("cjTotal", map.get("CJTOTAL2"));
@@ -208,6 +226,18 @@ public class OrdJhController extends BaseController{
                 bodyJson.put("psCost", map.get("PSCOST2"));
                 bodyJson.put("hjsTotal", map.get("HJSTOTAL2"));
                 bodyJson.put("wjsTotal", map.get("WJSTOTAL2"));
+                bodyJson.put("jTaxCalType", map.get("JTAXCALTYPE2"));
+                bodyJson.put("wPsPrice", map.get("WPSPRICE2"));
+                bodyJson.put("wPsCost", map.get("WPSCOST2"));
+                bodyJson.put("xTaxRate", map.get("XTAXRATE2"));
+                bodyJson.put("xTaxTotal", map.get("XTAXTOTAL2"));
+                bodyJson.put("materialCode", map.get("MATERIALCODE2"));
+                bodyJson.put("scDate", map.get("SCDATE2"));
+                bodyJson.put("dqDate", map.get("DQDATE2"));
+                bodyJson.put("bzDays", map.get("BZDAYS2"));
+                bodyJson.put("zpType", map.get("ZPTYPE2"));
+                bodyJson.put("cxInfo", map.get("CXINFO2"));
+                bodyJson.put("remark", map.get("REMARK2"));
                 bodyArray.add(bodyJson);
             }
             backJson.put("bodyInfo", bodyArray);

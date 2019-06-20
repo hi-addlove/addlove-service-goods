@@ -302,7 +302,7 @@
     Select Distinct t.PLUID,t.PLUCODE,t.PLUNAME,t.PLUENAME,t.PLUABBRNAME,t.PLUMN,t.BARCODE,t.UNIT,t.SPEC,t.PLUWEIGHT,
     t.PLUHEIGHT,t.PLULONG,t.PLUWIDTH,t.ISMULPACKET,t.ORGCODE,t.ORGNAME,t.CGYID,t.CGYCODE,t.CGYNAME,t.CARGONO,
     t.PRODUCE,t.GRADE,t.QUALITY,t.BZDAYS,t.CLSID,t.BRANDCODE,t.JTAXCALTYPE,t.WJPRICE,t.HJPRICE,t.JTAXRATE,
-    t.PRICE,t.XTAXRATE,t.ISWEIGHT,t.ISCOUTQTY,t.ISKC,t.ISCURRDAY,t.JHBFBZDAYS,t.PSBFBZDAYS,t.YWSTATUS,t.LRDATE,
+    t.PRICE,t.XTAXRATE,t.ISWEIGHT,t.ISCOUTQTY,t.ISKC,t.ISCURRDAY,t.JHBFBZDAYS,t.PSBFBZDAYS,t.CXINFO,t.YWSTATUS,t.LRDATE,
     t.LRUSERCODE,t.LRUSERNAME,t.ZXDATE,t.ZXUSERCODE,t.ZXUSERNAME,t.UDP1,t.UDP2,t.UDP3,t.UDP4,t.PLUCLS,
     t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,t.MINTHDAYS,t.MAXTHDAYS,t.ISONLINE,t.LINEDATE,t.PLUDESC
     From TSKUPLU t Where t.ISACTIVE = '1' And t.ISKC='1' And t.PLUCLS != '3' And 
@@ -328,6 +328,20 @@
   <select id="getBillNoByCallProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
     <![CDATA[
        {CALL sSysGetBillNo(#{ps_BillType,mode=IN,jdbcType=VARCHAR}, #{ps_BillNo,mode=OUT,jdbcType=VARCHAR})}
+    ]]>
+  </select>
+  
+  <!-- 调用存储过程进行单据记账 -->
+  <select id="execAccountByCallProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
+    <![CDATA[
+     {
+       CALL PSSY_DB.sStk_LetsGo_ORA
+       (
+         #{ps_BillNo,mode=IN,jdbcType=VARCHAR}, #{ps_YwType,mode=IN,jdbcType=VARCHAR}, #{pi_UserId,mode=IN,jdbcType=NUMERIC}, 
+         #{ps_UserCode,mode=IN,jdbcType=VARCHAR}, #{ps_UserName,mode=IN,jdbcType=VARCHAR}, #{pd_JzDate,mode=IN,jdbcType=VARCHAR}, 
+         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR}
+       )
+     }
     ]]>
   </select>
 </mapper>
