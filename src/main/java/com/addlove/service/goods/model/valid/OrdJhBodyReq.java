@@ -1,5 +1,7 @@
 package com.addlove.service.goods.model.valid;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -14,7 +16,7 @@ public class OrdJhBodyReq {
      * 商品ID
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "商品ID不能为空")
+    @NotNull(message = "商品ID不能为空")
     private Long pluId;
 
     /**
@@ -97,7 +99,7 @@ public class OrdJhBodyReq {
      * 含税进价
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "含税进价不能为空")
+    @NotNull(message = "含税进价不能为空")
     private Double hjPrice;
 
     /**
@@ -106,7 +108,7 @@ public class OrdJhBodyReq {
      * 无税进价
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "无税进价不能为空")
+    @NotNull(message = "无税进价不能为空")
     private Double wjPrice;
 
     /**
@@ -115,7 +117,7 @@ public class OrdJhBodyReq {
      * 配送价
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "配送价不能为空")
+    @NotNull(message = "配送价不能为空")
     private Double psPrice;
 
     /**
@@ -124,7 +126,7 @@ public class OrdJhBodyReq {
      * 售价
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "售价不能为空")
+    @NotNull(message = "售价不能为空")
     private Double price;
 
     /**
@@ -149,7 +151,7 @@ public class OrdJhBodyReq {
      * 包装系数
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "包装系数不能为空")
+    @NotNull(message = "包装系数不能为空")
     private Double packQty;
 
     /**
@@ -158,7 +160,7 @@ public class OrdJhBodyReq {
      * 包装数量
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "包装数量不能为空")
+    @NotNull(message = "包装数量不能为空")
     private Double packCount;
 
     /**
@@ -167,7 +169,7 @@ public class OrdJhBodyReq {
      * 单件件数
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "单件件数不能为空")
+    @NotNull(message = "单件件数不能为空")
     private Double sglCount;
 
     /**
@@ -176,7 +178,7 @@ public class OrdJhBodyReq {
      * 进货数量
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "进货数量不能为空")
+    @NotNull(message = "进货数量不能为空")
     private Double jhCount;
 
     /**
@@ -185,7 +187,7 @@ public class OrdJhBodyReq {
      * 配送收货数量（实际数量）默认等于进货数量
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "配送收货数量不能为空")
+    @NotNull(message = "配送收货数量不能为空")
     private Double psShCount;
 
     /**
@@ -194,7 +196,7 @@ public class OrdJhBodyReq {
      * 含税进价金额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "含税进价金额不能为空")
+    @NotNull(message = "含税进价金额不能为空")
     private Double hCost;
 
     /**
@@ -203,7 +205,7 @@ public class OrdJhBodyReq {
      * 无税进价金额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "无税进价金额不能为空")
+    @NotNull(message = "无税进价金额不能为空")
     private Double wCost;
 
     /**
@@ -212,7 +214,7 @@ public class OrdJhBodyReq {
      * 进项税额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "进项税额不能为空")
+    @NotNull(message = "进项税额不能为空")
     private Double jTaxTotal;
 
     /**
@@ -221,7 +223,7 @@ public class OrdJhBodyReq {
      * 配送金额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "配送金额不能为空")
+    @NotNull(message = "配送金额不能为空")
     private Double psCost;
 
     /**
@@ -230,7 +232,7 @@ public class OrdJhBodyReq {
      * 售价金额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "售价金额不能为空")
+    @NotNull(message = "售价金额不能为空")
     private Double sTotal;
 
     /**
@@ -239,7 +241,7 @@ public class OrdJhBodyReq {
      * 进销差价
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "进销差价不能为空")
+    @NotNull(message = "进销差价不能为空")
     private Double cjTotal;
 
     /**
@@ -248,7 +250,7 @@ public class OrdJhBodyReq {
      * 进销差率
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "进销差率不能为空")
+    @NotNull(message = "进销差率不能为空")
     private Double cjRate;
 
     /**
@@ -273,7 +275,6 @@ public class OrdJhBodyReq {
      * 保质期
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "保质期不能为空")
     private Integer bzDays;
 
     /**
@@ -298,7 +299,7 @@ public class OrdJhBodyReq {
      * 含税结算金额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "含税结算金额不能为空")
+    @NotNull(message = "含税结算金额不能为空")
     private Double hjsTotal;
 
     /**
@@ -307,7 +308,7 @@ public class OrdJhBodyReq {
      * 无税结算金额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "无税结算金额不能为空")
+    @NotNull(message = "无税结算金额不能为空")
     private Double wjsTotal;
 
     /**
@@ -317,7 +318,7 @@ public class OrdJhBodyReq {
      * 不为0时需要回填供应商商品分析参数表中的最新进价信息
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "无税配送价不能为空")
+    @NotNull(message = "无税配送价不能为空")
     private Double wPsPrice;
 
     /**
@@ -326,7 +327,7 @@ public class OrdJhBodyReq {
      * 无税配送金额:直送验收时使用
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "无税配送金额不能为空")
+    @NotNull(message = "无税配送金额不能为空")
     private Double wPsCost;
 
     /**
@@ -335,7 +336,7 @@ public class OrdJhBodyReq {
      * 销项税率
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "销项税率不能为空")
+    @NotNull(message = "销项税率不能为空")
     private Integer xTaxRate;
 
     /**
@@ -344,7 +345,7 @@ public class OrdJhBodyReq {
      * 销项税额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "销项税额不能为空")
+    @NotNull(message = "销项税额不能为空")
     private Double xTaxTotal;
 
     /**

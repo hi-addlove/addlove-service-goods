@@ -1,7 +1,7 @@
 package com.addlove.service.goods.model.valid;
 
 import java.util.List;
-
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -41,7 +41,7 @@ public class OrdJhHeadReq {
      * 部门Id
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "部门Id不能为空")
+    @NotNull(message = "部门Id不能为空")
     private Long depId;
 
     /**
@@ -83,7 +83,7 @@ public class OrdJhHeadReq {
      * 合同ID
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "合同ID不能为空")
+    @NotNull(message = "合同ID不能为空")
     private Long cntId;
 
     /**
@@ -108,7 +108,7 @@ public class OrdJhHeadReq {
      * 进货数量
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "进货数量不能为空")
+    @NotNull(message = "进货数量不能为空")
     private Double jhCount;
 
     /**
@@ -117,7 +117,7 @@ public class OrdJhHeadReq {
      * 含税进价金额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "含税进价金额不能为空")
+    @NotNull(message = "含税进价金额不能为空")
     private Double hCost;
 
     /**
@@ -126,7 +126,7 @@ public class OrdJhHeadReq {
      * 无税进价金额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "无税进价金额不能为空")
+    @NotNull(message = "无税进价金额不能为空")
     private Double wCost;
 
     /**
@@ -135,7 +135,7 @@ public class OrdJhHeadReq {
      * 税额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "税额不能为空")
+    @NotNull(message = "税额不能为空")
     private Double jtaxTotal;
 
     /**
@@ -144,7 +144,7 @@ public class OrdJhHeadReq {
      * 配送金额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "配送金额不能为空")
+    @NotNull(message = "配送金额不能为空")
     private Double psCost;
 
     /**
@@ -153,7 +153,7 @@ public class OrdJhHeadReq {
      * 售价金额
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "售价金额不能为空")
+    @NotNull(message = "售价金额不能为空")
     private Double sTotal;
 
     /**
@@ -162,7 +162,7 @@ public class OrdJhHeadReq {
      * 进销差价
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
-    @NotBlank(message = "进销差价不能为空")
+    @NotNull(message = "进销差价不能为空")
     private Double cjTotal;
 
     /**
@@ -208,7 +208,7 @@ public class OrdJhHeadReq {
     /**
      * 保存类型：1-保存；2-记账
      */
-    @NotBlank(message = "保存类型不能为空")
+    @NotNull(message = "保存类型不能为空")
     private Integer saveType;
     
     /**

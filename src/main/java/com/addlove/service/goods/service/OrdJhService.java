@@ -125,7 +125,7 @@ public class OrdJhService {
     }
     
     /**
-     * 编辑整个验收信息
+     * 编辑时点击“保存”整个验收信息
      * @param headModel
      */
     @Transactional
@@ -137,12 +137,43 @@ public class OrdJhService {
     }
     
     /**
+     * 编辑时点击“记账”整个验收信息
+     * @param headModel
+     */
+    @Transactional
+    public void updateAllJhInfoAccount(OrdJhHeadModel headModel) {
+        this.ordJhDao.deleteJhHeadModel(headModel.getBillNo());
+        this.ordJhDao.deleteJhBodyModel(headModel.getBillNo());
+        this.ordJhDao.insertOrdJhHead(headModel);
+        this.ordJhDao.updateJhHeadAccountInfo(headModel);
+        this.ordJhDao.insertOrdJhBody(headModel.getBodyList());
+    }
+    
+    /**
      * 更新jhHead记账信息后完成记账
      * @param model
      */
     @Transactional
     public void updateAndExecAccount(OrdJhHeadModel headModel) {
         this.ordJhDao.updateJhHeadAccountInfo(headModel);
+        this.execAccount(headModel);
+    }
+    
+    /**
+     * 删除验收单数据
+     * @param billNo
+     */
+    @Transactional
+    public void deleteJhData(String billNo) {
+        this.ordJhDao.deleteJhHeadModel(billNo);
+        this.ordJhDao.deleteJhBodyModel(billNo);
+    }
+    
+    /**
+     * 执行记账
+     * @param headModel
+     */
+    public void execAccount(OrdJhHeadModel headModel) {
         Map<String, Object> accountMap = new HashMap<String, Object>();
         accountMap.put("ps_BillNo", headModel.getBillNo());
         accountMap.put("ps_YwType", headModel.getYwType());
@@ -155,22 +186,12 @@ public class OrdJhService {
             throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
                     GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
         }
+        LoggerEnhance.info(LOGGER, "验收单记账结果为--------------------：{}", null != resultMap.get("ps_Message") ? resultMap.get("ps_Message").toString() : "");
         int resultCode = null != resultMap.get("pi_Result") ? Integer.valueOf(resultMap.get("pi_Result").toString()) : -1;
         if (ProcedureResult.EXEC_ERROR_RECORD.getValue() == resultCode 
                 || ProcedureResult.EXEC_ERROR_EXIT.getValue() == resultCode) {
             throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
                     GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
         }
-        LoggerEnhance.info(LOGGER, "验收单记账结果为--------------------：{}", null != resultMap.get("ps_message") ? resultMap.get("ps_message").toString() : "");
-    }
-    
-    /**
-     * 删除验收单数据
-     * @param billNo
-     */
-    @Transactional
-    public void deleteJhData(String billNo) {
-        this.ordJhDao.deleteJhHeadModel(billNo);
-        this.ordJhDao.deleteJhBodyModel(billNo);
     }
 }

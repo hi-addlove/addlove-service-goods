@@ -14,6 +14,7 @@ import com.addlove.service.goods.model.EtpSupplierModel;
 import com.addlove.service.goods.model.OrgDeptModel;
 import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.SkuPluModel;
+import com.addlove.service.goods.model.StkStoreModel;
 import com.addlove.service.goods.util.LoggerEnhance;
 
 /**
@@ -74,6 +75,15 @@ public class GoodsCommonService {
      */
     public OrgManageModel getOrgModel(String orgCode) {
         return this.commonDao.getOrgModel(orgCode);
+    }
+    
+    /**
+     * 获取仓库
+     * @param orgCode
+     * @return List<StkStoreModel>
+     */
+    public List<StkStoreModel> getStoreList(String orgCode) {
+        return this.commonDao.getStoreList(orgCode);
     }
     
     /**

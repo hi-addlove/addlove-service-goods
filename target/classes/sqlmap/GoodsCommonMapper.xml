@@ -238,6 +238,40 @@
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   
+  <resultMap id="BaseResultMapUser" type="com.addlove.service.goods.model.UsrUserModel">
+    <result column="USERID" jdbcType="NUMERIC" property="userId" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USERTYPE" jdbcType="VARCHAR" property="userType" />
+    <result column="EMPID" jdbcType="NUMERIC" property="empId" />
+    <result column="ETPCODE" jdbcType="VARCHAR" property="etpCode" />
+    <result column="PASSWD" jdbcType="VARCHAR" property="passWd" />
+    <result column="ISFORBID" jdbcType="VARCHAR" property="isForbid" />
+    <result column="FORBIDDATE" jdbcType="TIMESTAMP" property="forbidDate" />
+    <result column="ISLIMITED" jdbcType="VARCHAR" property="isLimited" />
+    <result column="LOGINCOUNT" jdbcType="NUMERIC" property="loginCount" />
+    <result column="ISACTIVE" jdbcType="VARCHAR" property="isActive" />
+    <result column="REG_DAY" jdbcType="TIMESTAMP" property="regDay" />
+    <result column="ACTIVEDAY" jdbcType="NUMERIC" property="activeDay" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapStore" type="com.addlove.service.goods.model.StkStoreModel">
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ATORGCODE" jdbcType="VARCHAR" property="atOrgCode" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckCode" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckName" />
+    <result column="CKENAME" jdbcType="VARCHAR" property="ckEName" />
+    <result column="CKAREA" jdbcType="NUMERIC" property="ckArea" />
+    <result column="CKADDRESS" jdbcType="VARCHAR" property="ckAddress" />
+    <result column="CKTYPE" jdbcType="VARCHAR" property="ckType" />
+    <result column="ISMBZQ" jdbcType="VARCHAR" property="isMbzq" />
+    <result column="EMPNAME" jdbcType="VARCHAR" property="empName" />
+    <result column="TELEPHONE" jdbcType="VARCHAR" property="telephone" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="KCTYPE" jdbcType="VARCHAR" property="kcType" />
+    <result column="AREACTRL" jdbcType="VARCHAR" property="areaCtrl" />
+  </resultMap>
+  
   <sql id="Base_Column_List_Supplier">
     ORGCODE, ETPCODE, ETPNAME, ETPORGCODE, DATASTATUS, YWSTATUS, ETPATTRIBUTE, ETPTYPE, 
     ETPLEVEL, LOGINDATE, LOGOUTDATE, JSETPCODE, ISQK, QKTOTAL, PDTOTAL, JHTOTAL, XSTOTAL, 
@@ -282,6 +316,16 @@
     REMARK
   </sql>
   
+  <sql id="Base_Column_List_User">
+    USERID, USERCODE, USERNAME, USERTYPE, EMPID, ETPCODE, PASSWD, ISFORBID, FORBIDDATE, 
+    ISLIMITED, LOGINCOUNT, ISACTIVE, REG_DAY, ACTIVEDAY
+  </sql>
+  
+  <sql id="Base_Column_List_Store">
+    ORGCODE, CKCODE, ATORGCODE, CKNAME, CKENAME, CKAREA, CKADDRESS, CKTYPE, ISMBZQ, EMPNAME, 
+    TELEPHONE, REMARK, KCTYPE, AREACTRL
+  </sql>
+  
   <!-- 获取供应商 -->
   <select id="getSupplierList" parameterType="java.lang.String" resultMap="BaseResultMapSupplier">
     Select Distinct t.ETPCODE, t.ETPNAME, t.ETPORGCODE From TETPSUPPLIER t
@@ -322,6 +366,12 @@
   <select id="getOrgModel" parameterType="java.lang.String" resultMap="BaseResultMapOrg">
     select t.ORGCODE,t.INORGCODE,t.ORGNAME,t.PREORGCODE,t.ORGCLASS,t.FORGCODE,t.ZBORGCODE
     From TORGMANAGE t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 获取仓库 -->
+  <select id="getStoreList" parameterType="java.lang.String" resultMap="BaseResultMapStore">
+    select t.ORGCODE,t.ATORGCODE,t.CKCODE,t.CKNAME,t.CKENAME,t.CKTYPE
+    From TSTKSTORE t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t.CKTYPE != 2
   </select>
   
   <!-- 调用存储过程生成单据号  -->

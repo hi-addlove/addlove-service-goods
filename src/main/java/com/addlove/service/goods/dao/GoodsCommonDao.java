@@ -11,6 +11,7 @@ import com.addlove.service.goods.model.EtpSupplierModel;
 import com.addlove.service.goods.model.OrgDeptModel;
 import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.SkuPluModel;
+import com.addlove.service.goods.model.StkStoreModel;
 
 /**
  * 公共dao层：如供应商、合同、商品等
@@ -55,6 +56,13 @@ public interface GoodsCommonDao {
      * @return OrgManageModel
      */
     OrgManageModel getOrgModel(String orgCode);
+    
+    /**
+     * 获取仓库
+     * @param orgCode
+     * @return List<StkStoreModel>
+     */
+    List<StkStoreModel> getStoreList(String orgCode);
     
     /**
      * 调用存储过程生成单据号

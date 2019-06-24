@@ -44,7 +44,12 @@ public enum GoodsResponseCode {
     /**
      * 执行记账存储过程错误
      */
-    EXEC_PROCEDURE_ERROR(20007, "执行记账存储过程错误");
+    EXEC_PROCEDURE_ERROR(20007, "执行记账存储过程错误"),
+    
+    /**
+     * 仓库不能为空
+     */
+    CK_NOT_BLANK(20008, "仓库不能为空");
     
     private int code;
     private String msg;

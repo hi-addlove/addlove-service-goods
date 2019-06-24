@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * 门店退货申请主表参数
  * @author lw
@@ -11,29 +13,29 @@ import javax.validation.constraints.NotNull;
  */
 public class OrdThApplyHeadDiffReq {
     /**配送验收单号 */
-    @NotNull(message = "配送验收单号不能为空")
+    @NotBlank(message = "配送验收单号不能为空")
     private String billNo;
     
     /**组织编码 */
-    @NotNull(message = "组织编码 不能为空")
+    @NotBlank(message = "组织编码 不能为空")
     private String orgCode;
     
     /**组织名称 */
     private String orgName;
     
     /**内部组织编码 */
-    @NotNull(message = "内部组织编码不能为空")
+    @NotBlank(message = "内部组织编码不能为空")
     private String inOrgCode;
     
     /**总部组织编码 */
-    @NotNull(message = "配送验收单号不能为空")
+    @NotBlank(message = "配送验收单号不能为空")
     private String zbOrgCode;
     
     /**总部组织名称 */
     private String zbOrgName;
     
     /**供应商编码 */
-    @NotNull(message = "供应商编码不能为空")
+    @NotBlank(message = "供应商编码不能为空")
     private String supCode;
     
     /**供应商名称 */
@@ -44,7 +46,7 @@ public class OrdThApplyHeadDiffReq {
     private Long cntId;
     
     /**仓库编码 */
-    @NotNull(message = "仓库编码不能为空")
+    @NotBlank(message = "仓库编码不能为空")
     private String ckCode;
     
     /**仓库名称 */
@@ -79,7 +81,7 @@ public class OrdThApplyHeadDiffReq {
     private Double psCost;
     
     /**申请状态:0-未申请(对应前端的“保存操作”),1-已申请(对应前端的“提交操作”),2-退货中,3-退货完毕,9-驳回 */
-    @NotNull(message = "申请状态不能为空")
+    @NotBlank(message = "申请状态不能为空")
     private String applyStatus;
     
     /**部门Id */
@@ -87,7 +89,7 @@ public class OrdThApplyHeadDiffReq {
     private Long depId;
     
     /**部门编码 */
-    @NotNull(message = "部门编码不能为空")
+    @NotBlank(message = "部门编码不能为空")
     private String depCode;
     
     /**部门名称 */

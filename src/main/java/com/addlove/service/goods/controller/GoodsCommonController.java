@@ -15,6 +15,7 @@ import com.addlove.service.goods.model.CntContractModel;
 import com.addlove.service.goods.model.EtpSupplierModel;
 import com.addlove.service.goods.model.OrgDeptModel;
 import com.addlove.service.goods.model.SkuPluModel;
+import com.addlove.service.goods.model.StkStoreModel;
 import com.addlove.service.goods.model.valid.CommonOrgAndSupAndCntReq;
 import com.addlove.service.goods.service.GoodsCommonService;
 
@@ -122,5 +123,22 @@ public class GoodsCommonController extends BaseController{
         }
         List<OrgDeptModel> deptList = this.commonService.getDeptList(orgCode);
         return ResponseMessage.ok(deptList);
+    }
+    
+    /**
+     * 通过组织编码获取仓库
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getStoreList", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getStoreList(@RequestBody CommonOrgAndSupAndCntReq req) {
+        String orgCode = req.getOrgCode();
+        if (StringUtils.isBlank(orgCode)) {
+            throw new ServiceException(GoodsResponseCode.ORGCODE_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.ORGCODE_NOT_BLANK.getMsg());
+        }
+        List<StkStoreModel> storeList = this.commonService.getStoreList(orgCode);
+        return ResponseMessage.ok(storeList);
     }
 }

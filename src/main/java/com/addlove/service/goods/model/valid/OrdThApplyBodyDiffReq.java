@@ -2,6 +2,8 @@ package com.addlove.service.goods.model.valid;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * 门店退货申请明细表参数
  * @author lw
@@ -44,7 +46,7 @@ public class OrdThApplyBodyDiffReq {
     private Long depId;
 
     /**部门编码 */
-    @NotNull(message = "部门编码不能为空")
+    @NotBlank(message = "部门编码不能为空")
     private String depCode;
 
     /**部门名称 */
@@ -55,7 +57,7 @@ public class OrdThApplyBodyDiffReq {
     private Double psPrice;
     
     /**包装单位 */
-    @NotNull(message = "包装单位不能为空")
+    @NotBlank(message = "包装单位不能为空")
     private String packUnit;
 
     /**包装细数 */

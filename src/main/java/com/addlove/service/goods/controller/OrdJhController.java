@@ -25,6 +25,7 @@ import com.addlove.service.goods.model.OrdJhHeadModel;
 import com.addlove.service.goods.model.OrdJhQueryPageModel;
 import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.PageModel;
+import com.addlove.service.goods.model.StkStoreModel;
 import com.addlove.service.goods.model.valid.OrdJhBodyReq;
 import com.addlove.service.goods.model.valid.OrdJhHeadReq;
 import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
@@ -127,7 +128,8 @@ public class OrdJhController extends BaseController{
             this.ordJhService.updateAllJhInfo(headModel);
         }else if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
             //先更新验收表的记账信息，再调用存储过程进行记账
-            this.ordJhService.updateAndExecAccount(headModel);
+            this.ordJhService.updateAllJhInfoAccount(headModel);
+            this.ordJhService.execAccount(headModel);
         }else {
             throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
                     GoodsResponseCode.BILL_OPRATE_ERROR.getMsg());
@@ -286,6 +288,13 @@ public class OrdJhController extends BaseController{
         OrgManageModel orgModel = this.commonService.getOrgModel(req.getOrgCode());
         headModel.setInOrgCode(orgModel.getInOrgCode());
         headModel.sethOrgCode(orgModel.getInOrgCode());
+        List<StkStoreModel> storeList = this.commonService.getStoreList(req.getOrgCode());
+        if (null == storeList || storeList.isEmpty()) {
+            throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.CK_NOT_BLANK.getMsg());
+        }
+        headModel.setCkCode(storeList.get(0).getCkCode());
+        headModel.setCkName(storeList.get(0).getCkName());
         headModel.setDepId(req.getDepId());
         headModel.setDepCode(req.getDepCode());
         headModel.setDepName(req.getDepName());
@@ -332,6 +341,9 @@ public class OrdJhController extends BaseController{
         List<OrdJhBodyModel> bodyModels = new LinkedList<OrdJhBodyModel>();
         long serialNo = 1;
         for (OrdJhBodyReq bodyReq : bodyList) {
+            if (bodyReq.getJhCount() == 0) {
+                continue;
+            }
             OrdJhBodyModel bodyModel = new OrdJhBodyModel();
             bodyModel.setBillNo(headModel.getBillNo());
             serialNo++;
