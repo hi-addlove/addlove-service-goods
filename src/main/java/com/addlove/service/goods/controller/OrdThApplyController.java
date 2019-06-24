@@ -98,9 +98,9 @@ public class OrdThApplyController extends BaseController{
         if (null == bodyReqList || bodyReqList.isEmpty()) {
             OrdJhHeadModel model = new OrdJhHeadModel();
             model.setBillNo(req.getBillNo());
-            model.setYsrId(123L);
-            model.setYsrCode("lf0913");
-            model.setYsrName("李飞");
+            model.setYsrId(10000000041L);
+            model.setYsrCode("1");
+            model.setYsrName("超级户");
             //送货确认时间
             model.setShrDate(DateUtil.getCurrentTime());
             model.setTag(ModelTags.NORMAL_ACCEPTANCE.getValue());
@@ -133,9 +133,9 @@ public class OrdThApplyController extends BaseController{
             headModel.setYwType(YwType.SHOP_TO_ZB.getValue());
             headModel.setApplyStatus(ApplyStatus.HAVE_APPLYED.getValue());
             headModel.setTjDate(DateUtil.getCurrentTime());
-            headModel.setTjrId(123L);
-            headModel.setTjrCode("lf0913");
-            headModel.setTjrName("李飞");
+            headModel.setTjrId(10000000041L);
+            headModel.setTjrCode("l");
+            headModel.setTjrName("超级户");
             headModel.setDepId(req.getDepId());
             headModel.setDepCode(req.getDepCode());
             headModel.setDepName(req.getDepName());
@@ -190,9 +190,9 @@ public class OrdThApplyController extends BaseController{
                 //页面执行“提交”操作：生成差异单
                 OrdJhHeadModel model = new OrdJhHeadModel();
                 model.setBillNo(req.getBillNo());
-                model.setYsrId(123L);
-                model.setYsrCode("lf0913");
-                model.setYsrName("李飞");
+                model.setYsrId(10000000041L);
+                model.setYsrCode("l");
+                model.setYsrName("超级户");
                 //送货确认时间
                 model.setShrDate(DateUtil.getCurrentTime());
                 model.setTag(ModelTags.ABNORMAL_ACCEPTANCE.getValue());

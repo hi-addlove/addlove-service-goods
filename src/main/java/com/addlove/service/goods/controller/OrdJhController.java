@@ -279,15 +279,16 @@ public class OrdJhController extends BaseController{
         int saveType = req.getSaveType();
         OrdJhHeadModel headModel = new OrdJhHeadModel();
         headModel.setLrDate(DateUtil.getCurrentTime());
-        headModel.setUserId(91L);
-        headModel.setUserCode("0000");
-        headModel.setUserName("Admin");
+        headModel.setUserId(10000000041L);
+        headModel.setUserCode("1");
+        headModel.setUserName("超级户");
         headModel.setYwType(YwType.NO_PURCHASE_ACCEPTANCE.getValue());
         headModel.setOrgCode(req.getOrgCode());
         headModel.setOrgName(req.getOrgName());
         OrgManageModel orgModel = this.commonService.getOrgModel(req.getOrgCode());
         headModel.setInOrgCode(orgModel.getInOrgCode());
         headModel.sethOrgCode(orgModel.getInOrgCode());
+        headModel.setZbOrgCode(orgModel.getZbOrgCode());
         List<StkStoreModel> storeList = this.commonService.getStoreList(req.getOrgCode());
         if (null == storeList || storeList.isEmpty()) {
             throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 
@@ -317,6 +318,8 @@ public class OrdJhController extends BaseController{
         headModel.setFax(req.getFax());
         headModel.setLinkMan(req.getLinkMan());
         headModel.setLkmTel(req.getLkmTel());
+        headModel.setJyMode(req.getJyMode());
+        headModel.setJsCode(req.getJsCode());
         //调用存储过程生成无采购验收单号
         if (StringUtils.isBlank(req.getBillNo())) {
             Map<String, Object> map = new HashMap<>();
@@ -328,13 +331,13 @@ public class OrdJhController extends BaseController{
         }
         if (saveType == SaveType.EXEC_ACCOUNT.getValue()) {
             headModel.setTjDate(DateUtil.getCurrentTime());
-            headModel.setTjrId(91L);
-            headModel.setTjrCode("0000");
-            headModel.setTjrName("Admin");
+            headModel.setTjrId(10000000041L);
+            headModel.setTjrCode("1");
+            headModel.setTjrName("超级户");
             headModel.setJzDate(DateUtil.getCurrentTime());
-            headModel.setJzrId(91L);
-            headModel.setJzrCode("0000");
-            headModel.setJzrName("Admin");
+            headModel.setJzrId(10000000041L);
+            headModel.setJzrCode("1");
+            headModel.setJzrName("超级户");
             headModel.setDataStatus(DataStatus.CLOSED.getValue());
             headModel.setBillNo(req.getBillNo());
         }

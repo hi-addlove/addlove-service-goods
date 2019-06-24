@@ -187,7 +187,7 @@
     From TORDTHAPPLYHEAD t
     Where t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
-        and t.BILLNO = #{queryModel.billNo,jdbcType=VARCHAR}
+        and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
     </if>
     <if test="queryModel.startDate != '' and queryModel.startDate != null">
         and t.TJDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')

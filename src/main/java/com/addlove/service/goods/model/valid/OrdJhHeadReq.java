@@ -212,6 +212,18 @@ public class OrdJhHeadReq {
     private Integer saveType;
     
     /**
+     * 经营方式:0-经销；1-代销；2-联销；3-租赁
+     */
+    @NotBlank(message = "经营方式不能为空")
+    private String jyMode;
+    
+    /**
+     * 结算方式:0-经销结算；1-代销结算；2-联销结算；3-租金结算
+     */
+    @NotBlank(message = "结算方式不能为空")
+    private String jsCode;
+    
+    /**
      * 商品明细
      */
     private List<OrdJhBodyReq> bodyList;
@@ -550,6 +562,34 @@ public class OrdJhHeadReq {
      */
     public void setSaveType(Integer saveType) {
         this.saveType = saveType;
+    }
+
+    /**
+     * @return the jyMode
+     */
+    public String getJyMode() {
+        return jyMode;
+    }
+
+    /**
+     * @param jyMode the jyMode to set
+     */
+    public void setJyMode(String jyMode) {
+        this.jyMode = jyMode;
+    }
+
+    /**
+     * @return the jsCode
+     */
+    public String getJsCode() {
+        return jsCode;
+    }
+
+    /**
+     * @param jsCode the jsCode to set
+     */
+    public void setJsCode(String jsCode) {
+        this.jsCode = jsCode;
     }
 
     /**

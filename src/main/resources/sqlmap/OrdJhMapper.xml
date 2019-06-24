@@ -234,13 +234,13 @@
     From TORDJHHEAD t
     Where t.YWTYPE = #{queryModel.ywType,jdbcType=VARCHAR}
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
-        and t.BILLNO = #{queryModel.billNo,jdbcType=VARCHAR}
+        and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
     </if>
     <if test="queryModel.startDate != '' and queryModel.startDate != null">
-        and t.JZDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+        and t.LRDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
     </if>
     <if test="queryModel.endDate != '' and queryModel.endDate != null">
-        and t.JZDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+        and t.LRDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
     </if>
     <!-- <if test="queryModel.timeType != null and queryModel.timeType == 0 ">
         and trunc(t.JZDATE) = trunc(SYSDATE)
@@ -261,7 +261,7 @@
         and t.TAG = 2
     </if>
     and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
-    Order By t.TAG,t.JZDATE Desc
+    Order By t.TAG,t.LRDATE Desc
   </select>
   
   <!-- 根据配送验收单号查询商品信息 -->
@@ -409,6 +409,7 @@
         ORGNAME,
         INORGCODE,
         HORGCODE,
+        ZBORGCODE,
         CKCODE,
         CKNAME,
         DEPID,
@@ -432,7 +433,9 @@
         TELEPHONE,
         FAX,
         LINKMAN,
-        LKMTEL
+        LKMTEL,
+        JYMODE,
+        JSCODE
     )
     VALUES
     (
@@ -446,6 +449,7 @@
         #{orgName,jdbcType=VARCHAR},
         #{inOrgCode,jdbcType=VARCHAR},
         #{hOrgCode,jdbcType=VARCHAR},
+        #{zbOrgCode,jdbcType=VARCHAR},
         #{ckCode,jdbcType=VARCHAR},
         #{ckName,jdbcType=VARCHAR},
         #{depId,jdbcType=NUMERIC},
@@ -469,7 +473,9 @@
         #{telePhone,jdbcType=VARCHAR},
         #{fax,jdbcType=VARCHAR},
         #{linkMan,jdbcType=VARCHAR},
-        #{lkmTel,jdbcType=VARCHAR}
+        #{lkmTel,jdbcType=VARCHAR},
+        #{jyMode,jdbcType=VARCHAR},
+        #{jsCode,jdbcType=VARCHAR}
     )
   </insert>
   
