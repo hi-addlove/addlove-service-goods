@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.addlove.service.goods.model.UserModel;
 
-//@Repository
+@Repository
 public interface UserDao {
     /**
      * 根据用户名查询用户信息

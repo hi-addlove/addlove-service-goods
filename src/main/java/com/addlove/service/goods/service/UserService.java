@@ -2,11 +2,10 @@ package com.addlove.service.goods.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.addlove.service.goods.dao.UserDao;
 import com.addlove.service.goods.model.UserModel;
 
-//@Service
+@Service
 public class UserService {
     @Autowired
     private UserDao userDao;

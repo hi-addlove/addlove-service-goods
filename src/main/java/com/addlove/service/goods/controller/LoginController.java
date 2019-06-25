@@ -2,12 +2,10 @@ package com.addlove.service.goods.controller;
 
 import java.util.Map;
 import java.util.UUID;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +16,15 @@ import com.addlove.service.goods.constants.LoginMsgCode.LoginCode;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.UserModel;
 import com.addlove.service.goods.model.valid.UserReq;
-import com.addlove.service.goods.service.UserService;
 
+/**
+ * 登录
+ * @author lw
+ *
+ */
 @Controller
 @RequestMapping(value = "/goods/gateway")
 public class LoginController extends BaseController{
-    /*@Autowired
-    private UserService userService;*/
     
     /**
      * 登录
@@ -40,9 +40,9 @@ public class LoginController extends BaseController{
         UserModel userModel = new UserModel();
         userModel.setUserName(req.getUserName());
         userModel.setPassword(req.getPassword());
-        if (null == userModel) {
+        /*if (null == userModel) {
             return ResponseMessage.fail(LoginCode.ACCOUNT.getMsg(), LoginCode.ACCOUNT.getCode());
-        }
+        }*/
         if (!userModel.getPassword().equals(req.getPassword())) {
             return ResponseMessage.fail(LoginCode.PASSWORD.getMsg(), LoginCode.PASSWORD.getCode());
         }

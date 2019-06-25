@@ -72,6 +72,7 @@ public class OrdJhController extends BaseController{
             queryModel.setEndDate(req.getEndDate() + " 23:59:59");
         }
         queryModel.setTag(req.getTag());
+        queryModel.setDataStatus(req.getDataStatus());
         queryModel.setYwType(req.getYwType());
         List<JSONObject> backList = this.ordJhService.queryOrdJhHeadModelByPage(queryModel);
         PageModel pageModel = new PageModel();
@@ -99,8 +100,8 @@ public class OrdJhController extends BaseController{
         if (req.getSaveType() == SaveType.SAVE.getValue()) {
             this.ordJhService.insertOrdJh(headModel);
         }else if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
-            //先更新验收表的记账信息，再调用存储过程进行记账
-            this.ordJhService.updateAndExecAccount(headModel);
+            //调用存储过程进行记账
+            this.ordJhService.execAccount(headModel);
         }else {
             throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
                     GoodsResponseCode.BILL_OPRATE_ERROR.getMsg());
@@ -127,8 +128,8 @@ public class OrdJhController extends BaseController{
         if (req.getSaveType() == SaveType.SAVE.getValue()) {
             this.ordJhService.updateAllJhInfo(headModel);
         }else if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
-            //先更新验收表的记账信息，再调用存储过程进行记账
             this.ordJhService.updateAllJhInfoAccount(headModel);
+            //调用存储过程进行记账
             this.ordJhService.execAccount(headModel);
         }else {
             throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
@@ -276,7 +277,6 @@ public class OrdJhController extends BaseController{
             throw new ServiceException(GoodsResponseCode.JH_SKU_NOT_BLANK.getCode(), 
                     GoodsResponseCode.JH_SKU_NOT_BLANK.getMsg());
         }
-        int saveType = req.getSaveType();
         OrdJhHeadModel headModel = new OrdJhHeadModel();
         headModel.setLrDate(DateUtil.getCurrentTime());
         headModel.setUserId(10000000041L);
@@ -288,7 +288,7 @@ public class OrdJhController extends BaseController{
         OrgManageModel orgModel = this.commonService.getOrgModel(req.getOrgCode());
         headModel.setInOrgCode(orgModel.getInOrgCode());
         headModel.sethOrgCode(orgModel.getInOrgCode());
-        headModel.setZbOrgCode(orgModel.getZbOrgCode());
+        headModel.setZbOrgCode(req.getOrgCode());
         List<StkStoreModel> storeList = this.commonService.getStoreList(req.getOrgCode());
         if (null == storeList || storeList.isEmpty()) {
             throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 
@@ -329,17 +329,11 @@ public class OrdJhController extends BaseController{
         }else {
             headModel.setBillNo(req.getBillNo());
         }
-        if (saveType == SaveType.EXEC_ACCOUNT.getValue()) {
-            headModel.setTjDate(DateUtil.getCurrentTime());
-            headModel.setTjrId(10000000041L);
-            headModel.setTjrCode("1");
-            headModel.setTjrName("超级户");
-            headModel.setJzDate(DateUtil.getCurrentTime());
+        if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
             headModel.setJzrId(10000000041L);
             headModel.setJzrCode("1");
             headModel.setJzrName("超级户");
-            headModel.setDataStatus(DataStatus.CLOSED.getValue());
-            headModel.setBillNo(req.getBillNo());
+            headModel.setJzDate(DateUtil.getCurrentTime());
         }
         List<OrdJhBodyModel> bodyModels = new LinkedList<OrdJhBodyModel>();
         long serialNo = 1;

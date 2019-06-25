@@ -145,18 +145,7 @@ public class OrdJhService {
         this.ordJhDao.deleteJhHeadModel(headModel.getBillNo());
         this.ordJhDao.deleteJhBodyModel(headModel.getBillNo());
         this.ordJhDao.insertOrdJhHead(headModel);
-        this.ordJhDao.updateJhHeadAccountInfo(headModel);
         this.ordJhDao.insertOrdJhBody(headModel.getBodyList());
-    }
-    
-    /**
-     * 更新jhHead记账信息后完成记账
-     * @param model
-     */
-    @Transactional
-    public void updateAndExecAccount(OrdJhHeadModel headModel) {
-        this.ordJhDao.updateJhHeadAccountInfo(headModel);
-        this.execAccount(headModel);
     }
     
     /**
@@ -171,6 +160,7 @@ public class OrdJhService {
     
     /**
      * 执行记账
+     * 注：记账的存储过程会自动更新表的记账人、记账时间、单据状态等数据
      * @param headModel
      */
     public void execAccount(OrdJhHeadModel headModel) {

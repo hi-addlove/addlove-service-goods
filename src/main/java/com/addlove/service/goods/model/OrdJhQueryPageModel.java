@@ -15,6 +15,8 @@ public class OrdJhQueryPageModel {
     private String endDate;
     /**收货状态：0-未验收；1-正常验收；2-异常验收 */
     private String tag;
+    /**数据状态：0－录入；1－审批；2－转审；3－提交；4-可记账；9-关闭 */
+    private String dataStatus;
     /**0904-物流采购验收 0905-门店采购验收 0906-无采购验收 0907-直送验收 0908-配送验收 */
     private String ywType;
     
@@ -101,6 +103,18 @@ public class OrdJhQueryPageModel {
      */
     public void setTag(String tag) {
         this.tag = tag;
+    }
+    /**
+     * @return the dataStatus
+     */
+    public String getDataStatus() {
+        return dataStatus;
+    }
+    /**
+     * @param dataStatus the dataStatus to set
+     */
+    public void setDataStatus(String dataStatus) {
+        this.dataStatus = dataStatus;
     }
     /**
      * @return the ywType
