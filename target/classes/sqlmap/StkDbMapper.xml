@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.addlove.service.goods.dao.StkDbDao">
+  <resultMap id="BaseResultMapHead" type="com.addlove.service.goods.model.StkDbHeadModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="LRDATE" jdbcType="TIMESTAMP" property="lrDate" />
+    <result column="USERID" jdbcType="NUMERIC" property="userId" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="userName" />
+    <result column="JZDATE" jdbcType="TIMESTAMP" property="jzDate" />
+    <result column="JZRID" jdbcType="NUMERIC" property="jzrId" />
+    <result column="JZRCODE" jdbcType="VARCHAR" property="jzrCode" />
+    <result column="JZRNAME" jdbcType="VARCHAR" property="jzrName" />
+    <result column="RPTDATE" jdbcType="VARCHAR" property="rptDate" />
+    <result column="PRNTIMES" jdbcType="NUMERIC" property="prnTimes" />
+    <result column="PRNDATE" jdbcType="TIMESTAMP" property="prnDate" />
+    <result column="TIMEMARK" jdbcType="NUMERIC" property="timeMark" />
+    <result column="GENTYPE" jdbcType="VARCHAR" property="genType" />
+    <result column="YWBILLNO" jdbcType="VARCHAR" property="ywBillNo" />
+    <result column="EMPID" jdbcType="NUMERIC" property="empId" />
+    <result column="EMPCODE" jdbcType="VARCHAR" property="empCode" />
+    <result column="EMPNAME" jdbcType="VARCHAR" property="empName" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depId" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depCode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depName" />
+    <result column="SHORGCODE" jdbcType="VARCHAR" property="shOrgCode" />
+    <result column="SHORGNAME" jdbcType="VARCHAR" property="shOrgName" />
+    <result column="SHDEPID" jdbcType="NUMERIC" property="shDepId" />
+    <result column="SHDEPCODE" jdbcType="VARCHAR" property="shDepCode" />
+    <result column="SHDEPNAME" jdbcType="VARCHAR" property="shDepName" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckCode" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckName" />
+    <result column="SHCKCODE" jdbcType="VARCHAR" property="shCkCode" />
+    <result column="SHCKNAME" jdbcType="VARCHAR" property="shCkName" />
+    <result column="ISPSTASK" jdbcType="VARCHAR" property="isPsTask" />
+    <result column="DBCOUNT" jdbcType="NUMERIC" property="dbCount" />
+    <result column="WCOST" jdbcType="NUMERIC" property="wCost" />
+    <result column="HCOST" jdbcType="NUMERIC" property="hCost" />
+    <result column="CWDATE" jdbcType="VARCHAR" property="cwDate" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="INORGCODE" jdbcType="VARCHAR" property="inOrgCode" />
+    <result column="INSHORGCODE" jdbcType="VARCHAR" property="inShOrgCode" />
+    <result column="DATASTATUS" jdbcType="VARCHAR" property="dataStatus" />
+    <result column="YWTYPE" jdbcType="VARCHAR" property="ywType" />
+    <result column="YWSTATUS" jdbcType="VARCHAR" property="ywStatus" />
+    <result column="ISDEPUNION" jdbcType="VARCHAR" property="isDepUnion" />
+    <result column="RHCOST" jdbcType="NUMERIC" property="rhCost" />
+    <result column="RWCOST" jdbcType="NUMERIC" property="rwCost" />
+    <result column="WLAREACODE" jdbcType="VARCHAR" property="wlAreaCode" />
+    <result column="WLAREANAME" jdbcType="VARCHAR" property="wlAreaName" />
+    <result column="SHWLAREACODE" jdbcType="VARCHAR" property="shWlAreaCode" />
+    <result column="SHWLAREANAME" jdbcType="VARCHAR" property="shWlAreaName" />
+    <result column="STOTAL" jdbcType="NUMERIC" property="sTotal" />
+    <result column="ORIGINTYPE" jdbcType="VARCHAR" property="originType" />
+    <result column="TJDATE" jdbcType="TIMESTAMP" property="tjDate" />
+    <result column="TJRID" jdbcType="NUMERIC" property="tjrId" />
+    <result column="TJRCODE" jdbcType="VARCHAR" property="tjrCode" />
+    <result column="TJRNAME" jdbcType="VARCHAR" property="tjrName" />
+    <result column="ISCHECKED" jdbcType="VARCHAR" property="isChecked" />
+    <result column="CHKUSERID" jdbcType="NUMERIC" property="chkUserId" />
+    <result column="CHKUSERCODE" jdbcType="VARCHAR" property="chkUserCode" />
+    <result column="CHKUSERNAME" jdbcType="VARCHAR" property="chkUserName" />
+    <result column="CHKDATE" jdbcType="TIMESTAMP" property="chkDate" />
+    <result column="MDBILLNO" jdbcType="VARCHAR" property="mdBillNo" />
+    <result column="REFBILLNO" jdbcType="VARCHAR" property="refBillNo" />
+    <result column="REFSHDEPID" jdbcType="NUMERIC" property="refShDepId" />
+    <result column="REFSHDEPCODE" jdbcType="VARCHAR" property="refShDepCode" />
+    <result column="REFSHDEPNAME" jdbcType="VARCHAR" property="refShDepName" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapBody" type="com.addlove.service.goods.model.StkDbBodyModel">
+    <id column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <id column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="EXPLUCODE" jdbcType="VARCHAR" property="exPluCode" />
+    <result column="EXPLUNAME" jdbcType="VARCHAR" property="exPluName" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="PACKUNIT" jdbcType="VARCHAR" property="packUnit" />
+    <result column="PACKQTY" jdbcType="NUMERIC" property="packQty" />
+    <result column="PACKCOUNT" jdbcType="NUMERIC" property="packCount" />
+    <result column="SGLCOUNT" jdbcType="NUMERIC" property="sglCount" />
+    <result column="DBCOUNT" jdbcType="NUMERIC" property="dbCount" />
+    <result column="PLUTYPE" jdbcType="VARCHAR" property="pluType" />
+    <result column="HJPRICE" jdbcType="NUMERIC" property="hjPrice" />
+    <result column="WJPRICE" jdbcType="NUMERIC" property="wjPrice" />
+    <result column="PRICE" jdbcType="NUMERIC" property="price" />
+    <result column="JTAXRATE" jdbcType="NUMERIC" property="jTaxRate" />
+    <result column="HCOST" jdbcType="NUMERIC" property="hCost" />
+    <result column="WCOST" jdbcType="NUMERIC" property="wCost" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="SHDEPID" jdbcType="NUMERIC" property="shDepId" />
+    <result column="SHDEPCODE" jdbcType="VARCHAR" property="shDepCode" />
+    <result column="SHDEPNAME" jdbcType="VARCHAR" property="shDepName" />
+    <result column="RHCOST" jdbcType="NUMERIC" property="rhCost" />
+    <result column="RWCOST" jdbcType="NUMERIC" property="rwCost" />
+    <result column="OUTKWCODE" jdbcType="VARCHAR" property="outKwCode" />
+    <result column="INKWCODE" jdbcType="VARCHAR" property="inKwCode" />
+    <result column="STOTAL" jdbcType="NUMERIC" property="sTotal" />
+    <result column="RHJPRICE" jdbcType="NUMERIC" property="rhJPrice" />
+    <result column="RWJPRICE" jdbcType="NUMERIC" property="rwJPrice" />
+    <result column="CARGONO" jdbcType="VARCHAR" property="carGoNo" />
+    <result column="TOSERIALNO" jdbcType="NUMERIC" property="toSerialNo" />
+  </resultMap>
+  
+  <sql id="Base_Column_List_Head">
+    BILLNO, LRDATE, USERID, USERCODE, USERNAME, JZDATE, JZRID, JZRCODE, JZRNAME, RPTDATE, 
+    PRNTIMES, PRNDATE, TIMEMARK, GENTYPE, YWBILLNO, EMPID, EMPCODE, EMPNAME, ORGCODE, 
+    ORGNAME, DEPID, DEPCODE, DEPNAME, SHORGCODE, SHORGNAME, SHDEPID, SHDEPCODE, SHDEPNAME, 
+    CKCODE, CKNAME, SHCKCODE, SHCKNAME, ISPSTASK, DBCOUNT, WCOST, HCOST, CWDATE, REMARK, 
+    INORGCODE, INSHORGCODE, DATASTATUS, YWTYPE, YWSTATUS, ISDEPUNION, RHCOST, RWCOST, 
+    WLAREACODE, WLAREANAME, SHWLAREACODE, SHWLAREANAME, STOTAL, ORIGINTYPE, TJDATE, TJRID, 
+    TJRCODE, TJRNAME, ISCHECKED, CHKUSERID, CHKUSERCODE, CHKUSERNAME, CHKDATE, MDBILLNO, 
+    REFBILLNO, REFSHDEPID, REFSHDEPCODE, REFSHDEPNAME
+  </sql>
+  
+  <sql id="Base_Column_List_Body">
+    BILLNO, SERIALNO, PLUID, EXPLUCODE, EXPLUNAME, PLUCODE, PLUNAME, BARCODE, SPEC, UNIT, 
+    PACKUNIT, PACKQTY, PACKCOUNT, SGLCOUNT, DBCOUNT, PLUTYPE, HJPRICE, WJPRICE, PRICE, 
+    JTAXRATE, HCOST, WCOST, REMARK, SHDEPID, SHDEPCODE, SHDEPNAME, RHCOST, RWCOST, OUTKWCODE, 
+    INKWCODE, STOTAL, RHJPRICE, RWJPRICE, CARGONO, TOSERIALNO
+  </sql>
+</mapper>

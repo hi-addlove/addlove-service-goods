@@ -2,10 +2,8 @@ package com.addlove.service.goods.dao;
 
 import java.util.List;
 import java.util.Map;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
 import com.addlove.service.goods.model.CntContractModel;
 import com.addlove.service.goods.model.EtpSupplierModel;
 import com.addlove.service.goods.model.OrgDeptModel;
@@ -58,11 +56,26 @@ public interface GoodsCommonDao {
     OrgManageModel getOrgModel(String orgCode);
     
     /**
+     * 获取所有组织
+     * @return
+     */
+    List<OrgManageModel> getAllOrgModel();
+    
+    /**
      * 获取仓库
      * @param orgCode
      * @return List<StkStoreModel>
      */
     List<StkStoreModel> getStoreList(String orgCode);
+    
+    /**
+     * 通过组织、部门、仓库查询商品
+     * @param orgCode
+     * @param depId
+     * @param ckCode
+     * @return List<SkuPluModel>
+     */
+    List<SkuPluModel> getSkuListByDept(@Param("orgCode")String orgCode, @Param("depId")Long depId, @Param("ckCode")String ckCode);
     
     /**
      * 调用存储过程生成单据号

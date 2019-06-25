@@ -352,7 +352,7 @@
     From TSKUPLU t,TSKUPLUEX t2,TCNTPLU t3,TCNTCONTRACT t4
     Where t.ISACTIVE = '1' And t.ISKC='1' And t.PLUCLS != '3' 
     And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE 
-    And t2.PLUID=t.PLUID And t2.ISJH='1'
+    And t2.ISJH='1'
     And t.PLUID = t3.PLUID And t.ORGCODE = t3.ORGCODE
     And t.ORGCODE = t4.ORGCODE And t3.CNTID=t4.CNTID
     And t.ORGCODE =  #{orgCode,jdbcType=VARCHAR} And t3.CNTID = #{cntId,jdbcType=NUMERIC}
@@ -361,7 +361,7 @@
   <!-- 获取部门 -->
   <select id="getDeptList" parameterType="java.lang.String" resultMap="BaseResultMapDept">
     select t.DEPID,t.ORGCODE,t.ORGCLASS,t.DEPCODE,t.DEPNAME,t.DEPENAME
-    From TORGDEPT t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR}
+    From TORGDEPT t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t.ISACTIVE = '1'
   </select>
   
   <!-- 获取组织 -->
@@ -370,10 +370,35 @@
     From TORGMANAGE t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR}
   </select>
   
+  <!-- 获取所有组织 -->
+  <select id="getAllOrgModel" resultMap="BaseResultMapOrg">
+    select t.ORGCODE,t.INORGCODE,t.ORGNAME,t.PREORGCODE,t.ORGCLASS,t.FORGCODE,t.ZBORGCODE
+    From TORGMANAGE t 
+  </select>
+  
   <!-- 获取仓库 -->
   <select id="getStoreList" parameterType="java.lang.String" resultMap="BaseResultMapStore">
     select t.ORGCODE,t.ATORGCODE,t.CKCODE,t.CKNAME,t.CKENAME,t.CKTYPE
     From TSTKSTORE t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t.CKTYPE != 2
+  </select>
+  
+  <!-- 通过组织、部门、仓库查询商品 -->
+  <select id="getSkuListByDept" resultMap="BaseResultMapSku">
+    Select Distinct t.PLUID,t.PLUCODE,t.PLUNAME,t.PLUENAME,t.PLUABBRNAME,t.PLUMN,t.BARCODE,t.UNIT,t.SPEC,t.PLUWEIGHT,
+    t.PLUHEIGHT,t.PLULONG,t.PLUWIDTH,t.ISMULPACKET,t.ORGCODE,t.ORGNAME,t.CGYID,t.CGYCODE,t.CGYNAME,t.CARGONO,
+    t.PRODUCE,t.GRADE,t.QUALITY,t.BZDAYS,t.CLSID,t.BRANDCODE,t.JTAXCALTYPE,t.WJPRICE,t.HJPRICE,t.JTAXRATE,
+    t.PRICE,t.XTAXRATE,t.ISWEIGHT,t.ISCOUTQTY,t.ISKC,t.ISCURRDAY,t.JHBFBZDAYS,t.PSBFBZDAYS,t.CXINFO,t.YWSTATUS,t.LRDATE,
+    t.LRUSERCODE,t.LRUSERNAME,t.ZXDATE,t.ZXUSERCODE,t.ZXUSERNAME,t.UDP1,t.UDP2,t.UDP3,t.UDP4,t.PLUCLS,
+    t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,t.MINTHDAYS,t.MAXTHDAYS,t.ISONLINE,t.LINEDATE,t.PLUDESC,
+    t3.EXPLUCODE,t3.KCCOUNT,t3.HCOST,t3.WCOST,t3.PLUTYPE,t3.PACKQTY
+    From TSKUPLU t,TSKUPLUEX t2,tStkLsKc t3
+    Where t.ISACTIVE = '1' And t.ISKC='1' And t.PLUCLS != '3' 
+    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE 
+    And t.PLUID = t3.PLUID And t.ORGCODE = t3.ORGCODE
+    And t2.DEPId = t3.DEPId
+    And t.ORGCODE =  #{orgCode,jdbcType=VARCHAR} 
+    And t3.DEPId = #{depId,jdbcType=NUMERIC} 
+    And t3.CKCODE = #{ckCode,jdbcType=VARCHAR}
   </select>
   
   <!-- 调用存储过程生成单据号  -->

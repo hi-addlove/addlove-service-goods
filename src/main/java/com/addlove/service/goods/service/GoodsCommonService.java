@@ -78,12 +78,31 @@ public class GoodsCommonService {
     }
     
     /**
+     * 获取所有组织
+     * @return List<OrgManageModel>
+     */
+    public List<OrgManageModel> getAllOrgModel() {
+        return this.commonDao.getAllOrgModel();
+    }
+    
+    /**
      * 获取仓库
      * @param orgCode
      * @return List<StkStoreModel>
      */
     public List<StkStoreModel> getStoreList(String orgCode) {
         return this.commonDao.getStoreList(orgCode);
+    }
+    
+    /**
+     * 通过组织、部门、仓库查询商品
+     * @param orgCode
+     * @param depId
+     * @param ckCode
+     * @return List<SkuPluModel>
+     */
+    public List<SkuPluModel> getSkuListByDept(String orgCode, Long depId, String ckCode) {
+        return this.commonDao.getSkuListByDept(orgCode, depId, ckCode);
     }
     
     /**
