@@ -14,8 +14,11 @@ import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.CntContractModel;
 import com.addlove.service.goods.model.EtpSupplierModel;
 import com.addlove.service.goods.model.OrgDeptModel;
+import com.addlove.service.goods.model.OrgManageModel;
+import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.model.StkStoreModel;
+import com.addlove.service.goods.model.valid.CommonOrgAndDeptReq;
 import com.addlove.service.goods.model.valid.CommonOrgAndSupAndCntReq;
 import com.addlove.service.goods.service.GoodsCommonService;
 
@@ -140,5 +143,34 @@ public class GoodsCommonController extends BaseController{
         }
         List<StkStoreModel> storeList = this.commonService.getStoreList(orgCode);
         return ResponseMessage.ok(storeList);
+    }
+    
+    /**
+     * 获取所有组织
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getAllOrgModel", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseMessage getAllOrgModel() {
+        List<OrgManageModel> allOrgModel = this.commonService.getAllOrgModel();
+        return ResponseMessage.ok(allOrgModel);
+    }
+    
+    /**
+     * 通过组织、部门、仓库查询商品
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getSkuListByDept", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getSkuListByDept(@RequestBody CommonOrgAndDeptReq req) {
+        List<StkStoreModel> storeList = this.commonService.getStoreList(req.getInOrgCode());
+        if (null == storeList || storeList.isEmpty()) {
+            throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.CK_NOT_BLANK.getMsg());
+        }
+       List<SkuPluExtendModel> skuList = this.commonService.getSkuListByDept(req.getInOrgCode(), req.getInShOrgCode(), 
+               req.getDeptId(), storeList.get(0).getCkCode());
+       return ResponseMessage.ok(skuList);
     }
 }

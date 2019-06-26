@@ -6,12 +6,24 @@ package com.addlove.service.goods.model;
  *
  */
 public class SkuPluExtendModel extends SkuPluModel{
+    /**特征码编码 */
     private String eXPluCode;
+    
+    /** */
     private Double kcCount;
+    
+    /**含税进价金额 */
     private Double hCost;
+    
+    /**无税进价金额 */
     private Double wCost;
+    
+    /**商品类型 */
     private String pluType;
+    
+    /**包装细数 */
     private Double packQty;
+    
     /**
      * @return the eXPluCode
      */

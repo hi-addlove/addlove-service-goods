@@ -13,6 +13,7 @@ import com.addlove.service.goods.model.CntContractModel;
 import com.addlove.service.goods.model.EtpSupplierModel;
 import com.addlove.service.goods.model.OrgDeptModel;
 import com.addlove.service.goods.model.OrgManageModel;
+import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.model.StkStoreModel;
 import com.addlove.service.goods.util.LoggerEnhance;
@@ -99,10 +100,10 @@ public class GoodsCommonService {
      * @param orgCode
      * @param depId
      * @param ckCode
-     * @return List<SkuPluModel>
+     * @return List<SkuPluExtendModel>
      */
-    public List<SkuPluModel> getSkuListByDept(String orgCode, Long depId, String ckCode) {
-        return this.commonDao.getSkuListByDept(orgCode, depId, ckCode);
+    public List<SkuPluExtendModel> getSkuListByDept(String inOrgCode, String inShOrgCode, Long depId, String ckCode) {
+        return this.commonDao.getSkuListByDept(inOrgCode, inShOrgCode, depId, ckCode);
     }
     
     /**

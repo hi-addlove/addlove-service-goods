@@ -8,6 +8,7 @@ import com.addlove.service.goods.model.CntContractModel;
 import com.addlove.service.goods.model.EtpSupplierModel;
 import com.addlove.service.goods.model.OrgDeptModel;
 import com.addlove.service.goods.model.OrgManageModel;
+import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.model.StkStoreModel;
 
@@ -75,7 +76,8 @@ public interface GoodsCommonDao {
      * @param ckCode
      * @return List<SkuPluModel>
      */
-    List<SkuPluModel> getSkuListByDept(@Param("orgCode")String orgCode, @Param("depId")Long depId, @Param("ckCode")String ckCode);
+    List<SkuPluExtendModel> getSkuListByDept(@Param("inOrgCode")String inOrgCode, @Param("inShOrgCode")String inShOrgCode,
+            @Param("depId")Long depId, @Param("ckCode")String ckCode);
     
     /**
      * 调用存储过程生成单据号

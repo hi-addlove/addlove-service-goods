@@ -16,6 +16,7 @@ import com.addlove.service.goods.constants.GoodsCommonConstants.ProcedureResult;
 import com.addlove.service.goods.controller.OrdJhController;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.model.OrdJhHeadModel;
+import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.valid.OrdJhBodyReq;
 import com.addlove.service.goods.model.valid.OrdJhHeadReq;
 import com.addlove.service.goods.service.GoodsCommonService;
@@ -71,6 +72,17 @@ public class OrdJhTest {
                 || ProcedureResult.EXEC_ERROR_EXIT.getValue() == resultCode) {
             throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
                     null != resultMap.get("ps_message") ? resultMap.get("ps_message").toString() : GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
+        }
+    }
+    
+    @Test
+    public void testGetSkuListByDept() {
+        List<SkuPluExtendModel> skuList = 
+                this.commonService.getSkuListByDept("999999", "637012", 10000000021L, "01");
+        if (null != skuList) {
+            for (SkuPluExtendModel model : skuList) {
+                System.out.println(model.getPluId() + "---" + model.getPluCode() + "---" + model.geteXPluCode());
+            }
         }
     }
     
