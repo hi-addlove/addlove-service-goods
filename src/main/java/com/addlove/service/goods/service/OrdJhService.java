@@ -158,30 +158,4 @@ public class OrdJhService {
         this.ordJhDao.deleteJhBodyModel(billNo);
     }
     
-    /**
-     * 执行记账
-     * 注：记账的存储过程会自动更新表的记账人、记账时间、单据状态等数据
-     * @param headModel
-     */
-    public void execAccount(OrdJhHeadModel headModel) {
-        Map<String, Object> accountMap = new HashMap<String, Object>();
-        accountMap.put("ps_BillNo", headModel.getBillNo());
-        accountMap.put("ps_YwType", headModel.getYwType());
-        accountMap.put("pi_UserId", headModel.getJzrId());
-        accountMap.put("ps_UserCode", headModel.getJzrCode());
-        accountMap.put("ps_UserName", headModel.getJzrName());
-        accountMap.put("pd_JzDate", headModel.getJzDate());
-        Map<String, Object> resultMap = this.commonService.execAccountByCallProcedure(accountMap);
-        if (null == resultMap) {
-            throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
-                    GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
-        }
-        LoggerEnhance.info(LOGGER, "验收单记账结果为--------------------：{}", null != resultMap.get("ps_Message") ? resultMap.get("ps_Message").toString() : "");
-        int resultCode = null != resultMap.get("pi_Result") ? Integer.valueOf(resultMap.get("pi_Result").toString()) : -1;
-        if (ProcedureResult.EXEC_ERROR_RECORD.getValue() == resultCode 
-                || ProcedureResult.EXEC_ERROR_EXIT.getValue() == resultCode) {
-            throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
-                    GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
-        }
-    }
 }

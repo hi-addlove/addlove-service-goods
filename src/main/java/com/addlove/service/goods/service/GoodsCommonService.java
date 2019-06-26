@@ -8,7 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.addlove.service.goods.constants.GoodsResponseCode;
+import com.addlove.service.goods.constants.GoodsCommonConstants.ProcedureResult;
 import com.addlove.service.goods.dao.GoodsCommonDao;
+import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.model.CntContractModel;
 import com.addlove.service.goods.model.EtpSupplierModel;
 import com.addlove.service.goods.model.OrgDeptModel;
@@ -134,6 +138,17 @@ public class GoodsCommonService {
         this.commonDao.execAccountByCallProcedure(map);
         long endTime = System.currentTimeMillis();
         LoggerEnhance.info(LOGGER, "调用单据记账存储过程-【CALL PSSY_DB.sStk_LetsGo_ORA()】消耗时间:{}", (endTime - startTime));
+        if (null == map) {
+            throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
+                    GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
+        }
+        LoggerEnhance.info(LOGGER, "单据记账结果为--------------------：{}", null != map.get("ps_Message") ? map.get("ps_Message").toString() : "");
+        int resultCode = null != map.get("pi_Result") ? Integer.valueOf(map.get("pi_Result").toString()) : -1;
+        if (ProcedureResult.EXEC_ERROR_RECORD.getValue() == resultCode 
+                || ProcedureResult.EXEC_ERROR_EXIT.getValue() == resultCode) {
+            throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
+                    GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
+        }
         return map;
     }
 }

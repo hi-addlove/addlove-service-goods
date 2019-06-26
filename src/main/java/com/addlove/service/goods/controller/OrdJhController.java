@@ -28,7 +28,7 @@ import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.StkStoreModel;
 import com.addlove.service.goods.model.valid.OrdJhBodyReq;
 import com.addlove.service.goods.model.valid.OrdJhHeadReq;
-import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
+import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdJhQueryPageReq;
 import com.addlove.service.goods.service.GoodsCommonService;
 import com.addlove.service.goods.service.OrdJhService;
@@ -101,7 +101,14 @@ public class OrdJhController extends BaseController{
             this.ordJhService.insertOrdJh(headModel);
         }else if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
             //调用存储过程进行记账
-            this.ordJhService.execAccount(headModel);
+            Map<String, Object> accountMap = new HashMap<String, Object>();
+            accountMap.put("ps_BillNo", headModel.getBillNo());
+            accountMap.put("ps_YwType", headModel.getYwType());
+            accountMap.put("pi_UserId", headModel.getJzrId());
+            accountMap.put("ps_UserCode", headModel.getJzrCode());
+            accountMap.put("ps_UserName", headModel.getJzrName());
+            accountMap.put("pd_JzDate", headModel.getJzDate());
+            this.commonService.execAccountByCallProcedure(accountMap);
         }else {
             throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
                     GoodsResponseCode.BILL_OPRATE_ERROR.getMsg());
@@ -128,9 +135,16 @@ public class OrdJhController extends BaseController{
         if (req.getSaveType() == SaveType.SAVE.getValue()) {
             this.ordJhService.updateAllJhInfo(headModel);
         }else if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
+            Map<String, Object> accountMap = new HashMap<String, Object>();
+            accountMap.put("ps_BillNo", headModel.getBillNo());
+            accountMap.put("ps_YwType", headModel.getYwType());
+            accountMap.put("pi_UserId", headModel.getJzrId());
+            accountMap.put("ps_UserCode", headModel.getJzrCode());
+            accountMap.put("ps_UserName", headModel.getJzrName());
+            accountMap.put("pd_JzDate", headModel.getJzDate());
             this.ordJhService.updateAllJhInfoAccount(headModel);
             //调用存储过程进行记账
-            this.ordJhService.execAccount(headModel);
+            this.commonService.execAccountByCallProcedure(accountMap);
         }else {
             throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
                     GoodsResponseCode.BILL_OPRATE_ERROR.getMsg());
@@ -145,7 +159,7 @@ public class OrdJhController extends BaseController{
      */
     @RequestMapping(value = "/delOrdJh", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage delOrdJh(@RequestBody @Valid OrdJhQueryDetailReq req) {
+    public ResponseMessage delOrdJh(@RequestBody @Valid CommonQueryDetailReq req) {
         this.ordJhService.deleteJhData(req.getBillNo());
         return ResponseMessage.ok();
     }
@@ -157,7 +171,7 @@ public class OrdJhController extends BaseController{
      */
     @RequestMapping(value = "/queryOrderJhDetail", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage queryOrderJhDetail(@RequestBody @Valid OrdJhQueryDetailReq req) {
+    public ResponseMessage queryOrderJhDetail(@RequestBody @Valid CommonQueryDetailReq req) {
         List<Map<String, Object>> resultList = this.ordJhService.queryBodysByBillNo(req.getBillNo());
         JSONObject backJson = new JSONObject();
         if (null != resultList && !resultList.isEmpty()) {
@@ -335,6 +349,7 @@ public class OrdJhController extends BaseController{
             headModel.setJzrName("超级户");
             headModel.setJzDate(DateUtil.getCurrentTime());
         }
+        //组织明细
         List<OrdJhBodyModel> bodyModels = new LinkedList<OrdJhBodyModel>();
         long serialNo = 1;
         for (OrdJhBodyReq bodyReq : bodyList) {

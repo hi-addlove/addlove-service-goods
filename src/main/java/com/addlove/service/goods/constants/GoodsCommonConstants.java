@@ -18,7 +18,12 @@ public interface GoodsCommonConstants {
         /**
          * 验收申请单据类型
          */
-        ACCEPTANCE_APPLY("0904", "验收申请");
+        ACCEPTANCE_APPLY("0904", "验收申请"),
+        
+        /**
+         * 调拨
+         */
+        DB_ORDER("1804", "调拨");
         
         private String value;
         private String name;

@@ -69,7 +69,12 @@ public interface GoodsOrdJhConstants {
         /**
          * 0908-配送验收
          */
-        DELIVERY_ACCEPTANCE("0908", "配送验收");
+        DELIVERY_ACCEPTANCE("0908", "配送验收"),
+        
+        /**
+         * 1804-调拨业务
+         */
+        DB_ORDER("1804", "调拨业务");
         
         private String value;
         private String name;

@@ -125,4 +125,190 @@
     JTAXRATE, HCOST, WCOST, REMARK, SHDEPID, SHDEPCODE, SHDEPNAME, RHCOST, RWCOST, OUTKWCODE, 
     INKWCODE, STOTAL, RHJPRICE, RWJPRICE, CARGONO, TOSERIALNO
   </sql>
+  
+  <!-- 分页查询调拨信息 -->
+  <select id="queryDbPage" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.EMPID,
+                t.EMPCODE,
+                t.EMPNAME,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.SHORGCODE,
+                t.SHORGNAME,
+                t.SHDEPID,
+                t.SHDEPCODE,
+                t.SHDEPNAME,
+                t.CKCODE,
+                t.CKNAME,
+                t.SHCKCODE,
+                t.SHCKNAME,
+                t.ISPSTASK,
+                t.DBCOUNT,
+                t.WCOST,
+                t.HCOST,
+                t.REMARK,
+                t.INORGCODE,
+                t.INSHORGCODE,
+                t.DATASTATUS,
+                t.YWTYPE,
+                t.YWSTATUS,
+                t.RHCOST,
+                t.RWCOST,
+                t.WLAREACODE,
+                t.WLAREANAME,
+                t.SHWLAREACODE,
+                t.SHWLAREANAME,
+                t.STOTAL,
+                t.ISCHECKED,
+                t.CHKUSERID,
+                t.CHKUSERCODE,
+                t.CHKUSERNAME,
+                t.CHKDATE
+    From TSTKDBHEAD t
+    Where t.YWTYPE = '1804'
+    <if test="queryModel.billNo != '' and queryModel.billNo != null">
+        and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="queryModel.startDate != '' and queryModel.startDate != null">
+        and t.LRDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.endDate != '' and queryModel.endDate != null">
+        and t.LRDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.dataStatus != null and queryModel.dataStatus == '' ">
+        and t.DATASTATUS = #{queryModel.dataStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.dbType != null and queryModel.dbType == 1 ">
+        and t.ORGCODE = t.SHORGCODE
+    </if>
+    <if test="queryModel.dbType != null and queryModel.dbType == 2 ">
+        and t.ORGCODE != t.SHORGCODE
+    </if>
+     <if test="queryModel.shOrgCode != null and queryModel.shOrgCode == '' ">
+        and t.SHORGCODE = #{queryModel.shOrgCode,jdbcType=VARCHAR}
+    </if>
+    and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+    Order By t.LRDATE Desc
+  </select>
+  
+  <!-- 插入调拨主表 -->
+  <insert id="insertStkDbHead" parameterType="com.addlove.service.goods.model.StkDbHeadModel">
+  
+  </insert>
+  
+  <!-- 插入调拨明细表 -->
+  <insert id="insertStkDbBody" parameterType="com.addlove.service.goods.model.StkDbBodyModel">
+  
+  </insert>
+  
+  <!-- 删除调拨主表 -->
+  <delete id="deleteStkDbHead" parameterType="java.lang.String">
+    DELETE FROM TSTKDBHEAD WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 删除调拨明细表 -->
+  <delete id="deleteStkDbBody" parameterType="java.lang.String">
+    DELETE FROM TSTKDBBODY WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 查询调拨详情 -->
+  <select id="queryDbDetailByBillNo" resultType="java.util.HashMap">
+    Select Distinct t.BILLNO,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.EMPID,
+                t.EMPCODE,
+                t.EMPNAME,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.SHORGCODE,
+                t.SHORGNAME,
+                t.SHDEPID,
+                t.SHDEPCODE,
+                t.SHDEPNAME,
+                t.CKCODE,
+                t.CKNAME,
+                t.SHCKCODE,
+                t.SHCKNAME,
+                t.ISPSTASK,
+                t.DBCOUNT,
+                t.WCOST,
+                t.HCOST,
+                t.REMARK,
+                t.INORGCODE,
+                t.INSHORGCODE,
+                t.DATASTATUS,
+                t.YWTYPE,
+                t.YWSTATUS,
+                t.RHCOST,
+                t.RWCOST,
+                t.WLAREACODE,
+                t.WLAREANAME,
+                t.SHWLAREACODE,
+                t.SHWLAREANAME,
+                t.STOTAL,
+                t.ISCHECKED,
+                t.CHKUSERID,
+                t.CHKUSERCODE,
+                t.CHKUSERNAME,
+                t.CHKDATE,
+                t1.SERIALNO,
+                t1.PLUID,
+                t1.EXPLUCODE,
+                t1.EXPLUNAME,
+                t1.PLUCODE,
+                t1.PLUNAME,
+                t1.BARCODE,
+                t1.SPEC,
+                t1.UNIT,
+                t1.PACKUNIT,
+                t1.PACKQTY,
+                t1.PACKCOUNT,
+                t1.SGLCOUNT,
+                t1.DBCOUNT AS DBCOUNT2,
+                t1.PLUTYPE,
+                t1.HJPRICE,
+                t1.WJPRICE,
+                t1.PRICE,
+                t1.JTAXRATE,
+                t1.HCOST AS HCOST2,
+                t1.WCOST AS WCOST2,
+                t1.REMARK AS REMARK2,
+                t1.SHDEPID AS SHDEPID2,
+                t1.SHDEPCODE AS SHDEPCODE2,
+                t1.SHDEPNAME AS SHDEPNAME2,
+                t1.RHCOST AS RHCOST2,
+                t1.RWCOST AS RWCOST2,
+                t1.OUTKWCODE,
+                t1.INKWCODE,
+                t1.STOTAL AS STOTAL2,
+                t1.RHJPRICE,
+                t1.RWJPRICE,
+                t1.CARGONO,
+                t1.TOSERIALNO
+    From TSTKDBHEAD t Left Join TSTKDBBODY t1 On t.BILLNO = t1.BILLNO
+    Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+    Order By t1.SERIALNO
+  </select>
 </mapper>

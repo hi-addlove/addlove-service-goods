@@ -16,7 +16,7 @@ import com.addlove.service.goods.controller.OrdJhController;
 import com.addlove.service.goods.controller.OrdThApplyController;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.PageModel;
-import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
+import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdJhQueryPageReq;
 import com.addlove.service.goods.model.valid.OrdThApplyBodyDiffReq;
 import com.addlove.service.goods.model.valid.OrdThApplyHeadDiffReq;
@@ -50,7 +50,7 @@ public class AddloveServiceGoodsApplicationTests {
     
     @Test
     public void testQueryOrderJhDetail() {
-        OrdJhQueryDetailReq req = new OrdJhQueryDetailReq();
+        CommonQueryDetailReq req = new CommonQueryDetailReq();
         req.setBillNo("1JHYW2019060400002");
         ResponseMessage res = this.ordJhController.queryOrderJhDetail(req);
         JSONObject json = (JSONObject) res.getData();
@@ -59,7 +59,7 @@ public class AddloveServiceGoodsApplicationTests {
     
     @Test
     public void testQueryOrderThDetail() {
-        OrdJhQueryDetailReq req = new OrdJhQueryDetailReq();
+        CommonQueryDetailReq req = new CommonQueryDetailReq();
         req.setBillNo("1THSQ201906130002");
         ResponseMessage res = this.ordThApplyController.queryOrderThDetail(req);
         JSONObject json = (JSONObject) res.getData();

@@ -2,7 +2,7 @@ package com.addlove.service.goods.model.valid;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class OrdJhQueryDetailReq {
+public class CommonQueryDetailReq {
     /**单据号 */
     @NotBlank(message = "单据号不能为空")
     private String billNo;

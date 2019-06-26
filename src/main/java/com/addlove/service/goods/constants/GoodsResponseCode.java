@@ -49,7 +49,12 @@ public enum GoodsResponseCode {
     /**
      * 仓库不能为空
      */
-    CK_NOT_BLANK(20008, "仓库不能为空");
+    CK_NOT_BLANK(20008, "仓库不能为空"),
+    
+    /**
+     * 部门ID不能为空
+     */
+    DEP_ID_NOT_BLANK(20009, "部门ID不能为空");
     
     private int code;
     private String msg;

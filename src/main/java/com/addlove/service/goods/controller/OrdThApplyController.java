@@ -24,7 +24,7 @@ import com.addlove.service.goods.model.OrdThApplyBodyModel;
 import com.addlove.service.goods.model.OrdThApplyHeadModel;
 import com.addlove.service.goods.model.OrdThQueryPageModel;
 import com.addlove.service.goods.model.PageModel;
-import com.addlove.service.goods.model.valid.OrdJhQueryDetailReq;
+import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdThApplyBodyDiffReq;
 import com.addlove.service.goods.model.valid.OrdThApplyHeadDiffReq;
 import com.addlove.service.goods.model.valid.OrdThQueryPageReq;
@@ -210,7 +210,7 @@ public class OrdThApplyController extends BaseController{
      */
     @RequestMapping(value = "/queryOrderThDetail", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage queryOrderThDetail(@RequestBody @Valid OrdJhQueryDetailReq req) {
+    public ResponseMessage queryOrderThDetail(@RequestBody @Valid CommonQueryDetailReq req) {
         List<Map<String, Object>> resultList = this.ordThApplyService.queryThBodysByBillNo(req.getBillNo());
         JSONObject backJson = new JSONObject();
         if (null != resultList && !resultList.isEmpty()) {
