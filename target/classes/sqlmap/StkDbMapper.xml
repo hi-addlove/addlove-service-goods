@@ -201,12 +201,155 @@
   
   <!-- 插入调拨主表 -->
   <insert id="insertStkDbHead" parameterType="com.addlove.service.goods.model.StkDbHeadModel">
-  
+    INSERT INTO TSTKDBHEAD
+    (
+        BILLNO, 
+        LRDATE, 
+        USERID, 
+        USERCODE, 
+        USERNAME,
+        EMPID, 
+        EMPCODE, 
+        EMPNAME, 
+        ORGCODE, 
+        ORGNAME, 
+        DEPID, 
+        DEPCODE, 
+        DEPNAME, 
+        SHORGCODE, 
+        SHORGNAME, 
+        SHDEPID, 
+        SHDEPCODE, 
+        SHDEPNAME, 
+        CKCODE, 
+        CKNAME, 
+        SHCKCODE, 
+        SHCKNAME, 
+        DBCOUNT, 
+        WCOST, 
+        HCOST,
+        REMARK, 
+        INORGCODE, 
+        INSHORGCODE, 
+        DATASTATUS, 
+        YWTYPE, 
+        RHCOST, 
+        RWCOST, 
+        STOTAL
+    )
+    VALUES
+    (
+        #{billNo,jdbcType=VARCHAR},
+        to_date(#{lrDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'),
+        #{userId,jdbcType=NUMERIC},
+        #{userCode,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR},
+        #{empId,jdbcType=NUMERIC},
+        #{empCode,jdbcType=VARCHAR},
+        #{empName,jdbcType=VARCHAR},
+        #{orgCode,jdbcType=VARCHAR},
+        #{orgName,jdbcType=VARCHAR},
+        #{depId,jdbcType=NUMERIC},
+        #{depCode,jdbcType=VARCHAR},
+        #{depName,jdbcType=VARCHAR},
+        #{shOrgCode,jdbcType=VARCHAR},
+        #{shOrgName,jdbcType=VARCHAR},
+        #{shDepId,jdbcType=NUMERIC},
+        #{shDepCode,jdbcType=VARCHAR},
+        #{shDepName,jdbcType=VARCHAR},
+        #{ckCode,jdbcType=VARCHAR},
+        #{ckName,jdbcType=VARCHAR},
+        #{shCkCode,jdbcType=VARCHAR},
+        #{shCkName,jdbcType=VARCHAR},
+        #{dbCount,jdbcType=NUMERIC},
+        #{wCost,jdbcType=NUMERIC},
+        #{hCost,jdbcType=NUMERIC},
+        #{remark,jdbcType=VARCHAR},
+        #{inOrgCode,jdbcType=VARCHAR},
+        #{inShOrgCode,jdbcType=VARCHAR},
+        #{dataStatus,jdbcType=VARCHAR},
+        #{ywType,jdbcType=VARCHAR},
+        #{rhCost,jdbcType=NUMERIC},
+        #{rwCost,jdbcType=NUMERIC},
+        #{sTotal,jdbcType=NUMERIC}
+    )
   </insert>
   
   <!-- 插入调拨明细表 -->
   <insert id="insertStkDbBody" parameterType="com.addlove.service.goods.model.StkDbBodyModel">
-  
+    INSERT INTO TSTKDBBODY
+    (
+        BILLNO, 
+        SERIALNO, 
+        PLUID, 
+        EXPLUCODE, 
+        EXPLUNAME, 
+        PLUCODE, 
+        PLUNAME, 
+        BARCODE, 
+        SPEC, 
+        UNIT, 
+        PACKUNIT, 
+        PACKQTY, 
+        PACKCOUNT, 
+        SGLCOUNT, 
+        DBCOUNT, 
+        HJPRICE, 
+        WJPRICE, 
+        PRICE, 
+        JTAXRATE, 
+        HCOST, 
+        WCOST, 
+        REMARK, 
+        SHDEPID, 
+        SHDEPCODE, 
+        SHDEPNAME, 
+        RHCOST, 
+        RWCOST, 
+        STOTAL, 
+        RHJPRICE, 
+        RWJPRICE, 
+        CARGONO, 
+        TOSERIALNO
+    )
+    <foreach collection="bodys" item="body" separator="union all">
+    (
+         SELECT
+          #{body.billNo,jdbcType=VARCHAR},
+          #{body.serialNo,jdbcType=NUMERIC},
+          #{body.pluId,jdbcType=VARCHAR},
+          #{body.exPluCode,jdbcType=VARCHAR},
+          #{body.exPluName,jdbcType=VARCHAR},
+          #{body.pluCode,jdbcType=VARCHAR},
+          #{body.pluName,jdbcType=VARCHAR},
+          #{body.barCode,jdbcType=VARCHAR},
+          #{body.spec,jdbcType=VARCHAR},
+          #{body.unit,jdbcType=VARCHAR},
+          #{body.packUnit,jdbcType=NUMERIC},
+          #{body.packQty,jdbcType=NUMERIC},
+          #{body.packCount,jdbcType=NUMERIC},
+          #{body.sglCount,jdbcType=NUMERIC},
+          #{body.dbCount,jdbcType=NUMERIC},
+          #{body.hjPrice,jdbcType=NUMERIC},
+          #{body.wjPrice,jdbcType=NUMERIC},
+          #{body.price,jdbcType=NUMERIC},
+          #{body.jTaxRate,jdbcType=NUMERIC},
+          #{body.hCost,jdbcType=NUMERIC},
+          #{body.wCost,jdbcType=NUMERIC},
+          #{body.remark,jdbcType=VARCHAR},
+          #{body.shDepId,jdbcType=NUMERIC},
+          #{body.shDepCode,jdbcType=VARCHAR},
+          #{body.shDepName,jdbcType=VARCHAR},
+          #{body.rhCost,jdbcType=NUMERIC},
+          #{body.rwCost,jdbcType=NUMERIC},
+          #{body.sTotal,jdbcType=NUMERIC},
+          #{body.rhJPrice,jdbcType=NUMERIC},
+          #{body.rwJPrice,jdbcType=NUMERIC},
+          #{body.carGoNo,jdbcType=VARCHAR},
+          #{body.toSerialNo,jdbcType=NUMERIC}
+         FROM DUAL
+    )
+    </foreach>
   </insert>
   
   <!-- 删除调拨主表 -->
