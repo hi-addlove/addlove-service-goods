@@ -20,6 +20,7 @@ import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.model.StkStoreModel;
+import com.addlove.service.goods.model.UsrUserModel;
 import com.addlove.service.goods.util.LoggerEnhance;
 
 /**
@@ -108,6 +109,15 @@ public class GoodsCommonService {
      */
     public List<SkuPluExtendModel> getSkuListByDept(String inOrgCode, String inShOrgCode, Long depId, String ckCode) {
         return this.commonDao.getSkuListByDept(inOrgCode, inShOrgCode, depId, ckCode);
+    }
+    
+    /**
+     * 搜索用户
+     * @param searchContent:用户ID、用户编码、用户名
+     * @return List<UsrUserModel>
+     */
+    public List<UsrUserModel> getAllUsers(Map<String, Object> map) {
+        return this.commonDao.getAllUsers(map);
     }
     
     /**

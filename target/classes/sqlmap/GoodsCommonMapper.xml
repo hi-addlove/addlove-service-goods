@@ -507,6 +507,21 @@
                )
   </select>
   
+  <!-- 搜索用户 -->
+  <select id="getAllUsers" parameterType="java.util.Map" resultMap="BaseResultMapUser">
+    select Distinct t.USERID, t.USERCODE, t.USERNAME, t.USERTYPE, t.EMPID, t.PASSWD, t.REG_DAY
+    From TUSRUSER t,TUSREMPLOYEE t1 
+    Where t.EMPID = t1.EMPID 
+    And t.ISFORBID = '0' and t.ISACTIVE = '1'
+    <if test="searchContent != '' and searchContent != null">
+        And (
+          t.USERID LIKE CONCAT(#{searchContent,jdbcType=VARCHAR},'%') 
+          Or t.USERCODE LIKE CONCAT(#{searchContent,jdbcType=VARCHAR},'%') 
+          Or t.USERNAME LIKE CONCAT(#{searchContent,jdbcType=VARCHAR},'%')
+        )
+    </if>
+  </select>
+  
   <!-- 调用存储过程生成单据号  -->
   <select id="getBillNoByCallProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
     <![CDATA[

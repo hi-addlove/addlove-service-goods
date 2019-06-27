@@ -1,6 +1,9 @@
 package com.addlove.service.goods.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +21,10 @@ import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.model.StkStoreModel;
+import com.addlove.service.goods.model.UsrUserModel;
 import com.addlove.service.goods.model.valid.CommonOrgAndDeptReq;
 import com.addlove.service.goods.model.valid.CommonOrgAndSupAndCntReq;
+import com.addlove.service.goods.model.valid.CommonSearchReq;
 import com.addlove.service.goods.service.GoodsCommonService;
 
 /**
@@ -172,5 +177,19 @@ public class GoodsCommonController extends BaseController{
        List<SkuPluExtendModel> skuList = this.commonService.getSkuListByDept(req.getInOrgCode(), req.getInShOrgCode(), 
                req.getDeptId(), storeList.get(0).getCkCode());
        return ResponseMessage.ok(skuList);
+    }
+    
+    /**
+     * 搜索用户:用户ID、用户编码、用户名
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseMessage getAllUsers(@RequestBody CommonSearchReq req) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("searchContent", req.getSearchContent());
+        List<UsrUserModel> allUsers = this.commonService.getAllUsers(map);
+        return ResponseMessage.ok(allUsers);
     }
 }

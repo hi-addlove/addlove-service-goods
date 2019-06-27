@@ -212,10 +212,6 @@ public class StkDbController extends BaseController {
             headJson.put("ywStatus", headMap.get("YWSTATUS"));
             headJson.put("rhCost", headMap.get("RHCOST"));
             headJson.put("rwCost", headMap.get("RWCOST"));
-            headJson.put("wlAreaCode", headMap.get("WLAREACODE"));
-            headJson.put("wlAreaName", headMap.get("WLAREANAME"));
-            headJson.put("shWlAreaCode", headMap.get("SHWLAREACODE"));
-            headJson.put("shWlAreaName", headMap.get("SHWLAREANAME"));
             headJson.put("sTotal", headMap.get("STOTAL"));
             headJson.put("isChecked", headMap.get("ISCHECKED"));
             headJson.put("chkUserId", headMap.get("CHKUSERID"));

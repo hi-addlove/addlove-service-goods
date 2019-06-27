@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.addlove.service.goods.config.UserInit;
 import com.addlove.service.goods.constants.LoginMsgCode.LoginCode;
 import com.addlove.service.goods.message.ResponseMessage;
-import com.addlove.service.goods.model.UserModel;
+import com.addlove.service.goods.model.UsrUserModel;
 import com.addlove.service.goods.model.valid.UserReq;
 
 /**
@@ -37,13 +37,13 @@ public class LoginController extends BaseController{
     @ResponseBody
     public ResponseMessage login(@RequestBody @Valid UserReq req, HttpServletRequest request, HttpServletResponse response) {
         //UserModel userModel = this.userService.getUserByUserName(req.getUserName());
-        UserModel userModel = new UserModel();
+        UsrUserModel userModel = new UsrUserModel();
         userModel.setUserName(req.getUserName());
-        userModel.setPassword(req.getPassword());
+        userModel.setPassWd(req.getPassword());
         /*if (null == userModel) {
             return ResponseMessage.fail(LoginCode.ACCOUNT.getMsg(), LoginCode.ACCOUNT.getCode());
         }*/
-        if (!userModel.getPassword().equals(req.getPassword())) {
+        if (!userModel.getPassWd().equals(req.getPassword())) {
             return ResponseMessage.fail(LoginCode.PASSWORD.getMsg(), LoginCode.PASSWORD.getCode());
         }
         String uuid = UUID.randomUUID().toString();

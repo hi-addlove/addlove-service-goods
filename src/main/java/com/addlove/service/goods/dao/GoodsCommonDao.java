@@ -11,6 +11,7 @@ import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.model.StkStoreModel;
+import com.addlove.service.goods.model.UsrUserModel;
 
 /**
  * 公共dao层：如供应商、合同、商品等
@@ -78,6 +79,13 @@ public interface GoodsCommonDao {
      */
     List<SkuPluExtendModel> getSkuListByDept(@Param("inOrgCode")String inOrgCode, @Param("inShOrgCode")String inShOrgCode,
             @Param("depId")Long depId, @Param("ckCode")String ckCode);
+    
+    /**
+     * 搜索用户
+     * @param searchContent：用户ID、用户编码、用户名
+     * @return List<UsrUserModel>
+     */
+    List<UsrUserModel> getAllUsers(Map<String, Object> map);
     
     /**
      * 调用存储过程生成单据号

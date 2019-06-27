@@ -17,6 +17,7 @@ import com.addlove.service.goods.controller.OrdJhController;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.model.OrdJhHeadModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
+import com.addlove.service.goods.model.UsrUserModel;
 import com.addlove.service.goods.model.valid.OrdJhBodyReq;
 import com.addlove.service.goods.model.valid.OrdJhHeadReq;
 import com.addlove.service.goods.service.GoodsCommonService;
@@ -82,6 +83,18 @@ public class OrdJhTest {
         if (null != skuList) {
             for (SkuPluExtendModel model : skuList) {
                 System.out.println(model.getPluId() + "---" + model.getPluCode() + "---" + model.geteXPluCode());
+            }
+        }
+    }
+    
+    @Test
+    public void testGetAllUsers() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("searchContent", "02");
+        List<UsrUserModel> allUsers = this.commonService.getAllUsers(map);
+        if (null != allUsers) {
+            for (UsrUserModel user : allUsers) {
+                System.out.println(user.getUserId() + "---" + user.getUserCode() + "---" + user.getUserName());
             }
         }
     }
