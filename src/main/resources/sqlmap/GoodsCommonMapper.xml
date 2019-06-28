@@ -490,7 +490,7 @@
     And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE 
     And t.PLUID = t3.PLUID And t.ORGCODE = t3.ORGCODE
     And t2.DEPId = t3.DEPId
-    And t.ORGCODE =  #{inOrgCode,jdbcType=VARCHAR} 
+    And t.ORGCODE =  #{orgCode,jdbcType=VARCHAR} 
     And t3.DEPId = #{depId,jdbcType=NUMERIC} 
     And t3.CKCODE = #{ckCode,jdbcType=VARCHAR}
     and Exists(select M.PluID from tSkuPluEx M
@@ -500,8 +500,8 @@
                      Or 
                      (
                        (M.CgMode = '0')
-                        And (PUB_DB.GetFOrgCode(#{inOrgCode,jdbcType=VARCHAR}) = PUB_DB.GetFOrgCode(#{inShOrgCode,jdbcType=VARCHAR})
-                        Or #{inOrgCode,jdbcType=VARCHAR} = #{inShOrgCode,jdbcType=VARCHAR})
+                        And (PUB_DB.GetFOrgCode(#{orgCode,jdbcType=VARCHAR}) = PUB_DB.GetFOrgCode(#{shOrgCode,jdbcType=VARCHAR})
+                        Or #{orgCode,jdbcType=VARCHAR} = #{shOrgCode,jdbcType=VARCHAR})
                        )
                     )
                )

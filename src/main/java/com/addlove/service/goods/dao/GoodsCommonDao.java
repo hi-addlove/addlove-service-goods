@@ -77,7 +77,7 @@ public interface GoodsCommonDao {
      * @param ckCode
      * @return List<SkuPluModel>
      */
-    List<SkuPluExtendModel> getSkuListByDept(@Param("inOrgCode")String inOrgCode, @Param("inShOrgCode")String inShOrgCode,
+    List<SkuPluExtendModel> getSkuListByDept(@Param("orgCode")String orgCode, @Param("shOrgCode")String shOrgCode,
             @Param("depId")Long depId, @Param("ckCode")String ckCode);
     
     /**

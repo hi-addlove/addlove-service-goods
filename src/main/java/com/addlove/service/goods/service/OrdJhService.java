@@ -10,15 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.addlove.service.goods.constants.GoodsCommonConstants.ProcedureResult;
-import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.dao.OrdJhDao;
-import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.model.OrdJhBodyModel;
 import com.addlove.service.goods.model.OrdJhHeadModel;
 import com.addlove.service.goods.model.OrdJhQueryPageModel;
-import com.addlove.service.goods.util.LoggerEnhance;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 
@@ -35,9 +30,6 @@ public class OrdJhService {
     @Autowired
     private OrdJhDao ordJhDao;
     
-    @Autowired
-    private GoodsCommonService commonService;
-    
     /**
      * 分页查询配送验收数据
      * @param queryModel
@@ -53,6 +45,9 @@ public class OrdJhService {
                 Map<String, Object> billNoMap = new HashMap<String, Object>();
                 billNoMap.put("billNo", model.getRefBillNo());
                 billNos.add(billNoMap);
+                if (StringUtils.isNotBlank(model.getLrDate()) && model.getLrDate().length() > 19) {
+                    model.setLrDate(model.getLrDate().substring(0, 19));
+                }
                 if (StringUtils.isNotBlank(model.getJzDate()) && model.getJzDate().length() > 19) {
                     model.setJzDate(model.getJzDate().substring(0, 19));
                 }

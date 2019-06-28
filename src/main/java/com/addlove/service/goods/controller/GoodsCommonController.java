@@ -169,12 +169,12 @@ public class GoodsCommonController extends BaseController{
     @RequestMapping(value = "/getSkuListByDept", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getSkuListByDept(@RequestBody CommonOrgAndDeptReq req) {
-        List<StkStoreModel> storeList = this.commonService.getStoreList(req.getInOrgCode());
+        List<StkStoreModel> storeList = this.commonService.getStoreList(req.getOrgCode());
         if (null == storeList || storeList.isEmpty()) {
             throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 
                     GoodsResponseCode.CK_NOT_BLANK.getMsg());
         }
-       List<SkuPluExtendModel> skuList = this.commonService.getSkuListByDept(req.getInOrgCode(), req.getInShOrgCode(), 
+       List<SkuPluExtendModel> skuList = this.commonService.getSkuListByDept(req.getOrgCode(), req.getShOrgCode(), 
                req.getDeptId(), storeList.get(0).getCkCode());
        return ResponseMessage.ok(skuList);
     }

@@ -107,8 +107,8 @@ public class GoodsCommonService {
      * @param ckCode
      * @return List<SkuPluExtendModel>
      */
-    public List<SkuPluExtendModel> getSkuListByDept(String inOrgCode, String inShOrgCode, Long depId, String ckCode) {
-        return this.commonDao.getSkuListByDept(inOrgCode, inShOrgCode, depId, ckCode);
+    public List<SkuPluExtendModel> getSkuListByDept(String orgCode, String shOrgCode, Long depId, String ckCode) {
+        return this.commonDao.getSkuListByDept(orgCode, shOrgCode, depId, ckCode);
     }
     
     /**

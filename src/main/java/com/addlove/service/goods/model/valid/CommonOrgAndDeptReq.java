@@ -12,42 +12,42 @@ import org.hibernate.validator.constraints.NotBlank;
 public class CommonOrgAndDeptReq {
     /** 组织编码 */
     @NotBlank(message = "组织编码不能为空")
-    private String inOrgCode;
+    private String orgCode;
     
-    /** 调入内部组织编码 */
-    @NotBlank(message = "调入内部组织编码不能为空")
-    private String inShOrgCode;
+    /** 调入组织编码 */
+    @NotBlank(message = "调入组织编码不能为空")
+    private String shOrgCode;
     
     /** 部门Id */
     @NotNull(message = "部门Id不能为空")
     private Long deptId;
 
     /**
-     * @return the inOrgCode
+     * @return the orgCode
      */
-    public String getInOrgCode() {
-        return inOrgCode;
+    public String getOrgCode() {
+        return orgCode;
     }
 
     /**
-     * @param inOrgCode the inOrgCode to set
+     * @param orgCode the orgCode to set
      */
-    public void setInOrgCode(String inOrgCode) {
-        this.inOrgCode = inOrgCode;
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
     }
 
     /**
-     * @return the inShOrgCode
+     * @return the shOrgCode
      */
-    public String getInShOrgCode() {
-        return inShOrgCode;
+    public String getShOrgCode() {
+        return shOrgCode;
     }
 
     /**
-     * @param inShOrgCode the inShOrgCode to set
+     * @param shOrgCode the shOrgCode to set
      */
-    public void setInShOrgCode(String inShOrgCode) {
-        this.inShOrgCode = inShOrgCode;
+    public void setShOrgCode(String shOrgCode) {
+        this.shOrgCode = shOrgCode;
     }
 
     /**
