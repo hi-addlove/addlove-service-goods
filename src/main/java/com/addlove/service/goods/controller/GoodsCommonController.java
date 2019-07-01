@@ -186,7 +186,7 @@ public class GoodsCommonController extends BaseController{
      * @param req
      * @return ResponseMessage
      */
-    @RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllUsers", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getAllUsers(@RequestBody CommonSearchReq req) {
         Map<String, Object> map = new HashMap<>();
