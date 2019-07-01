@@ -7,7 +7,7 @@ package com.addlove.service.goods.model;
  */
 public class SkuPluExtendModel extends SkuPluModel{
     /**特征码编码 */
-    private String eXPluCode;
+    private String exPluCode;
     
     /**现存数量 */
     private Double kcCount;
@@ -25,16 +25,16 @@ public class SkuPluExtendModel extends SkuPluModel{
     private Double packQty;
     
     /**
-     * @return the eXPluCode
+     * @return the exPluCode
      */
-    public String geteXPluCode() {
-        return eXPluCode;
+    public String getExPluCode() {
+        return exPluCode;
     }
     /**
-     * @param eXPluCode the eXPluCode to set
+     * @param exPluCode the exPluCode to set
      */
-    public void seteXPluCode(String eXPluCode) {
-        this.eXPluCode = eXPluCode;
+    public void setExPluCode(String exPluCode) {
+        this.exPluCode = exPluCode;
     }
     /**
      * @return the kcCount

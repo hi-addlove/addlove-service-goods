@@ -273,7 +273,7 @@
     <result column="ISONLINE" jdbcType="VARCHAR" property="isOnline" />
     <result column="LINEDATE" jdbcType="VARCHAR" property="lineDate" />
     <result column="PLUDESC" jdbcType="VARCHAR" property="pluDesc" />
-    <result column="EXPLUCODE" jdbcType="VARCHAR" property="eXPluCode" />
+    <result column="EXPLUCODE" jdbcType="VARCHAR" property="exPluCode" />
     <result column="KCCOUNT" jdbcType="VARCHAR" property="kcCount" />
     <result column="HCOST" jdbcType="VARCHAR" property="hCost" />
     <result column="WCOST" jdbcType="VARCHAR" property="wCost" />

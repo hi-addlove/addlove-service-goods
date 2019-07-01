@@ -82,7 +82,7 @@ public class OrdJhTest {
                 this.commonService.getSkuListByDept("999999", "637012", 10000000021L, "01");
         if (null != skuList) {
             for (SkuPluExtendModel model : skuList) {
-                System.out.println(model.getPluId() + "---" + model.getPluCode() + "---" + model.geteXPluCode());
+                System.out.println(model.getPluId() + "---" + model.getPluCode() + "---" + model.getExPluCode());
             }
         }
     }
