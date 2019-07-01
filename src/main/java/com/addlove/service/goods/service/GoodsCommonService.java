@@ -1,14 +1,17 @@
 package com.addlove.service.goods.service;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.GoodsCommonConstants.ProcedureResult;
 import com.addlove.service.goods.dao.GoodsCommonDao;
@@ -108,7 +111,37 @@ public class GoodsCommonService {
      * @return List<SkuPluExtendModel>
      */
     public List<SkuPluExtendModel> getSkuListByDept(String orgCode, String shOrgCode, Long depId, String ckCode) {
-        return this.commonDao.getSkuListByDept(orgCode, shOrgCode, depId, ckCode);
+        List<SkuPluExtendModel> skuList = this.commonDao.getSkuListByDept(orgCode, shOrgCode, depId, ckCode);
+        List<SkuPluExtendModel> backSkuList = new LinkedList<SkuPluExtendModel>();
+        if (null == skuList || skuList.isEmpty()) {
+            return backSkuList;
+        }
+        List<Map<String, Object>> pluList = new LinkedList<Map<String, Object>>();
+        for (SkuPluExtendModel skuModel : skuList) {
+            Map<String, Object> queryMap = new HashMap<String, Object>();
+            queryMap.put("pluId", skuModel.getPluId());
+            pluList.add(queryMap);
+        }
+        //得到商品的可用库存
+        List<Map<String, Object>> kcList = this.commonDao.getKcSum(pluList);
+        Map<Long, Object> kcMap = new HashMap<Long, Object>();
+        for (Map<String, Object> map : kcList) {
+            long pluId = Long.parseLong(null != map.get("PLUID") ? map.get("PLUID").toString() : "0") ;
+            kcMap.put(pluId, null != map.get("KCCOUNT") ? map.get("KCCOUNT").toString() : "0");
+        }
+        //去重商品
+        Set<SkuPluExtendModel> skuSet = new HashSet<>();
+        skuSet.addAll(skuList);
+        //将可用库存返回
+        for (SkuPluExtendModel skuModel : skuSet) {
+            long key = skuModel.getPluId();
+            Double kcCount = Double.valueOf(kcMap.get(key).toString());
+            if (kcCount > 0) {
+                skuModel.setKcCount(kcCount);
+                backSkuList.add(skuModel);
+            }
+        }
+        return backSkuList;
     }
     
     /**
@@ -157,7 +190,7 @@ public class GoodsCommonService {
         if (ProcedureResult.EXEC_ERROR_RECORD.getValue() == resultCode 
                 || ProcedureResult.EXEC_ERROR_EXIT.getValue() == resultCode) {
             throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
-                    GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
+                    null != map.get("ps_Message") ? map.get("ps_Message").toString() : GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
         }
         return map;
     }

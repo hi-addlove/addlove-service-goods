@@ -35,8 +35,8 @@ public class OrdJhTest {
     @Test
     public void testAddNoPurchaseJh() {
         OrdJhHeadReq req = this.zuZhuangReq();
-        req.setBillNo("1JHYW2019062000004");
-        req.setSaveType(2);
+        //req.setBillNo("1JHYW2019062000004");
+        req.setSaveType(1);
         this.ordJhController.addNoPurchaseJh(req);
     }
     

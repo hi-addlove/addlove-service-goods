@@ -183,19 +183,25 @@
     <if test="queryModel.endDate != '' and queryModel.endDate != null">
         and t.LRDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
     </if>
-    <if test="queryModel.dataStatus != null and queryModel.dataStatus == '' ">
+    <if test="queryModel.dataStatus != null and queryModel.dataStatus != '' ">
         and t.DATASTATUS = #{queryModel.dataStatus,jdbcType=VARCHAR}
     </if>
     <if test="queryModel.dbType != null and queryModel.dbType == 1 ">
         and t.ORGCODE = t.SHORGCODE
     </if>
+    <!-- 店间调拨：将调出门店(可多选)的编码传入给orgCode,调入门店编码则为当前登录的门店编码 -->
     <if test="queryModel.dbType != null and queryModel.dbType == 2 ">
-        and t.ORGCODE != t.SHORGCODE
+       <if test="queryModel.orgCode == queryModel.shOrgCode">
+         and t.ORGCODE != t.SHORGCODE and (t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR} or t.SHORGCODE = #{queryModel.shOrgCode,jdbcType=VARCHAR})
+      </if>
+       <if test="queryModel.orgCode != queryModel.shOrgCode">
+        and t.ORGCODE != t.SHORGCODE and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR} and t.SHORGCODE = #{queryModel.shOrgCode,jdbcType=VARCHAR}
+      </if>
     </if>
-     <if test="queryModel.shOrgCode != null and queryModel.shOrgCode == '' ">
+     <!-- <if test="queryModel.shOrgCode != null and queryModel.shOrgCode == '' ">
         and t.SHORGCODE = #{queryModel.shOrgCode,jdbcType=VARCHAR}
-    </if>
-    and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+    </if> -->
+    and (t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR} or t.SHORGCODE = #{queryModel.shOrgCode,jdbcType=VARCHAR})
     Order By t.LRDATE Desc
   </select>
   
@@ -276,7 +282,7 @@
   </insert>
   
   <!-- 插入调拨明细表 -->
-  <insert id="insertStkDbBody" parameterType="com.addlove.service.goods.model.StkDbBodyModel">
+  <insert id="insertStkDbBody">
     INSERT INTO TSTKDBBODY
     (
         BILLNO, 
@@ -314,7 +320,7 @@
     )
     <foreach collection="bodys" item="body" separator="union all">
     (
-         SELECT
+        SELECT
           #{body.billNo,jdbcType=VARCHAR},
           #{body.serialNo,jdbcType=NUMERIC},
           #{body.pluId,jdbcType=VARCHAR},
@@ -347,7 +353,7 @@
           #{body.rwJPrice,jdbcType=NUMERIC},
           #{body.carGoNo,jdbcType=VARCHAR},
           #{body.toSerialNo,jdbcType=NUMERIC}
-         FROM DUAL
+        FROM DUAL
     )
     </foreach>
   </insert>

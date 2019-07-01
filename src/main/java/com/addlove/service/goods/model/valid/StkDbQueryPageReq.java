@@ -1,7 +1,5 @@
 package com.addlove.service.goods.model.valid;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 /**
  * 调拨列表请求参数
  * @author lw
@@ -34,7 +32,6 @@ public class StkDbQueryPageReq {
     private Integer dbType;
     
     /**组织编码 */
-    @NotBlank(message = "组织编码不能为空")
     private String orgCode;
     
     /**

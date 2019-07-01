@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -168,7 +170,7 @@ public class GoodsCommonController extends BaseController{
      */
     @RequestMapping(value = "/getSkuListByDept", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage getSkuListByDept(@RequestBody CommonOrgAndDeptReq req) {
+    public ResponseMessage getSkuListByDept(@RequestBody @Valid CommonOrgAndDeptReq req) {
         List<StkStoreModel> storeList = this.commonService.getStoreList(req.getOrgCode());
         if (null == storeList || storeList.isEmpty()) {
             throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 

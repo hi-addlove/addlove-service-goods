@@ -1876,4 +1876,32 @@ public class SkuPluModel {
     public void setPluDesc(String pluDesc) {
         this.pluDesc = pluDesc;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int code = pluId.hashCode();
+        code = 31 * code + pluName.hashCode();
+        return code;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (null == obj || getClass() != obj.getClass()) {
+            return false;
+        }
+        SkuPluModel skuPluModel = (SkuPluModel) obj;
+        if (!pluId.equals(skuPluModel.pluId)) {
+            return false;
+        }
+        return pluName.equals(skuPluModel.pluName);
+    }
 }

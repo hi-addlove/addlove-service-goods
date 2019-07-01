@@ -9,7 +9,7 @@ public class SkuPluExtendModel extends SkuPluModel{
     /**特征码编码 */
     private String eXPluCode;
     
-    /** */
+    /**现存数量 */
     private Double kcCount;
     
     /**含税进价金额 */

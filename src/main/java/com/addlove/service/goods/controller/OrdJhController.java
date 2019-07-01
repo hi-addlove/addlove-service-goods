@@ -288,8 +288,8 @@ public class OrdJhController extends BaseController{
     private OrdJhHeadModel getOrdJhHeadModel(OrdJhHeadReq req) {
         List<OrdJhBodyReq> bodyList = req.getBodyList();
         if (null == bodyList || bodyList.isEmpty()) {
-            throw new ServiceException(GoodsResponseCode.JH_SKU_NOT_BLANK.getCode(), 
-                    GoodsResponseCode.JH_SKU_NOT_BLANK.getMsg());
+            throw new ServiceException(GoodsResponseCode.SKU_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.SKU_NOT_BLANK.getMsg());
         }
         OrdJhHeadModel headModel = new OrdJhHeadModel();
         headModel.setLrDate(DateUtil.getCurrentTime());

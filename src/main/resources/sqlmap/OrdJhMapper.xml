@@ -260,7 +260,7 @@
     <if test="queryModel.tag != null and queryModel.tag == 2 ">
         and t.TAG = 2
     </if>
-     <if test="queryModel.dataStatus != null and queryModel.dataStatus == '' ">
+     <if test="queryModel.dataStatus != null and queryModel.dataStatus != '' ">
         and t.DATASTATUS = #{queryModel.dataStatus,jdbcType=VARCHAR}
     </if>
     and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}

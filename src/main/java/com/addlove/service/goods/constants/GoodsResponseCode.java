@@ -24,7 +24,7 @@ public enum GoodsResponseCode {
     /**
      * 验收单商品不能为空
      */
-    JH_SKU_NOT_BLANK(20003, "验收单商品不能为空"),
+    SKU_NOT_BLANK(20003, "商品不能为空"),
     
     /**
      * 验收单记账前请先保存

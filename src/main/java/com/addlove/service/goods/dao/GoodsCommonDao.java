@@ -98,4 +98,11 @@ public interface GoodsCommonDao {
      * @param map
      */
     void execAccountByCallProcedure(Map<String, Object> map);
+    
+    /**
+     * 获取每个商品的库存总数
+     * @param pluSet
+     * @return List<Map<String, Object>>
+     */
+    List<Map<String, Object>> getKcSum(@Param("list") List<Map<String, Object>> pluIds);
 }

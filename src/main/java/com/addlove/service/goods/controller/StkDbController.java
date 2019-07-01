@@ -25,6 +25,7 @@ import com.addlove.service.goods.model.StkDbHeadModel;
 import com.addlove.service.goods.model.StkDbQueryPageModel;
 import com.addlove.service.goods.model.StkStoreModel;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
+import com.addlove.service.goods.model.valid.StkDbBodyReq;
 import com.addlove.service.goods.model.valid.StkDbHeadReq;
 import com.addlove.service.goods.model.valid.StkDbQueryPageReq;
 import com.addlove.service.goods.service.GoodsCommonService;
@@ -55,7 +56,7 @@ public class StkDbController extends BaseController {
      */
     @RequestMapping(value = "/queryDbPage", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage queryDbPage(@RequestBody @Valid StkDbQueryPageReq req) {
+    public ResponseMessage queryDbPage(@RequestBody StkDbQueryPageReq req) {
         StkDbQueryPageModel queryModel = new StkDbQueryPageModel();
         queryModel.setPageNo(req.getPageNo());
         queryModel.setPageSize(req.getPageSize());
@@ -276,6 +277,11 @@ public class StkDbController extends BaseController {
                         GoodsResponseCode.DEP_ID_NOT_BLANK.getMsg());
             }
         }
+        List<StkDbBodyReq> bodyList = req.getBodyList();
+        if (null == bodyList || bodyList.isEmpty()) {
+            throw new ServiceException(GoodsResponseCode.SKU_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.SKU_NOT_BLANK.getMsg());
+        }
         StkDbHeadModel headModel = new StkDbHeadModel();
         headModel.setLrDate(DateUtil.getCurrentTime());
         headModel.setUserId(10000000041L);
@@ -337,7 +343,7 @@ public class StkDbController extends BaseController {
         //组织明细
         List<StkDbBodyModel> bodyModels = new LinkedList<StkDbBodyModel>();
         long serialNo = 1;
-        for (StkDbBodyModel bodyReq : bodyModels) {
+        for (StkDbBodyReq bodyReq : bodyList) {
             StkDbBodyModel bodyModel = new StkDbBodyModel();
             bodyModel.setBillNo(headModel.getBillNo());
             serialNo++;
