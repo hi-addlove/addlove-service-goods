@@ -11,6 +11,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.addlove.service.goods.util.LoggerEnhance;
 
+/**
+ * 启动类
+ * @author lw
+ *
+ */
 @EnableWebMvc
 @EnableTransactionManagement
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
