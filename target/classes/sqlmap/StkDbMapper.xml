@@ -323,7 +323,7 @@
         SELECT
           #{body.billNo,jdbcType=VARCHAR},
           #{body.serialNo,jdbcType=NUMERIC},
-          #{body.pluId,jdbcType=VARCHAR},
+          #{body.pluId,jdbcType=NUMERIC},
           #{body.exPluCode,jdbcType=VARCHAR},
           #{body.exPluName,jdbcType=VARCHAR},
           #{body.pluCode,jdbcType=VARCHAR},

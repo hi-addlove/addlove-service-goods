@@ -182,6 +182,28 @@ public class GoodsCommonController extends BaseController{
     }
     
     /**
+     * 通过组织、部门查询生产计划商品
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getProPlanSkuListByDept", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getProPlanSkuListByDept(@RequestBody CommonOrgAndSupAndCntReq req) {
+        String orgCode = req.getOrgCode();
+        Long depId = req.getDepId();
+        if (StringUtils.isBlank(orgCode)) {
+            throw new ServiceException(GoodsResponseCode.ORGCODE_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.ORGCODE_NOT_BLANK.getMsg());
+        }
+        if (null == depId) {
+            throw new ServiceException(GoodsResponseCode.DEP_ID_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.DEP_ID_NOT_BLANK.getMsg());
+        }
+       List<SkuPluModel> skuList = this.commonService.getProPlanSkuListByDept(orgCode, depId);
+       return ResponseMessage.ok(skuList);
+    }
+    
+    /**
      * 搜索用户:用户ID、用户编码、用户名
      * @param req
      * @return ResponseMessage

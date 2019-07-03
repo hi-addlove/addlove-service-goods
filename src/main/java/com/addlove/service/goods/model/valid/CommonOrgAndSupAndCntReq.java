@@ -9,6 +9,9 @@ public class CommonOrgAndSupAndCntReq {
     
     /** 合同ID */
     private Long cntId;
+    
+    /** 部门ID */
+    private Long depId;
 
     /**
      * @return the orgCode
@@ -50,5 +53,19 @@ public class CommonOrgAndSupAndCntReq {
      */
     public void setCntId(Long cntId) {
         this.cntId = cntId;
+    }
+
+    /**
+     * @return the depId
+     */
+    public Long getDepId() {
+        return depId;
+    }
+
+    /**
+     * @param depId the depId to set
+     */
+    public void setDepId(Long depId) {
+        this.depId = depId;
     }
 }

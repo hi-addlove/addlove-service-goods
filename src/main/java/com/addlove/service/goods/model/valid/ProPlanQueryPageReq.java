@@ -1,16 +1,22 @@
-package com.addlove.service.goods.model;
+package com.addlove.service.goods.model.valid;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * 调拨列表
+ * 生产计划列表请求参数
  * @author lw
  *
  */
-public class StkDbQueryPageModel {
+public class ProPlanQueryPageReq {
     /**默认页数 */
-    private Integer pageNo;
+    private int pageNo = 1;
     
     /**每页默认记录数 */
-    private Integer pageSize;
+    private int pageSize = 10;
+    
+    /**组织编码 */
+    @NotBlank(message = "组织编码不能为空")
+    private String orgCode;
     
     /**单据号 */
     private String billNo;
@@ -27,44 +33,50 @@ public class StkDbQueryPageModel {
     private String dataStatus;
     
     /**
-     * 调拨类型：1-店内调拨；2-店间调拨
+     * 完工状态:0-未完工；1-部分完工；2-已完工
      */
-    private Integer dbType;
-    
-    /**组织编码 */
-    private String orgCode;
-    
-    /**
-     * 调入组织编码
-     */
-    private String shOrgCode;
+    private String doneStatus;
 
     /**
      * @return the pageNo
      */
-    public Integer getPageNo() {
+    public int getPageNo() {
         return pageNo;
     }
 
     /**
      * @param pageNo the pageNo to set
      */
-    public void setPageNo(Integer pageNo) {
+    public void setPageNo(int pageNo) {
         this.pageNo = pageNo;
     }
 
     /**
      * @return the pageSize
      */
-    public Integer getPageSize() {
+    public int getPageSize() {
         return pageSize;
     }
 
     /**
      * @param pageSize the pageSize to set
      */
-    public void setPageSize(Integer pageSize) {
+    public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    /**
+     * @return the orgCode
+     */
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    /**
+     * @param orgCode the orgCode to set
+     */
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
     }
 
     /**
@@ -124,44 +136,16 @@ public class StkDbQueryPageModel {
     }
 
     /**
-     * @return the dbType
+     * @return the doneStatus
      */
-    public Integer getDbType() {
-        return dbType;
+    public String getDoneStatus() {
+        return doneStatus;
     }
 
     /**
-     * @param dbType the dbType to set
+     * @param doneStatus the doneStatus to set
      */
-    public void setDbType(Integer dbType) {
-        this.dbType = dbType;
-    }
-
-    /**
-     * @return the orgCode
-     */
-    public String getOrgCode() {
-        return orgCode;
-    }
-
-    /**
-     * @param orgCode the orgCode to set
-     */
-    public void setOrgCode(String orgCode) {
-        this.orgCode = orgCode;
-    }
-
-    /**
-     * @return the shOrgCode
-     */
-    public String getShOrgCode() {
-        return shOrgCode;
-    }
-
-    /**
-     * @param shOrgCode the shOrgCode to set
-     */
-    public void setShOrgCode(String shOrgCode) {
-        this.shOrgCode = shOrgCode;
+    public void setDoneStatus(String doneStatus) {
+        this.doneStatus = doneStatus;
     }
 }

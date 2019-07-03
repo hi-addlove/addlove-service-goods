@@ -23,7 +23,12 @@ public interface GoodsCommonConstants {
         /**
          * 调拨
          */
-        DB_ORDER("1804", "调拨");
+        DB_ORDER("1804", "调拨"),
+        
+        /**
+         * 6209-生产计划
+         */
+        PRO_PLAN_ORDER("6209", "生产计划业务");
         
         private String value;
         private String name;

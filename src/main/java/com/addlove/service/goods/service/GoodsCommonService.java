@@ -145,6 +145,16 @@ public class GoodsCommonService {
     }
     
     /**
+     * 通过组织、部门查询生产计划商品
+     * @param orgCode
+     * @param depId
+     * @return List<SkuPluModel>
+     */
+    public List<SkuPluModel> getProPlanSkuListByDept(String orgCode, Long depId) {
+        return this.commonDao.getProPlanSkuListByDept(orgCode, depId);
+    }
+    
+    /**
      * 搜索用户
      * @param searchContent:用户ID、用户编码、用户名
      * @return List<UsrUserModel>

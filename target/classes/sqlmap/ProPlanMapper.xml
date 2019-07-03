@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.addlove.service.goods.dao.ProPlanDao">
+  <resultMap id="BaseResultMapHead" type="com.addlove.service.goods.model.ProPlanHeadModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depId" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depCode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depName" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckCode" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckName" />
+    <result column="REQUESTDATE" jdbcType="VARCHAR" property="requestDate" />
+    <result column="DONESTATUS" jdbcType="VARCHAR" property="doneStatus" />
+    <result column="LRDATE" jdbcType="TIMESTAMP" property="lrDate" />
+    <result column="USERID" jdbcType="NUMERIC" property="userId" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="userName" />
+    <result column="JZDATE" jdbcType="TIMESTAMP" property="jzDate" />
+    <result column="JZRID" jdbcType="NUMERIC" property="jzrId" />
+    <result column="JZRCODE" jdbcType="VARCHAR" property="jzrCode" />
+    <result column="JZRNAME" jdbcType="VARCHAR" property="jzrName" />
+    <result column="RPTDATE" jdbcType="VARCHAR" property="rptDate" />
+    <result column="PRNTIMES" jdbcType="NUMERIC" property="prnTimes" />
+    <result column="PRNDATE" jdbcType="TIMESTAMP" property="prnDate" />
+    <result column="TIMEMARK" jdbcType="NUMERIC" property="timeMark" />
+    <result column="YWTYPE" jdbcType="VARCHAR" property="ywType" />
+    <result column="DATASTATUS" jdbcType="VARCHAR" property="dataStatus" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
+  <sql id="Base_Column_List_Head">
+    BILLNO, ORGCODE, ORGNAME, DEPID, DEPCODE, DEPNAME, CKCODE, CKNAME, REQUESTDATE, DONESTATUS, 
+    LRDATE, USERID, USERCODE, USERNAME, JZDATE, JZRID, JZRCODE, JZRNAME, RPTDATE, PRNTIMES, 
+    PRNDATE, TIMEMARK, YWTYPE, DATASTATUS, REMARK
+  </sql>
+  
+  <resultMap id="BaseResultMapBody" type="com.addlove.service.goods.model.ProPlanBodyModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="PLANCOUNT" jdbcType="NUMERIC" property="planCount" />
+    <result column="PLANTIME" jdbcType="VARCHAR" property="planTime" />
+    <result column="ISDONE" jdbcType="VARCHAR" property="isDone" />
+    <result column="PRODUCECOUNT" jdbcType="NUMERIC" property="produceCount" />
+    <result column="PRODUCER" jdbcType="VARCHAR" property="producer" />
+    <result column="PRODUCETIME" jdbcType="TIMESTAMP" property="produceTime" />
+    <result column="PRODUCEREMARK" jdbcType="VARCHAR" property="produceRemark" />
+    <result column="BOMBILLNO" jdbcType="VARCHAR" property="bomBillNo" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
+  <sql id="Base_Column_List_Body">
+    BILLNO, SERIALNO, PLUID, PLUCODE, PLUNAME, SPEC, UNIT, PLANCOUNT, PLANTIME, ISDONE, 
+    PRODUCECOUNT, PRODUCER, PRODUCETIME, PRODUCEREMARK, BOMBILLNO, REMARK
+  </sql>
+  
+  <resultMap id="BaseResultMapDone" type="com.addlove.service.goods.model.ProPlanDoneModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depId" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depCode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depName" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckCode" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckName" />
+    <result column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
+    <result column="REQUESTDATE" jdbcType="VARCHAR" property="requestdate" />
+    <result column="PLANTIME" jdbcType="VARCHAR" property="plantime" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="PLANCOUNT" jdbcType="NUMERIC" property="planCount" />
+    <result column="ISDONE" jdbcType="VARCHAR" property="isDone" />
+    <result column="PRODUCECOUNT" jdbcType="NUMERIC" property="produceCount" />
+    <result column="PRODUCER" jdbcType="VARCHAR" property="producer" />
+    <result column="PRODUCETIME" jdbcType="TIMESTAMP" property="produceTime" />
+    <result column="PRODUCEREMARK" jdbcType="VARCHAR" property="produceRemark" />
+    <result column="BOMBILLNO" jdbcType="VARCHAR" property="bomBillNo" />
+  </resultMap>
+  
+  <sql id="Base_Column_List_Done">
+    BILLNO, REQUESTDATE, PLANTIME, PLUID, ORGCODE, ORGNAME, DEPID, DEPCODE, DEPNAME, 
+    CKCODE, CKNAME, SERIALNO, PLUCODE, PLUNAME, SPEC, UNIT, PLANCOUNT, ISDONE, PRODUCECOUNT, 
+    PRODUCER, PRODUCETIME, PRODUCEREMARK, BOMBILLNO
+  </sql>
+  
+  <!-- 生产计划列表 -->
+  <select id="queryProPlanPage" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.CKCODE,
+                t.CKNAME,
+                t.REQUESTDATE,
+                t.DONESTATUS,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.DATASTATUS,
+                t.REMARK
+    From TFRSPRODUCEPLANHEAD t
+    Where t.YWTYPE = '6209'
+     <if test="queryModel.billNo != '' and queryModel.billNo != null">
+        and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="queryModel.startDate != '' and queryModel.startDate != null">
+        and t.LRDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.endDate != '' and queryModel.endDate != null">
+        and t.LRDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.dataStatus != null and queryModel.dataStatus != '' ">
+        and t.DATASTATUS = #{queryModel.dataStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.doneStatus != null and queryModel.doneStatus != '' ">
+        and t.DONESTATUS = #{queryModel.doneStatus,jdbcType=VARCHAR}
+    </if>
+    and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+    Order By t.LRDATE Desc
+  </select>
+  
+  <!-- 插入生产计划主表 -->
+  <insert id="insertProPlanHead">
+    INSERT INTO TFRSPRODUCEPLANHEAD
+    (
+        BILLNO,
+        ORGCODE,
+        ORGNAME,
+        DEPID, 
+        DEPCODE, 
+        DEPNAME, 
+        CKCODE, 
+        CKNAME,
+        REQUESTDATE,
+        LRDATE, 
+        USERID, 
+        USERCODE, 
+        USERNAME,
+        YWTYPE,
+        REMARK
+    )
+    VALUES
+    (
+        #{billNo,jdbcType=VARCHAR},
+        #{orgCode,jdbcType=VARCHAR},
+        #{orgName,jdbcType=VARCHAR},
+        #{depId,jdbcType=NUMERIC},
+        #{depCode,jdbcType=VARCHAR},
+        #{depName,jdbcType=VARCHAR},
+        #{ckCode,jdbcType=VARCHAR},
+        #{ckName,jdbcType=VARCHAR},
+        #{requestDate,jdbcType=VARCHAR},
+        to_date(#{lrDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'),
+        #{userId,jdbcType=NUMERIC},
+        #{userCode,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR},
+        #{ywType,jdbcType=VARCHAR},
+        #{remark,jdbcType=VARCHAR}
+    )
+  </insert>
+  
+  <!-- 插入生产计划明细表 -->
+  <insert id="insertProPlanBody">
+    INSERT INTO TFRSPRODUCEPLANBODY
+    (
+        BILLNO, 
+        SERIALNO, 
+        PLUID, 
+        PLUCODE, 
+        PLUNAME, 
+        SPEC, 
+        UNIT, 
+        PLANCOUNT, 
+        PLANTIME, 
+        REMARK
+    )
+    <foreach collection="bodys" item="body" separator="union all">
+        SELECT
+          #{body.billNo,jdbcType=VARCHAR},
+          #{body.serialNo,jdbcType=NUMERIC},
+          #{body.pluId,jdbcType=NUMERIC},
+          #{body.pluCode,jdbcType=VARCHAR},
+          #{body.pluName,jdbcType=VARCHAR},
+          #{body.spec,jdbcType=VARCHAR},
+          #{body.unit,jdbcType=VARCHAR},
+          #{body.planCount,jdbcType=NUMERIC},
+          #{body.planTime,jdbcType=VARCHAR},
+          #{remark,jdbcType=VARCHAR}
+        FROM DUAL
+    </foreach>
+  </insert>
+  
+  <!-- 删除主表 -->
+  <delete id="deleteProPlanHead" parameterType="java.lang.String">
+    DELETE FROM TFRSPRODUCEPLANHEAD WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 删除明细表 -->
+  <delete id="deleteProPlanBody" parameterType="java.lang.String">
+    DELETE FROM TFRSPRODUCEPLANBODY WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 生产计划详情 -->
+  <select id="queryProPlanDetail" resultType="java.util.HashMap">
+     Select Distinct t.BILLNO,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.CKCODE,
+                t.CKNAME,
+                t.REQUESTDATE,
+                t.DONESTATUS,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.DATASTATUS,
+                t.REMARK,
+                t1.SERIALNO,
+                t1.PLUID,
+                t1.PLUCODE,
+                t1.PLUNAME,
+                t1.SPEC,
+                t1.UNIT,
+                t1.PLANCOUNT,
+                t1.PLANTIME,
+                t1.ISDONE,
+                t1.PRODUCECOUNT,
+                t1.PRODUCER,
+                t1.PRODUCETIME,
+                t1.PRODUCEREMARK,
+                t1.BOMBILLNO,
+                t1.REMARK AS REMARK2
+      From TFRSPRODUCEPLANHEAD t Left Join TFRSPRODUCEPLANBODY t1 On t.BILLNO = t1.BILLNO
+      Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+      Order By t1.SERIALNO
+  </select>
+</mapper>

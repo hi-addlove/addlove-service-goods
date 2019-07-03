@@ -105,7 +105,6 @@ public class StkDbController extends BaseController {
             accountMap.put("ps_UserCode", headModel.getJzrCode());
             accountMap.put("ps_UserName", headModel.getJzrName());
             accountMap.put("pd_JzDate", headModel.getJzDate());
-            //调用存储过程进行记账
             this.commonService.execAccountByCallProcedure(accountMap);
         }else {
             throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
@@ -325,7 +324,7 @@ public class StkDbController extends BaseController {
         headModel.setRhCost(req.getRhCost());
         headModel.setRwCost(req.getRwCost());
         headModel.setsTotal(req.getsTotal());
-        //调用存储过程生成无采购验收单号
+        //调用存储过程生成调拨单号
         if (StringUtils.isBlank(req.getBillNo())) {
             Map<String, Object> map = new HashMap<>();
             map.put("ps_BillType", BillType.DB_ORDER.getValue());
@@ -344,6 +343,9 @@ public class StkDbController extends BaseController {
         List<StkDbBodyModel> bodyModels = new LinkedList<StkDbBodyModel>();
         long serialNo = 1;
         for (StkDbBodyReq bodyReq : bodyList) {
+            if (bodyReq.getDbCount() == 0) {
+                continue;
+            }
             StkDbBodyModel bodyModel = new StkDbBodyModel();
             bodyModel.setBillNo(headModel.getBillNo());
             serialNo++;

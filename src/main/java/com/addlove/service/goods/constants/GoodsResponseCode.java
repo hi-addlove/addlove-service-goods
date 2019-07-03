@@ -29,7 +29,7 @@ public enum GoodsResponseCode {
     /**
      * 验收单记账前请先保存
      */
-    SAVE_BEFORE_ACCOUNT(20004, "验收单记账前请先保存"),
+    SAVE_BEFORE_ACCOUNT(20004, "单据记账前请先保存"),
     
     /**
      * 单据号不能为空

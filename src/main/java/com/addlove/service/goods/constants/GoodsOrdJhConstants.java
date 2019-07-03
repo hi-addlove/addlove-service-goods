@@ -74,7 +74,12 @@ public interface GoodsOrdJhConstants {
         /**
          * 1804-调拨业务
          */
-        DB_ORDER("1804", "调拨业务");
+        DB_ORDER("1804", "调拨业务"),
+        
+        /**
+         * 6209-生产计划
+         */
+        PRO_PLAN_ORDER("6209", "生产计划业务");
         
         private String value;
         private String name;
