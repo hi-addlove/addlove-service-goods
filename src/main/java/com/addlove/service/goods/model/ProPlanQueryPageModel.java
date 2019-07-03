@@ -34,6 +34,16 @@ public class ProPlanQueryPageModel {
      * 完工状态:0-未完工；1-部分完工；2-已完工
      */
     private String doneStatus;
+    
+    /**
+     * 是否完工:0-否；1-是
+     */
+    private String isDone;
+    
+    /**
+     * 完工部门Id
+     */
+    private Long depId;
 
     /**
      * @return the pageNo
@@ -145,5 +155,33 @@ public class ProPlanQueryPageModel {
      */
     public void setDoneStatus(String doneStatus) {
         this.doneStatus = doneStatus;
+    }
+
+    /**
+     * @return the isDone
+     */
+    public String getIsDone() {
+        return isDone;
+    }
+
+    /**
+     * @param isDone the isDone to set
+     */
+    public void setIsDone(String isDone) {
+        this.isDone = isDone;
+    }
+
+    /**
+     * @return the depId
+     */
+    public Long getDepId() {
+        return depId;
+    }
+
+    /**
+     * @param depId the depId to set
+     */
+    public void setDepId(Long depId) {
+        this.depId = depId;
     }
 }

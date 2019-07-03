@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.addlove.service.goods.dao.ProPlanDao;
+import com.addlove.service.goods.model.ProPlanDoneModel;
 import com.addlove.service.goods.model.ProPlanHeadModel;
 import com.addlove.service.goods.model.ProPlanQueryPageModel;
 import com.github.pagehelper.PageHelper;
@@ -42,6 +43,24 @@ public class ProPlanService {
             }
         }
         return planList;
+    }
+    
+    /**
+     * 生产完工列表
+     * @param queryModel
+     * @return List<ProPlanDoneModel>
+     */
+    public List<ProPlanDoneModel> queryProPlanDonePage(ProPlanQueryPageModel queryModel) {
+        PageHelper.startPage(queryModel.getPageNo(), queryModel.getPageSize(), true);
+        List<ProPlanDoneModel> doneList = this.proPlanDao.queryProPlanDonePage(queryModel);
+        if (null != doneList && !doneList.isEmpty()) {
+            for (ProPlanDoneModel model : doneList) {
+                if (StringUtils.isNotBlank(model.getProduceTime()) && model.getProduceTime().length() > 19) {
+                    model.setProduceTime(model.getProduceTime().substring(0, 19));
+                }
+            }
+        }
+        return doneList;
     }
     
     /**

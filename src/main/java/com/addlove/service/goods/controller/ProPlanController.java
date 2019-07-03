@@ -23,6 +23,7 @@ import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.ProPlanBodyModel;
+import com.addlove.service.goods.model.ProPlanDoneModel;
 import com.addlove.service.goods.model.ProPlanHeadModel;
 import com.addlove.service.goods.model.ProPlanQueryPageModel;
 import com.addlove.service.goods.model.StkStoreModel;
@@ -75,6 +76,37 @@ public class ProPlanController extends BaseController{
         List<ProPlanHeadModel> planList = this.proPlanService.queryProPlanPage(queryModel);
         PageModel pageModel = new PageModel();
         Page<ProPlanHeadModel> page = (Page<ProPlanHeadModel>) planList;
+        pageModel.setPageNo(page.getPageNum());
+        pageModel.setPageSize(page.getPageSize());
+        pageModel.setResult(page.getResult());
+        pageModel.setTotal(page.getTotal());
+        return ResponseMessage.ok(pageModel);
+    }
+    
+    /**
+     * 生产完工列表
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/queryProPlanDonePage", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage queryProPlanDonePage(@RequestBody @Valid ProPlanQueryPageReq req) {
+        ProPlanQueryPageModel queryModel = new ProPlanQueryPageModel();
+        queryModel.setPageNo(req.getPageNo());
+        queryModel.setPageSize(req.getPageSize());
+        queryModel.setOrgCode(req.getOrgCode());
+        queryModel.setBillNo(req.getBillNo());
+        if (StringUtils.isNotBlank(req.getStartDate())) {
+            queryModel.setStartDate(req.getStartDate() + " 00:00:00");
+        }
+        if (StringUtils.isNotBlank(req.getEndDate())) {
+            queryModel.setEndDate(req.getEndDate() + " 23:59:59");
+        }
+        queryModel.setIsDone(req.getIsDone());
+        queryModel.setDepId(req.getDepId());
+        List<ProPlanDoneModel> doneList = this.proPlanService.queryProPlanDonePage(queryModel);
+        PageModel pageModel = new PageModel();
+        Page<ProPlanDoneModel> page = (Page<ProPlanDoneModel>) doneList;
         pageModel.setPageNo(page.getPageNum());
         pageModel.setPageSize(page.getPageSize());
         pageModel.setResult(page.getResult());

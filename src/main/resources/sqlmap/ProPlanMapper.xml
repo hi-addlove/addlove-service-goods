@@ -134,6 +134,51 @@
     Order By t.LRDATE Desc
   </select>
   
+  <!-- 生产完工列表 -->
+  <select id="queryProPlanDonePage" resultMap="BaseResultMapDone">
+    Select Distinct t.BILLNO,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.CKCODE,
+                t.CKNAME,
+                t.SERIALNO,
+                t.REQUESTDATE,
+                t.PLANTIME,
+                t.PLUID,
+                t.PLUCODE,
+                t.PLUNAME,
+                t.SPEC,
+                t.UNIT
+                t.PLANCOUNT,
+                t.ISDONE,
+                t.PRODUCECOUNT,
+                t.PRODUCER,
+                t.PRODUCETIME,
+                t.PRODUCEREMARK,
+                t.BOMBILLNO
+    From TFRSPRODUCEPLANDONE t
+    Where t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+    <if test="queryModel.billNo != '' and queryModel.billNo != null">
+        and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="queryModel.startDate != '' and queryModel.startDate != null">
+        and t.LRDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.endDate != '' and queryModel.endDate != null">
+        and t.LRDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.isDone != null and queryModel.isDone != '' ">
+        and t.ISDONE = #{queryModel.isDone,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.depId != null and queryModel.depId != '' ">
+        and t.DEPID = #{queryModel.depId,jdbcType=VARCHAR}
+    </if>
+    Order By t.REQUESTDATE,t.PLANTIME Desc
+  </select>
+  
   <!-- 插入生产计划主表 -->
   <insert id="insertProPlanHead">
     INSERT INTO TFRSPRODUCEPLANHEAD
