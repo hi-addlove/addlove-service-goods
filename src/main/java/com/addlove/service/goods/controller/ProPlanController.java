@@ -29,6 +29,8 @@ import com.addlove.service.goods.model.ProPlanQueryPageModel;
 import com.addlove.service.goods.model.StkStoreModel;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.ProPlanBodyReq;
+import com.addlove.service.goods.model.valid.ProPlanDoneDetailReq;
+import com.addlove.service.goods.model.valid.ProPlanDonePrimaryReq;
 import com.addlove.service.goods.model.valid.ProPlanHeadReq;
 import com.addlove.service.goods.model.valid.ProPlanQueryPageReq;
 import com.addlove.service.goods.service.GoodsCommonService;
@@ -191,6 +193,29 @@ public class ProPlanController extends BaseController{
     @ResponseBody
     public ResponseMessage delProPlan(@RequestBody @Valid CommonQueryDetailReq req) {
         this.proPlanService.deleteProPlanInfo(req.getBillNo());
+        return ResponseMessage.ok();
+    }
+    
+    /**
+     * 保存生产完工
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/saveProPlanDone", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage saveProPlanDone(@RequestBody @Valid ProPlanDonePrimaryReq req) {
+        List<ProPlanDoneModel> doneModels = new LinkedList<ProPlanDoneModel>();
+        List<ProPlanDoneDetailReq> doneList = req.getDoneList();
+        for (ProPlanDoneDetailReq doneReq : doneList) {
+            ProPlanDoneModel doneModel = new ProPlanDoneModel();
+            doneModel.setBillNo(doneReq.getBillNo());
+            doneModel.setPluId(doneReq.getPluId());
+            doneModel.setRequestdate(doneReq.getRequestdate());
+            doneModel.setPlantime(doneReq.getPlantime());
+            doneModel.setProduceCount(doneReq.getProduceCount());
+            doneModels.add(doneModel);
+        }
+        this.proPlanService.updateProPlanDone(doneModels);
         return ResponseMessage.ok();
     }
     

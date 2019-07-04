@@ -96,6 +96,15 @@ public class ProPlanService {
     }
     
     /**
+     * 批量更新完工数量
+     * @param doneModels
+     */
+    @Transactional
+    public void updateProPlanDone(List<ProPlanDoneModel> doneModels) {
+        this.proPlanDao.updateProPlanDone(doneModels);
+    }
+    
+    /**
      * 查询生产计划详情
      * @param billNo
      * @return List<Map<String, Object>>

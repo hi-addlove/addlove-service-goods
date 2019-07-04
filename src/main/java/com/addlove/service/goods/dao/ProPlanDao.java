@@ -57,6 +57,12 @@ public interface ProPlanDao {
     void deleteProPlanBody(String billNo);
     
     /**
+     * 批量更新完工数量
+     * @param doneModels
+     */
+    void updateProPlanDone(@Param("list") List<ProPlanDoneModel> doneModels);
+    
+    /**
      * 查询生产计划详情
      * @param billNo
      * @return List<Map<String, Object>>

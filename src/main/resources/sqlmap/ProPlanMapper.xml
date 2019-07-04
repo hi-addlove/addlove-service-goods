@@ -260,6 +260,18 @@
     DELETE FROM TFRSPRODUCEPLANBODY WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
   </delete>
   
+  <!-- 批量更新完工数量 -->
+  <update id="updateProPlanDone" parameterType="java.util.List">
+    <foreach collection="list" item="body" open="begin" close=";end;" separator=";">
+      Update TFRSPRODUCEPLANDONE
+      <set>
+        PRODUCECOUNT = #{body.produceCount,jdbcType=NUMERIC}
+      </set> 
+      Where BILLNO = #{body.billNo,jdbcType=VARCHAR} And PLUID = #{body.pluId,jdbcType=NUMERIC}
+      And REQUESTDATE = #{body.requestdate,jdbcType=VARCHAR} And PLANTIME = #{body.plantime,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  
   <!-- 生产计划详情 -->
   <select id="queryProPlanDetail" resultType="java.util.HashMap">
      Select Distinct t.BILLNO,
