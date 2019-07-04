@@ -151,7 +151,7 @@
                 t.PLUCODE,
                 t.PLUNAME,
                 t.SPEC,
-                t.UNIT
+                t.UNIT,
                 t.PLANCOUNT,
                 t.ISDONE,
                 t.PRODUCECOUNT,
@@ -165,10 +165,10 @@
         and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
     </if>
     <if test="queryModel.startDate != '' and queryModel.startDate != null">
-        and t.LRDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+        and t.REQUESTDATE &gt;= #{queryModel.startDate,jdbcType=VARCHAR}
     </if>
     <if test="queryModel.endDate != '' and queryModel.endDate != null">
-        and t.LRDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+        and t.REQUESTDATE &lt;= #{queryModel.endDate,jdbcType=VARCHAR}
     </if>
     <if test="queryModel.isDone != null and queryModel.isDone != '' ">
         and t.ISDONE = #{queryModel.isDone,jdbcType=VARCHAR}
@@ -176,7 +176,7 @@
     <if test="queryModel.depId != null and queryModel.depId != '' ">
         and t.DEPID = #{queryModel.depId,jdbcType=VARCHAR}
     </if>
-    Order By t.REQUESTDATE,t.PLANTIME Desc
+    Order By t.PLANTIME,t.REQUESTDATE Desc
   </select>
   
   <!-- 插入生产计划主表 -->
@@ -265,7 +265,8 @@
     <foreach collection="list" item="body" open="begin" close=";end;" separator=";">
       Update TFRSPRODUCEPLANDONE
       <set>
-        PRODUCECOUNT = #{body.produceCount,jdbcType=NUMERIC}
+        PRODUCECOUNT = #{body.produceCount,jdbcType=NUMERIC}, PRODUCER = #{body.producer,jdbcType=VARCHAR},
+        PRODUCETIME = to_date(#{body.produceTime,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), PRODUCEREMARK = #{body.produceRemark,jdbcType=VARCHAR}
       </set> 
       Where BILLNO = #{body.billNo,jdbcType=VARCHAR} And PLUID = #{body.pluId,jdbcType=NUMERIC}
       And REQUESTDATE = #{body.requestdate,jdbcType=VARCHAR} And PLANTIME = #{body.plantime,jdbcType=VARCHAR}

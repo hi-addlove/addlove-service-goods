@@ -98,12 +98,8 @@ public class ProPlanController extends BaseController{
         queryModel.setPageSize(req.getPageSize());
         queryModel.setOrgCode(req.getOrgCode());
         queryModel.setBillNo(req.getBillNo());
-        if (StringUtils.isNotBlank(req.getStartDate())) {
-            queryModel.setStartDate(req.getStartDate() + " 00:00:00");
-        }
-        if (StringUtils.isNotBlank(req.getEndDate())) {
-            queryModel.setEndDate(req.getEndDate() + " 23:59:59");
-        }
+        queryModel.setStartDate(req.getStartDate());
+        queryModel.setEndDate(req.getEndDate());
         queryModel.setIsDone(req.getIsDone());
         queryModel.setDepId(req.getDepId());
         List<ProPlanDoneModel> doneList = this.proPlanService.queryProPlanDonePage(queryModel);
@@ -213,9 +209,24 @@ public class ProPlanController extends BaseController{
             doneModel.setRequestdate(doneReq.getRequestdate());
             doneModel.setPlantime(doneReq.getPlantime());
             doneModel.setProduceCount(doneReq.getProduceCount());
+            doneModel.setProducer(doneReq.getProducer());
+            doneModel.setProduceRemark(doneReq.getProduceRemark());
+            doneModel.setProduceTime(DateUtil.getCurrentTime());
             doneModels.add(doneModel);
         }
         this.proPlanService.updateProPlanDone(doneModels);
+        return ResponseMessage.ok();
+    }
+    
+    /**
+     * undo
+     * 执行生产完工
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/execProPlanDone", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage execProPlanDone(@RequestBody @Valid ProPlanDonePrimaryReq req) {
         return ResponseMessage.ok();
     }
     

@@ -37,6 +37,16 @@ public class ProPlanDoneDetailReq {
     private Double produceCount;
     
     /**
+     * 制作人
+     */
+    private String producer;
+    
+    /**
+     * 制作说明
+     */
+    private String produceRemark;
+    
+    /**
      * @return the billNo
      */
     public String getBillNo() {
@@ -95,5 +105,29 @@ public class ProPlanDoneDetailReq {
      */
     public void setProduceCount(Double produceCount) {
         this.produceCount = produceCount;
+    }
+    /**
+     * @return the producer
+     */
+    public String getProducer() {
+        return producer;
+    }
+    /**
+     * @param producer the producer to set
+     */
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
+    /**
+     * @return the produceRemark
+     */
+    public String getProduceRemark() {
+        return produceRemark;
+    }
+    /**
+     * @param produceRemark the produceRemark to set
+     */
+    public void setProduceRemark(String produceRemark) {
+        this.produceRemark = produceRemark;
     }
 }
