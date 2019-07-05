@@ -81,7 +81,7 @@
                 <ThresholdFilter level="DEBUG" onMatch="ACCEPT"
                     onMismatch="DENY" />
             </Filters>
-            <PatternLayout pattern="^A001[%d] [%-5p] [%t] [%c] -^,%m%n" />
+            <PatternLayout pattern="[%d] [%-5p] [%t] [%c] -^,%m%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />
             </Policies>
@@ -96,7 +96,7 @@
                 <ThresholdFilter level="ERROR" onMatch="ACCEPT"
                     onMismatch="DENY" />
             </Filters>
-            <PatternLayout pattern="^A001[%d] [%-5p] [%t] [%c] -^,%m%n" />
+            <PatternLayout pattern="[%d] [%-5p] [%t] [%c] -^,%m%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />
             </Policies>
@@ -110,7 +110,7 @@
                 <ThresholdFilter level="DEBUG" onMatch="ACCEPT"
                     onMismatch="DENY" />
             </Filters>
-            <PatternLayout pattern="^A001[%d] [%-5p] [%t] [%c] -^,%m%n" /> 
+            <PatternLayout pattern="[%d] [%-5p] [%t] [%c] -^,%m%n" /> 
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />
             </Policies>

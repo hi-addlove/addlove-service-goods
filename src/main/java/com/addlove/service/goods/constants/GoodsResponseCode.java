@@ -54,7 +54,12 @@ public enum GoodsResponseCode {
     /**
      * 部门ID不能为空
      */
-    DEP_ID_NOT_BLANK(20009, "部门ID不能为空");
+    DEP_ID_NOT_BLANK(20009, "部门ID不能为空"),
+    
+    /**
+     * 执行完工存储过程错误
+     */
+    EXEC_DONE_PROCEDURE_ERROR(20010, "执行完工存储过程错误");
     
     private int code;
     private String msg;

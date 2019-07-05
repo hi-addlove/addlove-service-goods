@@ -68,4 +68,16 @@ public interface ProPlanDao {
      * @return List<Map<String, Object>>
      */
     List<Map<String, Object>> queryProPlanDetail(String billNo);
+    
+    /**
+     * 执行生产计划记账存储过程
+     * @param map
+     */
+    void execProPlanAccountProcedure(Map<String, Object> map);
+    
+    /**
+     * 执行生产完工存储过程
+     * @param map
+     */
+    void execProPlanDoneProcedure(Map<String, Object> map);
 }

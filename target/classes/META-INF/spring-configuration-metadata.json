@@ -4,13 +4,13 @@
     {
       "sourceType": "com.addlove.service.goods.config.DataSourceConfig",
       "name": "spring.datasource.mysql",
-      "sourceMethod": "public javax.sql.DataSource mysqlDatasource() ",
+      "sourceMethod": "mysqlDatasource()",
       "type": "javax.sql.DataSource"
     },
     {
       "sourceType": "com.addlove.service.goods.config.DataSourceConfig",
       "name": "spring.datasource.primary",
-      "sourceMethod": "public javax.sql.DataSource defaultDataSource() ",
+      "sourceMethod": "defaultDataSource()",
       "type": "javax.sql.DataSource"
     },
     {

@@ -245,7 +245,7 @@
           #{body.unit,jdbcType=VARCHAR},
           #{body.planCount,jdbcType=NUMERIC},
           #{body.planTime,jdbcType=VARCHAR},
-          #{remark,jdbcType=VARCHAR}
+          #{body.remark,jdbcType=VARCHAR}
         FROM DUAL
     </foreach>
   </insert>
@@ -313,5 +313,32 @@
       From TFRSPRODUCEPLANHEAD t Left Join TFRSPRODUCEPLANBODY t1 On t.BILLNO = t1.BILLNO
       Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
       Order By t1.SERIALNO
+  </select>
+  
+  <!-- 执行生产计划记账存储过程 -->
+  <select id="execProPlanAccountProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
+    <![CDATA[
+     {
+       CALL sFrs_ProducePlan_Account_CDADL
+       (
+         #{ps_BillNo,mode=IN,jdbcType=VARCHAR}, #{ps_YwType,mode=IN,jdbcType=VARCHAR}, #{pi_UserId,mode=IN,jdbcType=NUMERIC}, 
+         #{ps_UserCode,mode=IN,jdbcType=VARCHAR}, #{ps_UserName,mode=IN,jdbcType=VARCHAR}, to_date(#{pd_JzDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), 
+         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR}
+       )
+     }
+    ]]>
+  </select>
+  
+  <!-- 执行生产完工存储过程 -->
+  <select id="execProPlanDoneProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
+    <![CDATA[
+     {
+       CALL sFrs_ProducePlan_Done_CDADL
+       (
+         #{ps_BillNo,mode=IN,jdbcType=VARCHAR}, #{pi_SerialNo,mode=IN,jdbcType=NUMERIC}, 
+         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR}
+       )
+     }
+    ]]>
   </select>
 </mapper>

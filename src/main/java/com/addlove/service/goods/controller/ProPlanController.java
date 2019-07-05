@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.GoodsCommonConstants.BillType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.SaveType;
@@ -103,13 +100,7 @@ public class ProPlanController extends BaseController{
         queryModel.setIsDone(req.getIsDone());
         queryModel.setDepId(req.getDepId());
         List<ProPlanDoneModel> doneList = this.proPlanService.queryProPlanDonePage(queryModel);
-        PageModel pageModel = new PageModel();
-        Page<ProPlanDoneModel> page = (Page<ProPlanDoneModel>) doneList;
-        pageModel.setPageNo(page.getPageNum());
-        pageModel.setPageSize(page.getPageSize());
-        pageModel.setResult(page.getResult());
-        pageModel.setTotal(page.getTotal());
-        return ResponseMessage.ok(pageModel);
+        return ResponseMessage.ok(doneList);
     }
     
     /**
@@ -136,7 +127,7 @@ public class ProPlanController extends BaseController{
             accountMap.put("ps_UserCode", headModel.getJzrCode());
             accountMap.put("ps_UserName", headModel.getJzrName());
             accountMap.put("pd_JzDate", headModel.getJzDate());
-            this.commonService.execAccountByCallProcedure(accountMap);
+            this.proPlanService.execProPlanAccountProcedure(accountMap);
         }else {
             throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
                     GoodsResponseCode.BILL_OPRATE_ERROR.getMsg());
@@ -172,7 +163,7 @@ public class ProPlanController extends BaseController{
             accountMap.put("ps_UserName", headModel.getJzrName());
             accountMap.put("pd_JzDate", headModel.getJzDate());
             this.proPlanService.updateAllProPlanInfo(headModel);
-            this.commonService.execAccountByCallProcedure(accountMap);
+            this.proPlanService.execProPlanAccountProcedure(accountMap);
         }else {
             throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
                     GoodsResponseCode.BILL_OPRATE_ERROR.getMsg());
@@ -200,26 +191,13 @@ public class ProPlanController extends BaseController{
     @RequestMapping(value = "/saveProPlanDone", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage saveProPlanDone(@RequestBody @Valid ProPlanDonePrimaryReq req) {
-        List<ProPlanDoneModel> doneModels = new LinkedList<ProPlanDoneModel>();
-        List<ProPlanDoneDetailReq> doneList = req.getDoneList();
-        for (ProPlanDoneDetailReq doneReq : doneList) {
-            ProPlanDoneModel doneModel = new ProPlanDoneModel();
-            doneModel.setBillNo(doneReq.getBillNo());
-            doneModel.setPluId(doneReq.getPluId());
-            doneModel.setRequestdate(doneReq.getRequestdate());
-            doneModel.setPlantime(doneReq.getPlantime());
-            doneModel.setProduceCount(doneReq.getProduceCount());
-            doneModel.setProducer(doneReq.getProducer());
-            doneModel.setProduceRemark(doneReq.getProduceRemark());
-            doneModel.setProduceTime(DateUtil.getCurrentTime());
-            doneModels.add(doneModel);
-        }
+        List<ProPlanDoneModel> doneModels = this.getDoneModels(req);
         this.proPlanService.updateProPlanDone(doneModels);
         return ResponseMessage.ok();
     }
     
     /**
-     * undo
+     * 
      * 执行生产完工
      * @param req
      * @return ResponseMessage
@@ -227,6 +205,8 @@ public class ProPlanController extends BaseController{
     @RequestMapping(value = "/execProPlanDone", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage execProPlanDone(@RequestBody @Valid ProPlanDonePrimaryReq req) {
+        List<ProPlanDoneModel> doneList = this.getDoneModels(req);
+        this.proPlanService.execProPlanDoneProcedure(doneList);
         return ResponseMessage.ok();
     }
     
@@ -336,10 +316,10 @@ public class ProPlanController extends BaseController{
             headModel.setJzrName("超级户");
         }
         List<ProPlanBodyModel> bodyModels = new LinkedList<ProPlanBodyModel>();
+        long serialNo = 1;
         for (ProPlanBodyReq bodyReq : bodyList) {
             ProPlanBodyModel bodyModel = new ProPlanBodyModel();
             bodyModel.setBillNo(headModel.getBillNo());
-            long serialNo = 1;
             bodyModel.setSerialNo(serialNo++);
             bodyModel.setPluId(bodyReq.getPluId());
             bodyModel.setPluCode(bodyReq.getPluCode());
@@ -353,5 +333,33 @@ public class ProPlanController extends BaseController{
         }
         headModel.setBodyList(bodyModels);
         return headModel;
+    }
+    
+    /**
+     * 封装生产完工数据
+     * @param req
+     * @return List<ProPlanDoneModel>
+     */
+    public List<ProPlanDoneModel> getDoneModels(ProPlanDonePrimaryReq req) {
+        List<ProPlanDoneDetailReq> doneList = req.getDoneList();
+        if (null == doneList || doneList.isEmpty()) {
+            throw new ServiceException(GoodsResponseCode.SKU_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.SKU_NOT_BLANK.getMsg());
+        }
+        List<ProPlanDoneModel> doneModels = new LinkedList<ProPlanDoneModel>();
+        for (ProPlanDoneDetailReq doneReq : doneList) {
+            ProPlanDoneModel doneModel = new ProPlanDoneModel();
+            doneModel.setBillNo(doneReq.getBillNo());
+            doneModel.setSerialNo(doneReq.getSerialNo());
+            doneModel.setPluId(doneReq.getPluId());
+            doneModel.setRequestdate(doneReq.getRequestdate());
+            doneModel.setPlantime(doneReq.getPlantime());
+            doneModel.setProduceCount(doneReq.getProduceCount());
+            doneModel.setProducer(doneReq.getProducer());
+            doneModel.setProduceRemark(doneReq.getProduceRemark());
+            doneModel.setProduceTime(DateUtil.getCurrentTime());
+            doneModels.add(doneModel);
+        }
+        return doneModels;
     }
 }

@@ -16,6 +16,11 @@ public class ProPlanDoneDetailReq {
     @NotBlank(message = "单据号不能为空")
     private String billNo;
     /**
+     * 序列号
+     */
+    @NotNull(message = "序列号不能为空")
+    private Long serialNo;
+    /**
      * 商品ID
      */
     @NotNull(message = "商品Id不能为空")
@@ -57,6 +62,18 @@ public class ProPlanDoneDetailReq {
      */
     public void setBillNo(String billNo) {
         this.billNo = billNo;
+    }
+    /**
+     * @return the serialNo
+     */
+    public Long getSerialNo() {
+        return serialNo;
+    }
+    /**
+     * @param serialNo the serialNo to set
+     */
+    public void setSerialNo(Long serialNo) {
+        this.serialNo = serialNo;
     }
     /**
      * @return the pluId
