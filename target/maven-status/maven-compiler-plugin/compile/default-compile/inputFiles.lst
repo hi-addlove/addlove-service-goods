@@ -31,6 +31,7 @@ D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\ProPlanHeadModel.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\PageQuery.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\service\OrdJhService.java
+D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\service\ReportService.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\datasource\DataSourceContextHolder.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\util\FtpInfo.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\controller\OrdThApplyController.java
@@ -67,6 +68,7 @@ D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\service\StkDbService.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\intercept\PermissionIntercept.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\valid\CommonOrgAndDeptReq.java
+D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\controller\ReportController.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\config\DataSourceConfig.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\controller\ProPlanController.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\UsrUserModel.java
@@ -82,6 +84,7 @@ D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\controller\StkDbController.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\valid\OrdThApplyBodyDiffReq.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\ProPlanBodyModel.java
+D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\UserEmployeeModel.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\service\GoodsCommonService.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\util\LoggerEnhance.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\constants\GoodsOrdJhConstants.java
@@ -93,9 +96,11 @@ D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\exception\ArgumentInvalidResult.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\ProPlanQueryPageModel.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\valid\OrdJhQueryPageReq.java
+D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\BasBrandModel.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\config\UserInit.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\valid\OrdThQueryPageReq.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\OrgManageModel.java
+D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\dao\ReportDao.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\StkDbBodyModel.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\config\DataSourceOracleConfig.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\constants\GoodsOrdThConstants.java
@@ -106,6 +111,7 @@ D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\config\ResponseAdvisor.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\util\InterfaceLogThreadLocal.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\exception\ServiceException.java
+D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\CatCategoryModel.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\model\valid\StkDbQueryPageReq.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\util\CloseableUtil.java
 D:\local Git Repository\addlove-service-goods\src\main\java\com\addlove\service\goods\AddloveServiceGoodsApplication.java

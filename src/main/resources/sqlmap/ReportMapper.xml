@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.addlove.service.goods.dao.ReportDao">
+  <!-- 库存查询报表 -->
+  <select id="queryStockReport" resultType="java.util.HashMap">
+    select * from  
+            (select (select orgcode || ''-'' || Orgname from torgmanage where A.orgcode = orgcode) orginfo,
+            (select depcode || ''-'' || depname from torgdept where A.depid = depid) depinfo,
+            (select Ckcode || ''-'' || Ckname from tstkstore where A.ckcode = ckcode and A.orgcode = orgcode) ckinfo,
+            (select clscode||''-''|| clsname from tcatcategory where B.Clsid=clsid) clsinfo,
+            (select brandcode||''-''|| brandname from tbasbrand where brandcode=B.Brandcode) brandinfo,
+            B.Plucode,B.Pluname,B.Barcode,B.Unit,B.Spec,
+            (case B.Isseason when '1' then 
+            (select Enumvaluename from tSysEnumValue where B.Saleseason=Enumvalueid and enumtypeid=8012) 
+            else '' end) season,
+            nvl(sum(A.kccount-A.wtcount),0) kccount,nvl(sum(A.lockkcount),0) lockcount,nvl(sum(A.kccount-A.wtcount-A.lockkcount),0) kycount,
+            nvl(sum(A.hcost-A.wthcost),0) kchcost,nvl(sum(A.wcost-A.wtwcost),0) kcwcost,
+            nvl((select sum(xscount) from tsalsaleplu C where A.orgcode=C.Orgcode and A.Pluid=C.Pluid),0) salcount,
+            nvl(sum(A.kccount-A.wtcount-A.lockkcount-nvl(
+            (select sum(xscount) from tsalsaleplu C where A.orgcode=C.Orgcode and A.Pluid=C.Pluid),0)),0) timekcount
+            from vplukc A left join tskuplu B on  A.pluid = B.Pluid
+       where A.orgcode in (select orgcode from torgmanage start with orgcode= #{orgCode,jdbcType=VARCHAR} connect by prior orgcode=preorgcode)
+         and (B.Plucode like CONCAT(#{pluInfo,jdbcType=VARCHAR},'%')  or B.Pluname like CONCAT(#{pluInfo,jdbcType=VARCHAR},'%') or B.Barcode like CONCAT(#{pluInfo,jdbcType=VARCHAR},'%'))
+        and B.Clsid in (select clsid from tcatcategory where clscode like CONCAT(#{clsCode,jdbcType=VARCHAR},'%'))
+        and A.ckcode like CONCAT(#{ckCode,jdbcType=VARCHAR},'%')
+       and A.depid in (select depid from torgdept where A.orgcode=orgcode and depcode like CONCAT(#{depCode,jdbcType=VARCHAR},'%'))
+       and exists(select 1 from tusrrightorg E where E.orgcode=A.orgcode
+       and A.depid in (select depid from torgdept where E.Depcode=depcode))
+        group by A.orgcode,A.depid,A.ckcode,B.Clsid,B.Brandcode,A.Pluid,B.Plucode,B.Pluname,
+        B.Barcode,B.Unit,B.Spec,B.Isseason,B.Saleseason)
+        <if test="queryModel != '' and queryModel != null and queryModel == 1">
+          where timekcount &gt; 0 order by 1,2 asc
+       </if>
+       <if test="queryModel != '' and queryModel != null and queryModel == 2">
+          where timekcount &lt; 0 order by 1,2 asc
+       </if>
+       <if test="queryModel != '' and queryModel != null and queryModel == 4">
+          where timekcount = 0 order by 1,2 asc
+       </if>
+  </select>
+</mapper>

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.message.ResponseMessage;
+import com.addlove.service.goods.model.BasBrandModel;
+import com.addlove.service.goods.model.CatCategoryModel;
 import com.addlove.service.goods.model.CntContractModel;
 import com.addlove.service.goods.model.EtpSupplierModel;
 import com.addlove.service.goods.model.OrgDeptModel;
@@ -23,6 +25,7 @@ import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.model.StkStoreModel;
+import com.addlove.service.goods.model.UserEmployeeModel;
 import com.addlove.service.goods.model.UsrUserModel;
 import com.addlove.service.goods.model.valid.CommonOrgAndDeptReq;
 import com.addlove.service.goods.model.valid.CommonOrgAndSupAndCntReq;
@@ -215,5 +218,47 @@ public class GoodsCommonController extends BaseController{
         map.put("searchContent", req.getSearchContent());
         List<UsrUserModel> allUsers = this.commonService.getAllUsers(map);
         return ResponseMessage.ok(allUsers);
+    }
+    
+    /**
+     * 搜索员工:员工ID、员工编码、员工姓名
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getPurchaseEmp", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getPurchaseEmp(@RequestBody CommonSearchReq req) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("searchContent", req.getSearchContent());
+        List<UserEmployeeModel> emps = this.commonService.getPurchaseEmp(map);
+        return ResponseMessage.ok(emps);
+    }
+    
+    /**
+     * 搜索商品品类:品类ID、品类编码、品类名称
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getCatCategorys", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getCatCategorys(@RequestBody CommonSearchReq req) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("searchContent", req.getSearchContent());
+        List<CatCategoryModel> catCategorys = this.commonService.getCatCategorys(map);
+        return ResponseMessage.ok(catCategorys);
+    }
+    
+    /**
+     * 搜索商品品牌：品牌编码、品牌名称
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getBasBrands", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getBasBrands(@RequestBody CommonSearchReq req) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("searchContent", req.getSearchContent());
+        List<BasBrandModel> basBrands = this.commonService.getBasBrands(map);
+        return ResponseMessage.ok(basBrands);
     }
 }

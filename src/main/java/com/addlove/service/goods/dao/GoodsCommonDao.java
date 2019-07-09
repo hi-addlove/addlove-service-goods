@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import com.addlove.service.goods.model.BasBrandModel;
+import com.addlove.service.goods.model.CatCategoryModel;
 import com.addlove.service.goods.model.CntContractModel;
 import com.addlove.service.goods.model.EtpSupplierModel;
 import com.addlove.service.goods.model.OrgDeptModel;
@@ -11,6 +14,7 @@ import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.model.StkStoreModel;
+import com.addlove.service.goods.model.UserEmployeeModel;
 import com.addlove.service.goods.model.UsrUserModel;
 
 /**
@@ -94,6 +98,27 @@ public interface GoodsCommonDao {
      * @return List<UsrUserModel>
      */
     List<UsrUserModel> getAllUsers(Map<String, Object> map);
+    
+    /**
+     * 获取采购员
+     * @param map
+     * @return List<UserEmployeeModel>
+     */
+    List<UserEmployeeModel> getPurchaseEmp(Map<String, Object> map);
+    
+    /**
+     * 获取商品品类
+     * @param map
+     * @return List<CatCategoryModel>
+     */
+    List<CatCategoryModel> getCatCategorys(Map<String, Object> map);
+    
+    /**
+     * 获取商品品牌
+     * @param map
+     * @return List<BasBrandModel>
+     */
+    List<BasBrandModel> getBasBrands(Map<String, Object> map);
     
     /**
      * 调用存储过程生成单据号

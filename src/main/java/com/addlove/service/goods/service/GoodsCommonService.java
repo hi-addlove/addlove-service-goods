@@ -16,6 +16,8 @@ import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.GoodsCommonConstants.ProcedureResult;
 import com.addlove.service.goods.dao.GoodsCommonDao;
 import com.addlove.service.goods.exception.ServiceException;
+import com.addlove.service.goods.model.BasBrandModel;
+import com.addlove.service.goods.model.CatCategoryModel;
 import com.addlove.service.goods.model.CntContractModel;
 import com.addlove.service.goods.model.EtpSupplierModel;
 import com.addlove.service.goods.model.OrgDeptModel;
@@ -23,6 +25,7 @@ import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.model.StkStoreModel;
+import com.addlove.service.goods.model.UserEmployeeModel;
 import com.addlove.service.goods.model.UsrUserModel;
 import com.addlove.service.goods.util.LoggerEnhance;
 
@@ -161,6 +164,33 @@ public class GoodsCommonService {
      */
     public List<UsrUserModel> getAllUsers(Map<String, Object> map) {
         return this.commonDao.getAllUsers(map);
+    }
+    
+    /**
+     * 获取采购员
+     * @param map
+     * @return List<UserEmployeeModel>
+     */
+    public List<UserEmployeeModel> getPurchaseEmp(Map<String, Object> map) {
+        return this.commonDao.getPurchaseEmp(map);
+    }
+    
+    /**
+     * 获取商品品类
+     * @param map
+     * @return List<CatCategoryModel>
+     */
+    public List<CatCategoryModel> getCatCategorys(Map<String, Object> map) {
+        return this.commonDao.getCatCategorys(map);
+    }
+    
+    /**
+     * 获取商品品牌
+     * @param map
+     * @return List<BasBrandModel>
+     */
+    public List<BasBrandModel> getBasBrands(Map<String, Object> map) {
+        return this.commonDao.getBasBrands(map);
     }
     
     /**

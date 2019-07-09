@@ -349,6 +349,20 @@
     <result column="ACTIVEDAY" jdbcType="NUMERIC" property="activeDay" />
   </resultMap>
   
+  <resultMap id="BaseResultMapEmp" type="com.addlove.service.goods.model.UserEmployeeModel">
+    <result column="EMPID" jdbcType="NUMERIC" property="empId" />
+    <result column="EMPCODE" jdbcType="VARCHAR" property="" />
+    <result column="EMPNAME" jdbcType="VARCHAR" property="" />
+    <result column="EMPENAME" jdbcType="VARCHAR" property="" />
+    <result column="ROLECODE" jdbcType="VARCHAR" property="" />
+    <result column="SEX" jdbcType="VARCHAR" property="" />
+    <result column="HEADSHIP" jdbcType="VARCHAR" property="" />
+    <result column="STATIONCODE" jdbcType="VARCHAR" property="" />
+    <result column="USERID" jdbcType="NUMERIC" property="userId" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
+  
   <resultMap id="BaseResultMapStore" type="com.addlove.service.goods.model.StkStoreModel">
     <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
     <result column="ATORGCODE" jdbcType="VARCHAR" property="atOrgCode" />
@@ -364,6 +378,43 @@
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     <result column="KCTYPE" jdbcType="VARCHAR" property="kcType" />
     <result column="AREACTRL" jdbcType="VARCHAR" property="areaCtrl" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapCategory" type="com.addlove.service.goods.model.CatCategoryModel">
+    <id column="CLSID" jdbcType="NUMERIC" property="clsId" />
+    <result column="CLSCODE" jdbcType="VARCHAR" property="clsCode" />
+    <result column="CLSNAME" jdbcType="VARCHAR" property="clsName" />
+    <result column="CLSTYPE" jdbcType="VARCHAR" property="clsType" />
+    <result column="ISEXPLUCODE" jdbcType="VARCHAR" property="isExPluCode" />
+    <result column="EXPLUTYPE" jdbcType="VARCHAR" property="exPluType" />
+    <result column="ISBZ" jdbcType="VARCHAR" property="isBz" />
+    <result column="ISCURRDAY" jdbcType="VARCHAR" property="isCurrday" />
+    <result column="ISLAST" jdbcType="VARCHAR" property="isLast" />
+    <result column="ISACTIVE" jdbcType="VARCHAR" property="isActive" />
+    <result column="ISSEASON" jdbcType="VARCHAR" property="isSeason" />
+    <result column="CXPRECISION" jdbcType="NUMERIC" property="cxPrecision" />
+    <result column="CXCALCUTYPE" jdbcType="VARCHAR" property="cxCalcuType" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="PLUCOUNT" jdbcType="NUMERIC" property="pluCount" />
+    <result column="MINMLRATE" jdbcType="NUMERIC" property="minmLrate" />
+    <result column="MAXMLRATE" jdbcType="NUMERIC" property="maxmLrate" />
+    <result column="SALESEASON" jdbcType="VARCHAR" property="saleSeason" />
+    <result column="CLSSTYLE" jdbcType="VARCHAR" property="clsStyle" />
+    <result column="CLSSORT" jdbcType="VARCHAR" property="clsSort" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapBrand" type="com.addlove.service.goods.model.BasBrandModel">
+    <id column="BRANDCODE" jdbcType="VARCHAR" property="brandCode" />
+    <result column="BRANDNAME" jdbcType="VARCHAR" property="brandName" />
+    <result column="BRANDENAME" jdbcType="VARCHAR" property="brandEName" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="BRANDMN" jdbcType="VARCHAR" property="brandMn" />
+    <result column="UDP1" jdbcType="VARCHAR" property="udp1" />
+    <result column="UDP2" jdbcType="VARCHAR" property="udp2" />
+    <result column="UDP3" jdbcType="VARCHAR" property="udp3" />
+    <result column="UDP4" jdbcType="VARCHAR" property="udp4" />
+    <result column="UDP5" jdbcType="VARCHAR" property="udp5" />
+    <result column="UDP6" jdbcType="VARCHAR" property="udp6" />
   </resultMap>
   
   <sql id="Base_Column_List_Supplier">
@@ -542,6 +593,46 @@
         )
     </if>
   </select>
+  
+  <!-- 获取采购员 -->
+   <select id="getPurchaseEmp" parameterType="java.util.Map" resultMap="BaseResultMapEmp">
+     Select Distinct t.empId,t.empcode,t.empname,t.empename,t.rolecode,t.sex,t.headship,t.stationcode,t.USERID, t.USERCODE, t.USERNAME
+     From TUSREMPLOYEE t, TUSRUSER t1, tBasFlContent t2
+     Where t.EMPID = t1.EMPID And t.rolecode = t2.lxcode
+     And t.zzstatus = '0' And t.ISACTIVE = '1' And t2.flcode = '1009'
+     <if test="searchContent != '' and searchContent != null">
+        And (
+          t.EMPID LIKE CONCAT(#{searchContent,jdbcType=VARCHAR},'%') 
+          Or t.EMPCODE LIKE CONCAT(#{searchContent,jdbcType=VARCHAR},'%') 
+          Or t.EMPNAME LIKE CONCAT(#{searchContent,jdbcType=VARCHAR},'%')
+        )
+    </if>
+   </select>
+   
+   <!-- 获取商品品类 -->
+   <select id="getCatCategorys" parameterType="java.util.Map" resultMap="BaseResultMapCategory">
+     Select t.clsid,t.clscode,t.clsname,t.clstype,t.cxprecision,t.cxcalcutype,t.plucount,t.minmlrate,t.maxmlrate,t.saleSeason,t.clsstyle,t.clssort 
+     From tCatCategory t,tBasFlContent t1,tSkuSeason t2
+     Where t.clstype = t1.lxcode And t.saleseason = t2.season
+     And t.ISACTIVE = '1'
+     And t2.BgnDate is not null and t2.EndDate is not null
+     <if test="searchContent != '' and searchContent != null">
+        And (
+          t.CLSID LIKE CONCAT(#{searchContent,jdbcType=VARCHAR},'%') 
+          Or t.CLSCODE LIKE CONCAT(#{searchContent,jdbcType=VARCHAR},'%') 
+          Or t.CLSNAME LIKE CONCAT(#{searchContent,jdbcType=VARCHAR},'%')
+        )
+    </if>
+   </select>
+   
+   <!-- 获取商品品牌 -->
+   <select id="getBasBrands" parameterType="java.util.Map" resultMap="BaseResultMapBrand">
+     select t.brandcode,t.brandname,t.brandename,t.remark,t.brandmn from tBasBrand t
+     <if test="searchContent != '' and searchContent != null">
+          where t.BRANDCODE LIKE CONCAT(#{searchContent,jdbcType=VARCHAR},'%') 
+          Or t.BRANDNAME LIKE CONCAT(#{searchContent,jdbcType=VARCHAR},'%') 
+    </if>
+   </select>
   
   <!-- 获取每个商品的库存总数 -->
   <select id="getKcSum" resultType="java.util.HashMap">
