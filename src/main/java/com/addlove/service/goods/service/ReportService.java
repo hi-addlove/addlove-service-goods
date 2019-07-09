@@ -2,10 +2,9 @@ package com.addlove.service.goods.service;
 
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
 import com.addlove.service.goods.dao.ReportDao;
 
 /**
@@ -23,6 +22,7 @@ public class ReportService {
      * @param queryMap
      * @return List<Map<String, Object>>
      */
+    @Cacheable(value = "stockReportCache")
     public List<Map<String, Object>> queryStockReport(Map<String, Object> queryMap) {
         return this.reportDao.queryStockReport(queryMap);
     }
