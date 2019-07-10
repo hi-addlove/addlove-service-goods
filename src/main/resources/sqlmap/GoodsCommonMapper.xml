@@ -351,13 +351,13 @@
   
   <resultMap id="BaseResultMapEmp" type="com.addlove.service.goods.model.UserEmployeeModel">
     <result column="EMPID" jdbcType="NUMERIC" property="empId" />
-    <result column="EMPCODE" jdbcType="VARCHAR" property="" />
-    <result column="EMPNAME" jdbcType="VARCHAR" property="" />
-    <result column="EMPENAME" jdbcType="VARCHAR" property="" />
-    <result column="ROLECODE" jdbcType="VARCHAR" property="" />
-    <result column="SEX" jdbcType="VARCHAR" property="" />
-    <result column="HEADSHIP" jdbcType="VARCHAR" property="" />
-    <result column="STATIONCODE" jdbcType="VARCHAR" property="" />
+    <result column="EMPCODE" jdbcType="VARCHAR" property="empCode" />
+    <result column="EMPNAME" jdbcType="VARCHAR" property="empName" />
+    <result column="EMPENAME" jdbcType="VARCHAR" property="empEName" />
+    <result column="ROLECODE" jdbcType="VARCHAR" property="roleCode" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="HEADSHIP" jdbcType="VARCHAR" property="headShip" />
+    <result column="STATIONCODE" jdbcType="VARCHAR" property="stationCode" />
     <result column="USERID" jdbcType="NUMERIC" property="userId" />
     <result column="USERCODE" jdbcType="VARCHAR" property="userCode" />
     <result column="USERNAME" jdbcType="VARCHAR" property="userName" />
@@ -614,7 +614,7 @@
      Select t.clsid,t.clscode,t.clsname,t.clstype,t.cxprecision,t.cxcalcutype,t.plucount,t.minmlrate,t.maxmlrate,t.saleSeason,t.clsstyle,t.clssort 
      From tCatCategory t,tBasFlContent t1,tSkuSeason t2
      Where t.clstype = t1.lxcode And t.saleseason = t2.season
-     And t.ISACTIVE = '1'
+     And t.ISACTIVE = '1' And t1.flcode = '1104'
      And t2.BgnDate is not null and t2.EndDate is not null
      <if test="searchContent != '' and searchContent != null">
         And (
@@ -623,6 +623,7 @@
           Or t.CLSNAME LIKE CONCAT(#{searchContent,jdbcType=VARCHAR},'%')
         )
     </if>
+    order by t.clscode
    </select>
    
    <!-- 获取商品品牌 -->

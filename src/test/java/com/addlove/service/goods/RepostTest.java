@@ -29,24 +29,15 @@ public class RepostTest extends AddloveServiceGoodsApplicationTests{
     public void testStockReport() {
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("orgCode", "999999");
-        queryMap.put("pluInfo", "1010");
-        long startTime = System.currentTimeMillis();
-        List<Map<String,Object>> list = this.reportService.queryStockReport(queryMap );
-        long endTime = System.currentTimeMillis();
-        System.out.println("---------------第一次执行时间-------------" + (endTime - startTime));
-        if (null != list && !list.isEmpty()) {
-            for (Map<String, Object> map : list) {
+//        queryMap.put("pluInfo", "1010");
+        for (int i = 0; i < 3; i++) {
+            long startTime = System.currentTimeMillis();
+            List<Map<String,Object>> list = this.reportService.queryStockReport(queryMap);
+            long endTime = System.currentTimeMillis();
+            System.out.println("---------------执行时间-------------" + (endTime - startTime));
+            if (null != list && !list.isEmpty()) {
+                Map<String, Object> map = list.get(0);
                 System.out.println("---------------map.get(\"ORGINFO\")-------------" + map.get("ORGINFO"));
-            }
-        }
-        
-        long startTime2 = System.currentTimeMillis();
-        List<Map<String,Object>> list2 = this.reportService.queryStockReport(queryMap );
-        long endTime2 = System.currentTimeMillis();
-        System.out.println("---------------第二次执行时间-------------" + (endTime2 - startTime2));
-        if (null != list2 && !list2.isEmpty()) {
-            for (Map<String, Object> map : list2) {
-                System.out.println("---------------DEPINFO-------------" + map.get("DEPINFO"));
             }
         }
     }
