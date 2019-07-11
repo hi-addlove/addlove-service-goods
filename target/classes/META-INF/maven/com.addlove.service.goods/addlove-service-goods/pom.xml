@@ -288,6 +288,7 @@
                     <fork>true</fork><!-- 如果没有该项配置，这个devtools不会起作用，即应用不会restart -->
                 </configuration>
             </plugin>
+            <!-- 解决maven update project后版本降低为1.5的bug -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
