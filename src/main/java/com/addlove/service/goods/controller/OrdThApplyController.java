@@ -22,12 +22,12 @@ import com.addlove.service.goods.model.OrdJhBodyModel;
 import com.addlove.service.goods.model.OrdJhHeadModel;
 import com.addlove.service.goods.model.OrdThApplyBodyModel;
 import com.addlove.service.goods.model.OrdThApplyHeadModel;
-import com.addlove.service.goods.model.OrdThQueryPageModel;
+import com.addlove.service.goods.model.OrdThApplyQueryPageModel;
 import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdThApplyBodyDiffReq;
 import com.addlove.service.goods.model.valid.OrdThApplyHeadDiffReq;
-import com.addlove.service.goods.model.valid.OrdThQueryPageReq;
+import com.addlove.service.goods.model.valid.OrdThApplyQueryPageReq;
 import com.addlove.service.goods.service.GoodsCommonService;
 import com.addlove.service.goods.service.OrdJhService;
 import com.addlove.service.goods.service.OrdThApplyService;
@@ -60,8 +60,8 @@ public class OrdThApplyController extends BaseController{
      */
     @RequestMapping(value = "/queryOrderThDiff", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage queryOrderThDiff(@RequestBody @Valid OrdThQueryPageReq req) {
-        OrdThQueryPageModel queryModel = new OrdThQueryPageModel();
+    public ResponseMessage queryOrderThDiff(@RequestBody @Valid OrdThApplyQueryPageReq req) {
+        OrdThApplyQueryPageModel queryModel = new OrdThApplyQueryPageModel();
         queryModel.setPageNo(req.getPageNo());
         queryModel.setPageSize(req.getPageSize());
         queryModel.setOrgCode(req.getOrgCode());
@@ -211,7 +211,7 @@ public class OrdThApplyController extends BaseController{
     @RequestMapping(value = "/queryOrderThDetail", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage queryOrderThDetail(@RequestBody @Valid CommonQueryDetailReq req) {
-        List<Map<String, Object>> resultList = this.ordThApplyService.queryThBodysByBillNo(req.getBillNo());
+        List<Map<String, Object>> resultList = this.ordThApplyService.queryThApplyBodysByBillNo(req.getBillNo());
         JSONObject backJson = new JSONObject();
         if (null != resultList && !resultList.isEmpty()) {
             JSONObject headJson = new JSONObject();

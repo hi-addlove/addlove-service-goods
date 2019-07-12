@@ -132,18 +132,6 @@ public class OrdJhService {
     }
     
     /**
-     * 编辑时点击“记账”整个验收信息
-     * @param headModel
-     */
-    @Transactional
-    public void updateAllJhInfoAccount(OrdJhHeadModel headModel) {
-        this.ordJhDao.deleteJhHeadModel(headModel.getBillNo());
-        this.ordJhDao.deleteJhBodyModel(headModel.getBillNo());
-        this.ordJhDao.insertOrdJhHead(headModel);
-        this.ordJhDao.insertOrdJhBody(headModel.getBodyList());
-    }
-    
-    /**
      * 删除验收单数据
      * @param billNo
      */
@@ -152,5 +140,4 @@ public class OrdJhService {
         this.ordJhDao.deleteJhHeadModel(billNo);
         this.ordJhDao.deleteJhBodyModel(billNo);
     }
-    
 }

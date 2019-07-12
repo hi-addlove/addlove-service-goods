@@ -79,7 +79,12 @@ public interface GoodsOrdJhConstants {
         /**
          * 6209-生产计划
          */
-        PRO_PLAN_ORDER("6209", "生产计划业务");
+        PRO_PLAN_ORDER("6209", "生产计划业务"),
+        
+        /**
+         * 0911-采购退货
+         */
+        PURCHASE_RETURN("0911", "采购退货");
         
         private String value;
         private String name;

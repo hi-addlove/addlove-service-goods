@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.addlove.service.goods.model.OrdThApplyBodyModel;
 import com.addlove.service.goods.model.OrdThApplyHeadModel;
-import com.addlove.service.goods.model.OrdThQueryPageModel;
+import com.addlove.service.goods.model.OrdThApplyQueryPageModel;
 
 /**
  * 差异单dao层
@@ -22,7 +22,7 @@ public interface OrdThApplyDao {
      * @param queryModel
      * @return List<OrdThApplyHeadModel>
      */
-    List<OrdThApplyHeadModel> queryOrdThHeadModelByPage(@Param("queryModel") OrdThQueryPageModel queryModel);
+    List<OrdThApplyHeadModel> queryOrdThHeadModelByPage(@Param("queryModel") OrdThApplyQueryPageModel queryModel);
     
     /**
      * 将配送差异插入退货申请单:头部信息
@@ -41,11 +41,5 @@ public interface OrdThApplyDao {
      * @param billNo
      * @return List<OrdThApplyBodyModel>
      */
-    List<Map<String, Object>> queryThBodysByBillNo(String billNo);
-    
-    /**
-     * 调用存储过程生成单据号
-     * @param map
-     */
-    void getBillNoByCallProcedure(Map<String, Object> map);
+    List<Map<String, Object>> queryThApplyBodysByBillNo(String billNo);
 }

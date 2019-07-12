@@ -170,4 +170,372 @@
     SUPNAME, UDP1, UDP2, UDP3
   </sql>
   
+  <!-- 退货单分页列表 -->
+  <select id="queryOrdThPage" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.TJDATE,
+                t.TJRID,
+                t.TJRCODE,
+                t.TJRNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.YWTYPE,
+                t.ZDRID,
+                t.ZDRCODE,
+                t.ZDRNAME,
+                t.BILLTYPE,
+                t.REFBILLTYPE,
+                t.REFBILLNO,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.INORGCODE,
+                t.ZBORGCODE,
+                t.ZBORGNAME,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.SUPCODE,
+                t.SUPNAME,
+                t.CNTID,
+                t.HTCODE,
+                t.HTNAME,
+                t.JYMODE,
+                t.JSCODE,
+                t.CKCODE,
+                t.CKNAME,
+                t.DATASTATUS,
+                t.THCOUNT,
+                t.HCOST,
+                t.WCOST,
+                t.JTAXTOTAL,
+                t.STOTAL,
+                t.CJTOTAL,
+                t.PSCOST,
+                t.THREASON,
+                t.CKMODE,
+                t.WPSTOTAL,
+                t.XTAXTOTAL,
+                t.TELEPHONE,
+                t.FAX,
+                t.LINKMAN,
+                t.LKMTEL,
+                t.REMARK,
+                t.REFTHBILLNO
+    From TORDTHHEAD t
+    Where t.YWTYPE = #{queryModel.ywType,jdbcType=VARCHAR}
+    <if test="queryModel.billNo != '' and queryModel.billNo != null">
+        and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="queryModel.startDate != '' and queryModel.startDate != null">
+        and t.LRDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.endDate != '' and queryModel.endDate != null">
+        and t.LRDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+     <if test="queryModel.dataStatus != null and queryModel.dataStatus != '' ">
+        and t.DATASTATUS = #{queryModel.dataStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.depCode != null and queryModel.depCode != '' ">
+        and t.DEPCODE = #{queryModel.depCode,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.supCode != null and queryModel.supCode != '' ">
+        and t.SUPCODE = #{queryModel.supCode,jdbcType=VARCHAR}
+    </if>
+    and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+    Order By t.LRDATE Desc
+  </select>
+  
+  <!-- 插入退货单主表 -->
+  <insert id="insertOrdThHead" parameterType="com.addlove.service.goods.model.OrdThHeadModel">
+    INSERT INTO TORDTHHEAD
+    (
+        BILLNO,
+        LRDATE,
+        USERID,
+        USERCODE,
+        USERNAME,
+        YWTYPE,
+        BILLTYPE
+        ORGCODE,
+        ORGNAME,
+        INORGCODE,
+        ZBORGCODE,
+        DEPID,
+        DEPCODE,
+        DEPNAME,
+        SUPCODE,
+        SUPNAME,
+        CNTID,
+        HTCODE,
+        HTNAME,
+        JYMODE,
+        JSCODE,
+        CKCODE,
+        CKNAME,
+        DATASTATUS,
+        THCOUNT,
+        HCOST,
+        WCOST,
+        JTAXTOTAL,
+        STOTAL,
+        PSCOST,
+        THREASON,
+        WPSTOTAL,
+        XTAXTOTAL,
+        TELEPHONE,
+        FAX,
+        LINKMAN,
+        LKMTEL,
+        REMARK
+    )
+    VALUES
+    (
+        #{billNo,jdbcType=VARCHAR},
+        to_date(#{lrDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'),
+        #{userId,jdbcType=NUMERIC},
+        #{userCode,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR},
+        #{ywType,jdbcType=VARCHAR},
+        #{billType,jdbcType=VARCHAR},
+        #{orgCode,jdbcType=VARCHAR},
+        #{orgName,jdbcType=VARCHAR},
+        #{inOrgCode,jdbcType=VARCHAR},
+        #{zbOrgCode,jdbcType=VARCHAR},
+        #{depId,jdbcType=NUMERIC},
+        #{depCode,jdbcType=VARCHAR},
+        #{depName,jdbcType=VARCHAR},
+        #{supCode,jdbcType=VARCHAR},
+        #{supName,jdbcType=VARCHAR},
+        #{cntId,jdbcType=NUMERIC},
+        #{htCode,jdbcType=VARCHAR},
+        #{htName,jdbcType=VARCHAR},
+        #{jyMode,jdbcType=VARCHAR},
+        #{jsCode,jdbcType=VARCHAR},
+        #{ckCode,jdbcType=VARCHAR},
+        #{ckName,jdbcType=VARCHAR},
+        #{dataStatus,jdbcType=VARCHAR},
+        #{thCount,jdbcType=NUMERIC},
+        #{hCost,jdbcType=NUMERIC},
+        #{wCost,jdbcType=NUMERIC},
+        #{jtaxTotal,jdbcType=NUMERIC},
+        #{sTotal,jdbcType=NUMERIC},
+        #{psCost,jdbcType=NUMERIC},
+        #{thReason,jdbcType=VARCHAR},
+        #{wpsTotal,jdbcType=NUMERIC},
+        #{xTaxTotal,jdbcType=NUMERIC},
+        #{telephone,jdbcType=VARCHAR},
+        #{fax,jdbcType=VARCHAR},
+        #{linkMan,jdbcType=VARCHAR},
+        #{lkmTel,jdbcType=VARCHAR},
+        #{remark,jdbcType=VARCHAR}
+    )
+  </insert>
+  
+  <!-- 批量插入退货单明细表 -->
+  <insert id="insertOrdThBody">
+     INSERT INTO TORDTHBODY
+    (
+        BILLNO,
+        SERIALNO,
+        PLUID,
+        PLUCODE,
+        PLUNAME,
+        EXPLUCODE,
+        BARCODE,
+        SPEC,
+        UNIT,
+        CARGONO,
+        PLUTYPE,
+        DEPID,
+        DEPCODE,
+        DEPNAME,
+        HJPRICE,
+        WJPRICE,
+        JTAXRATE,
+        PRICE,
+        PSPRICE,
+        PACKUNIT,
+        PACKQTY,
+        PACKCOUNT,
+        SGLCOUNT,
+        THCOUNT,
+        HCOST,
+        WCOST,
+        JTAXTOTAL,
+        STOTAL,
+        CJTOTAL,
+        CJRATE,
+        PSCOST,
+        REMARK,
+        HJSTOTAL,
+        WJSTOTAL,
+        THREASON
+        WPSPRICE,
+        WPSTOTAL,
+        XTAXRATE,
+        XTAXTOTAL,
+        SUPCODE,
+        SUPNAME
+    )
+    <foreach collection="bodys" item="body" separator="union all">
+    (
+        SELECT
+          #{body.billNo,jdbcType=VARCHAR},
+          #{body.serialNo,jdbcType=NUMERIC},
+          #{body.pluId,jdbcType=VARCHAR},
+          #{body.pluCode,jdbcType=VARCHAR},
+          #{body.pluName,jdbcType=VARCHAR},
+          #{body.exPluCode,jdbcType=VARCHAR},
+          #{body.barCode,jdbcType=VARCHAR},
+          #{body.spec,jdbcType=VARCHAR},
+          #{body.unit,jdbcType=VARCHAR},
+          #{body.carGoNo,jdbcType=VARCHAR},
+          #{body.pluType,jdbcType=VARCHAR},
+          #{body.depId,jdbcType=NUMERIC},
+          #{body.depCode,jdbcType=VARCHAR},
+          #{body.depName,jdbcType=VARCHAR},
+          #{body.hjPrice,jdbcType=NUMERIC},
+          #{body.wjPrice,jdbcType=NUMERIC},
+          #{body.jTaxRate,jdbcType=NUMERIC},
+          #{body.price,jdbcType=NUMERIC},
+          #{body.psPrice,jdbcType=NUMERIC},
+          #{body.packUnit,jdbcType=NUMERIC},
+          #{body.packQty,jdbcType=NUMERIC},
+          #{body.packCount,jdbcType=NUMERIC},
+          #{body.sglCount,jdbcType=NUMERIC},
+          #{body.thCount,jdbcType=NUMERIC},
+          #{body.hCost,jdbcType=NUMERIC},
+          #{body.wCost,jdbcType=NUMERIC},
+          #{body.jTaxTotal,jdbcType=NUMERIC},
+          #{body.sTotal,jdbcType=NUMERIC},
+          #{body.cjTotal,jdbcType=NUMERIC},
+          #{body.cjRate,jdbcType=NUMERIC},
+          #{body.psCost,jdbcType=NUMERIC},
+          #{body.remark,jdbcType=VARCHAR},
+          #{body.hjsTotal,jdbcType=NUMERIC},
+          #{body.wjsTotal,jdbcType=NUMERIC},
+          #{body.thReason,jdbcType=VARCHAR},
+          #{body.wPsPrice,jdbcType=NUMERIC},
+          #{body.wPsTotal,jdbcType=NUMERIC},
+          #{body.xTaxRate,jdbcType=NUMERIC},
+          #{body.xTaxTotal,jdbcType=NUMERIC},
+          #{body.supCode,jdbcType=VARCHAR},
+          #{body.supName,jdbcType=VARCHAR}
+        FROM DUAL
+    )
+    </foreach>
+  </insert>
+  
+  <!-- 删除主表 -->
+  <delete id="deleteThHeadModel" parameterType="java.lang.String">
+    DELETE FROM TORDTHHEAD WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 删除明细表 -->
+  <delete id="deleteThBodyModel" parameterType="java.lang.String">
+    DELETE FROM TORDTHBODY WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 查询退货单详情 -->
+  <select id="queryThDetailsByBillNo" resultType="java.util.HashMap">
+    Select Distinct t.BILLNO,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.TJDATE,
+                t.TJRID,
+                t.TJRCODE,
+                t.TJRNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.YWTYPE,
+                t.ZDRID,
+                t.ZDRCODE,
+                t.ZDRNAME,
+                t.BILLTYPE,
+                t.REFBILLTYPE,
+                t.REFBILLNO,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.INORGCODE,
+                t.ZBORGCODE,
+                t.ZBORGNAME,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.SUPCODE,
+                t.SUPNAME,
+                t.CNTID,
+                t.HTCODE,
+                t.HTNAME,
+                t.JYMODE,
+                t.JSCODE,
+                t.CKCODE,
+                t.CKNAME,
+                t.DATASTATUS,
+                t.THCOUNT,
+                t.HCOST,
+                t.WCOST,
+                t.JTAXTOTAL,
+                t.STOTAL,
+                t.CJTOTAL,
+                t.PSCOST,
+                t.THREASON,
+                t.CKMODE,
+                t.WPSTOTAL,
+                t.XTAXTOTAL,
+                t.TELEPHONE,
+                t.FAX,
+                t.LINKMAN,
+                t.LKMTEL,
+                t.REMARK,
+                t.REFTHBILLNO,
+                t1.SERIALNO,
+                t1.PLUID,
+                t1.PLUCODE,
+                t1.PLUNAME,
+                t1.EXPLUCODE,
+                t1.BARCODE,
+                t1.SPEC,
+                t1.UNIT,
+                t1.CARGONO,
+                t1.PLUTYPE,
+                t1.HJPRICE AS HJPRICE2,
+                t1.WJPRICE AS WJPRICE2,
+                t1.JTAXRATE AS JTAXRATE2,
+                t1.PRICE AS PRICE2,
+                t1.PSPRICE AS PSPRICE2,
+                t1.PACKUNIT AS PACKUNIT2,
+                t1.PACKQTY AS PACKQTY2,
+                t1.PACKCOUNT AS PACKCOUNT2,
+                t1.SGLCOUNT AS SGLCOUNT2,
+                t1.THCOUNT AS THCOUNT2,
+                t1.HCOST AS HCOST2,
+                t1.WCOST AS WCOST2,
+                t1.JTAXTOTAL AS JTAXTOTAL2,
+                t1.STOTAL AS STOTAL2,
+                t1.CJTOTAL AS CJTOTAL2,
+                t1.CJRATE AS CJRATE2,
+                t1.PSCOST AS PSCOST2,
+                t1.REMARK AS REMARK2,
+                t1.HJSTOTAL AS HJSTOTAL2,
+                t1.WJSTOTAL AS WJSTOTAL2,
+                t1.THREASON AS THREASON2,
+                t1.WPSPRICE AS WPSPRICE2,
+                t1.WPSTOTAL AS WPSTOTAL2,
+                t1.XTAXRATE AS XTAXRATE2,
+                t1.XTAXTOTA AS XTAXTOTA2
+    From TORDTHHEAD t Left Join TORDTHBODY t1 On t.BILLNO = t1.BILLNO
+    Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+    Order By t1.SERIALNO
+  </select>
 </mapper>

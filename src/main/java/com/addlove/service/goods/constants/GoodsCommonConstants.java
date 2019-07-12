@@ -28,7 +28,12 @@ public interface GoodsCommonConstants {
         /**
          * 6209-生产计划
          */
-        PRO_PLAN_ORDER("6209", "生产计划业务");
+        PRO_PLAN_ORDER("6209", "生产计划业务"),
+        
+        /**
+         * 0905-采购退货业务类型
+         */
+        PURCHASE_RETURN("0905", "采购退货"),;
         
         private String value;
         private String name;

@@ -63,7 +63,6 @@ public class OrdJhController extends BaseController{
         queryModel.setPageNo(req.getPageNo());
         queryModel.setPageSize(req.getPageSize());
         queryModel.setOrgCode(req.getOrgCode());
-        queryModel.setOrgCode("999999");//组织编码暂时写死
         queryModel.setBillNo(req.getBillNo());
         if (StringUtils.isNotBlank(req.getStartDate())) {
             queryModel.setStartDate(req.getStartDate() + " 00:00:00");
@@ -142,7 +141,7 @@ public class OrdJhController extends BaseController{
             accountMap.put("ps_UserCode", headModel.getJzrCode());
             accountMap.put("ps_UserName", headModel.getJzrName());
             accountMap.put("pd_JzDate", headModel.getJzDate());
-            this.ordJhService.updateAllJhInfoAccount(headModel);
+            this.ordJhService.updateAllJhInfo(headModel);
             //调用存储过程进行记账
             this.commonService.execAccountByCallProcedure(accountMap);
         }else {
@@ -155,7 +154,7 @@ public class OrdJhController extends BaseController{
     /**
      * 删除验收单据
      * @param req
-     * @return
+     * @return ResponseMessage
      */
     @RequestMapping(value = "/delOrdJh", method = RequestMethod.POST)
     @ResponseBody

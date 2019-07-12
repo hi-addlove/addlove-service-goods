@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.addlove.service.goods.dao.OrdThApplyDao;
 import com.addlove.service.goods.model.OrdThApplyBodyModel;
 import com.addlove.service.goods.model.OrdThApplyHeadModel;
-import com.addlove.service.goods.model.OrdThQueryPageModel;
+import com.addlove.service.goods.model.OrdThApplyQueryPageModel;
 import com.github.pagehelper.PageHelper;
 
 /**
@@ -27,7 +27,7 @@ public class OrdThApplyService {
     @Autowired
     private OrdThApplyDao ordThApplyDao;
     
-    public List<OrdThApplyHeadModel> queryOrdThHeadModelByPage(OrdThQueryPageModel queryModel) {
+    public List<OrdThApplyHeadModel> queryOrdThHeadModelByPage(OrdThApplyQueryPageModel queryModel) {
         PageHelper.startPage(queryModel.getPageNo(), queryModel.getPageSize(), true);
         List<OrdThApplyHeadModel> ordThHeadList = this.ordThApplyDao.queryOrdThHeadModelByPage(queryModel);
         if (null != ordThHeadList && !ordThHeadList.isEmpty()) {
@@ -56,7 +56,7 @@ public class OrdThApplyService {
      * @param billNo
      * @return List<OrdThApplyBodyModel>
      */
-    public List<Map<String, Object>> queryThBodysByBillNo(String billNo) {
-        return this.ordThApplyDao.queryThBodysByBillNo(billNo);
+    public List<Map<String, Object>> queryThApplyBodysByBillNo(String billNo) {
+        return this.ordThApplyDao.queryThApplyBodysByBillNo(billNo);
     }
 }

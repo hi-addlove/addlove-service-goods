@@ -342,7 +342,7 @@
   </insert>
   
   <!-- 根据退货差异单号查询退货单详情 -->
-  <select id="queryThBodysByBillNo" resultType="java.util.HashMap">
+  <select id="queryThApplyBodysByBillNo" resultType="java.util.HashMap">
     Select t.BILLNO,
            t.ORGCODE,
            t.ORGNAME,
@@ -376,12 +376,5 @@
     From TORDTHAPPLYHEAD t Left Join TORDTHAPPLYBODY t1 On t.BILLNO = t1.BILLNO
     Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
     Order By t1.SERIALNO
-  </select>
-  
-  <!-- 调用存储过程生成单据号  -->
-  <select id="getBillNoByCallProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
-    <![CDATA[
-       {CALL sSysGetBillNo(#{ps_BillType,mode=IN,jdbcType=VARCHAR}, #{ps_BillNo,mode=OUT,jdbcType=VARCHAR})}
-    ]]>
   </select>
 </mapper>
