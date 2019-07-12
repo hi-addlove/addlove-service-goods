@@ -261,4 +261,31 @@ public class GoodsCommonController extends BaseController{
         List<BasBrandModel> basBrands = this.commonService.getBasBrands(map);
         return ResponseMessage.ok(basBrands);
     }
+    
+    /**
+     * 获取采购退货商品
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getPurchaseReturnSkus", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getPurchaseReturnSkus(@RequestBody @Valid CommonOrgAndSupAndCntReq req) {
+        String orgCode = req.getOrgCode();
+        Long cntId = req.getCntId();
+        if (StringUtils.isBlank(orgCode)) {
+            throw new ServiceException(GoodsResponseCode.ORGCODE_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.ORGCODE_NOT_BLANK.getMsg());
+        }
+        if (null == cntId) {
+            throw new ServiceException(GoodsResponseCode.CNTID_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.CNTID_NOT_BLANK.getMsg());
+        }
+        List<StkStoreModel> storeList = this.commonService.getStoreList(orgCode);
+        if (null == storeList || storeList.isEmpty()) {
+            throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.CK_NOT_BLANK.getMsg());
+        }
+       List<SkuPluExtendModel> skuList = this.commonService.getPurchaseReturnSkus(orgCode, cntId, storeList.get(0).getCkCode());
+       return ResponseMessage.ok(skuList);
+    }
 }

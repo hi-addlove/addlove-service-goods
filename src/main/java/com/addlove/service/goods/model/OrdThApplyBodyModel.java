@@ -1,7 +1,7 @@
 package com.addlove.service.goods.model;
 
 /**
- * 门店退货申请明细表
+ * 门店退货申请明细表（差异单）
  * @author lw
  *
  */

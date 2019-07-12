@@ -3,7 +3,7 @@ package com.addlove.service.goods.dao;
 import org.springframework.stereotype.Repository;
 
 /**
- * 门店退货dao层
+ * 退货单dao层
  * @author lw
  *
  */

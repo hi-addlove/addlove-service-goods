@@ -194,6 +194,17 @@ public class GoodsCommonService {
     }
     
     /**
+     * 获取采购退货商品
+     * @param orgCode
+     * @param cntId
+     * @param ckCode
+     * @return List<SkuPluExtendModel>
+     */
+    public List<SkuPluExtendModel> getPurchaseReturnSkus(String orgCode, Long cntId, String ckCode) {
+        return this.commonDao.getPurchaseReturnSkus(orgCode, cntId, ckCode);
+    }
+    
+    /**
      * 调用存储过程生成退货差异单据号
      * @param map
      * @return billNo

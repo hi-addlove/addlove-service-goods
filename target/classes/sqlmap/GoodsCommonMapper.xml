@@ -626,6 +626,26 @@
     order by t.clscode
    </select>
    
+   <!-- 获取采购退货商品 -->
+   <select id="getPurchaseReturnSkus" resultMap="BaseResultMapSkuEx">
+    Select Distinct t.PLUID,t.PLUCODE,t.PLUNAME,t.PLUENAME,t.PLUABBRNAME,t.PLUMN,t.BARCODE,t.UNIT,t.SPEC,t.PLUWEIGHT,
+    t.PLUHEIGHT,t.PLULONG,t.PLUWIDTH,t.ISMULPACKET,t.ORGCODE,t.ORGNAME,t.CGYID,t.CGYCODE,t.CGYNAME,t.CARGONO,t.PRODUCE,
+    t.GRADE,t.QUALITY,t.BZDAYS,t.CLSID,t.BRANDCODE,t.XTAXRATE,t.ISWEIGHT,t.ISCOUTQTY,t.ISKC,t.ISCURRDAY,t.JHBFBZDAYS,
+    t.PSBFBZDAYS,t.CXINFO,t.YWSTATUS,t.LRDATE,t.LRUSERCODE,t.LRUSERNAME,t.ZXDATE,t.ZXUSERCODE,t.ZXUSERNAME,t.UDP1,t.UDP2,
+    t.UDP3,t.UDP4,t.PLUCLS,t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,t.MINTHDAYS,t.MAXTHDAYS,t.ISONLINE,t.LINEDATE,t.PLUDESC,
+    t3.EXPLUCODE,t3.HCOST,t3.WCOST,t3.PLUTYPE,t3.PACKQTY,
+    t5.JTAXCALTYPE,t5.WJPRICE,t5.HJPRICE,t5.JTAXRATE,t5.PRICE
+    From TSKUPLU t,TSKUPLUEX t2,tStkLsKc t3,tStkPc t4,tCntPlu t5
+    where t.PLUID = t2.PLUID and  t.ISACTIVE = '1' and t2.isth = '1' 
+    and t.PLUID = t3.PLUID and t.PLUID = t4.PLUID and t3.pcno = t4.pcno
+    and t.PLUID = t5.PLUID and t4.cntid = t5.cntid
+    and t2.cgmode in ('0', '1') and t2.orgcode = t3.orgcode
+    and Exists(Select PluID from tSkuPluEx where
+    '1'=nvl((select optionvalue from tSysOption where orgcode='*' and 
+    section='ORD' and  sysoption='sOrd_PsPluUseCgYsTh'),'0'))
+    and t3.ORGCODE = #{orgCode,jdbcType=VARCHAR} and t5.CNTID = #{cntId,jdbcType=NUMERIC} and t3.CKCODE = #{ckCode,jdbcType=VARCHAR}
+   </select>
+   
    <!-- 获取商品品牌 -->
    <select id="getBasBrands" parameterType="java.util.Map" resultMap="BaseResultMapBrand">
      select t.brandcode,t.brandname,t.brandename,t.remark,t.brandmn from tBasBrand t

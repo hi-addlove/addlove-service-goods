@@ -37,7 +37,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 
 /**
- * 退货申请单控制层
+ * 差异单控制层
  * @author lw
  *
  */

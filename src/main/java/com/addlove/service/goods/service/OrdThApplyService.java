@@ -15,7 +15,7 @@ import com.addlove.service.goods.model.OrdThQueryPageModel;
 import com.github.pagehelper.PageHelper;
 
 /**
- * 退货申请单逻辑层
+ * 差异单逻辑层
  * @author lw
  *
  */

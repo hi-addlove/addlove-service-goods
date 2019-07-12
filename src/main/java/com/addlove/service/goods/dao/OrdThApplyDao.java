@@ -11,7 +11,7 @@ import com.addlove.service.goods.model.OrdThApplyHeadModel;
 import com.addlove.service.goods.model.OrdThQueryPageModel;
 
 /**
- * 门店退货申请dao层
+ * 差异单dao层
  * @author lw
  *
  */

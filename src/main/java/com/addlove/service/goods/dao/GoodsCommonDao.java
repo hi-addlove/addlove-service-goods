@@ -121,6 +121,16 @@ public interface GoodsCommonDao {
     List<BasBrandModel> getBasBrands(Map<String, Object> map);
     
     /**
+     * 获取采购退货商品
+     * @param orgCode
+     * @param cntId
+     * @param ckCode
+     * @return List<SkuPluExtendModel>
+     */
+    List<SkuPluExtendModel> getPurchaseReturnSkus(@Param("orgCode")String orgCode, @Param("cntId")Long cntId, 
+            @Param("ckCode")String ckCode);
+    
+    /**
      * 调用存储过程生成单据号
      * @param map
      */
