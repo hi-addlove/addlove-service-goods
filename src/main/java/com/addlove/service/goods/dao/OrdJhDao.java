@@ -78,4 +78,11 @@ public interface OrdJhDao {
      * @param billNo
      */
     void deleteJhBodyModel(String billNo);
+    
+    /**
+     * 通过单号模糊搜索验收单据
+     * @param billNo
+     * @return List<OrdJhHeadModel>
+     */
+    List<OrdJhHeadModel> searchOrdJhByBillNo(String billNo);
 }

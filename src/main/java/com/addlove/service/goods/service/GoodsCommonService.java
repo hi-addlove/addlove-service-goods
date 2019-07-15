@@ -201,7 +201,35 @@ public class GoodsCommonService {
      * @return List<SkuPluExtendModel>
      */
     public List<SkuPluExtendModel> getPurchaseReturnSkus(String orgCode, Long cntId, String ckCode) {
-        return this.commonDao.getPurchaseReturnSkus(orgCode, cntId, ckCode);
+        List<SkuPluExtendModel> skuList = this.commonDao.getPurchaseReturnSkus(orgCode, cntId, ckCode);
+        List<SkuPluExtendModel> backSkuList = new LinkedList<SkuPluExtendModel>();
+        if (null == skuList || skuList.isEmpty()) {
+            return backSkuList;
+        }
+        List<Map<String, Object>> pluList = new LinkedList<Map<String, Object>>();
+        for (SkuPluExtendModel skuModel : skuList) {
+            Map<String, Object> queryMap = new HashMap<String, Object>();
+            queryMap.put("pluId", skuModel.getPluId());
+            pluList.add(queryMap);
+        }
+        //得到商品的可用库存
+        List<Map<String, Object>> kcList = this.commonDao.getKcSum(pluList);
+        Map<Long, Object> kcMap = new HashMap<Long, Object>();
+        for (Map<String, Object> map : kcList) {
+            long pluId = Long.parseLong(null != map.get("PLUID") ? map.get("PLUID").toString() : "0") ;
+            kcMap.put(pluId, null != map.get("KCCOUNT") ? map.get("KCCOUNT").toString() : "0");
+        }
+        //去重商品
+        Set<SkuPluExtendModel> skuSet = new HashSet<>();
+        skuSet.addAll(skuList);
+        //将可用库存返回
+        for (SkuPluExtendModel skuModel : skuSet) {
+            long key = skuModel.getPluId();
+            Double kcCount = Double.valueOf(kcMap.get(key).toString());
+            skuModel.setKcCount(kcCount > 0 ? kcCount : 0);
+            backSkuList.add(skuModel);
+        }
+        return backSkuList;
     }
     
     /**

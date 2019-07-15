@@ -533,7 +533,7 @@
                 t1.WPSPRICE AS WPSPRICE2,
                 t1.WPSTOTAL AS WPSTOTAL2,
                 t1.XTAXRATE AS XTAXRATE2,
-                t1.XTAXTOTA AS XTAXTOTA2
+                t1.XTAXTOTAL AS XTAXTOTAL2
     From TORDTHHEAD t Left Join TORDTHBODY t1 On t.BILLNO = t1.BILLNO
     Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
     Order By t1.SERIALNO

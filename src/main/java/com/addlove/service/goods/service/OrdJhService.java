@@ -140,4 +140,13 @@ public class OrdJhService {
         this.ordJhDao.deleteJhHeadModel(billNo);
         this.ordJhDao.deleteJhBodyModel(billNo);
     }
+    
+    /**
+     * 通过单号模糊搜索验收单据
+     * @param billNo
+     * @return List<OrdJhHeadModel>
+     */
+    public List<OrdJhHeadModel> searchOrdJhByBillNo(String billNo) {
+        return this.ordJhDao.searchOrdJhByBillNo(billNo);
+    }
 }

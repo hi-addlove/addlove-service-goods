@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.addlove.service.goods.dao.OrdThDao;
 import com.addlove.service.goods.model.OrdThHeadModel;
 import com.addlove.service.goods.model.OrdThQueryPageModel;
+import com.github.pagehelper.PageHelper;
 
 /**
  * 退货单逻辑层
@@ -28,6 +29,7 @@ public class OrdThService {
      * @return List<OrdThHeadModel>
      */
     public List<OrdThHeadModel> queryOrdThPage(OrdThQueryPageModel queryModel) {
+        PageHelper.startPage(queryModel.getPageNo(), queryModel.getPageSize(), true);
         List<OrdThHeadModel> ordThHeadList = this.ordThDao.queryOrdThPage(queryModel);
         if (null != ordThHeadList && !ordThHeadList.isEmpty()) {
             for (OrdThHeadModel model : ordThHeadList) {

@@ -18,6 +18,7 @@ import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.model.OrdJhHeadModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.UsrUserModel;
+import com.addlove.service.goods.model.valid.CommonSearchReq;
 import com.addlove.service.goods.model.valid.OrdJhBodyReq;
 import com.addlove.service.goods.model.valid.OrdJhHeadReq;
 import com.addlove.service.goods.service.GoodsCommonService;
@@ -45,6 +46,13 @@ public class OrdJhTest {
         OrdJhHeadReq req = this.zuZhuangReq();
         req.setBillNo("");
         this.ordJhController.addNoPurchaseJh(req);
+    }
+    
+    @Test
+    public void searchOrdJhByBillNo() {
+        CommonSearchReq req = new CommonSearchReq();
+        req.setSearchContent("1JH");
+        this.ordJhController.searchOrdJhByBillNo(req);
     }
     
     @Test

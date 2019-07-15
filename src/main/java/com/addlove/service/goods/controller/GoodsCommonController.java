@@ -272,6 +272,7 @@ public class GoodsCommonController extends BaseController{
     public ResponseMessage getPurchaseReturnSkus(@RequestBody @Valid CommonOrgAndSupAndCntReq req) {
         String orgCode = req.getOrgCode();
         Long cntId = req.getCntId();
+        String ckCode = req.getCkCode();
         if (StringUtils.isBlank(orgCode)) {
             throw new ServiceException(GoodsResponseCode.ORGCODE_NOT_BLANK.getCode(), 
                     GoodsResponseCode.ORGCODE_NOT_BLANK.getMsg());
@@ -280,12 +281,11 @@ public class GoodsCommonController extends BaseController{
             throw new ServiceException(GoodsResponseCode.CNTID_NOT_BLANK.getCode(), 
                     GoodsResponseCode.CNTID_NOT_BLANK.getMsg());
         }
-        List<StkStoreModel> storeList = this.commonService.getStoreList(orgCode);
-        if (null == storeList || storeList.isEmpty()) {
+        if (StringUtils.isBlank(ckCode)) {
             throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 
                     GoodsResponseCode.CK_NOT_BLANK.getMsg());
         }
-       List<SkuPluExtendModel> skuList = this.commonService.getPurchaseReturnSkus(orgCode, cntId, storeList.get(0).getCkCode());
+       List<SkuPluExtendModel> skuList = this.commonService.getPurchaseReturnSkus(orgCode, cntId, ckCode);
        return ResponseMessage.ok(skuList);
     }
 }

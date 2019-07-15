@@ -24,7 +24,6 @@ import com.addlove.service.goods.model.OrdThHeadModel;
 import com.addlove.service.goods.model.OrdThQueryPageModel;
 import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.PageModel;
-import com.addlove.service.goods.model.StkStoreModel;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.OrdThBodyReq;
 import com.addlove.service.goods.model.valid.OrdThHeadReq;
@@ -295,6 +294,7 @@ public class OrdThController extends BaseController {
         headModel.setUserName("超级户");
         headModel.setYwType(YwType.PURCHASE_RETURN.getValue());
         headModel.setBillType(req.getBillType());
+        headModel.setRefBillNo(req.getRefBillNo());
         headModel.setOrgCode(req.getOrgCode());
         headModel.setOrgName(req.getOrgName());
         OrgManageModel orgModel = this.commonService.getOrgModel(req.getOrgCode());
@@ -310,13 +310,8 @@ public class OrdThController extends BaseController {
         headModel.setHtName(req.getHtName());
         headModel.setJyMode(req.getJyMode());
         headModel.setJsCode(req.getJsCode());
-        List<StkStoreModel> storeList = this.commonService.getStoreList(req.getOrgCode());
-        if (null == storeList || storeList.isEmpty()) {
-            throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 
-                    GoodsResponseCode.CK_NOT_BLANK.getMsg());
-        }
-        headModel.setCkCode(storeList.get(0).getCkCode());
-        headModel.setCkName(storeList.get(0).getCkName());
+        headModel.setCkCode(req.getCkCode());
+        headModel.setCkName(req.getCkName());
         headModel.setDataStatus(DataStatus.ENTRY.getValue());
         headModel.setThCount(req.getThCount());
         headModel.sethCost(req.gethCost());

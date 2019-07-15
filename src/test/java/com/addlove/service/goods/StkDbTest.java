@@ -8,6 +8,7 @@ import com.addlove.service.goods.constants.GoodsOrdJhConstants.SaveType;
 import com.addlove.service.goods.controller.GoodsCommonController;
 import com.addlove.service.goods.controller.StkDbController;
 import com.addlove.service.goods.model.valid.CommonOrgAndDeptReq;
+import com.addlove.service.goods.model.valid.CommonOrgAndSupAndCntReq;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.StkDbBodyReq;
 import com.addlove.service.goods.model.valid.StkDbHeadReq;
@@ -40,6 +41,15 @@ public class StkDbTest extends AddloveServiceGoodsApplicationTests{
         req.setShOrgCode("6321");
         req.setDeptId(10000000024L);
         this.commonController.getSkuListByDept(req);
+    }
+    
+    @Test
+    public void testGetPurchaseReturnSkus() {
+        CommonOrgAndSupAndCntReq req = new CommonOrgAndSupAndCntReq();
+        req.setOrgCode("999999");
+        req.setCntId(10000000421L);
+        req.setCkCode("01");
+        this.commonController.getPurchaseReturnSkus(req);
     }
     
     private StkDbHeadReq getStkDbHeadReq() {

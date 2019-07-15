@@ -599,4 +599,10 @@
   <delete id="deleteJhBodyModel" parameterType="java.lang.String">
     DELETE FROM TORDJHBODY WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
   </delete>
+  
+  <!-- 搜索 -->
+  <select id="searchOrdJhByBillNo" parameterType="java.lang.String" resultMap="BaseResultMapHead">
+     Select t.BILLNO, t.REFBILLNO  From TORDJHHEAD t
+     Where t.BILLNO LIKE CONCAT(#{billNo,jdbcType=VARCHAR},'%')
+  </select>
 </mapper>

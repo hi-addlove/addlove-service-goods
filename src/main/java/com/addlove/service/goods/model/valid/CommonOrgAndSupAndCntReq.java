@@ -12,6 +12,9 @@ public class CommonOrgAndSupAndCntReq {
     
     /** 部门ID */
     private Long depId;
+    
+    /** 仓库编码 */
+    private String ckCode;
 
     /**
      * @return the orgCode
@@ -67,5 +70,19 @@ public class CommonOrgAndSupAndCntReq {
      */
     public void setDepId(Long depId) {
         this.depId = depId;
+    }
+
+    /**
+     * @return the ckCode
+     */
+    public String getCkCode() {
+        return ckCode;
+    }
+
+    /**
+     * @param ckCode the ckCode to set
+     */
+    public void setCkCode(String ckCode) {
+        this.ckCode = ckCode;
     }
 }

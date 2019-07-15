@@ -29,6 +29,7 @@ import com.addlove.service.goods.model.StkStoreModel;
 import com.addlove.service.goods.model.valid.OrdJhBodyReq;
 import com.addlove.service.goods.model.valid.OrdJhHeadReq;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
+import com.addlove.service.goods.model.valid.CommonSearchReq;
 import com.addlove.service.goods.model.valid.OrdJhQueryPageReq;
 import com.addlove.service.goods.service.GoodsCommonService;
 import com.addlove.service.goods.service.OrdJhService;
@@ -161,6 +162,18 @@ public class OrdJhController extends BaseController{
     public ResponseMessage delOrdJh(@RequestBody @Valid CommonQueryDetailReq req) {
         this.ordJhService.deleteJhData(req.getBillNo());
         return ResponseMessage.ok();
+    }
+    
+    /**
+     * 通过单号模糊搜索验收单据
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/searchOrdJhByBillNo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage searchOrdJhByBillNo(@RequestBody @Valid CommonSearchReq req) {
+        List<OrdJhHeadModel> billNos = this.ordJhService.searchOrdJhByBillNo(req.getSearchContent());
+        return ResponseMessage.ok(billNos);
     }
     
     /**
