@@ -261,7 +261,7 @@
         USERCODE,
         USERNAME,
         YWTYPE,
-        BILLTYPE
+        BILLTYPE,
         ORGCODE,
         ORGNAME,
         INORGCODE,
@@ -323,7 +323,7 @@
         #{thCount,jdbcType=NUMERIC},
         #{hCost,jdbcType=NUMERIC},
         #{wCost,jdbcType=NUMERIC},
-        #{jtaxTotal,jdbcType=NUMERIC},
+        #{jTaxTotal,jdbcType=NUMERIC},
         #{sTotal,jdbcType=NUMERIC},
         #{psCost,jdbcType=NUMERIC},
         #{thReason,jdbcType=VARCHAR},
@@ -375,7 +375,7 @@
         REMARK,
         HJSTOTAL,
         WJSTOTAL,
-        THREASON
+        THREASON,
         WPSPRICE,
         WPSTOTAL,
         XTAXRATE,

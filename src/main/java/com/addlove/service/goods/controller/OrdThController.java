@@ -239,11 +239,11 @@ public class OrdThController extends BaseController {
                 bodyJson.put("pluCode", map.get("PLUCODE"));
                 bodyJson.put("pluName", map.get("PLUNAME"));
                 bodyJson.put("exPluCode", map.get("EXPLUCODE"));
-                bodyJson.put("barCode", map.get("BARCODE2"));
-                bodyJson.put("spec", map.get("SPEC2"));
-                bodyJson.put("unit", map.get("UNIT2"));
-                bodyJson.put("carGoNo", map.get("CARGONO2"));
-                bodyJson.put("pluType", map.get("PLUTYPE2"));
+                bodyJson.put("barCode", map.get("BARCODE"));
+                bodyJson.put("spec", map.get("SPEC"));
+                bodyJson.put("unit", map.get("UNIT"));
+                bodyJson.put("carGoNo", map.get("CARGONO"));
+                bodyJson.put("pluType", map.get("PLUTYPE"));
                 bodyJson.put("hjPrice", map.get("HJPRICE2"));
                 bodyJson.put("wjPrice", map.get("WJPRICE2"));
                 bodyJson.put("jTaxRate", map.get("JTAXRATE2"));
