@@ -23,8 +23,7 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * 响应结果处理
- *
- * @author haow 2018-01-25 下午5:35:02
+ * @author lw
  */
 @RestControllerAdvice
 public class ResponseAdvisor implements ResponseBodyAdvice<Object> {

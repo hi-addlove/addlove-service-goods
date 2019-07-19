@@ -2,8 +2,8 @@ package com.addlove.service.goods.model;
 
 /**
  * 分页查询的对象封装
+ * @author lw
  *
- * @author haow 2018-01-25 下午11:38:23
  */
 public class PageQuery {
 

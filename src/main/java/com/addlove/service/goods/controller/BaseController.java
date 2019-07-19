@@ -24,8 +24,7 @@ import com.addlove.service.goods.util.DateUtil.DigitalConstant;
 
 /**
  * 基础Controller
- *
- * @author haow
+ * @author lw
  */
 public class BaseController {
 

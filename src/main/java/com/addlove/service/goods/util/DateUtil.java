@@ -644,7 +644,7 @@ public class DateUtil {
 
     /**
      * 数字常量
-     * @author haow 2018-06-21 下午6:44:00
+     * @author lw
      */
     public interface DigitalConstant {
 
@@ -716,7 +716,7 @@ public class DateUtil {
 
     /**
      * 时间常量
-     * @author haow 2018-06-21 下午6:44:14
+     * @author lw
      */
     public interface TimeConstant {
 

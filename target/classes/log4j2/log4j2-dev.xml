@@ -2,7 +2,7 @@
 
 <Configuration status="INFO" monitorInterval="120">
     <properties>
-        <property name="LOG_HOME">E:/tmp/log/dev/ngoc</property>
+        <property name="LOG_HOME">E:/tmp/log/dev/addlove</property>
         <property name="PROJECT_NAME">addlove-service-goods</property>
     </properties>
 

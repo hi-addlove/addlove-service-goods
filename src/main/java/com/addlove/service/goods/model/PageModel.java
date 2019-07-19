@@ -2,8 +2,8 @@ package com.addlove.service.goods.model;
 
 /**
  * 分页数据返回的DATA封装类
+ * @author lw
  *
- * @author haow 2018-03-18 下午5:19:45
  */
 public class PageModel {
     private Integer pageNo;

@@ -17,7 +17,7 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
  * SQL语句解析器类.可以整体解析一个sql的区段
- * @author haow 2018-12-14 下午3:32:07
+ * @author lw
  */
 public final class SqlParserUtil {
 
