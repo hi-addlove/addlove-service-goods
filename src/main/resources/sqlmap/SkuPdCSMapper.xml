@@ -31,6 +31,94 @@
     <result column="ISSALE" jdbcType="VARCHAR" property="issale" />
   </resultMap>
   
+  <resultMap id="BaseResultMapSku" type="com.addlove.service.goods.model.SkuPluModel">
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="PLUENAME" jdbcType="VARCHAR" property="pluEName" />
+    <result column="PLUABBRNAME" jdbcType="VARCHAR" property="pluAbbrName" />
+    <result column="PLUMN" jdbcType="VARCHAR" property="plumn" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="PLUWEIGHT" jdbcType="NUMERIC" property="pluWeight" />
+    <result column="PLUHEIGHT" jdbcType="NUMERIC" property="pluHeight" />
+    <result column="PLULONG" jdbcType="NUMERIC" property="pluLong" />
+    <result column="PLUWIDTH" jdbcType="NUMERIC" property="pluWidth" />
+    <result column="ISMULPACKET" jdbcType="VARCHAR" property="isMulPacket" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="CGYID" jdbcType="NUMERIC" property="cgyId" />
+    <result column="CGYCODE" jdbcType="VARCHAR" property="cgyCode" />
+    <result column="CGYNAME" jdbcType="VARCHAR" property="cgyName" />
+    <result column="CARGONO" jdbcType="VARCHAR" property="carGoNo" />
+    <result column="PRODUCE" jdbcType="VARCHAR" property="produce" />
+    <result column="GRADE" jdbcType="VARCHAR" property="grade" />
+    <result column="QUALITY" jdbcType="VARCHAR" property="quality" />
+    <result column="ISSEASON" jdbcType="VARCHAR" property="isSeason" />
+    <result column="SALESEASON" jdbcType="VARCHAR" property="saleSeason" />
+    <result column="BZDAYS" jdbcType="NUMERIC" property="bzDays" />
+    <result column="CLSID" jdbcType="NUMERIC" property="clsId" />
+    <result column="BRANDCODE" jdbcType="VARCHAR" property="brandCode" />
+    <result column="JTAXCALTYPE" jdbcType="VARCHAR" property="jTaxCalType" />
+    <result column="WJPRICE" jdbcType="NUMERIC" property="wjPrice" />
+    <result column="HJPRICE" jdbcType="NUMERIC" property="hjPrice" />
+    <result column="JTAXRATE" jdbcType="NUMERIC" property="jTaxRate" />
+    <result column="PRICE" jdbcType="NUMERIC" property="price" />
+    <result column="XTAXRATE" jdbcType="NUMERIC" property="xTaxRate" />
+    <result column="PROMDECIMAL" jdbcType="NUMERIC" property="promDecimal" />
+    <result column="PROMFORMULA" jdbcType="VARCHAR" property="promFormula" />
+    <result column="DOTDECIMAL" jdbcType="NUMERIC" property="dotDecimal" />
+    <result column="ISWEIGHT" jdbcType="VARCHAR" property="isWeight" />
+    <result column="ISCOUTQTY" jdbcType="VARCHAR" property="isCoutQty" />
+    <result column="ISSELFBRAND" jdbcType="VARCHAR" property="isSelfBrand" />
+    <result column="ISKC" jdbcType="VARCHAR" property="isKc" />
+    <result column="ISFRESH" jdbcType="VARCHAR" property="isFresh" />
+    <result column="ISEXPLUCODE" jdbcType="VARCHAR" property="isExPluCode" />
+    <result column="ISCURRDAY" jdbcType="VARCHAR" property="isCurrDay" />
+    <result column="JHBFBZDAYS" jdbcType="NUMERIC" property="jhBfBzDays" />
+    <result column="PSBFBZDAYS" jdbcType="NUMERIC" property="psBfBzDays" />
+    <result column="ISNEWPLU" jdbcType="VARCHAR" property="isNewPlu" />
+    <result column="ISACTIVE" jdbcType="VARCHAR" property="isActive" />
+    <result column="CXINFO" jdbcType="VARCHAR" property="cxInfo" />
+    <result column="YWSTATUS" jdbcType="VARCHAR" property="ywStatus" />
+    <result column="LRDATE" jdbcType="VARCHAR" property="lrDate" />
+    <result column="LRUSERID" jdbcType="NUMERIC" property="lrUserId" />
+    <result column="LRUSERCODE" jdbcType="VARCHAR" property="lrUserCode" />
+    <result column="LRUSERNAME" jdbcType="VARCHAR" property="lrUserName" />
+    <result column="ZXDATE" jdbcType="VARCHAR" property="zxDate" />
+    <result column="ZXUSERID" jdbcType="NUMERIC" property="zxUserId" />
+    <result column="ZXUSERCODE" jdbcType="VARCHAR" property="zxUserCode" />
+    <result column="ZXUSERNAME" jdbcType="VARCHAR" property="zxUserName" />
+    <result column="UDP1" jdbcType="VARCHAR" property="udp1" />
+    <result column="UDP2" jdbcType="VARCHAR" property="udp2" />
+    <result column="UDP3" jdbcType="VARCHAR" property="udp3" />
+    <result column="UDP4" jdbcType="VARCHAR" property="udp4" />
+    <result column="UDP5" jdbcType="VARCHAR" property="udp5" />
+    <result column="UDP6" jdbcType="VARCHAR" property="udp6" />
+    <result column="UDP7" jdbcType="VARCHAR" property="udp7" />
+    <result column="UDP8" jdbcType="VARCHAR" property="udp8" />
+    <result column="UDP9" jdbcType="VARCHAR" property="udp9" />
+    <result column="DATASTATUS" jdbcType="VARCHAR" property="dataStatus" />
+    <result column="HYPRICE" jdbcType="NUMERIC" property="hyPrice" />
+    <result column="PLUCLS" jdbcType="VARCHAR" property="pluCls" />
+    <result column="PLUMODEL" jdbcType="VARCHAR" property="pluModel" />
+    <result column="UDP10" jdbcType="VARCHAR" property="udp10" />
+    <result column="UDP11" jdbcType="VARCHAR" property="udp11" />
+    <result column="UDP12" jdbcType="VARCHAR" property="udp12" />
+    <result column="UDP13" jdbcType="VARCHAR" property="udp13" />
+    <result column="UDP14" jdbcType="VARCHAR" property="udp14" />
+    <result column="MATERIALCODE" jdbcType="VARCHAR" property="materialCode" />
+    <result column="LRORGCODE" jdbcType="VARCHAR" property="lrOrgCode" />
+    <result column="LRORGNAME" jdbcType="VARCHAR" property="lrOrgName" />
+    <result column="DATASRC" jdbcType="VARCHAR" property="dataSrc" />
+    <result column="MINTHDAYS" jdbcType="NUMERIC" property="minThDays" />
+    <result column="MAXTHDAYS" jdbcType="NUMERIC" property="maxThDays" />
+    <result column="ISONLINE" jdbcType="VARCHAR" property="isOnline" />
+    <result column="LINEDATE" jdbcType="VARCHAR" property="lineDate" />
+    <result column="PLUDESC" jdbcType="VARCHAR" property="pluDesc" />
+  </resultMap>
+  
   <sql id="Base_Column_List">
     GRPNO, GRPNAME, UPTDATE, MODIFYUSERID, USERCODE
   </sql>
@@ -46,4 +134,42 @@
     <sql id="Base_Column_List_Other">
     ORGCODE, PLUID, DEPID, ISSALE
   </sql>
+  
+  <!-- 通过组织编码和部门ID获取盘点商品 -->
+  <select id="getPdSkuListByDept" resultMap="BaseResultMapSku">
+    Select Distinct t.PLUID,t.PLUCODE,t.PLUNAME,t.PLUENAME,t.PLUABBRNAME,t.PLUMN,t.BARCODE,t.UNIT,t.SPEC,t.PLUWEIGHT,
+    t.PLUHEIGHT,t.PLULONG,t.PLUWIDTH,t.ISMULPACKET,t.ORGCODE,t.ORGNAME,t.CGYID,t.CGYCODE,t.CGYNAME,t.CARGONO,
+    t.PRODUCE,t.GRADE,t.QUALITY,t.BZDAYS,t.CLSID,t.BRANDCODE,t.XTAXRATE,t.ISWEIGHT,t.ISCOUTQTY,t.ISKC,t.ISCURRDAY,
+    t.JHBFBZDAYS,t.PSBFBZDAYS,t.CXINFO,t.YWSTATUS,t.LRDATE, t.LRUSERCODE,t.LRUSERNAME,t.ZXDATE,t.ZXUSERCODE,t.ZXUSERNAME,
+    t.UDP1,t.UDP2,t.UDP3,t.UDP4,t.PLUCLS,t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,t.MINTHDAYS,t.MAXTHDAYS,
+    t.ISONLINE,t.LINEDATE,t.PLUDESC,t.PRICE
+    From TSKUPLU t,TSKUPLUEX t2,TSKUPLUOTHERDEPT t3
+    Where t.ISACTIVE = '1' 
+    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
+    And t.PLUID = t3.PLUID And t3.IsSale = '1'
+    And t3.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t3.DEPId = #{depId,jdbcType=NUMERIC}
+  </select>
+  
+  <!-- 通过组织编码和盘点类型获取盘点商品 -->
+  <select id="getPdSkuListByCycleType" resultMap="BaseResultMapSku">
+    Select Distinct t.PLUID,t.PLUCODE,t.PLUNAME,t.PLUENAME,t.PLUABBRNAME,t.PLUMN,t.BARCODE,t.UNIT,t.SPEC,t.PLUWEIGHT,
+    t.PLUHEIGHT,t.PLULONG,t.PLUWIDTH,t.ISMULPACKET,t.ORGCODE,t.ORGNAME,t.CGYID,t.CGYCODE,t.CGYNAME,t.CARGONO,
+    t.PRODUCE,t.GRADE,t.QUALITY,t.BZDAYS,t.CLSID,t.BRANDCODE,t.XTAXRATE,t.ISWEIGHT,t.ISCOUTQTY,t.ISKC,t.ISCURRDAY,
+    t.JHBFBZDAYS,t.PSBFBZDAYS,t.CXINFO,t.YWSTATUS,t.LRDATE, t.LRUSERCODE,t.LRUSERNAME,t.ZXDATE,t.ZXUSERCODE,t.ZXUSERNAME,
+    t.UDP1,t.UDP2,t.UDP3,t.UDP4,t.PLUCLS,t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,t.MINTHDAYS,t.MAXTHDAYS,
+    t.ISONLINE,t.LINEDATE,t.PLUDESC,t.PRICE
+    From TSKUPLU t,TSKUPLUEX t2,tSkuPdCycleScheme t3,tSkuPdCycleSchemeDt t4,tSkuPdCycleSchemeOrg t5
+    Where t.ISACTIVE = '1'
+    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
+    And t3.grpno = t4.grpno And t3.grpno = t5.grpno And t4.grpno = t5.grpno
+    And t.orgcode = t5.orgcode
+    And t.PLUID = t4.PLUID 
+    And t5.ORGCODE = #{orgCode,jdbcType=VARCHAR}
+    <if test="cycleType != '' and cycleType != null and cycleType == 0">
+        And t4.cycleType = '0'
+    </if>
+    <if test="cycleType != '' and cycleType != null and cycleType == 1">
+        And t4.cycleType in ('0','1')
+    </if>
+  </select>
 </mapper>

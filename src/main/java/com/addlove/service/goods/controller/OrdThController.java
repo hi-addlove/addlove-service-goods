@@ -187,7 +187,6 @@ public class OrdThController extends BaseController {
             headJson.put("jzrId", headMap.get("JZRID"));
             headJson.put("jzrCode", headMap.get("JZRCODE"));
             headJson.put("jzrName", headMap.get("JZRNAME"));
-            headJson.put("jzrName", headMap.get("JZRNAME"));
             headJson.put("ywType", headMap.get("YWTYPE"));
             headJson.put("zdrId", headMap.get("ZDRID"));
             headJson.put("zdrCode", headMap.get("ZDRCODE"));

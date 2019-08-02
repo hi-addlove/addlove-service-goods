@@ -91,4 +91,130 @@
     ZMWCOST, ZMSCOST, SJCOUNT, SJHCOST, SJWCOST, SJSCOST, YKCOUNT, YKHCOST, YKWCOST, 
     YKSCOST, REMARK
   </sql>
+  
+  <!-- 查询盘点列表 -->
+  <select id="queryMdPdPage" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.INORGCODE,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.CKCODE,
+                t.CKNAME,
+                t.PDSTARTDATE,
+                t.YWTYPE,
+                t.BILLTYPE,
+                t.COUSTATUS,
+                t.ZMCOUNT,
+                t.ZMHCOST,
+                t.ZMWCOST,
+                t.ZMSCOST,
+                t.SJCOUNT,
+                t.SJHCOST,
+                t.SJWCOST,
+                t.SJSCOST,
+                t.YKCOUNT,
+                t.YKHCOST,
+                t.YKWCOST,
+                t.YKSCOST,
+                t.DATASTATUS,
+                t.REMARK
+    From TCOUMDPDHEAD t Where t.YWTYPE = '6213'
+    <if test="queryModel.billNo != '' and queryModel.billNo != null">
+        and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="queryModel.startDate != '' and queryModel.startDate != null">
+        and t.LRDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.endDate != '' and queryModel.endDate != null">
+        and t.LRDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.couStatus != null and queryModel.couStatus != '' ">
+        and t.COUSTATUS = #{queryModel.couStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.billType != null and queryModel.billType != '' ">
+        and t.BILLTYPE = #{queryModel.billType,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.depId != null ">
+        and t.DEPID = #{queryModel.depId,jdbcType=VARCHAR}
+    </if>
+    and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR} Order By t.LRDATE Desc
+  </select>
+  
+  <!-- 查询盘点详情 -->
+  <select id="queryMdPdDetails" resultType="java.util.HashMap">
+      Select Distinct t.BILLNO,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.INORGCODE,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.CKCODE,
+                t.CKNAME,
+                t.PDSTARTDATE,
+                t.YWTYPE,
+                t.BILLTYPE,
+                t.COUSTATUS,
+                t.ZMCOUNT,
+                t.ZMHCOST,
+                t.ZMWCOST,
+                t.ZMSCOST,
+                t.SJCOUNT,
+                t.SJHCOST,
+                t.SJWCOST,
+                t.SJSCOST,
+                t.YKCOUNT,
+                t.YKHCOST,
+                t.YKWCOST,
+                t.YKSCOST,
+                t.DATASTATUS,
+                t.REMARK,
+                t1.SERIALNO,
+                t1.PLUID,
+                t1.PLUCODE,
+                t1.PLUNAME,
+                t1.EXPLUCODE,
+                t1.EXPLUNAME,
+                t1.BARCODE,
+                t1.UNIT,
+                t1.SPEC,
+                t1.PRICE AS PRICE2,
+                t1.WJPRICE AS WJPRICE2,
+                t1.HJPRICE AS HJPRICE2,
+                t1.ZMCOUNT AS ZMCOUNT2,
+                t1.ZMHCOST AS ZMHCOST2,
+                t1.ZMWCOST AS ZMWCOST2,
+                t1.ZMSCOST AS ZMSCOST2,
+                t1.SJCOUNT AS SJCOUNT2,
+                t1.SJHCOST AS SJHCOST2,
+                t1.SJWCOST AS SJWCOST2,
+                t1.SJSCOST AS SJSCOST2,
+                t1.YKCOUNT AS YKCOUNT2,
+                t1.YKHCOST AS YKHCOST2,
+                t1.YKWCOST AS YKWCOST2,
+                t1.YKSCOST AS YKSCOST2,
+                t1.REMARK AS REMARK2
+    From TCOUMDPDHEAD t Left Join TCOUMDPDBODY t1 On t.BILLNO = t1.BILLNO
+    Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+    Order By t1.SERIALNO
+  </select>
 </mapper>
