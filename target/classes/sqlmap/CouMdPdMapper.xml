@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.addlove.service.goods.dao.CouMdPdDao">
+  <resultMap id="BaseResultMapHead" type="com.addlove.service.goods.model.CouMdPdHeadModel">
+    <id column="BILLNO" jdbcType="VARCHAR" property="billno" />
+    <result column="LRDATE" jdbcType="TIMESTAMP" property="lrdate" />
+    <result column="USERID" jdbcType="NUMERIC" property="userid" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="usercode" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="JZDATE" jdbcType="TIMESTAMP" property="jzdate" />
+    <result column="JZRID" jdbcType="NUMERIC" property="jzrid" />
+    <result column="JZRCODE" jdbcType="VARCHAR" property="jzrcode" />
+    <result column="JZRNAME" jdbcType="VARCHAR" property="jzrname" />
+    <result column="RPTDATE" jdbcType="VARCHAR" property="rptdate" />
+    <result column="PRNTIMES" jdbcType="NUMERIC" property="prntimes" />
+    <result column="PRNDATE" jdbcType="TIMESTAMP" property="prndate" />
+    <result column="TIMEMARK" jdbcType="NUMERIC" property="timemark" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgcode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgname" />
+    <result column="INORGCODE" jdbcType="VARCHAR" property="inorgcode" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depid" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depcode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depname" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckcode" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckname" />
+    <result column="PDSTARTDATE" jdbcType="TIMESTAMP" property="pdstartdate" />
+    <result column="YWTYPE" jdbcType="VARCHAR" property="ywtype" />
+    <result column="BILLTYPE" jdbcType="VARCHAR" property="billtype" />
+    <result column="COUSTATUS" jdbcType="VARCHAR" property="coustatus" />
+    <result column="ZMCOUNT" jdbcType="NUMERIC" property="zmcount" />
+    <result column="ZMHCOST" jdbcType="NUMERIC" property="zmhcost" />
+    <result column="ZMWCOST" jdbcType="NUMERIC" property="zmwcost" />
+    <result column="ZMSCOST" jdbcType="NUMERIC" property="zmscost" />
+    <result column="SJCOUNT" jdbcType="NUMERIC" property="sjcount" />
+    <result column="SJHCOST" jdbcType="NUMERIC" property="sjhcost" />
+    <result column="SJWCOST" jdbcType="NUMERIC" property="sjwcost" />
+    <result column="SJSCOST" jdbcType="NUMERIC" property="sjscost" />
+    <result column="YKCOUNT" jdbcType="NUMERIC" property="ykcount" />
+    <result column="YKHCOST" jdbcType="NUMERIC" property="ykhcost" />
+    <result column="YKWCOST" jdbcType="NUMERIC" property="ykwcost" />
+    <result column="YKSCOST" jdbcType="NUMERIC" property="ykscost" />
+    <result column="DATASTATUS" jdbcType="VARCHAR" property="datastatus" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapBody" type="com.addlove.service.goods.model.CouMdPdBodyModel">
+    <id column="BILLNO" jdbcType="VARCHAR" property="billno" />
+    <id column="SERIALNO" jdbcType="NUMERIC" property="serialno" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depid" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depcode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depname" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckname" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckcode" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluid" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="plucode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluname" />
+    <result column="EXPLUCODE" jdbcType="VARCHAR" property="explucode" />
+    <result column="EXPLUNAME" jdbcType="VARCHAR" property="expluname" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barcode" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="PRICE" jdbcType="NUMERIC" property="price" />
+    <result column="WJPRICE" jdbcType="NUMERIC" property="wjprice" />
+    <result column="HJPRICE" jdbcType="NUMERIC" property="hjprice" />
+    <result column="ZMCOUNT" jdbcType="NUMERIC" property="zmcount" />
+    <result column="ZMHCOST" jdbcType="NUMERIC" property="zmhcost" />
+    <result column="ZMWCOST" jdbcType="NUMERIC" property="zmwcost" />
+    <result column="ZMSCOST" jdbcType="NUMERIC" property="zmscost" />
+    <result column="SJCOUNT" jdbcType="NUMERIC" property="sjcount" />
+    <result column="SJHCOST" jdbcType="NUMERIC" property="sjhcost" />
+    <result column="SJWCOST" jdbcType="NUMERIC" property="sjwcost" />
+    <result column="SJSCOST" jdbcType="NUMERIC" property="sjscost" />
+    <result column="YKCOUNT" jdbcType="NUMERIC" property="ykcount" />
+    <result column="YKHCOST" jdbcType="NUMERIC" property="ykhcost" />
+    <result column="YKWCOST" jdbcType="NUMERIC" property="ykwcost" />
+    <result column="YKSCOST" jdbcType="NUMERIC" property="ykscost" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
+  <sql id="Base_Column_List_Head">
+    BILLNO, LRDATE, USERID, USERCODE, USERNAME, JZDATE, JZRID, JZRCODE, JZRNAME, RPTDATE, 
+    PRNTIMES, PRNDATE, TIMEMARK, ORGCODE, ORGNAME, INORGCODE, DEPID, DEPCODE, DEPNAME, 
+    CKCODE, CKNAME, PDSTARTDATE, YWTYPE, BILLTYPE, COUSTATUS, ZMCOUNT, ZMHCOST, ZMWCOST, 
+    ZMSCOST, SJCOUNT, SJHCOST, SJWCOST, SJSCOST, YKCOUNT, YKHCOST, YKWCOST, YKSCOST, 
+    DATASTATUS, REMARK
+  </sql>
+ 
+ <sql id="Base_Column_List_Body">
+    BILLNO, SERIALNO, DEPID, DEPCODE, DEPNAME, CKNAME, CKCODE, PLUID, PLUCODE, PLUNAME, 
+    EXPLUCODE, EXPLUNAME, BARCODE, UNIT, SPEC, PRICE, WJPRICE, HJPRICE, ZMCOUNT, ZMHCOST, 
+    ZMWCOST, ZMSCOST, SJCOUNT, SJHCOST, SJWCOST, SJSCOST, YKCOUNT, YKHCOST, YKWCOST, 
+    YKSCOST, REMARK
+  </sql>
+</mapper>

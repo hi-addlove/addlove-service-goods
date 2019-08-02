@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.addlove.service.goods.dao.SkuPdCSDao">
+  <resultMap id="BaseResultMap" type="com.addlove.service.goods.model.SkuPdCSModel">
+    <id column="GRPNO" jdbcType="VARCHAR" property="grpno" />
+    <result column="GRPNAME" jdbcType="VARCHAR" property="grpname" />
+    <result column="UPTDATE" jdbcType="TIMESTAMP" property="uptdate" />
+    <result column="MODIFYUSERID" jdbcType="NUMERIC" property="modifyuserid" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="usercode" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDt" type="com.addlove.service.goods.model.SkuPdCSDtModel">
+    <id column="GRPNO" jdbcType="VARCHAR" property="grpno" />
+    <id column="PLUID" jdbcType="NUMERIC" property="pluid" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="plucode" />
+    <result column="CYCLETYPE" jdbcType="VARCHAR" property="cycletype" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapOrg" type="com.addlove.service.goods.model.SkuPdCSOrgModel">
+    <id column="ORGCODE" jdbcType="VARCHAR" property="orgcode" />
+    <result column="GRPNO" jdbcType="VARCHAR" property="grpno" />
+    <result column="UPTDATE" jdbcType="TIMESTAMP" property="uptdate" />
+    <result column="MODIFYUSERID" jdbcType="NUMERIC" property="modifyuserid" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="usercode" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapOther" type="com.addlove.service.goods.model.SkuPluODeptModel">
+    <id column="ORGCODE" jdbcType="VARCHAR" property="orgcode" />
+    <id column="PLUID" jdbcType="NUMERIC" property="pluid" />
+    <id column="DEPID" jdbcType="NUMERIC" property="depid" />
+    <result column="ISSALE" jdbcType="VARCHAR" property="issale" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    GRPNO, GRPNAME, UPTDATE, MODIFYUSERID, USERCODE
+  </sql>
+  
+  <sql id="Base_Column_List_Dt">
+    GRPNO, PLUID, PLUCODE, CYCLETYPE
+  </sql>
+  
+  <sql id="Base_Column_List_Org">
+    ORGCODE, GRPNO, UPTDATE, MODIFYUSERID, USERCODE
+  </sql>
+  
+    <sql id="Base_Column_List_Other">
+    ORGCODE, PLUID, DEPID, ISSALE
+  </sql>
+</mapper>
