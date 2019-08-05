@@ -22,7 +22,7 @@ public enum GoodsResponseCode {
     CNTID_NOT_BLANK(20002, "合同ID不能为空"),
     
     /**
-     * 验收单商品不能为空
+     * 商品不能为空
      */
     SKU_NOT_BLANK(20003, "商品不能为空"),
     
@@ -59,7 +59,17 @@ public enum GoodsResponseCode {
     /**
      * 执行完工存储过程错误
      */
-    EXEC_DONE_PROCEDURE_ERROR(20010, "执行完工存储过程错误");
+    EXEC_DONE_PROCEDURE_ERROR(20010, "执行完工存储过程错误"),
+    
+    /**
+     * 执行启动盘点存储过程错误
+     */
+    EXEC_START_PD_PROCEDURE_ERROR(20011, "执行启动盘点存储过程"),
+    
+    /**
+     * 执行盘点记账存储过程错误
+     */
+    EXEC_PD_ACCOUNT_PROCEDURE_ERROR(20012, "执行盘点记账存储过程");
     
     private int code;
     private String msg;

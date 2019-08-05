@@ -1,5 +1,7 @@
 package com.addlove.service.goods.model;
 
+import java.util.List;
+
 /**
  * 门店盘点单主表
  * @author lw
@@ -317,7 +319,9 @@ public class CouMdPdHeadModel {
      * @mbggenerated Fri Aug 02 10:50:01 CST 2019
      */
     private String remark;
-
+    
+    private List<CouMdPdBodyModel> bodyList;
+    
     /**
      * @return the billNo
      */
@@ -862,5 +866,19 @@ public class CouMdPdHeadModel {
      */
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    /**
+     * @return the bodyList
+     */
+    public List<CouMdPdBodyModel> getBodyList() {
+        return bodyList;
+    }
+
+    /**
+     * @param bodyList the bodyList to set
+     */
+    public void setBodyList(List<CouMdPdBodyModel> bodyList) {
+        this.bodyList = bodyList;
     }
 }

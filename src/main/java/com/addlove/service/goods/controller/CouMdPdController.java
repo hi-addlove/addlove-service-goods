@@ -1,10 +1,10 @@
 package com.addlove.service.goods.controller;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,16 +12,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.addlove.service.goods.constants.GoodsResponseCode;
+import com.addlove.service.goods.constants.GoodsMdPdConstants.CouStatus;
+import com.addlove.service.goods.constants.GoodsMdPdConstants.SaveType;
+import com.addlove.service.goods.constants.GoodsMdPdConstants.YwType;
+import com.addlove.service.goods.constants.GoodsOrdJhConstants.DataStatus;
+import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.message.ResponseMessage;
+import com.addlove.service.goods.model.CouMdPdBodyModel;
 import com.addlove.service.goods.model.CouMdPdHeadModel;
+import com.addlove.service.goods.model.MdPdAccountModel;
 import com.addlove.service.goods.model.MdPdPageModel;
+import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.SkuPluModel;
+import com.addlove.service.goods.model.StkStoreModel;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
+import com.addlove.service.goods.model.valid.CouMdPdBodyReq;
+import com.addlove.service.goods.model.valid.CouMdPdHeadReq;
 import com.addlove.service.goods.model.valid.MdPdPageReq;
 import com.addlove.service.goods.model.valid.MdPdSkuReq;
 import com.addlove.service.goods.service.CouMdPdService;
+import com.addlove.service.goods.service.GoodsCommonService;
+import com.addlove.service.goods.util.DateUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
@@ -36,6 +49,9 @@ import com.github.pagehelper.Page;
 public class CouMdPdController extends BaseController{
     @Autowired
     private CouMdPdService couMdPdService;
+    
+    @Autowired
+    private GoodsCommonService commonService;
     
     /**
      * 查询盘点列表
@@ -67,6 +83,81 @@ public class CouMdPdController extends BaseController{
         pageModel.setResult(page.getResult());
         pageModel.setTotal(page.getTotal());
         return ResponseMessage.ok(pageModel);
+    }
+    
+    /**
+     * 新增或编辑保存
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/addOrUpdateSave", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage addOrUpdateSave(@RequestBody @Valid CouMdPdHeadReq req) {
+        if (StringUtils.isBlank(req.getBillNo()) && req.getSaveType() == SaveType.EDIT_SAVE.getValue()) {
+            throw new ServiceException(GoodsResponseCode.BILLNO_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.BILLNO_NOT_BLANK.getMsg());
+        }
+        CouMdPdHeadModel headModel = this.getMdPdHeadModel(req);
+        if (req.getSaveType() == SaveType.ADD_SAVE.getValue()) {
+            this.couMdPdService.addPdInfo(headModel);
+        }else if (req.getSaveType() == SaveType.EDIT_SAVE.getValue()) {
+            this.couMdPdService.editPdInfo(headModel);
+        }
+        JSONObject json = new JSONObject();
+        json.put("billNo", headModel.getBillNo());
+        return ResponseMessage.ok(json);
+    }
+    
+    /**
+     * 启动
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/startUp", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage startUpSave(@RequestBody @Valid CouMdPdHeadReq req) {
+        CouMdPdHeadModel headModel = this.getMdPdHeadModel(req);
+        if (StringUtils.isBlank(req.getBillNo())) {
+            this.couMdPdService.addPdInfo(headModel);
+        }else {
+            this.couMdPdService.editPdInfo(headModel);
+        }
+        //执行启动盘点存储过程
+        this.couMdPdService.execStartPdProcedure(headModel.getBillNo());
+        //返回启动盘点后的账面数量等数据
+        List<MdPdAccountModel> models = this.couMdPdService.getMdPdAccountPlus(headModel.getBillNo(), headModel.getOrgCode());
+        return ResponseMessage.ok(models);
+    }
+    
+    /**
+     * 记账
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/execAccount", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage execAccount(@RequestBody @Valid CommonQueryDetailReq req) {
+        Map<String, Object> accountMap = new HashMap<String, Object>();
+        accountMap.put("ps_BillNo", req.getBillNo());
+        accountMap.put("ps_YwType",YwType.MD_PD.getValue());
+        accountMap.put("pi_UserId", 10000000041L);
+        accountMap.put("ps_UserCode", "1");
+        accountMap.put("ps_UserName", "超级户");
+        accountMap.put("pd_Date", DateUtil.getCurrentTime());
+        this.couMdPdService.execPdAccountProcedure(accountMap);
+        return ResponseMessage.ok();
+    }
+    
+    /**
+     * 删除盘点信息
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/deleteMdPd", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage deleteMdPd(@RequestBody @Valid CommonQueryDetailReq req) {
+        this.couMdPdService.deleteMdPd(req.getBillNo());
+        return ResponseMessage.ok();
     }
     
     /**
@@ -163,5 +254,102 @@ public class CouMdPdController extends BaseController{
     public ResponseMessage getPdSkuList(@RequestBody @Valid MdPdSkuReq req) {
         List<SkuPluModel> pdSkuList = this.couMdPdService.getPdSkuList(req.getOrgCode(), req.getDepId(), req.getBillType());
         return ResponseMessage.ok(pdSkuList);
+    }
+    
+    /**
+     * 组织盘点参数
+     * @param req
+     * @return CouMdPdHeadModel
+     */
+    private CouMdPdHeadModel getMdPdHeadModel(CouMdPdHeadReq req) {
+        CouMdPdHeadModel headModel = new CouMdPdHeadModel();
+        List<CouMdPdBodyReq> bodyList = req.getBodyList();
+        if (null == bodyList || bodyList.isEmpty()) {
+            throw new ServiceException(GoodsResponseCode.SKU_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.SKU_NOT_BLANK.getMsg());
+        }
+        headModel.setLrDate(DateUtil.getCurrentTime());
+        headModel.setUserId(10000000041L);
+        headModel.setUserCode("1");
+        headModel.setUserName("超级户");
+        headModel.setOrgCode(req.getOrgCode());
+        headModel.setOrgName(req.getOrgName());
+        OrgManageModel orgModel = this.commonService.getOrgModel(req.getOrgCode());
+        headModel.setInOrgCode(orgModel.getInOrgCode());
+        headModel.setDepId(req.getDepId());
+        headModel.setDepCode(req.getDepCode());
+        headModel.setDepName(req.getDepName());
+        List<StkStoreModel> storeList = this.commonService.getStoreList(req.getOrgCode());
+        if (null == storeList || storeList.isEmpty()) {
+            throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.CK_NOT_BLANK.getMsg());
+        }
+        headModel.setCkCode(storeList.get(0).getCkCode());
+        headModel.setCkName(storeList.get(0).getCkName());
+        headModel.setYwType(YwType.MD_PD.getValue());
+        headModel.setBillType(req.getBillType());
+        if (StringUtils.isBlank(req.getBillNo())) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("ps_BillType", YwType.MD_PD.getValue());
+            String billNo = this.commonService.getBillNoByCallProcedure(map);
+            headModel.setBillNo(billNo);
+            headModel.setCouStatus(CouStatus.NOT_EXEC.getValue());
+        }else {
+            headModel.setBillNo(req.getBillNo());
+            CouMdPdHeadModel resultHead = this.couMdPdService.getPdHeadByBillNo(req.getBillNo());
+            headModel.setCouStatus(resultHead.getCouStatus());
+        }
+        headModel.setZmCount(req.getZmCount());
+        headModel.setZmHCost(req.getZmHCost());
+        headModel.setZmWCost(req.getZmWCost());
+        headModel.setZmSCost(req.getZmSCost());
+        headModel.setsJCount(req.getsJCount());
+        headModel.setsJhCost(req.getsJhCost());
+        headModel.setsJwCost(req.getsJwCost());
+        headModel.setsJsCost(req.getsJsCost());
+        headModel.setYkCount(req.getYkCount());
+        headModel.setYkHCost(req.getYkHCost());
+        headModel.setYkWCost(req.getYkWCost());
+        headModel.setYkSCost(req.getYkSCost());
+        headModel.setDataStatus(DataStatus.ENTRY.getValue());
+        headModel.setRemark(req.getRemark());
+        List<CouMdPdBodyModel> bodyModels = new LinkedList<CouMdPdBodyModel>();
+        long serialNo = 1;
+        for (CouMdPdBodyReq bodyReq : bodyList) {
+            CouMdPdBodyModel bodyModel = new CouMdPdBodyModel();
+            bodyModel.setBillNo(headModel.getBillNo());
+            bodyModel.setSerialNo(serialNo++);
+            bodyModel.setDepId(headModel.getDepId());
+            bodyModel.setDepCode(headModel.getDepCode());
+            bodyModel.setDepName(headModel.getDepName());
+            bodyModel.setCkCode(headModel.getCkCode());
+            bodyModel.setCkName(headModel.getCkName());
+            bodyModel.setPluId(bodyReq.getPluId());
+            bodyModel.setPluCode(bodyReq.getPluCode());
+            bodyModel.setPluName(bodyReq.getPluName());
+            bodyModel.setExPluCode("*");
+            bodyModel.setBarCode(bodyReq.getBarCode());
+            bodyModel.setUnit(bodyReq.getUnit());
+            bodyModel.setSpec(bodyReq.getSpec());
+            bodyModel.setPrice(bodyReq.getPrice());
+            bodyModel.setWjPrice(bodyReq.getWjPrice());
+            bodyModel.setHjPrice(bodyReq.getHjPrice());
+            bodyModel.setZmCount(bodyReq.getZmCount());
+            bodyModel.setZmHCost(bodyReq.getZmHCost());
+            bodyModel.setZmWCost(bodyReq.getZmWCost());
+            bodyModel.setZmSCost(bodyReq.getZmSCost());
+            bodyModel.setsJCount(bodyReq.getsJCount());
+            bodyModel.setsJhCost(bodyReq.getsJhCost());
+            bodyModel.setsJwCost(bodyReq.getsJwCost());
+            bodyModel.setsJsCost(bodyReq.getsJsCost());
+            bodyModel.setYkCount(bodyReq.getYkCount());
+            bodyModel.setYkHCost(bodyReq.getYkHCost());
+            bodyModel.setYkWCost(bodyReq.getYkWCost());
+            bodyModel.setYkSCost(bodyReq.getYkSCost());
+            bodyModel.setRemark(bodyReq.getRemark());
+            bodyModels.add(bodyModel);
+        }
+        headModel.setBodyList(bodyModels);
+        return headModel;
     }
 }

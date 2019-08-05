@@ -2,79 +2,120 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.addlove.service.goods.dao.CouMdPdDao">
   <resultMap id="BaseResultMapHead" type="com.addlove.service.goods.model.CouMdPdHeadModel">
-    <id column="BILLNO" jdbcType="VARCHAR" property="billno" />
-    <result column="LRDATE" jdbcType="TIMESTAMP" property="lrdate" />
-    <result column="USERID" jdbcType="NUMERIC" property="userid" />
-    <result column="USERCODE" jdbcType="VARCHAR" property="usercode" />
-    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
-    <result column="JZDATE" jdbcType="TIMESTAMP" property="jzdate" />
-    <result column="JZRID" jdbcType="NUMERIC" property="jzrid" />
-    <result column="JZRCODE" jdbcType="VARCHAR" property="jzrcode" />
-    <result column="JZRNAME" jdbcType="VARCHAR" property="jzrname" />
-    <result column="RPTDATE" jdbcType="VARCHAR" property="rptdate" />
-    <result column="PRNTIMES" jdbcType="NUMERIC" property="prntimes" />
-    <result column="PRNDATE" jdbcType="TIMESTAMP" property="prndate" />
-    <result column="TIMEMARK" jdbcType="NUMERIC" property="timemark" />
-    <result column="ORGCODE" jdbcType="VARCHAR" property="orgcode" />
-    <result column="ORGNAME" jdbcType="VARCHAR" property="orgname" />
-    <result column="INORGCODE" jdbcType="VARCHAR" property="inorgcode" />
-    <result column="DEPID" jdbcType="NUMERIC" property="depid" />
-    <result column="DEPCODE" jdbcType="VARCHAR" property="depcode" />
-    <result column="DEPNAME" jdbcType="VARCHAR" property="depname" />
-    <result column="CKCODE" jdbcType="VARCHAR" property="ckcode" />
-    <result column="CKNAME" jdbcType="VARCHAR" property="ckname" />
-    <result column="PDSTARTDATE" jdbcType="TIMESTAMP" property="pdstartdate" />
-    <result column="YWTYPE" jdbcType="VARCHAR" property="ywtype" />
-    <result column="BILLTYPE" jdbcType="VARCHAR" property="billtype" />
-    <result column="COUSTATUS" jdbcType="VARCHAR" property="coustatus" />
-    <result column="ZMCOUNT" jdbcType="NUMERIC" property="zmcount" />
-    <result column="ZMHCOST" jdbcType="NUMERIC" property="zmhcost" />
-    <result column="ZMWCOST" jdbcType="NUMERIC" property="zmwcost" />
-    <result column="ZMSCOST" jdbcType="NUMERIC" property="zmscost" />
-    <result column="SJCOUNT" jdbcType="NUMERIC" property="sjcount" />
-    <result column="SJHCOST" jdbcType="NUMERIC" property="sjhcost" />
-    <result column="SJWCOST" jdbcType="NUMERIC" property="sjwcost" />
-    <result column="SJSCOST" jdbcType="NUMERIC" property="sjscost" />
-    <result column="YKCOUNT" jdbcType="NUMERIC" property="ykcount" />
-    <result column="YKHCOST" jdbcType="NUMERIC" property="ykhcost" />
-    <result column="YKWCOST" jdbcType="NUMERIC" property="ykwcost" />
-    <result column="YKSCOST" jdbcType="NUMERIC" property="ykscost" />
-    <result column="DATASTATUS" jdbcType="VARCHAR" property="datastatus" />
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="LRDATE" jdbcType="TIMESTAMP" property="lrDate" />
+    <result column="USERID" jdbcType="NUMERIC" property="userId" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="userName" />
+    <result column="JZDATE" jdbcType="TIMESTAMP" property="jzDate" />
+    <result column="JZRID" jdbcType="NUMERIC" property="jzrId" />
+    <result column="JZRCODE" jdbcType="VARCHAR" property="jzrCode" />
+    <result column="JZRNAME" jdbcType="VARCHAR" property="jzrName" />
+    <result column="RPTDATE" jdbcType="VARCHAR" property="rptDate" />
+    <result column="PRNTIMES" jdbcType="NUMERIC" property="prnTimes" />
+    <result column="PRNDATE" jdbcType="TIMESTAMP" property="prnDate" />
+    <result column="TIMEMARK" jdbcType="NUMERIC" property="timeMark" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="INORGCODE" jdbcType="VARCHAR" property="inOrgCode" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depId" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depCode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depName" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckCode" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckName" />
+    <result column="PDSTARTDATE" jdbcType="TIMESTAMP" property="pdStartDate" />
+    <result column="YWTYPE" jdbcType="VARCHAR" property="ywType" />
+    <result column="BILLTYPE" jdbcType="VARCHAR" property="billType" />
+    <result column="COUSTATUS" jdbcType="VARCHAR" property="couStatus" />
+    <result column="ZMCOUNT" jdbcType="NUMERIC" property="zmCount" />
+    <result column="ZMHCOST" jdbcType="NUMERIC" property="zmHCost" />
+    <result column="ZMWCOST" jdbcType="NUMERIC" property="zmWCost" />
+    <result column="ZMSCOST" jdbcType="NUMERIC" property="zmSCost" />
+    <result column="SJCOUNT" jdbcType="NUMERIC" property="sJCount" />
+    <result column="SJHCOST" jdbcType="NUMERIC" property="sJhCost" />
+    <result column="SJWCOST" jdbcType="NUMERIC" property="sJwCost" />
+    <result column="SJSCOST" jdbcType="NUMERIC" property="sJsCost" />
+    <result column="YKCOUNT" jdbcType="NUMERIC" property="ykCount" />
+    <result column="YKHCOST" jdbcType="NUMERIC" property="ykHCost" />
+    <result column="YKWCOST" jdbcType="NUMERIC" property="ykWCost" />
+    <result column="YKSCOST" jdbcType="NUMERIC" property="ykSCost" />
+    <result column="DATASTATUS" jdbcType="VARCHAR" property="dataStatus" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   
   <resultMap id="BaseResultMapBody" type="com.addlove.service.goods.model.CouMdPdBodyModel">
-    <id column="BILLNO" jdbcType="VARCHAR" property="billno" />
-    <id column="SERIALNO" jdbcType="NUMERIC" property="serialno" />
-    <result column="DEPID" jdbcType="NUMERIC" property="depid" />
-    <result column="DEPCODE" jdbcType="VARCHAR" property="depcode" />
-    <result column="DEPNAME" jdbcType="VARCHAR" property="depname" />
-    <result column="CKNAME" jdbcType="VARCHAR" property="ckname" />
-    <result column="CKCODE" jdbcType="VARCHAR" property="ckcode" />
-    <result column="PLUID" jdbcType="NUMERIC" property="pluid" />
-    <result column="PLUCODE" jdbcType="VARCHAR" property="plucode" />
-    <result column="PLUNAME" jdbcType="VARCHAR" property="pluname" />
-    <result column="EXPLUCODE" jdbcType="VARCHAR" property="explucode" />
-    <result column="EXPLUNAME" jdbcType="VARCHAR" property="expluname" />
-    <result column="BARCODE" jdbcType="VARCHAR" property="barcode" />
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depId" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depCode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depName" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckCode" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckName" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="EXPLUCODE" jdbcType="VARCHAR" property="exPluCode" />
+    <result column="EXPLUNAME" jdbcType="VARCHAR" property="exPluName" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
     <result column="UNIT" jdbcType="VARCHAR" property="unit" />
     <result column="SPEC" jdbcType="VARCHAR" property="spec" />
     <result column="PRICE" jdbcType="NUMERIC" property="price" />
-    <result column="WJPRICE" jdbcType="NUMERIC" property="wjprice" />
-    <result column="HJPRICE" jdbcType="NUMERIC" property="hjprice" />
-    <result column="ZMCOUNT" jdbcType="NUMERIC" property="zmcount" />
-    <result column="ZMHCOST" jdbcType="NUMERIC" property="zmhcost" />
-    <result column="ZMWCOST" jdbcType="NUMERIC" property="zmwcost" />
-    <result column="ZMSCOST" jdbcType="NUMERIC" property="zmscost" />
-    <result column="SJCOUNT" jdbcType="NUMERIC" property="sjcount" />
-    <result column="SJHCOST" jdbcType="NUMERIC" property="sjhcost" />
-    <result column="SJWCOST" jdbcType="NUMERIC" property="sjwcost" />
-    <result column="SJSCOST" jdbcType="NUMERIC" property="sjscost" />
-    <result column="YKCOUNT" jdbcType="NUMERIC" property="ykcount" />
-    <result column="YKHCOST" jdbcType="NUMERIC" property="ykhcost" />
-    <result column="YKWCOST" jdbcType="NUMERIC" property="ykwcost" />
-    <result column="YKSCOST" jdbcType="NUMERIC" property="ykscost" />
+    <result column="WJPRICE" jdbcType="NUMERIC" property="wjPrice" />
+    <result column="HJPRICE" jdbcType="NUMERIC" property="hjPrice" />
+    <result column="ZMCOUNT" jdbcType="NUMERIC" property="zmCount" />
+    <result column="ZMHCOST" jdbcType="NUMERIC" property="zmHCost" />
+    <result column="ZMWCOST" jdbcType="NUMERIC" property="zmWCost" />
+    <result column="ZMSCOST" jdbcType="NUMERIC" property="zmSCost" />
+    <result column="SJCOUNT" jdbcType="NUMERIC" property="sJCount" />
+    <result column="SJHCOST" jdbcType="NUMERIC" property="sJhCost" />
+    <result column="SJWCOST" jdbcType="NUMERIC" property="sJwCost" />
+    <result column="SJSCOST" jdbcType="NUMERIC" property="sJsCost" />
+    <result column="YKCOUNT" jdbcType="NUMERIC" property="ykCount" />
+    <result column="YKHCOST" jdbcType="NUMERIC" property="ykHCost" />
+    <result column="YKWCOST" jdbcType="NUMERIC" property="ykWCost" />
+    <result column="YKSCOST" jdbcType="NUMERIC" property="ykSCost" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
+   <resultMap id="BaseResultMapPlus" type="com.addlove.service.goods.model.MdPdAccountModel">
+   <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
+    <result column="DEPID" jdbcType="NUMERIC" property="depId" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depCode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depName" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckCode" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckName" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="EXPLUCODE" jdbcType="VARCHAR" property="exPluCode" />
+    <result column="EXPLUNAME" jdbcType="VARCHAR" property="exPluName" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="PRICE" jdbcType="NUMERIC" property="price" />
+    <result column="WJPRICE" jdbcType="NUMERIC" property="wjPrice" />
+    <result column="HJPRICE" jdbcType="NUMERIC" property="hjPrice" />
+    <result column="ZMCOUNT" jdbcType="NUMERIC" property="zmCount" />
+    <result column="ZMHCOST" jdbcType="NUMERIC" property="zmHCost" />
+    <result column="ZMWCOST" jdbcType="NUMERIC" property="zmWCost" />
+    <result column="ZMSCOST" jdbcType="NUMERIC" property="zmSCost" />
+    <result column="SJCOUNT" jdbcType="NUMERIC" property="sJCount" />
+    <result column="SJHCOST" jdbcType="NUMERIC" property="sJhCost" />
+    <result column="SJWCOST" jdbcType="NUMERIC" property="sJwCost" />
+    <result column="SJSCOST" jdbcType="NUMERIC" property="sJsCost" />
+    <result column="YKCOUNT" jdbcType="NUMERIC" property="ykCount" />
+    <result column="YKHCOST" jdbcType="NUMERIC" property="ykHCost" />
+    <result column="YKWCOST" jdbcType="NUMERIC" property="ykWCost" />
+    <result column="YKSCOST" jdbcType="NUMERIC" property="ykSCost" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="hJPricePd" jdbcType="NUMERIC" property="hJPricePd" />
+    <result column="wJPricePd" jdbcType="NUMERIC" property="wJPricePd" />
+    <result column="HCost" jdbcType="NUMERIC" property="hCost" />
+    <result column="WCost" jdbcType="NUMERIC" property="wCost" />
+    <result column="SCost" jdbcType="NUMERIC" property="sCost" />
+    <result column="KcCount" jdbcType="NUMERIC" property="kcCount" />
+    <result column="KyKcCount" jdbcType="NUMERIC" property="kyKcCount" />
   </resultMap>
   
   <sql id="Base_Column_List_Head">
@@ -151,6 +192,147 @@
     and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR} Order By t.LRDATE Desc
   </select>
   
+  <!-- 插入盘点主表 -->
+  <insert id="insertPdHead">
+    INSERT INTO TCOUMDPDHEAD
+    (
+        BILLNO,
+        LRDATE, 
+        USERID, 
+        USERCODE, 
+        USERNAME,
+        ORGCODE,
+        ORGNAME,
+        INORGCODE,
+        DEPID, 
+        DEPCODE, 
+        DEPNAME, 
+        CKCODE, 
+        CKNAME,
+        YWTYPE, 
+        BILLTYPE, 
+        COUSTATUS, 
+        ZMCOUNT, 
+        ZMHCOST, 
+        ZMWCOST, 
+        ZMSCOST, 
+        SJCOUNT, 
+        SJHCOST, 
+        SJWCOST, 
+        SJSCOST, 
+        YKCOUNT, 
+        YKHCOST, 
+        YKWCOST, 
+        YKSCOST, 
+        DATASTATUS, 
+        REMARK
+    )
+    VALUES
+    (
+        #{billNo,jdbcType=VARCHAR},
+        to_date(#{lrDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'),
+        #{userId,jdbcType=NUMERIC},
+        #{userCode,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR},
+        #{orgCode,jdbcType=VARCHAR},
+        #{orgName,jdbcType=VARCHAR},
+        #{inOrgCode,jdbcType=VARCHAR},
+        #{depId,jdbcType=NUMERIC},
+        #{depCode,jdbcType=VARCHAR},
+        #{depName,jdbcType=VARCHAR},
+        #{ckCode,jdbcType=VARCHAR},
+        #{ckName,jdbcType=VARCHAR},
+        #{ywType,jdbcType=VARCHAR},
+        #{billType,jdbcType=VARCHAR},
+        #{couStatus,jdbcType=VARCHAR},
+        #{zmCount,jdbcType=NUMERIC},
+        #{zmHCost,jdbcType=NUMERIC},
+        #{zmWCost,jdbcType=NUMERIC},
+        #{zmSCost,jdbcType=NUMERIC},
+        #{sJCount,jdbcType=NUMERIC},
+        #{sJhCost,jdbcType=NUMERIC},
+        #{sJwCost,jdbcType=NUMERIC},
+        #{sJsCost,jdbcType=NUMERIC},
+        #{ykCount,jdbcType=NUMERIC},
+        #{ykHCost,jdbcType=NUMERIC},
+        #{ykWCost,jdbcType=NUMERIC},
+        #{ykSCost,jdbcType=NUMERIC},
+        #{dataStatus,jdbcType=VARCHAR},
+        #{remark,jdbcType=VARCHAR}
+    )
+  </insert>
+  
+  <!-- 批量插入盘点明细表 -->
+  <insert id="insertPdBody">
+    INSERT INTO TCOUMDPDBODY
+    (
+        BILLNO, 
+        SERIALNO, 
+        DEPID, 
+        DEPCODE, 
+        DEPNAME, 
+        CKNAME, 
+        CKCODE, 
+        PLUID, 
+        PLUCODE, 
+        PLUNAME, 
+        EXPLUCODE, 
+        BARCODE, 
+        UNIT, 
+        SPEC, 
+        PRICE, 
+        WJPRICE, 
+        HJPRICE, 
+        ZMCOUNT, 
+        ZMHCOST, 
+        ZMWCOST, 
+        ZMSCOST, 
+        SJCOUNT, 
+        SJHCOST, 
+        SJWCOST, 
+        SJSCOST, 
+        YKCOUNT, 
+        YKHCOST, 
+        YKWCOST, 
+        YKSCOST, 
+        REMARK
+    )
+    <foreach collection="bodys" item="body" separator="union all">
+        SELECT
+          #{body.billNo,jdbcType=VARCHAR},
+          #{body.serialNo,jdbcType=NUMERIC},
+          #{depId,jdbcType=NUMERIC},
+          #{depCode,jdbcType=VARCHAR},
+          #{depName,jdbcType=VARCHAR},
+          #{ckName,jdbcType=VARCHAR},
+          #{ckCode,jdbcType=VARCHAR},
+          #{body.pluId,jdbcType=NUMERIC},
+          #{body.pluCode,jdbcType=VARCHAR},
+          #{body.pluName,jdbcType=VARCHAR},
+          #{body.exPluCode,jdbcType=VARCHAR},
+          #{body.barCode,jdbcType=VARCHAR},
+          #{body.unit,jdbcType=VARCHAR},
+          #{body.spec,jdbcType=VARCHAR},
+          #{body.price,jdbcType=NUMERIC},
+          #{body.wjPrice,jdbcType=NUMERIC},
+          #{body.hjPrice,jdbcType=NUMERIC},
+          #{body.zmCount,jdbcType=NUMERIC},
+          #{body.zmHCost,jdbcType=NUMERIC},
+          #{body.zmWCost,jdbcType=NUMERIC},
+          #{body.zmSCost,jdbcType=NUMERIC},
+          #{body.sJCount,jdbcType=NUMERIC},
+          #{body.sJhCost,jdbcType=NUMERIC},
+          #{body.sJwCost,jdbcType=NUMERIC},
+          #{body.sJsCost,jdbcType=NUMERIC},
+          #{body.ykCount,jdbcType=NUMERIC},
+          #{body.ykHCost,jdbcType=NUMERIC},
+          #{body.ykWCost,jdbcType=NUMERIC},
+          #{body.ykSCost,jdbcType=NUMERIC},
+          #{body.remark,jdbcType=VARCHAR}
+        FROM DUAL
+    </foreach>
+  </insert>
+  
   <!-- 查询盘点详情 -->
   <select id="queryMdPdDetails" resultType="java.util.HashMap">
       Select Distinct t.BILLNO,
@@ -216,5 +398,91 @@
     From TCOUMDPDHEAD t Left Join TCOUMDPDBODY t1 On t.BILLNO = t1.BILLNO
     Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
     Order By t1.SERIALNO
+  </select>
+  
+  <!-- 删除盘点主表 -->
+  <delete id="deleteMdPdHead" parameterType="java.lang.String">
+    DELETE FROM TCOUMDPDHEAD WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 删除盘点明细表 -->
+  <delete id="deleteMdPdBody" parameterType="java.lang.String">
+    DELETE FROM TCOUMDPDBODY WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 获取盘点账面商品数据 -->
+  <select id="getMdPdAccountPlus" resultMap="BaseResultMapPlus">
+    select t2.*,
+    t3.HJPrice as hJPricePd,t3.WJPrice as wJPricePd,t3.HCost,t3.WCost,t3.SCost,t3.KcCount,t3.KyKcCount
+    from tCouMdPdHead t1,tCouMdPdBody t2,vStkKyKcCount_CDADL t3
+    where t1.billno = t2.billno and t2.pluid = t3.PluID and t1.orgcode = t3.OrgCode
+    and t3.OrgCode = #{orgCode,jdbcType=VARCHAR} and t1.BILLNO = #{billNo,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 通过单据号获取盘点主表信息 -->
+  <select id="getPdHeadByBillNo" resultMap="BaseResultMapHead">
+  Select Distinct t.BILLNO,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.INORGCODE,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.CKCODE,
+                t.CKNAME,
+                t.PDSTARTDATE,
+                t.YWTYPE,
+                t.BILLTYPE,
+                t.COUSTATUS,
+                t.ZMCOUNT,
+                t.ZMHCOST,
+                t.ZMWCOST,
+                t.ZMSCOST,
+                t.SJCOUNT,
+                t.SJHCOST,
+                t.SJWCOST,
+                t.SJSCOST,
+                t.YKCOUNT,
+                t.YKHCOST,
+                t.YKWCOST,
+                t.YKSCOST,
+                t.DATASTATUS,
+                t.REMARK
+    From TCOUMDPDHEAD t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 执行生产完工存储过程 -->
+  <select id="execStartPdProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
+    <![CDATA[
+     {
+       CALL sCou_MdPd_Start_CDADL
+       (
+         #{ps_BillNo,mode=IN,jdbcType=VARCHAR},
+         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR}
+       )
+     }
+    ]]>
+  </select>
+  
+   <!-- 执行盘点记账存储过程 -->
+  <select id="execPdAccountProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
+    <![CDATA[
+     {
+       CALL sCou_MdPd_Account_CDADL
+       (
+         #{ps_BillNo,mode=IN,jdbcType=VARCHAR}, #{ps_YwType,mode=IN,jdbcType=VARCHAR}, #{pi_UserId,mode=IN,jdbcType=NUMERIC}, 
+         #{ps_UserCode,mode=IN,jdbcType=VARCHAR}, #{ps_UserName,mode=IN,jdbcType=VARCHAR}, to_date(#{pd_Date,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), 
+         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR}
+       )
+     }
+    ]]>
   </select>
 </mapper>
