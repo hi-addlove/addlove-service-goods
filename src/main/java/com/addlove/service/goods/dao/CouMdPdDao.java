@@ -71,6 +71,12 @@ public interface CouMdPdDao {
      */
     CouMdPdHeadModel getPdHeadByBillNo(String billNo);
     
+    /**
+     * 查询漏盘商品处理方式
+     * @param orgCode
+     * @return Map<String, Object>
+     */
+    Map<String, Object> getPdType(String orgCode);
     
     /**
      * 执行启动盘点存储过程

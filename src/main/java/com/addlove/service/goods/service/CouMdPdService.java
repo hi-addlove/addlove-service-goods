@@ -126,12 +126,50 @@ public class CouMdPdService {
     }
     
     /**
+     * 获取漏盘商品处理方式:0-实际数量按账面数量处理;1-实际数量按0处理
+     * @param orgCode
+     * @return String
+     */
+    public String getPdType(String orgCode) {
+        final String pdType = "0";
+        Map<String, Object> map = this.couMdPdDao.getPdType(orgCode);
+        if (null == map || map.isEmpty() || null == map.get("pdType")) {
+            return pdType;
+        }
+        return map.get("pdType").toString();
+    }
+    
+    /**
      * 通过单据号获取盘点主表信息
      * @param billNo
      * @return CouMdPdHeadModel
      */
     public CouMdPdHeadModel getPdHeadByBillNo(String billNo) {
         return this.couMdPdDao.getPdHeadByBillNo(billNo);
+    }
+    
+    /**
+     * 新增启动盘点
+     * @param headModel
+     */
+    @Transactional
+    public void addPdInfoAndStartUp(CouMdPdHeadModel headModel) {
+        this.couMdPdDao.insertPdHead(headModel);
+        this.couMdPdDao.insertPdBody(headModel.getBodyList());
+        this.execStartPdProcedure(headModel.getBillNo());
+    }
+    
+    /**
+     * 编辑启动盘点
+     * @param headModel
+     */
+    @Transactional
+    public void editPdInfoAndStartUp(CouMdPdHeadModel headModel) {
+        this.couMdPdDao.deleteMdPdHead(headModel.getBillNo());
+        this.couMdPdDao.deleteMdPdBody(headModel.getBillNo());
+        this.couMdPdDao.insertPdHead(headModel);
+        this.couMdPdDao.insertPdBody(headModel.getBodyList());
+        this.execStartPdProcedure(headModel.getBillNo());
     }
     
     /**
@@ -164,6 +202,7 @@ public class CouMdPdService {
      * @param map
      * @return Map<String, Object>
      */
+    @Transactional
     public Map<String, Object> execPdAccountProcedure(Map<String, Object> map) {
         long startTime = System.currentTimeMillis();
         this.couMdPdDao.execPdAccountProcedure(map);

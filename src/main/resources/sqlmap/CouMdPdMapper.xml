@@ -459,6 +459,12 @@
     From TCOUMDPDHEAD t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
   </select>
   
+  <!-- 查询漏盘商品处理方式 -->
+  <select id="getPdType" resultType="java.util.HashMap">
+    Select OptionValue As pdType From tSysOption 
+    Where SysOption = 'Cou_LpDealType' And Section = 'COU' And OrgCode = #{orgCode,jdbcType=VARCHAR}
+  </select>
+  
   <!-- 执行生产完工存储过程 -->
   <select id="execStartPdProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
     <![CDATA[

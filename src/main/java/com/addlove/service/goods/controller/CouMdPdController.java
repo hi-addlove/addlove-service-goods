@@ -115,18 +115,30 @@ public class CouMdPdController extends BaseController{
      */
     @RequestMapping(value = "/startUp", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage startUpSave(@RequestBody @Valid CouMdPdHeadReq req) {
+    public ResponseMessage startUp(@RequestBody @Valid CouMdPdHeadReq req) {
         CouMdPdHeadModel headModel = this.getMdPdHeadModel(req);
         if (StringUtils.isBlank(req.getBillNo())) {
-            this.couMdPdService.addPdInfo(headModel);
+            this.couMdPdService.addPdInfoAndStartUp(headModel);
         }else {
-            this.couMdPdService.editPdInfo(headModel);
+            this.couMdPdService.editPdInfoAndStartUp(headModel);
         }
-        //执行启动盘点存储过程
-        this.couMdPdService.execStartPdProcedure(headModel.getBillNo());
+        JSONObject backJson = new JSONObject();
+        String pdType = this.couMdPdService.getPdType(headModel.getOrgCode());
+        JSONObject pdTypeJson = new JSONObject();
+        pdTypeJson.put("pdType", pdType);
+        pdTypeJson.put("billNo", headModel.getBillNo());
+        backJson.put("typeInfo", pdTypeJson);
         //返回启动盘点后的账面数量等数据
         List<MdPdAccountModel> models = this.couMdPdService.getMdPdAccountPlus(headModel.getBillNo(), headModel.getOrgCode());
-        return ResponseMessage.ok(models);
+        JSONArray array = new JSONArray();
+        if (null != models && !models.isEmpty()) {
+            for (MdPdAccountModel model : models) {
+                JSONObject json = (JSONObject) JSONObject.toJSON(model);
+                array.add(json);
+            }
+        }
+        backJson.put("pluInfo", array);
+        return ResponseMessage.ok(backJson);
     }
     
     /**
