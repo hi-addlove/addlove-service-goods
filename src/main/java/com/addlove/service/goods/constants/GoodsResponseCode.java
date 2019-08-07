@@ -27,7 +27,7 @@ public enum GoodsResponseCode {
     SKU_NOT_BLANK(20003, "商品不能为空"),
     
     /**
-     * 验收单记账前请先保存
+     * 单据记账前请先保存
      */
     SAVE_BEFORE_ACCOUNT(20004, "单据记账前请先保存"),
     

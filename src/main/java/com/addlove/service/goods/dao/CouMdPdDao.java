@@ -23,7 +23,7 @@ public interface CouMdPdDao {
      * @param queryModel
      * @return List<CouMdPdHeadModel>
      */
-    List<CouMdPdHeadModel> queryMdPdPage(MdPdPageModel queryModel);
+    List<CouMdPdHeadModel> queryMdPdPage(@Param("queryModel") MdPdPageModel queryModel);
     
     /**
      * 插入盘点主表

@@ -26,6 +26,7 @@ public class CouMdPdHeadReq {
     private Long depId;
 
     /** 部门编码*/
+    @NotBlank(message = "部门编码不能为空")
     private String depCode;
 
     /** 部门名称*/
@@ -87,7 +88,7 @@ public class CouMdPdHeadReq {
     private String remark;
     
     /**
-     * 保存类型：1-新增保存；2-编辑保存
+     * 保存类型：1-编辑保存;2-记账;3-启动
      */
     @NotNull(message = "保存类型不能为空")
     private Integer saveType;

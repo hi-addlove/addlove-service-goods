@@ -55,6 +55,9 @@ public class CouMdPdService {
                 if (StringUtils.isNotBlank(model.getJzDate()) && model.getJzDate().length() > 19) {
                     model.setJzDate(model.getJzDate().substring(0, 19));
                 }
+                if (StringUtils.isNotBlank(model.getPdStartDate()) && model.getPdStartDate().length() > 19) {
+                    model.setPdStartDate(model.getPdStartDate().substring(0, 19));
+                }
             }
         }
         return pdList;
@@ -203,23 +206,34 @@ public class CouMdPdService {
      * @return Map<String, Object>
      */
     @Transactional
-    public Map<String, Object> execPdAccountProcedure(Map<String, Object> map) {
+    public Map<String, Object> execPdAccountProcedure(CouMdPdHeadModel headModel) {
+        this.couMdPdDao.deleteMdPdHead(headModel.getBillNo());
+        this.couMdPdDao.deleteMdPdBody(headModel.getBillNo());
+        this.couMdPdDao.insertPdHead(headModel);
+        this.couMdPdDao.insertPdBody(headModel.getBodyList());
+        Map<String, Object> accountMap = new HashMap<String, Object>();
+        accountMap.put("ps_BillNo", headModel.getBillNo());
+        accountMap.put("ps_YwType", headModel.getYwType());
+        accountMap.put("pi_UserId", headModel.getJzrId());
+        accountMap.put("ps_UserCode", headModel.getJzrCode());
+        accountMap.put("ps_UserName", headModel.getJzrName());
+        accountMap.put("pd_Date", headModel.getJzDate());
         long startTime = System.currentTimeMillis();
-        this.couMdPdDao.execPdAccountProcedure(map);
+        this.couMdPdDao.execPdAccountProcedure(accountMap);
         long endTime = System.currentTimeMillis();
-        if (map.isEmpty()) {
+        if (accountMap.isEmpty()) {
             throw new ServiceException(GoodsResponseCode.EXEC_PD_ACCOUNT_PROCEDURE_ERROR.getCode(), 
                     GoodsResponseCode.EXEC_PD_ACCOUNT_PROCEDURE_ERROR.getMsg());
         }
-        LoggerEnhance.info(LOGGER, "执行盘点记账存储过程结果为--------------------：{}", null != map.get("ps_Message") ? map.get("ps_Message").toString() : ""
-            , "单据号为--------------------：{}", (map.get("ps_BillNo")));
-        int resultCode = null != map.get("pi_Result") ? Integer.valueOf(map.get("pi_Result").toString()) : -1;
+        LoggerEnhance.info(LOGGER, "执行盘点记账存储过程结果为--------------------：{}", null != accountMap.get("ps_Message") ? accountMap.get("ps_Message").toString() : ""
+            , "单据号为--------------------：{}", (accountMap.get("ps_BillNo")));
+        int resultCode = null != accountMap.get("pi_Result") ? Integer.valueOf(accountMap.get("pi_Result").toString()) : -1;
         if (ProcedureResult.EXEC_ERROR_RECORD.getValue() == resultCode 
                 || ProcedureResult.EXEC_ERROR_EXIT.getValue() == resultCode) {
             throw new ServiceException(GoodsResponseCode.EXEC_PD_ACCOUNT_PROCEDURE_ERROR.getCode(), 
-                    null != map.get("ps_Message") ? map.get("ps_Message").toString() : GoodsResponseCode.EXEC_PD_ACCOUNT_PROCEDURE_ERROR.getMsg());
+                    null != accountMap.get("ps_Message") ? accountMap.get("ps_Message").toString() : GoodsResponseCode.EXEC_PD_ACCOUNT_PROCEDURE_ERROR.getMsg());
         }
         LoggerEnhance.info(LOGGER, "执行盘点记账存储过程-【CALL sCou_MdPd_Account_CDADL()】消耗时间:{}", (endTime - startTime));
-        return map;
+        return accountMap;
     }
 }

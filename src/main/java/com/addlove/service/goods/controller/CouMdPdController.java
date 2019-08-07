@@ -86,22 +86,26 @@ public class CouMdPdController extends BaseController{
     }
     
     /**
-     * 新增或编辑保存
+     * 编辑或记账
      * @param req
      * @return ResponseMessage
      */
-    @RequestMapping(value = "/addOrUpdateSave", method = RequestMethod.POST)
+    @RequestMapping(value = "/editOrAccount", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage addOrUpdateSave(@RequestBody @Valid CouMdPdHeadReq req) {
-        if (StringUtils.isBlank(req.getBillNo()) && req.getSaveType() == SaveType.EDIT_SAVE.getValue()) {
+    public ResponseMessage editOrAccount(@RequestBody @Valid CouMdPdHeadReq req) {
+        if (StringUtils.isBlank(req.getBillNo())) {
             throw new ServiceException(GoodsResponseCode.BILLNO_NOT_BLANK.getCode(), 
                     GoodsResponseCode.BILLNO_NOT_BLANK.getMsg());
         }
         CouMdPdHeadModel headModel = this.getMdPdHeadModel(req);
-        if (req.getSaveType() == SaveType.ADD_SAVE.getValue()) {
-            this.couMdPdService.addPdInfo(headModel);
-        }else if (req.getSaveType() == SaveType.EDIT_SAVE.getValue()) {
+        if (req.getSaveType() == SaveType.EDIT_SAVE.getValue()) {
             this.couMdPdService.editPdInfo(headModel);
+        }else if (req.getSaveType() == SaveType.PD_ACCOUNT.getValue()) {
+            headModel.setJzrId(10000000041L);
+            headModel.setJzrCode("1");
+            headModel.setJzrName("超级户");
+            headModel.setJzDate(DateUtil.getCurrentTime());
+            this.couMdPdService.execPdAccountProcedure(headModel);
         }
         JSONObject json = new JSONObject();
         json.put("billNo", headModel.getBillNo());
@@ -117,11 +121,9 @@ public class CouMdPdController extends BaseController{
     @ResponseBody
     public ResponseMessage startUp(@RequestBody @Valid CouMdPdHeadReq req) {
         CouMdPdHeadModel headModel = this.getMdPdHeadModel(req);
-        if (StringUtils.isBlank(req.getBillNo())) {
-            this.couMdPdService.addPdInfoAndStartUp(headModel);
-        }else {
-            this.couMdPdService.editPdInfoAndStartUp(headModel);
-        }
+        //this.couMdPdService.addPdInfoAndStartUp(headModel);
+        this.couMdPdService.addPdInfo(headModel);
+        this.couMdPdService.execStartPdProcedure(headModel.getBillNo());
         JSONObject backJson = new JSONObject();
         String pdType = this.couMdPdService.getPdType(headModel.getOrgCode());
         JSONObject pdTypeJson = new JSONObject();
@@ -139,25 +141,6 @@ public class CouMdPdController extends BaseController{
         }
         backJson.put("pluInfo", array);
         return ResponseMessage.ok(backJson);
-    }
-    
-    /**
-     * 记账
-     * @param req
-     * @return ResponseMessage
-     */
-    @RequestMapping(value = "/execAccount", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseMessage execAccount(@RequestBody @Valid CommonQueryDetailReq req) {
-        Map<String, Object> accountMap = new HashMap<String, Object>();
-        accountMap.put("ps_BillNo", req.getBillNo());
-        accountMap.put("ps_YwType",YwType.MD_PD.getValue());
-        accountMap.put("pi_UserId", 10000000041L);
-        accountMap.put("ps_UserCode", "1");
-        accountMap.put("ps_UserName", "超级户");
-        accountMap.put("pd_Date", DateUtil.getCurrentTime());
-        this.couMdPdService.execPdAccountProcedure(accountMap);
-        return ResponseMessage.ok();
     }
     
     /**
@@ -307,9 +290,7 @@ public class CouMdPdController extends BaseController{
             headModel.setBillNo(billNo);
             headModel.setCouStatus(CouStatus.NOT_EXEC.getValue());
         }else {
-            headModel.setBillNo(req.getBillNo());
-            CouMdPdHeadModel resultHead = this.couMdPdService.getPdHeadByBillNo(req.getBillNo());
-            headModel.setCouStatus(resultHead.getCouStatus());
+            headModel.setCouStatus(CouStatus.HAS_EXEC.getValue());
         }
         headModel.setZmCount(req.getZmCount());
         headModel.setZmHCost(req.getZmHCost());

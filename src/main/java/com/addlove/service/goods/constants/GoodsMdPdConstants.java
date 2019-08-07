@@ -9,19 +9,23 @@ public interface GoodsMdPdConstants {
 
     
     /**
-     * 保存类型：1-新增保存；2-编辑保存
+     * 保存类型：1-编辑保存；2-记账；3-启动
      * @author lw
      *
      */
     public enum SaveType {
         /**
-         * 1-保存
+         * 1-编辑保存
          */
-        ADD_SAVE(1, "新增保存"),
+        EDIT_SAVE(1, "编辑保存"),
         /**
          * 2-记账
          */
-        EDIT_SAVE(2, "编辑保存");
+        PD_ACCOUNT(2, "盘点记账"),
+        /**
+         * 3-启动
+         */
+        PDSTART_UP(3, "启动");
         
         private int value;
         private String name;
