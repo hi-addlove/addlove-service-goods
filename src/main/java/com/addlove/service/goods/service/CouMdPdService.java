@@ -21,6 +21,7 @@ import com.addlove.service.goods.model.MdPdAccountModel;
 import com.addlove.service.goods.model.MdPdPageModel;
 import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.util.LoggerEnhance;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 
 /**
@@ -219,6 +220,7 @@ public class CouMdPdService {
         accountMap.put("ps_UserName", headModel.getJzrName());
         accountMap.put("pd_Date", headModel.getJzDate());
         long startTime = System.currentTimeMillis();
+        LoggerEnhance.info(LOGGER, JSON.toJSONString(accountMap));
         this.couMdPdDao.execPdAccountProcedure(accountMap);
         long endTime = System.currentTimeMillis();
         if (accountMap.isEmpty()) {

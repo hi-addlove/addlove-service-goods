@@ -121,9 +121,9 @@ public class CouMdPdController extends BaseController{
     @ResponseBody
     public ResponseMessage startUp(@RequestBody @Valid CouMdPdHeadReq req) {
         CouMdPdHeadModel headModel = this.getMdPdHeadModel(req);
-        //this.couMdPdService.addPdInfoAndStartUp(headModel);
-        this.couMdPdService.addPdInfo(headModel);
-        this.couMdPdService.execStartPdProcedure(headModel.getBillNo());
+        this.couMdPdService.addPdInfoAndStartUp(headModel);
+        /*this.couMdPdService.addPdInfo(headModel);
+        this.couMdPdService.execStartPdProcedure(headModel.getBillNo());*/
         JSONObject backJson = new JSONObject();
         String pdType = this.couMdPdService.getPdType(headModel.getOrgCode());
         JSONObject pdTypeJson = new JSONObject();
@@ -219,18 +219,18 @@ public class CouMdPdController extends BaseController{
                 bodyJson.put("price", map.get("PRICE2"));
                 bodyJson.put("wjPrice", map.get("WJPRICE2"));
                 bodyJson.put("hjPrice", map.get("HJPRICE2"));
-                bodyJson.put("zmCount", headMap.get("ZMCOUNT2"));
-                bodyJson.put("zmHCost", headMap.get("ZMHCOST2"));
-                bodyJson.put("zmWCost", headMap.get("ZMWCOST2"));
-                bodyJson.put("zmSCost", headMap.get("ZMSCOST2"));
-                bodyJson.put("sJCount", headMap.get("SJCOUNT2"));
-                bodyJson.put("sJhCost", headMap.get("SJHCOST2"));
-                bodyJson.put("sJwCost", headMap.get("SJWCOST2"));
-                bodyJson.put("sJsCost", headMap.get("SJSCOST2"));
-                bodyJson.put("ykCount", headMap.get("YKCOUNT2"));
-                bodyJson.put("ykHCost", headMap.get("YKHCOST2"));
-                bodyJson.put("ykWCost", headMap.get("YKWCOST2"));
-                bodyJson.put("ykSCost", headMap.get("YKSCOST2"));
+                bodyJson.put("zmCount", map.get("ZMCOUNT2"));
+                bodyJson.put("zmHCost", map.get("ZMHCOST2"));
+                bodyJson.put("zmWCost", map.get("ZMWCOST2"));
+                bodyJson.put("zmSCost", map.get("ZMSCOST2"));
+                bodyJson.put("sJCount", map.get("SJCOUNT2"));
+                bodyJson.put("sJhCost", map.get("SJHCOST2"));
+                bodyJson.put("sJwCost", map.get("SJWCOST2"));
+                bodyJson.put("sJsCost", map.get("SJSCOST2"));
+                bodyJson.put("ykCount", map.get("YKCOUNT2"));
+                bodyJson.put("ykHCost", map.get("YKHCOST2"));
+                bodyJson.put("ykWCost", map.get("YKWCOST2"));
+                bodyJson.put("ykSCost", map.get("YKSCOST2"));
                 bodyJson.put("remark", map.get("REMARK2"));
                 bodyArray.add(bodyJson);
             }
@@ -290,6 +290,7 @@ public class CouMdPdController extends BaseController{
             headModel.setBillNo(billNo);
             headModel.setCouStatus(CouStatus.NOT_EXEC.getValue());
         }else {
+            headModel.setBillNo(req.getBillNo());
             headModel.setCouStatus(CouStatus.HAS_EXEC.getValue());
         }
         headModel.setZmCount(req.getZmCount());
