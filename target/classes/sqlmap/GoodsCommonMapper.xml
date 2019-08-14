@@ -646,6 +646,23 @@
     and t3.ORGCODE = #{orgCode,jdbcType=VARCHAR} and t5.CNTID = #{cntId,jdbcType=NUMERIC} and t3.CKCODE = #{ckCode,jdbcType=VARCHAR}
    </select>
    
+   <!-- 获取门店报损商品 -->
+   <select id="getMdBsSkus" resultMap="BaseResultMapSkuEx">
+    Select Distinct t.PLUID,t.PLUCODE,t.PLUNAME,t.PLUENAME,t.PLUABBRNAME,t.PLUMN,t.BARCODE,t.UNIT,t.SPEC,t.PLUWEIGHT,
+    t.PLUHEIGHT,t.PLULONG,t.PLUWIDTH,t.ISMULPACKET,t.ORGCODE,t.ORGNAME,t.CGYID,t.CGYCODE,t.CGYNAME,t.CARGONO,
+    t.PRODUCE,t.GRADE,t.QUALITY,t.BZDAYS,t.CLSID,t.BRANDCODE,t.XTAXRATE,t.ISWEIGHT,t.ISCOUTQTY,t.ISKC,t.ISCURRDAY,
+    t.JHBFBZDAYS,t.PSBFBZDAYS,t.CXINFO,t.YWSTATUS,t.LRDATE, t.LRUSERCODE,t.LRUSERNAME,t.ZXDATE,t.ZXUSERCODE,t.ZXUSERNAME,
+    t.UDP1,t.UDP2,t.UDP3,t.UDP4,t.PLUCLS,t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,
+    t.MINTHDAYS,t.MAXTHDAYS,t.ISONLINE,t.LINEDATE,t.PLUDESC,t.PRICE,t3.KYCOUNT AS KCCOUNT
+    From TSKUPLU t,TSKUPLUEX t2,VSTKKYCOUNT t3
+    Where t.ISACTIVE = '1' And t.YwStatus != '3'
+    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
+    And t.ORGCODE = t3.ORGCODE
+    And t.PLUID = t3.PLUID
+    And t3.KYCOUNT > 0
+    And t3.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t3.DEPId = #{depId,jdbcType=NUMERIC}
+   </select>
+   
    <!-- 获取商品品牌 -->
    <select id="getBasBrands" parameterType="java.util.Map" resultMap="BaseResultMapBrand">
      select t.brandcode,t.brandname,t.brandename,t.remark,t.brandmn from tBasBrand t

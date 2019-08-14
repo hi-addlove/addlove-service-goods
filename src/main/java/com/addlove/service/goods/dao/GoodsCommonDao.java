@@ -131,6 +131,14 @@ public interface GoodsCommonDao {
             @Param("ckCode")String ckCode);
     
     /**
+     * 获取门店报损商品
+     * @param orgCode
+     * @param depId
+     * @return List<SkuPluExtendModel>
+     */
+    List<SkuPluExtendModel> getMdBsSkus(@Param("orgCode")String orgCode, @Param("depId")Long depId);
+    
+    /**
      * 调用存储过程生成单据号
      * @param map
      */

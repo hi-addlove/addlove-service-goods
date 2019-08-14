@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.addlove.service.goods.dao.CouBsApplyDao" >
+  <resultMap id="BaseResultMapHead" type="com.addlove.service.goods.model.CouBsApplyHeadModel" >
+    <id column="BILLNO" property="billNo" jdbcType="VARCHAR" />
+    <result column="LRDATE" property="lrDate" jdbcType="TIMESTAMP" />
+    <result column="USERID" property="userId" jdbcType="NUMERIC" />
+    <result column="USERCODE" property="userCode" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="userName" jdbcType="VARCHAR" />
+    <result column="JZDATE" property="jzDate" jdbcType="TIMESTAMP" />
+    <result column="JZRID" property="jzrId" jdbcType="NUMERIC" />
+    <result column="JZRCODE" property="jzrCode" jdbcType="VARCHAR" />
+    <result column="JZRNAME" property="jzrName" jdbcType="VARCHAR" />
+    <result column="SHDATE" property="shDate" jdbcType="TIMESTAMP" />
+    <result column="SHRID" property="shrId" jdbcType="NUMERIC" />
+    <result column="SHRCODE" property="shrCode" jdbcType="VARCHAR" />
+    <result column="SHRNAME" property="shrName" jdbcType="VARCHAR" />
+    <result column="RPTDATE" property="rptDate" jdbcType="VARCHAR" />
+    <result column="PRNTIMES" property="prnTimes" jdbcType="NUMERIC" />
+    <result column="PRNDATE" property="prnDate" jdbcType="TIMESTAMP" />
+    <result column="TIMEMARK" property="timeMark" jdbcType="NUMERIC" />
+    <result column="COUSTATUS" property="couStatus" jdbcType="VARCHAR" />
+    <result column="DATASTATUS" property="dataStatus" jdbcType="VARCHAR" />
+    <result column="ORGCODE" property="orgCode" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="INORGCODE" property="inOrgCode" jdbcType="VARCHAR" />
+    <result column="DEPID" property="depId" jdbcType="NUMERIC" />
+    <result column="DEPCODE" property="depCode" jdbcType="VARCHAR" />
+    <result column="DEPNAME" property="depName" jdbcType="VARCHAR" />
+    <result column="CKCODE" property="ckCode" jdbcType="VARCHAR" />
+    <result column="CKNAME" property="ckName" jdbcType="VARCHAR" />
+    <result column="BSCOUNT" property="bsCount" jdbcType="NUMERIC" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="BSBILLNO" property="bsBillNo" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapBody" type="com.addlove.service.goods.model.CouBsApplyBodyModel" >
+    <id column="BILLNO" property="billNo" jdbcType="VARCHAR" />
+    <id column="SERIALNO" property="serialNo" jdbcType="NUMERIC" />
+    <result column="DEPID" property="depId" jdbcType="NUMERIC" />
+    <result column="DEPCODE" property="depCode" jdbcType="VARCHAR" />
+    <result column="DEPNAME" property="depName" jdbcType="VARCHAR" />
+    <result column="PLUID" property="pluId" jdbcType="NUMERIC" />
+    <result column="PLUCODE" property="pluCode" jdbcType="VARCHAR" />
+    <result column="PLUNAME" property="pluName" jdbcType="VARCHAR" />
+    <result column="EXPLUCODE" property="exPluCode" jdbcType="VARCHAR" />
+    <result column="EXPLUNAME" property="exPluName" jdbcType="VARCHAR" />
+    <result column="BARCODE" property="barCode" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="SPEC" property="spec" jdbcType="VARCHAR" />
+    <result column="BSCOUNT" property="bsCount" jdbcType="NUMERIC" />
+    <result column="KWCODE" property="kwCode" jdbcType="VARCHAR" />
+    <result column="CARGONO" property="carGoNo" jdbcType="VARCHAR" />
+    <result column="YKREASON" property="ykReason" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List_Head" >
+    BILLNO, LRDATE, USERID, USERCODE, USERNAME, JZDATE, JZRID, JZRCODE, JZRNAME, SHDATE, 
+    SHRID, SHRCODE, SHRNAME, RPTDATE, PRNTIMES, PRNDATE, TIMEMARK, COUSTATUS, DATASTATUS, 
+    ORGCODE, ORGNAME, INORGCODE, DEPID, DEPCODE, DEPNAME, CKCODE, CKNAME, BSCOUNT, REMARK, 
+    BSBILLNO
+  </sql>
+  
+    <sql id="Base_Column_List_Body" >
+    BILLNO, SERIALNO, DEPID, DEPCODE, DEPNAME, PLUID, PLUCODE, PLUNAME, EXPLUCODE, EXPLUNAME, 
+    BARCODE, UNIT, SPEC, BSCOUNT, KWCODE, CARGONO, YKREASON, REMARK
+  </sql>
+  
+  <!-- 查询报损列表 -->
+  <select id="queryMdBsPage" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.SHDATE, 
+                t.SHRID, 
+                t.SHRCODE, 
+                t.SHRNAME,
+                t.COUSTATUS,
+                t.DATASTATUS,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.INORGCODE,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.CKCODE,
+                t.CKNAME,
+                t.BSCOUNT,
+                t.REMARK
+    From TCOUBSAPPLYHEAD t Where t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+    <if test="queryModel.billNo != '' and queryModel.billNo != null">
+        and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="queryModel.startDate != '' and queryModel.startDate != null">
+        and t.LRDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.endDate != '' and queryModel.endDate != null">
+        and t.LRDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.dataStatus != null and queryModel.dataStatus != '' ">
+        and t.DATASTATUS = #{queryModel.dataStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.couStatus != null and queryModel.couStatus != '' ">
+        and t.COUSTATUS = #{queryModel.couStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.userCode != null and queryModel.userCode != '' ">
+        and t.USERCODE = #{queryModel.userCode,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.depId != null ">
+        and t.DEPID = #{queryModel.depId,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.ckCode != null and queryModel.ckCode != '' ">
+        and t.CKCODE = #{queryModel.ckCode,jdbcType=VARCHAR}
+    </if>
+    Order By t.LRDATE Desc
+  </select>
+  
+  <!-- 插入报损主表 -->
+  <insert id="insertBsHead">
+    INSERT INTO TCOUBSAPPLYHEAD
+    (
+        BILLNO,
+        LRDATE, 
+        USERID, 
+        USERCODE, 
+        USERNAME,
+        COUSTATUS,
+        DATASTATUS,
+        ORGCODE,
+        ORGNAME,
+        INORGCODE,
+        DEPID, 
+        DEPCODE, 
+        DEPNAME, 
+        CKCODE, 
+        CKNAME,
+        BSCOUNT,
+        REMARK
+    )
+    VALUES
+    (
+        #{billNo,jdbcType=VARCHAR},
+        to_date(#{lrDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'),
+        #{userId,jdbcType=NUMERIC},
+        #{userCode,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR},
+        #{couStatus,jdbcType=VARCHAR},
+        #{dataStatus,jdbcType=VARCHAR},
+        #{orgCode,jdbcType=VARCHAR},
+        #{orgName,jdbcType=VARCHAR},
+        #{inOrgCode,jdbcType=VARCHAR},
+        #{depId,jdbcType=NUMERIC},
+        #{depCode,jdbcType=VARCHAR},
+        #{depName,jdbcType=VARCHAR},
+        #{ckCode,jdbcType=VARCHAR},
+        #{ckName,jdbcType=VARCHAR},
+        #{bsCount,jdbcType=NUMERIC},
+        #{remark,jdbcType=VARCHAR}
+    )
+  </insert>
+  
+  <!-- 插入报损明细 -->
+  <insert id="insertBsBodys">
+    INSERT INTO TCOUBSAPPLYBODY
+    (
+        BILLNO, 
+        SERIALNO, 
+        DEPID, 
+        DEPCODE, 
+        DEPNAME, 
+        PLUID, 
+        PLUCODE, 
+        PLUNAME, 
+        EXPLUCODE, 
+        BARCODE, 
+        UNIT, 
+        SPEC, 
+        BSCOUNT,
+        CARGONO,
+        YKREASON,
+        REMARK
+    )
+    <foreach collection="bodys" item="body" separator="union all">
+        SELECT
+          #{body.billNo,jdbcType=VARCHAR},
+          #{body.serialNo,jdbcType=NUMERIC},
+          #{body.depId,jdbcType=NUMERIC},
+          #{body.depCode,jdbcType=VARCHAR},
+          #{body.depName,jdbcType=VARCHAR},
+          #{body.pluId,jdbcType=NUMERIC},
+          #{body.pluCode,jdbcType=VARCHAR},
+          #{body.pluName,jdbcType=VARCHAR},
+          #{body.exPluCode,jdbcType=VARCHAR},
+          #{body.barCode,jdbcType=VARCHAR},
+          #{body.unit,jdbcType=VARCHAR},
+          #{body.spec,jdbcType=VARCHAR},
+          #{body.bsCount,jdbcType=NUMERIC},
+          #{body.carGoNo,jdbcType=VARCHAR},
+          #{body.ykReason,jdbcType=VARCHAR},
+          #{body.remark,jdbcType=VARCHAR}
+       FROM DUAL
+    </foreach>
+  </insert>
+  
+  <!-- 通过单号获取报损主表 -->
+  <select id="getBsHead" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.SHDATE, 
+                t.SHRID, 
+                t.SHRCODE, 
+                t.SHRNAME,
+                t.COUSTATUS,
+                t.DATASTATUS,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.INORGCODE,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.CKCODE,
+                t.CKNAME,
+                t.BSCOUNT,
+                t.REMARK
+    From TCOUBSAPPLYHEAD t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 通过单号获取报损明细 -->
+  <select id="getBsBodys" resultMap="BaseResultMapBody">
+    Select Distinct t.BILLNO,
+                t.SERIALNO, 
+                t.DEPID, 
+                t.DEPCODE, 
+                t.DEPNAME, 
+                t.PLUID, 
+                t.PLUCODE, 
+                t.PLUNAME, 
+                t.EXPLUCODE, 
+                t.EXPLUNAME, 
+                t.BARCODE, 
+                t.UNIT, 
+                t.SPEC, 
+                t.BSCOUNT, 
+                t.KWCODE, 
+                t.CARGONO, 
+                t.YKREASON, 
+                t.REMARK
+    From TCOUBSAPPLYBODY t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 删除报损主表 -->
+  <delete id="deleteBsHead" parameterType="java.lang.String">
+    DELETE FROM TCOUBSAPPLYHEAD WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 删除报损明细 -->
+  <delete id="deleteBsBody" parameterType="java.lang.String">
+    DELETE FROM TCOUBSAPPLYBODY WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+</mapper>
