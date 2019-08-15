@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.addlove.service.goods.constants.GoodsMdBsConstants.CouStatus;
 import com.addlove.service.goods.constants.GoodsMdBsConstants.DataStatus;
+import com.addlove.service.goods.constants.GoodsMdBsConstants.FlCode;
 import com.addlove.service.goods.constants.GoodsMdBsConstants.SaveType;
 import com.addlove.service.goods.constants.GoodsMdBsConstants.YwType;
 import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.message.ResponseMessage;
+import com.addlove.service.goods.model.BasFlContentModel;
 import com.addlove.service.goods.model.CouBsApplyBodyModel;
 import com.addlove.service.goods.model.CouBsApplyHeadModel;
 import com.addlove.service.goods.model.CouBsApplyPageModel;
@@ -56,7 +58,7 @@ public class CouBsApplyController extends BaseController{
      * @param req
      * @return ResponseMessage
      */
-    @RequestMapping(value = "/queryMdBsPage", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryBsPage", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage queryMdBsPage(@RequestBody @Valid CouBsApplyPageReq req) {
         CouBsApplyPageModel queryModel = new CouBsApplyPageModel();
@@ -142,7 +144,7 @@ public class CouBsApplyController extends BaseController{
      * @param req
      * @return ResponseMessage
      */
-    @RequestMapping(value = "/queryMdBsDetails", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryBsDetails", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage queryMdBsDetails(@RequestBody @Valid CommonQueryDetailReq req) {
         CouBsApplyHeadModel model = this.couBsApplyService.queryMdBsDetails(req.getBillNo());
@@ -154,7 +156,7 @@ public class CouBsApplyController extends BaseController{
      * @param req
      * @return ResponseMessage
      */
-    @RequestMapping(value = "/getMdBsSkus", method = RequestMethod.POST)
+    @RequestMapping(value = "/getBsSkus", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getMdBsSkus(@RequestBody CommonOrgAndSupAndCntReq req) {
         String orgCode = req.getOrgCode();
@@ -169,6 +171,17 @@ public class CouBsApplyController extends BaseController{
         }
         List<SkuPluExtendModel> bsSkus = this.commonService.getMdBsSkus(orgCode, depId);
         return ResponseMessage.ok(bsSkus);
+    }
+    
+    /**
+     * 获取报损原因
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getBsReason", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseMessage getBsReason() {
+        List<BasFlContentModel> models = this.couBsApplyService.getFls(FlCode.BS_REASON.getValue());
+        return ResponseMessage.ok(models);
     }
     
     /**

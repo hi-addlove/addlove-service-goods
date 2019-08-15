@@ -6,8 +6,6 @@ package com.addlove.service.goods.constants;
  *
  */
 public interface GoodsMdBsConstants {
-
-    
     /**
      * 保存类型：1-保存;2-提交
      * @author lw
@@ -237,6 +235,54 @@ public interface GoodsMdBsConstants {
          */
         public void setValue(String value) {
             this.value = value;
+        }
+    }
+    
+    /**
+     * 分类类型
+     * @author lw
+     *
+     */
+    public enum FlCode {
+        /**
+         * 1961-报损原因
+         */
+        BS_REASON("1961", "报损原因");
+        
+        private String value;
+        private String name;
+        
+        private FlCode(String value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        /**
+         * @return the value
+         */
+        public String getValue() {
+            return value;
+        }
+
+        /**
+         * @param value the value to set
+         */
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
         }
     }
 }

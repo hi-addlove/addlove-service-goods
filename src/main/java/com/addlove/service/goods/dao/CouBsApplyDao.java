@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.addlove.service.goods.model.BasFlContentModel;
 import com.addlove.service.goods.model.CouBsApplyBodyModel;
 import com.addlove.service.goods.model.CouBsApplyHeadModel;
 import com.addlove.service.goods.model.CouBsApplyPageModel;
@@ -60,4 +61,11 @@ public interface CouBsApplyDao {
      * @param billNo
      */
     void deleteBsBody(String billNo);
+    
+    /**
+     * 获取分类内容
+     * @param flCode
+     * @return List<BasFlContentModel>
+     */
+    List<BasFlContentModel> getFls(String flCode);
 }

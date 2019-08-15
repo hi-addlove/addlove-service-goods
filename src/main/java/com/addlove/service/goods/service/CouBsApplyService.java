@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.addlove.service.goods.dao.CouBsApplyDao;
+import com.addlove.service.goods.model.BasFlContentModel;
 import com.addlove.service.goods.model.CouBsApplyBodyModel;
 import com.addlove.service.goods.model.CouBsApplyHeadModel;
 import com.addlove.service.goods.model.CouBsApplyPageModel;
@@ -73,5 +74,14 @@ public class CouBsApplyService {
     public void deleteBs(String billNo) {
         this.couBsApplyDao.deleteBsHead(billNo);
         this.couBsApplyDao.deleteBsBody(billNo);
+    }
+    
+    /**
+     * 获取分类内容
+     * @param flCode
+     * @return List<BasFlContentModel>
+     */
+    public List<BasFlContentModel> getFls(String flCode) {
+        return this.couBsApplyDao.getFls(flCode);
     }
 }
