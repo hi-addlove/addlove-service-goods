@@ -660,7 +660,7 @@
     And t.ORGCODE = t3.ORGCODE
     And t.PLUID = t3.PLUID
     And t3.KYCOUNT > 0
-    And t3.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t3.DEPId = #{depId,jdbcType=NUMERIC}
+    And t3.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t2.DEPId = #{depId,jdbcType=NUMERIC}
    </select>
    
    <!-- 获取商品品牌 -->
