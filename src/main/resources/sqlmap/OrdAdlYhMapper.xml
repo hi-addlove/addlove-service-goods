@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.addlove.service.goods.dao.OrdAdlYhDao">
+  <resultMap id="BaseResultMapHead" type="com.addlove.service.goods.model.OrdAdlYhHeadModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="LRDATE" jdbcType="TIMESTAMP" property="lrDate" />
+    <result column="USERID" jdbcType="NUMERIC" property="userId" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="userName" />
+    <result column="JZDATE" property="jzDate" jdbcType="TIMESTAMP" />
+    <result column="JZRID" property="jzrId" jdbcType="NUMERIC" />
+    <result column="JZRCODE" property="jzrCode" jdbcType="VARCHAR" />
+    <result column="JZRNAME" property="jzrName" jdbcType="VARCHAR" />
+    <result column="JZTYPE" jdbcType="VARCHAR" property="jzType" />
+    <result column="RPTDATE" property="rptDate" jdbcType="VARCHAR" />
+    <result column="PRNTIMES" property="prnTimes" jdbcType="NUMERIC" />
+    <result column="PRNDATE" property="prnDate" jdbcType="TIMESTAMP" />
+    <result column="TIMEMARK" property="timeMark" jdbcType="NUMERIC" />
+    <result column="YWTYPE" jdbcType="VARCHAR" property="ywType" />
+    <result column="YWIOTYPE" jdbcType="VARCHAR" property="ywIoType" />
+    <result column="ORGCODE" property="orgCode" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="DEPID" property="depId" jdbcType="NUMERIC" />
+    <result column="DEPCODE" property="depCode" jdbcType="VARCHAR" />
+    <result column="DEPNAME" property="depName" jdbcType="VARCHAR" />
+    <result column="ISURGENT" jdbcType="VARCHAR" property="isUrgent" />
+    <result column="ZBORGCODE" jdbcType="VARCHAR" property="zbOrgCode" />
+    <result column="ZBORGNAME" jdbcType="VARCHAR" property="zbOrgName" />
+    <result column="SDDATE" jdbcType="VARCHAR" property="sdDate" />
+    <result column="SHADDR" jdbcType="VARCHAR" property="shAddr" />
+    <result column="YHCOUNT" jdbcType="NUMERIC" property="yhCount" />
+    <result column="YWSTATUS" jdbcType="VARCHAR" property="ywStatus" />
+    <result column="DATASTATUS" jdbcType="VARCHAR" property="dataStatus" />
+    <result column="YHTOTAL" jdbcType="NUMERIC" property="yhTotal" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="MODELCODE" jdbcType="VARCHAR" property="modelCode" />
+    <result column="YHBC" jdbcType="VARCHAR" property="yhBc" />
+  </resultMap>
+  
+   <resultMap id="BaseResultMapBody" type="com.addlove.service.goods.model.OrdAdlYhBodyModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="EXPLUCODE" jdbcType="VARCHAR" property="exPluCode" />
+    <result column="EXPLUNAME" jdbcType="VARCHAR" property="exPluName" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="PACKUNIT" jdbcType="VARCHAR" property="packUnit" />
+    <result column="PACKQTY" jdbcType="NUMERIC" property="packQty" />
+    <result column="PACKCOUNT" jdbcType="NUMERIC" property="packCount" />
+    <result column="SGLCOUNT" jdbcType="NUMERIC" property="sglCount" />
+    <result column="YHCOUNT" jdbcType="NUMERIC" property="yhCount" />
+    <result column="QRCOUNT" jdbcType="NUMERIC" property="qrCount" />
+    <result column="PRICE" jdbcType="NUMERIC" property="price" />
+    <result column="STOTAL" jdbcType="NUMERIC" property="sTotal" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="KCCOUNT" jdbcType="NUMERIC" property="kcCount" />
+    <result column="MRJHCOUNT" jdbcType="NUMERIC" property="mRJhCount" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapTemOrg" type="com.addlove.service.goods.model.OrdYhTempletOrgModel" >
+    <result column="ORGCODE" property="orgCode" jdbcType="VARCHAR" />
+    <result column="MODELCODE" property="modelCode" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapTemHead" type="com.addlove.service.goods.model.OrdYhTempletHeadModel" >
+    <result column="MODELCODE" property="modelCode" jdbcType="VARCHAR" />
+    <result column="MODELNAME" property="modelName" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapTemBody" type="com.addlove.service.goods.model.OrdYhTempletBodyModel" >
+    <result column="MODELCODE" property="modelCode" jdbcType="VARCHAR" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapTemCycle" type="com.addlove.service.goods.model.OrdYhCycleModel" >
+    <result column="ORGCODE" property="orgCode" jdbcType="VARCHAR" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="DHDAYS" jdbcType="NUMERIC" property="dhDays" />
+    <result column="MONDAY" property="monday" jdbcType="VARCHAR" />
+    <result column="TUESDAY" property="tuesday" jdbcType="VARCHAR" />
+    <result column="WEDNESDAY" property="wednesday" jdbcType="VARCHAR" />
+    <result column="THURSDAY" property="thursday" jdbcType="VARCHAR" />
+    <result column="FRIDAY" property="friday" jdbcType="VARCHAR" />
+    <result column="SATURDAY" property="saturday" jdbcType="VARCHAR" />
+    <result column="SUNDAY" property="sunday" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="BaseResultMapPsOrg" type="com.addlove.service.goods.model.SkuYhPSOrgModel" >
+    <result column="PROCODE" property="proCode" jdbcType="VARCHAR" />
+    <result column="SERIALNO" property="serialno" jdbcType="NUMERIC" />
+    <result column="USORGCODE" property="usOrgCode" jdbcType="VARCHAR" />
+    <result column="USORGNAME" property="usOrgName" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapPsBody" type="com.addlove.service.goods.model.SkuYhPSBodyModel" >
+    <result column="PROCODE" property="proCode" jdbcType="VARCHAR" />
+    <result column="SERIALNO" property="serialNo" jdbcType="NUMERIC" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="MINCOUNT" property="minCount" jdbcType="NUMERIC" />
+    <result column="MAXCOUNT" property="maxCount" jdbcType="NUMERIC" />
+    <result column="TIMES" property="times" jdbcType="NUMERIC" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List_Head">
+    BILLNO, LRDATE, USERID, USERCODE, USERNAME, JZDATE, JZRID, JZRCODE, JZRNAME, JZTYPE, 
+    RPTDATE, PRNTIMES, PRNDATE, TIMEMARK, YWTYPE, YWIOTYPE, ORGCODE, ORGNAME, DEPID, 
+    DEPCODE, DEPNAME, ISURGENT, ZBORGCODE, ZBORGNAME, SDDATE, SHADDR, YHCOUNT, YWSTATUS, 
+    DATASTATUS, YHTOTAL, REMARK, MODELCODE, YHBC
+  </sql>
+  
+   <sql id="Base_Column_List_Body">
+    BILLNO, SERIALNO, PLUID, PLUCODE, PLUNAME, EXPLUCODE, EXPLUNAME, BARCODE, SPEC, UNIT, 
+    PACKUNIT, PACKQTY, PACKCOUNT, SGLCOUNT, YHCOUNT, QRCOUNT, PRICE, STOTAL, REMARK
+  </sql>
+  
+  <!-- 获取组织下的模板 -->
+  <select id="getTempletsByOrgCode" resultMap="BaseResultMapTemHead">
+    select t1.modelcode,t1.modelname from tOrdYhModelOrg t,tOrdYhModelHead t1 where t.modelcode = t1.modelcode
+    and t.orgcode = #{orgCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 获取模板商品 -->
+  <select id="getTempletSkus" resultMap="BaseResultMapTemBody">
+    select t2.pluid,t2.plucode,t2.pluname,t2.barcode,t2.unit,t2.spec
+    from tOrdYhModelOrg t,tOrdYhModelHead t1,tOrdYhModelBody t2
+    where t.modelcode = t1.modelcode and t1.modelcode = t2.modelcode
+    and t.orgcode = #{orgCode,jdbcType=VARCHAR} and t1.modelcode = #{modelCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 获取要货周期的商品 -->
+  <select id="getYhCycleSkus" resultMap="BaseResultMapTemCycle">
+    select t.pluid,t.plucode,t.pluname,t.dhdays,t.monday,t.tuesday,t.wednesday,t.thursday,t.friday,t.saturday,t.sunday
+    from tOrdYhCycle t where t.orgcode = #{orgCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 获取要货参数商品（包括：最小、最大要货量及倍数） -->
+  <select id="getYhPSSkus" resultMap="BaseResultMapPsBody">
+    select t1.procode,t1.serialno,t1.pluid,t1.plucode,t1.pluname from tSkuYHParaSetOrg t,tSkuYHParaSetBody t1 
+    where t.procode = t1.procode and t.usorgcode = #{orgCode,jdbcType=VARCHAR}
+  </select>
+</mapper>

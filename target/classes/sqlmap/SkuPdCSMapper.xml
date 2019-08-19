@@ -135,7 +135,7 @@
     ORGCODE, PLUID, DEPID, ISSALE
   </sql>
   
-  <!-- 通过组织编码和部门ID获取盘点商品 -->
+  <!-- 通过组织编码和部门ID获取可用商品 -->
   <select id="getPdSkuListByDept" resultMap="BaseResultMapSku">
     Select Distinct t.PLUID,t.PLUCODE,t.PLUNAME,t.PLUENAME,t.PLUABBRNAME,t.PLUMN,t.BARCODE,t.UNIT,t.SPEC,t.PLUWEIGHT,
     t.PLUHEIGHT,t.PLULONG,t.PLUWIDTH,t.ISMULPACKET,t.ORGCODE,t.ORGNAME,t.CGYID,t.CGYCODE,t.CGYNAME,t.CARGONO,

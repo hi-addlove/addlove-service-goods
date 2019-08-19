@@ -273,6 +273,15 @@ public class GoodsCommonService {
     }
     
     /**
+     * 查询商品可用库存数量
+     * @param orgCode
+     * @return List<SkuPluExtendModel>
+     */
+    public List<SkuPluExtendModel> getCanUseSkuCounts(String orgCode) {
+        return this.commonDao.getCanUseSkuCounts(orgCode);
+    }
+    
+    /**
      * 调用存储过程生成单据号
      * @param map
      * @return billNo

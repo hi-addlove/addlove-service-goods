@@ -247,7 +247,12 @@ public interface GoodsMdBsConstants {
         /**
          * 1961-报损原因
          */
-        BS_REASON("1961", "报损原因");
+        BS_REASON("1961", "报损原因"),
+        
+        /**
+         * 2008-要货波次
+         */
+        YH_BC("2008", "要货波次");
         
         private String value;
         private String name;

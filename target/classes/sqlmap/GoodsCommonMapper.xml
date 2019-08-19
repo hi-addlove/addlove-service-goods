@@ -683,6 +683,11 @@
    GROUP BY t.PLUID
   </select>
   
+  <!-- 查询商品可用库存数量 -->
+  <select id="getCanUseSkuCounts" resultMap="BaseResultMapSkuEx">
+    select t.PluId,t.PluCode,t.PluName,t.KcCount from VSTKKYCOUNT t where t.orgcode = #{orgCode,jdbcType=VARCHAR}
+  </select>
+  
   <!-- 调用存储过程生成单据号  -->
   <select id="getBillNoByCallProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
     <![CDATA[

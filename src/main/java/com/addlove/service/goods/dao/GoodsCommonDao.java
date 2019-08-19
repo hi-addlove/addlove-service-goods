@@ -156,4 +156,11 @@ public interface GoodsCommonDao {
      * @return List<Map<String, Object>>
      */
     List<Map<String, Object>> getKcSum(@Param("list") List<Map<String, Object>> pluIds);
+    
+    /**
+     * 查询商品可用库存数量
+     * @param orgCode
+     * @return List<SkuPluExtendModel>
+     */
+    List<SkuPluExtendModel> getCanUseSkuCounts(String orgCode);
 }

@@ -13,7 +13,7 @@ import com.addlove.service.goods.model.SkuPluModel;
 @Repository
 public interface SkuPdCSDao {
     /**
-     * 通过组织编码和部门ID获取盘点商品
+     * 通过组织编码和部门ID获取可用商品
      * @param orgCode
      * @param depId
      * @return List<SkuPluModel>
