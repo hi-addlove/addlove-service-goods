@@ -74,7 +74,12 @@ public enum GoodsResponseCode {
     /**
      * 模板编码不能为空
      */
-    MODEL_CODE_NOT_BLANK(20013, "模板编码不能为空");
+    MODEL_CODE_NOT_BLANK(20013, "模板编码不能为空"),
+    
+    /**
+     * 要货波次不能为空
+     */
+    YH_BC_NOT_BLANK(20014, "要货波次不能为空");
     
     private int code;
     private String msg;

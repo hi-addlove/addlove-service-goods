@@ -19,7 +19,7 @@ public interface GoodsAdlYhConstants {
         /**
          * 2-记账
          */
-        COMMIT(2, "记账");
+        EXEC_ACCOUNT(2, "记账");
         
         private int value;
         private String name;
@@ -67,7 +67,7 @@ public interface GoodsAdlYhConstants {
         /**
          * 6205-门店要货
          */
-        MD_YH("1915", "门店要货");
+        MD_YH("6205", "门店要货");
         
         private String value;
         private String name;

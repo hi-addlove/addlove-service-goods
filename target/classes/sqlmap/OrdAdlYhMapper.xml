@@ -252,6 +252,16 @@
      From TORDCDADLYHBODY t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
   </select>
   
+  <!-- 删除要货主表 -->
+  <delete id="delYhHead" parameterType="java.lang.String">
+    DELETE FROM TORDCDADLYHHEAD WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 删除要货明细 -->
+  <delete id="delYhBodys" parameterType="java.lang.String">
+    DELETE FROM TORDCDADLYHBODY WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
   <!-- 获取组织下的模板 -->
   <select id="getTempletsByOrgCode" resultMap="BaseResultMapTemHead">
     select t1.modelcode,t1.modelname from tOrdYhModelOrg t,tOrdYhModelHead t1 where t.modelcode = t1.modelcode

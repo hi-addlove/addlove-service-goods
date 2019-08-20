@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.GoodsAdlYhConstants.isUse;
 import com.addlove.service.goods.constants.GoodsAdlYhConstants.yhType;
@@ -71,6 +73,16 @@ public class OrdAdlYhService {
             }
         }
         return yhList;
+    }
+    
+    /**
+     * 删除要货数据
+     * @param billNo
+     */
+    @Transactional
+    public void delYh(String billNo) {
+        this.ordAdlYhDao.delYhHead(billNo);
+        this.ordAdlYhDao.delYhBodys(billNo);
     }
     
     /**

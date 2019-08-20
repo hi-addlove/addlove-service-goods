@@ -43,6 +43,18 @@ public interface OrdAdlYhDao {
     List<OrdAdlYhBodyModel> getYhBodys(String billNo);
     
     /**
+     * 删除要货主表
+     * @param billNo
+     */
+    void delYhHead(String billNo);
+    
+    /**
+     * 删除要货明细
+     * @param billNo
+     */
+    void delYhBodys(String billNo);
+    
+    /**
      * 获取组织下的模板
      * @param orgCode
      * @return OrdYhTempletHeadModel
