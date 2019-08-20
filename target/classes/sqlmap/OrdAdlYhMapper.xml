@@ -82,6 +82,7 @@
     <result column="UNIT" jdbcType="VARCHAR" property="unit" />
     <result column="SPEC" jdbcType="VARCHAR" property="spec" />
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="PRICE" jdbcType="NUMERIC" property="price" />
   </resultMap>
   
   <resultMap id="BaseResultMapTemCycle" type="com.addlove.service.goods.model.OrdYhCycleModel" >
@@ -119,6 +120,20 @@
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   
+  <resultMap id="CursorMap" type="com.addlove.service.goods.model.OrdAdlYhPluCursorModel" >
+      <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+      <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+      <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+      <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
+     <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+     <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+     <result column="PRICE" jdbcType="NUMERIC" property="price" />
+     <result column="kccount" jdbcType="NUMERIC" property="kcCount" />
+     <result column="mrjhcount" jdbcType="NUMERIC" property="mRJhCount" />
+     <result column="Packunit" jdbcType="NUMERIC" property="packUnit" />
+     <result column="Packqty" jdbcType="NUMERIC" property="packQty" />
+  </resultMap>
+  
   <sql id="Base_Column_List_Head">
     BILLNO, LRDATE, USERID, USERCODE, USERNAME, JZDATE, JZRID, JZRCODE, JZRNAME, JZTYPE, 
     RPTDATE, PRNTIMES, PRNDATE, TIMEMARK, YWTYPE, YWIOTYPE, ORGCODE, ORGNAME, DEPID, 
@@ -131,6 +146,112 @@
     PACKUNIT, PACKQTY, PACKCOUNT, SGLCOUNT, YHCOUNT, QRCOUNT, PRICE, STOTAL, REMARK
   </sql>
   
+  <!-- 要货列表 -->
+  <select id="queryYhPage" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.YWTYPE,
+                t.YWIOTYPE,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.ISURGENT,
+                t.ZBORGCODE,
+                t.ZBORGNAME,
+                t.SDDATE,
+                t.SHADDR,
+                t.YHCOUNT,
+                t.YWSTATUS,
+                t.DATASTATUS,
+                t.YHTOTAL,
+                t.REMARK,
+                t.MODELCODE,
+                t.YHBC
+    From TORDCDADLYHHEAD t Where t.YWTYPE = '6205'
+    <if test="queryModel.billNo != '' and queryModel.billNo != null">
+        and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="queryModel.startDate != '' and queryModel.startDate != null">
+        and t.LRDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.endDate != '' and queryModel.endDate != null">
+        and t.LRDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.ywStatus != null and queryModel.ywStatus != '' ">
+        and t.YWSTATUS = #{queryModel.ywStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.depId != null ">
+        and t.DEPID = #{queryModel.depId,jdbcType=VARCHAR}
+    </if>
+    and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 通过单号获取要货主表 -->
+  <select id="getYhHead" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO,
+                t.LRDATE,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.YWTYPE,
+                t.YWIOTYPE,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.ISURGENT,
+                t.ZBORGCODE,
+                t.ZBORGNAME,
+                t.SDDATE,
+                t.SHADDR,
+                t.YHCOUNT,
+                t.YWSTATUS,
+                t.DATASTATUS,
+                t.YHTOTAL,
+                t.REMARK,
+                t.MODELCODE,
+                t.YHBC
+    From TORDCDADLYHHEAD t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 通过单号获取要货明细 -->
+  <select id="getYhBodys" resultMap="BaseResultMapBody">
+    Select Distinct t.BILLNO,
+             t.SERIALNO, 
+             t.PLUID, 
+             t.PLUCODE, 
+             t.PLUNAME, 
+             t.EXPLUCODE, 
+             t.EXPLUNAME, 
+             t.BARCODE, 
+             t.SPEC, 
+             t.UNIT, 
+             t.PACKUNIT, 
+             t.PACKQTY, 
+             t.PACKCOUNT, 
+             t.SGLCOUNT, 
+             t.YHCOUNT, 
+             t.QRCOUNT, 
+             t.PRICE, 
+             t.STOTAL, 
+             t.REMARK
+     From TORDCDADLYHBODY t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+  </select>
+  
   <!-- 获取组织下的模板 -->
   <select id="getTempletsByOrgCode" resultMap="BaseResultMapTemHead">
     select t1.modelcode,t1.modelname from tOrdYhModelOrg t,tOrdYhModelHead t1 where t.modelcode = t1.modelcode
@@ -139,10 +260,10 @@
   
   <!-- 获取模板商品 -->
   <select id="getTempletSkus" resultMap="BaseResultMapTemBody">
-    select t2.pluid,t2.plucode,t2.pluname,t2.barcode,t2.unit,t2.spec
-    from tOrdYhModelOrg t,tOrdYhModelHead t1,tOrdYhModelBody t2
+    select t2.pluid,t2.plucode,t2.pluname,t2.barcode,t2.unit,t2.spec,t3.price
+    from tOrdYhModelOrg t,tOrdYhModelHead t1,tOrdYhModelBody t2,TSKUPLU t3
     where t.modelcode = t1.modelcode and t1.modelcode = t2.modelcode
-    and t.orgcode = #{orgCode,jdbcType=VARCHAR} and t1.modelcode = #{modelCode,jdbcType=VARCHAR}
+    and t2.pluid = t3.pluid and t.orgcode = #{orgCode,jdbcType=VARCHAR} and t1.modelcode = #{modelCode,jdbcType=VARCHAR}
   </select>
   
   <!-- 获取要货周期的商品 -->
@@ -155,5 +276,18 @@
   <select id="getYhPSSkus" resultMap="BaseResultMapPsBody">
     select t1.procode,t1.serialno,t1.pluid,t1.plucode,t1.pluname from tSkuYHParaSetOrg t,tSkuYHParaSetBody t1 
     where t.procode = t1.procode and t.usorgcode = #{orgCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 调用存储过程进行单据记账 -->
+  <select id="execMrCountsProcedure" statementType="CALLABLE" parameterType="map">
+     {
+       CALL sOrd_ModelYh_GetPlu
+       (
+         #{ps_OrgCode,mode=IN,jdbcType=VARCHAR}, #{ps_ModelCode,mode=IN,jdbcType=VARCHAR},
+         #{ps_DepId,mode=IN,jdbcType=VARCHAR}, #{ps_Type,mode=IN,jdbcType=VARCHAR}, 
+         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR},
+         #{pc_Data,mode=OUT,jdbcType=CURSOR,javaType=java.sql.ResultSet,resultMap=CursorMap}
+       )
+     }
   </select>
 </mapper>

@@ -282,6 +282,15 @@ public class GoodsCommonService {
     }
     
     /**
+     * 获取每个商品的库存总数
+     * @param pluSet
+     * @return List<Map<String, Object>>
+     */
+    public List<Map<String, Object>> getKcSum(List<Map<String, Object>> pluIds) {
+        return this.commonDao.getKcSum(pluIds);
+    }
+    
+    /**
      * 调用存储过程生成单据号
      * @param map
      * @return billNo

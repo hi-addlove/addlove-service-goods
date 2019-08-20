@@ -1,9 +1,5 @@
 package com.addlove.service.goods.model.valid;
 
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
-
 /**
  * 获取盘点商品请求参数
  * @author lw
@@ -11,19 +7,15 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class AdlYhSkuReq {
     /**组织编码 */
-    @NotBlank(message = "组织编码不能为空")
     private String orgCode;
     
     /**部门ID */
-    @NotNull(message = "部门ID不能为空")
     private Long depId;
     
     /** 模板编码*/
-    @NotBlank(message = "模板编码不能为空")
     private String modelCode;
     
     /** 要货波次*/
-    @NotBlank(message = "要货波次不能为空")
     private String yhBc;
 
     /**

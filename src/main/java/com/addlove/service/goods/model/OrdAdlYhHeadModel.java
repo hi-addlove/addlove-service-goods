@@ -1,5 +1,7 @@
 package com.addlove.service.goods.model;
 
+import java.util.List;
+
 /**
  * 门店要货单主表
  * @author lw
@@ -269,6 +271,8 @@ public class OrdAdlYhHeadModel {
      * @mbggenerated Mon Aug 19 13:44:21 CST 2019
      */
     private String yhBc;
+    
+    private List<OrdAdlYhBodyModel> bodyList;
 
     /**
      * @return the billNo
@@ -730,5 +734,19 @@ public class OrdAdlYhHeadModel {
      */
     public void setYhBc(String yhBc) {
         this.yhBc = yhBc;
+    }
+
+    /**
+     * @return the bodyList
+     */
+    public List<OrdAdlYhBodyModel> getBodyList() {
+        return bodyList;
+    }
+
+    /**
+     * @param bodyList the bodyList to set
+     */
+    public void setBodyList(List<OrdAdlYhBodyModel> bodyList) {
+        this.bodyList = bodyList;
     }
 }

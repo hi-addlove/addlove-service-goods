@@ -420,6 +420,24 @@ public class DateUtil {
         c.add(Calendar.DATE, -1);
         return c.getTime();
     }
+    
+    /**
+     * 获取当前日期是星期几
+     * @param date
+     * @return int
+     */
+    public static int getDayForWeek(String date) {
+        SimpleDateFormat format = new SimpleDateFormat(FORMAT_YYYY_MM_DD);
+        try {
+            Date parseDate = format.parse(date);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(parseDate);
+            return calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
     /**
      * 求某一个时间向前多少秒的时间(currentTimeToBefer)

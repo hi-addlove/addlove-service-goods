@@ -1,23 +1,33 @@
 package com.addlove.service.goods;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.addlove.service.goods.constants.GoodsAdlYhConstants.yhType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.SaveType;
 import com.addlove.service.goods.controller.GoodsCommonController;
 import com.addlove.service.goods.controller.StkDbController;
+import com.addlove.service.goods.model.OrdAdlYhPluCursorModel;
 import com.addlove.service.goods.model.valid.CommonOrgAndDeptReq;
 import com.addlove.service.goods.model.valid.CommonOrgAndSupAndCntReq;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.StkDbBodyReq;
 import com.addlove.service.goods.model.valid.StkDbHeadReq;
+import com.addlove.service.goods.service.OrdAdlYhService;
 
 public class StkDbTest extends AddloveServiceGoodsApplicationTests{
     @Autowired
     private StkDbController stkDbController;
     @Autowired
     private GoodsCommonController commonController;
+    @Autowired
+    private OrdAdlYhService ordAdlYhService;
     
     @Test
     public void testQueryDbDetail() {
@@ -50,6 +60,25 @@ public class StkDbTest extends AddloveServiceGoodsApplicationTests{
         req.setCntId(10000000421L);
         req.setCkCode("01");
         this.commonController.getPurchaseReturnSkus(req);
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testExecMrCountsProcedure() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("ps_OrgCode", "999999");
+        map.put("ps_ModelCode", "001");
+        map.put("ps_DepId", "10000000021");
+        map.put("ps_Type", yhType.ORDINARY_YH.getValue());
+        map.put("pc_Data", new ArrayList<OrdAdlYhPluCursorModel>());
+        this.ordAdlYhService.test(map);
+        List<OrdAdlYhPluCursorModel> models = new ArrayList<OrdAdlYhPluCursorModel>();
+        models.clear();
+        models.addAll((List<OrdAdlYhPluCursorModel>) map.get("pc_Data"));
+        if (!models.isEmpty()) {
+            System.out.println("---------------有数据--------------------");
+        }
+        System.out.println(map);
     }
     
     private StkDbHeadReq getStkDbHeadReq() {

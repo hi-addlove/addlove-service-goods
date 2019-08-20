@@ -69,7 +69,12 @@ public enum GoodsResponseCode {
     /**
      * 执行盘点记账存储过程错误
      */
-    EXEC_PD_ACCOUNT_PROCEDURE_ERROR(20012, "执行盘点记账存储过程");
+    EXEC_PD_ACCOUNT_PROCEDURE_ERROR(20012, "执行盘点记账存储过程"),
+    
+    /**
+     * 模板编码不能为空
+     */
+    MODEL_CODE_NOT_BLANK(20013, "模板编码不能为空");
     
     private int code;
     private String msg;

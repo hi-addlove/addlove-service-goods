@@ -69,6 +69,8 @@ public class OrdYhTempletBodyModel {
      * @mbggenerated Mon Aug 19 15:14:02 CST 2019
      */
     private String remark;
+    
+    private Double price;
 
     /**
      * @return the modelCode
@@ -180,5 +182,19 @@ public class OrdYhTempletBodyModel {
      */
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    /**
+     * @return the price
+     */
+    public Double getPrice() {
+        return price;
+    }
+
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }
