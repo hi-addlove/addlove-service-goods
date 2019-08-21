@@ -104,9 +104,9 @@ public class OrdAdlYhController extends BaseController{
         }
         OrdAdlYhHeadModel headModel = this.getYhHeadModel(req);
         if (req.getSaveType() == SaveType.SAVE.getValue()) {
-            
+            this.ordAdlYhService.addYh(headModel);
         }else if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
-          //调用存储过程进行记账
+            //调用存储过程进行记账
             Map<String, Object> accountMap = new HashMap<String, Object>();
             accountMap.put("ps_BillNo", headModel.getBillNo());
             accountMap.put("ps_YwType", headModel.getYwType());
@@ -114,6 +114,7 @@ public class OrdAdlYhController extends BaseController{
             accountMap.put("ps_UserCode", headModel.getJzrCode());
             accountMap.put("ps_UserName", headModel.getJzrName());
             accountMap.put("ps_Date", headModel.getJzDate());
+            this.ordAdlYhService.execYhAccountProcedure(accountMap);
         }else {
             throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
                     GoodsResponseCode.BILL_OPRATE_ERROR.getMsg());
@@ -137,9 +138,9 @@ public class OrdAdlYhController extends BaseController{
         }
         OrdAdlYhHeadModel headModel = this.getYhHeadModel(req);
         if (req.getSaveType() == SaveType.SAVE.getValue()) {
-            
+            this.ordAdlYhService.editYh(headModel);
         }else if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
-          //调用存储过程进行记账
+            //调用存储过程进行记账
             Map<String, Object> accountMap = new HashMap<String, Object>();
             accountMap.put("ps_BillNo", headModel.getBillNo());
             accountMap.put("ps_YwType", headModel.getYwType());
@@ -147,6 +148,7 @@ public class OrdAdlYhController extends BaseController{
             accountMap.put("ps_UserCode", headModel.getJzrCode());
             accountMap.put("ps_UserName", headModel.getJzrName());
             accountMap.put("ps_Date", headModel.getJzDate());
+            this.ordAdlYhService.execYhAccountProcedure(accountMap);
         }else {
             throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
                     GoodsResponseCode.BILL_OPRATE_ERROR.getMsg());

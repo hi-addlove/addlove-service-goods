@@ -143,7 +143,7 @@
   
    <sql id="Base_Column_List_Body">
     BILLNO, SERIALNO, PLUID, PLUCODE, PLUNAME, EXPLUCODE, EXPLUNAME, BARCODE, SPEC, UNIT, 
-    PACKUNIT, PACKQTY, PACKCOUNT, SGLCOUNT, YHCOUNT, QRCOUNT, PRICE, STOTAL, REMARK
+    PACKUNIT, PACKQTY, PACKCOUNT, SGLCOUNT, YHCOUNT, QRCOUNT, PRICE, STOTAL, REMARK, KCCOUNT, MRJHCOUNT
   </sql>
   
   <!-- 要货列表 -->
@@ -194,6 +194,103 @@
     </if>
     and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
   </select>
+  
+  <!-- 插入要货主表 -->
+  <insert id="insertYhHead">
+    INSERT INTO TORDCDADLYHHEAD
+    (
+        BILLNO,
+        LRDATE, 
+        USERID, 
+        USERCODE, 
+        USERNAME,
+        YWTYPE, 
+        ORGCODE, 
+        ORGNAME, 
+        DEPID, 
+        DEPCODE, 
+        DEPNAME, 
+        ZBORGCODE, 
+        ZBORGNAME, 
+        SDDATE, 
+        SHADDR, 
+        YHCOUNT, 
+        YWSTATUS, 
+        DATASTATUS, 
+        YHTOTAL, 
+        REMARK, 
+        MODELCODE, 
+        YHBC
+    )
+    VALUES
+    (
+        #{billNo,jdbcType=VARCHAR},
+        to_date(#{lrDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'),
+        #{userId,jdbcType=NUMERIC},
+        #{userCode,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR},
+        #{ywType,jdbcType=VARCHAR},
+        #{orgCode,jdbcType=VARCHAR},
+        #{orgName,jdbcType=VARCHAR},
+        #{depId,jdbcType=NUMERIC},
+        #{depCode,jdbcType=VARCHAR},
+        #{depName,jdbcType=VARCHAR},
+        #{zbOrgCode,jdbcType=VARCHAR},
+        #{zbOrgName,jdbcType=VARCHAR},
+        #{sdDate,jdbcType=VARCHAR},
+        #{shAddr,jdbcType=VARCHAR},
+        #{yhCount,jdbcType=NUMERIC},
+        #{ywStatus,jdbcType=VARCHAR},
+        #{dataStatus,jdbcType=VARCHAR},
+        #{yhTotal,jdbcType=NUMERIC},
+        #{remark,jdbcType=VARCHAR},
+        #{modelCode,jdbcType=VARCHAR},
+        #{yhBc,jdbcType=VARCHAR}
+    )
+  </insert>
+  
+  <!-- 插入要货明细 -->
+  <insert id="insertYhBodys">
+    INSERT INTO TORDCDADLYHBODY
+    (
+        BILLNO, 
+        SERIALNO, 
+        PLUID, 
+        PLUCODE, 
+        PLUNAME, 
+        EXPLUCODE, 
+        BARCODE, 
+        SPEC, 
+        UNIT, 
+        YHCOUNT, 
+        QRCOUNT, 
+        PRICE, 
+        STOTAL, 
+        REMARK, 
+        KCCOUNT, 
+        MRJHCOUNT
+    )
+    <foreach collection="bodys" item="body" separator="union all">
+        SELECT
+          #{body.billNo,jdbcType=VARCHAR},
+          #{body.serialNo,jdbcType=NUMERIC},
+          #{body.pluId,jdbcType=NUMERIC},
+          #{body.pluCode,jdbcType=VARCHAR},
+          #{body.pluName,jdbcType=VARCHAR},
+          #{body.exPluCode,jdbcType=VARCHAR},
+          #{body.barCode,jdbcType=VARCHAR},
+          #{body.spec,jdbcType=VARCHAR},
+          #{body.unit,jdbcType=VARCHAR},
+          #{body.yhCount,jdbcType=NUMERIC},
+          #{body.qrCount,jdbcType=NUMERIC},
+          #{body.price,jdbcType=NUMERIC},
+          #{body.sTotal,jdbcType=NUMERIC},
+          #{body.remark,jdbcType=VARCHAR},
+          #{body.kcCount,jdbcType=NUMERIC},
+          #{body.mRJhCount,jdbcType=NUMERIC}
+        FROM DUAL
+    </foreach>
+  </insert>
   
   <!-- 通过单号获取要货主表 -->
   <select id="getYhHead" resultMap="BaseResultMapHead">
@@ -248,7 +345,9 @@
              t.QRCOUNT, 
              t.PRICE, 
              t.STOTAL, 
-             t.REMARK
+             t.REMARK,
+             t.KCCOUNT,
+             t.MRJHCOUNT
      From TORDCDADLYHBODY t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
   </select>
   
@@ -299,5 +398,19 @@
          #{pc_Data,mode=OUT,jdbcType=CURSOR,javaType=java.sql.ResultSet,resultMap=CursorMap}
        )
      }
+  </select>
+  
+  <!-- 调用存储过程进行要货单据记账 -->
+  <select id="execYhAccountProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
+    <![CDATA[
+     {
+       CALL sOrd_CDADL_YhBillAcc
+       (
+         #{ps_BillNo,mode=IN,jdbcType=VARCHAR}, #{ps_YwType,mode=IN,jdbcType=VARCHAR}, #{pi_UserId,mode=IN,jdbcType=NUMERIC}, 
+         #{ps_UserCode,mode=IN,jdbcType=VARCHAR}, #{ps_UserName,mode=IN,jdbcType=VARCHAR}, to_date(#{ps_Date,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), 
+         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR}
+       )
+     }
+    ]]>
   </select>
 </mapper>

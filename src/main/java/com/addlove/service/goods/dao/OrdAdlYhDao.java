@@ -29,6 +29,18 @@ public interface OrdAdlYhDao {
     List<OrdAdlYhHeadModel> queryYhPage(@Param("queryModel") OrdAdlYhPageModel queryModel);
     
     /**
+     * 插入要货主表
+     * @param headModel
+     */
+    void insertYhHead(OrdAdlYhHeadModel headModel);
+    
+    /**
+     * 插入要货明细
+     * @param bodyList
+     */
+    void insertYhBodys(@Param("bodys") List<OrdAdlYhBodyModel> bodyList);
+    
+    /**
      * 通过单号获取要货主表
      * @param billNo
      * @return OrdAdlYhHeadModel
@@ -88,4 +100,10 @@ public interface OrdAdlYhDao {
      * @param map
      */
     void execMrCountsProcedure(Map<String, Object> map);
+    
+    /**
+     * 调用存储过程进行要货单据记账
+     * @param map
+     */
+    void execYhAccountProcedure(Map<String, Object> map);
 }

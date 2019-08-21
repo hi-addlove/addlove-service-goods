@@ -76,6 +76,28 @@ public class OrdAdlYhService {
     }
     
     /**
+     * 新增要货
+     * @param headModel
+     */
+    @Transactional
+    public void addYh(OrdAdlYhHeadModel headModel) {
+        this.ordAdlYhDao.insertYhHead(headModel);
+        this.ordAdlYhDao.insertYhBodys(headModel.getBodyList());
+    }
+    
+    /**
+     * 编辑要货
+     * @param headModel
+     */
+    @Transactional
+    public void editYh(OrdAdlYhHeadModel headModel) {
+        this.ordAdlYhDao.delYhHead(headModel.getBillNo());
+        this.ordAdlYhDao.delYhBodys(headModel.getBillNo());
+        this.ordAdlYhDao.insertYhHead(headModel);
+        this.ordAdlYhDao.insertYhBodys(headModel.getBodyList());
+    }
+    
+    /**
      * 删除要货数据
      * @param billNo
      */
@@ -252,6 +274,31 @@ public class OrdAdlYhService {
         models.clear();
         models.addAll((List<OrdAdlYhPluCursorModel>) map.get("pc_Data"));
         return models;
+    }
+    
+    /**
+     * 调用存储过程进行单据记账
+     * @param map
+     * @return Map<String, Object>
+     */
+    @Transactional
+    public Map<String, Object> execYhAccountProcedure(Map<String, Object> map) {
+        long startTime = System.currentTimeMillis();
+        this.ordAdlYhDao.execYhAccountProcedure(map);
+        long endTime = System.currentTimeMillis();
+        LoggerEnhance.info(LOGGER, "调用要货单据记账存储过程-【CALL sOrd_CDADL_YhBillAcc()】消耗时间:{}", (endTime - startTime));
+        if (null == map) {
+            throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
+                    GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
+        }
+        LoggerEnhance.info(LOGGER, "要货单据记账结果为--------------------：{}", null != map.get("ps_Message") ? map.get("ps_Message").toString() : "");
+        int resultCode = null != map.get("pi_Result") ? Integer.valueOf(map.get("pi_Result").toString()) : -1;
+        if (ProcedureResult.EXEC_ERROR_RECORD.getValue() == resultCode 
+                || ProcedureResult.EXEC_ERROR_EXIT.getValue() == resultCode) {
+            throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
+                    null != map.get("ps_Message") ? map.get("ps_Message").toString() : GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
+        }
+        return map;
     }
     
     public void test(Map<String, Object> map) {
