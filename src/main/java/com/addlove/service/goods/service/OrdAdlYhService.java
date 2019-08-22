@@ -46,6 +46,11 @@ public class OrdAdlYhService {
     /**OrdAdlYhService类日志 */
     private static final Logger LOGGER = LoggerFactory.getLogger(OrdAdlYhService.class);
     
+    /**
+     * 默认单次批量查询plu数量
+     */
+    public static final int DEFAULT_BATCH_QUERY_SIZE = 500;
+    
     @Autowired
     private OrdAdlYhDao ordAdlYhDao;
     
@@ -133,14 +138,11 @@ public class OrdAdlYhService {
         List<SkuPluModel> deptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
         //获取模板商品
         List<OrdYhTempletBodyModel> templetSkus = this.ordAdlYhDao.getTempletSkus(orgCode, modelCode);
-        //获取要货参数商品（包括：最小、最大要货量及倍数）
-        List<SkuYhPSBodyModel> pSSkus = this.ordAdlYhDao.getYhPSSkus(orgCode);
-        if (null == deptSkus || deptSkus.isEmpty() ) {
-            return backArray;
-        }
         if (null == templetSkus || templetSkus.isEmpty() ) {
             return backArray;
         }
+        //获取要货参数商品（包括：最小、最大要货量及倍数）
+        List<SkuYhPSBodyModel> pSSkus = this.ordAdlYhDao.getYhPSSkus(orgCode);
         if (null == pSSkus || pSSkus.isEmpty() ) {
             return backArray;
         }
@@ -197,7 +199,24 @@ public class OrdAdlYhService {
             }
         }
         //获取商品可用库存数量
-        List<Map<String, Object>> kcList = this.commonService.getKcSum(pluList);
+        List<Map<String, Object>> kcList = new ArrayList<>();
+        int size = pluList.size();
+        if (DEFAULT_BATCH_QUERY_SIZE < size) {
+            int part = size / DEFAULT_BATCH_QUERY_SIZE; // 分批数
+            for (int i = 0; i < part; i++) {
+                List<Map<String, Object>> partPluList = new LinkedList<Map<String, Object>>();
+                partPluList.addAll(pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE));
+                List<Map<String,Object>> kcPartList = this.commonService.getKcSum(partPluList);
+                kcList.addAll(kcPartList);
+                pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE).clear();
+            }
+            if (!pluList.isEmpty()) {
+                List<Map<String,Object>> kcPartList = this.commonService.getKcSum(pluList);
+                kcList.addAll(kcPartList);
+            }
+        }else {
+            kcList = this.commonService.getKcSum(pluList);
+        }
         Map<Long, Object> kcMap = new HashMap<Long, Object>();
         for (Map<String, Object> map : kcList) {
             long pluId = Long.parseLong(null != map.get("PLUID") ? map.get("PLUID").toString() : "0") ;
@@ -223,10 +242,20 @@ public class OrdAdlYhService {
             backJson.put("spec", pluModel.getSpec());
             backJson.put("price", pluModel.getPrice());
             SkuYhPSBodyModel psModel = psMap.get(key);
-            backJson.put("minCount", psModel.getMinCount());
-            backJson.put("maxCount", psModel.getMaxCount());
-            backJson.put("times", psModel.getTimes());
-            backJson.put("kcCount", Double.valueOf(kcMap.get(pluModel.getPluId()).toString()));
+            if (null != psModel) {
+                backJson.put("minCount", psModel.getMinCount());
+                backJson.put("maxCount", psModel.getMaxCount());
+                backJson.put("times", psModel.getTimes());
+            }else {
+                backJson.put("minCount", 0);
+                backJson.put("maxCount", 99999);
+                backJson.put("times", 1);
+            }
+            if (null != kcMap.get(pluModel.getPluId())) {
+                backJson.put("kcCount", Double.valueOf(kcMap.get(pluModel.getPluId()).toString()));
+            }else {
+                backJson.put("kcCount", 0);
+            }
             OrdAdlYhPluCursorModel cursorModel = mrMap.get(key);
             if (null != cursorModel) {
                 backJson.put("mRJhCount", cursorModel.getmRJhCount());
@@ -234,8 +263,13 @@ public class OrdAdlYhService {
                 backJson.put("mRJhCount", 0.0);
             }
             SkuPluPacketModel packetModel = packetMap.get(pluModel.getPluId());
-            backJson.put("packUnit", packetModel.getPackUnit());
-            backJson.put("packQty", packetModel.getPackQty());
+            if (null != packetModel) {
+                backJson.put("packUnit", packetModel.getPackUnit());
+                backJson.put("packQty", packetModel.getPackQty());
+            }else {
+                backJson.put("packUnit", "");
+                backJson.put("packQty", 0);
+            }
             backArray.add(backJson);
         }
         return backArray;

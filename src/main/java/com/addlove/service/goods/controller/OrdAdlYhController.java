@@ -245,7 +245,7 @@ public class OrdAdlYhController extends BaseController{
     private OrdAdlYhHeadModel getYhHeadModel(OrdAdlYhHeadReq req) {
         OrdAdlYhHeadModel headModel = new OrdAdlYhHeadModel();
         List<OrdAdlYhBodyReq> bodyList = req.getBodyList();
-        if (null == bodyList || bodyList.isEmpty()) {
+        if (null == bodyList || bodyList.isEmpty() || req.getYhCount() == 0) {
             throw new ServiceException(GoodsResponseCode.SKU_NOT_BLANK.getCode(), 
                     GoodsResponseCode.SKU_NOT_BLANK.getMsg());
         }
@@ -289,6 +289,9 @@ public class OrdAdlYhController extends BaseController{
         List<OrdAdlYhBodyModel> bodyModels = new LinkedList<OrdAdlYhBodyModel>();
         long serialNo = 1;
         for (OrdAdlYhBodyReq bodyReq : bodyList) {
+            if (bodyReq.getYhCount() == 0) {
+                continue;
+            }
             OrdAdlYhBodyModel bodyModel = new OrdAdlYhBodyModel();
             bodyModel.setBillNo(headModel.getBillNo());
             bodyModel.setSerialNo(serialNo++);
