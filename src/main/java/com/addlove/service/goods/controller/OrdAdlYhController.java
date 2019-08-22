@@ -23,6 +23,7 @@ import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.BasFlContentModel;
+import com.addlove.service.goods.model.EtpAddressModel;
 import com.addlove.service.goods.model.OrdAdlYhBodyModel;
 import com.addlove.service.goods.model.OrdAdlYhHeadModel;
 import com.addlove.service.goods.model.OrdAdlYhPageModel;
@@ -264,7 +265,8 @@ public class OrdAdlYhController extends BaseController{
         OrgManageModel zbOrgModel = this.commonService.getOrgModel(headModel.getZbOrgCode());
         headModel.setZbOrgName(zbOrgModel.getOrgName());
         headModel.setSdDate(req.getSdDate());
-        headModel.setShAddr(req.getShAddr());
+        EtpAddressModel addressModel = this.ordAdlYhService.getAddress(req.getOrgCode());
+        headModel.setShAddr(null != addressModel ? addressModel.getAddress() : "");
         headModel.setYhCount(req.getYhCount());
         headModel.setYwStatus(YwStatus.NOT_CONFIRM.getValue());
         headModel.setDataStatus(DataStatus.ENTRY.getValue());

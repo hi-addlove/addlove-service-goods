@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.addlove.service.goods.model.EtpAddressModel;
 import com.addlove.service.goods.model.OrdAdlYhBodyModel;
 import com.addlove.service.goods.model.OrdAdlYhHeadModel;
 import com.addlove.service.goods.model.OrdAdlYhPageModel;
@@ -101,6 +102,21 @@ public interface OrdAdlYhDao {
      * @return List<SkuPluPacketModel>
      */
     List<SkuPluPacketModel> getPackets();
+    
+    /**
+     * 获取组织地址
+     * @param etpCode
+     * @return EtpAddressModel
+     */
+    EtpAddressModel getAddress(String etpCode);
+    
+    /**
+     * 获取要货商品的库存总数
+     * @param pluIds
+     * @param orgCode
+     * @return List<Map<String, Object>>
+     */
+    List<Map<String, Object>> getYhKcSum(@Param("list") List<Map<String, Object>> pluIds, @Param("orgCode")String orgCode);
     
     /**
      * 获取明日到货数量

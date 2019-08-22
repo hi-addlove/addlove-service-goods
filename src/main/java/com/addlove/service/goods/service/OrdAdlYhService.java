@@ -20,6 +20,7 @@ import com.addlove.service.goods.constants.GoodsCommonConstants.ProcedureResult;
 import com.addlove.service.goods.dao.OrdAdlYhDao;
 import com.addlove.service.goods.dao.SkuPdCSDao;
 import com.addlove.service.goods.exception.ServiceException;
+import com.addlove.service.goods.model.EtpAddressModel;
 import com.addlove.service.goods.model.OrdAdlYhBodyModel;
 import com.addlove.service.goods.model.OrdAdlYhHeadModel;
 import com.addlove.service.goods.model.OrdAdlYhPageModel;
@@ -56,9 +57,6 @@ public class OrdAdlYhService {
     
     @Autowired
     private SkuPdCSDao skuPdCSDao;
-    
-    @Autowired
-    private GoodsCommonService commonService;
     
     /**
      * 要货列表
@@ -201,21 +199,23 @@ public class OrdAdlYhService {
         //获取商品可用库存数量
         List<Map<String, Object>> kcList = new ArrayList<>();
         int size = pluList.size();
-        if (DEFAULT_BATCH_QUERY_SIZE < size) {
-            int part = size / DEFAULT_BATCH_QUERY_SIZE; // 分批数
-            for (int i = 0; i < part; i++) {
-                List<Map<String, Object>> partPluList = new LinkedList<Map<String, Object>>();
-                partPluList.addAll(pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE));
-                List<Map<String,Object>> kcPartList = this.commonService.getKcSum(partPluList);
-                kcList.addAll(kcPartList);
-                pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE).clear();
+        if (size > 0) {
+            if (DEFAULT_BATCH_QUERY_SIZE < size) {
+                int part = size / DEFAULT_BATCH_QUERY_SIZE; // 分批数
+                for (int i = 0; i < part; i++) {
+                    List<Map<String, Object>> partPluList = new LinkedList<Map<String, Object>>();
+                    partPluList.addAll(pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE));
+                    List<Map<String,Object>> kcPartList = this.ordAdlYhDao.getYhKcSum(partPluList, orgCode);
+                    kcList.addAll(kcPartList);
+                    pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE).clear();
+                }
+                if (!pluList.isEmpty()) {
+                    List<Map<String,Object>> kcPartList = this.ordAdlYhDao.getYhKcSum(pluList, orgCode);
+                    kcList.addAll(kcPartList);
+                }
+            }else {
+                kcList = this.ordAdlYhDao.getYhKcSum(pluList, orgCode);
             }
-            if (!pluList.isEmpty()) {
-                List<Map<String,Object>> kcPartList = this.commonService.getKcSum(pluList);
-                kcList.addAll(kcPartList);
-            }
-        }else {
-            kcList = this.commonService.getKcSum(pluList);
         }
         Map<Long, Object> kcMap = new HashMap<Long, Object>();
         for (Map<String, Object> map : kcList) {
@@ -329,6 +329,15 @@ public class OrdAdlYhService {
         models.clear();
         models.addAll((List<OrdAdlYhPluCursorModel>) map.get("pc_Data"));
         return models;
+    }
+    
+    /**
+     * 获取组织地址
+     * @param etpCode
+     * @return EtpAddressModel
+     */
+    public EtpAddressModel getAddress(String etpCode) {
+        return this.ordAdlYhDao.getAddress(etpCode);
     }
     
     /**

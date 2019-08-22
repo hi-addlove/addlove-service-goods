@@ -34,10 +34,6 @@ public class OrdAdlYhHeadReq {
     /** 要货送达日期*/
     @NotBlank(message = "要货送达日期不能为空")
     private String sdDate;
-
-    /** 收货地址*/
-    @NotBlank(message = "收货地址不能为空")
-    private String shAddr;
     
     /** 要货数量*/
     @NotNull(message = "要货数量不能为空")
@@ -162,20 +158,6 @@ public class OrdAdlYhHeadReq {
      */
     public void setSdDate(String sdDate) {
         this.sdDate = sdDate;
-    }
-
-    /**
-     * @return the shAddr
-     */
-    public String getShAddr() {
-        return shAddr;
-    }
-
-    /**
-     * @param shAddr the shAddr to set
-     */
-    public void setShAddr(String shAddr) {
-        this.shAddr = shAddr;
     }
 
     /**

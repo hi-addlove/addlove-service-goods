@@ -140,6 +140,11 @@
       <result column="PACKQTY" jdbcType="NUMERIC" property="packQty" />
   </resultMap>
   
+  <resultMap id="AddressMap" type="com.addlove.service.goods.model.EtpAddressModel" >
+      <result column="EtpCode" jdbcType="VARCHAR" property="etpCode" />
+      <result column="Address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  
   <sql id="Base_Column_List_Head">
     BILLNO, LRDATE, USERID, USERCODE, USERNAME, JZDATE, JZRID, JZRCODE, JZRNAME, JZTYPE, 
     RPTDATE, PRNTIMES, PRNDATE, TIMEMARK, YWTYPE, YWIOTYPE, ORGCODE, ORGNAME, DEPID, 
@@ -400,6 +405,22 @@
   <!-- 获取包装数据 -->
   <select id="getPackets" resultMap="PacketMap">
     select t.pluid,t.packunit,t.packqty FROM tSkuPluPacket t 
+  </select>
+  
+  <!-- 获取组织地址 -->
+  <select id="getAddress" resultMap="AddressMap">
+    select t.EtpCode,t.Address FROM vEtpAddress t where t.etpCode = #{etpCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 获取要货商品的库存总数 -->
+  <select id="getYhKcSum" resultType="java.util.HashMap">
+   Select SUM(t.KYCOUNT) AS KCCOUNT,t.PLUID
+   From VSTKKYCOUNT t where t.OrgCode = #{orgCode,jdbcType=VARCHAR}
+   And t.PLUID IN 
+   <foreach collection="list" item="item" separator="," open="(" close=")">
+       #{item.pluId,jdbcType=NUMERIC}
+   </foreach>
+   GROUP BY t.PLUID
   </select>
   
   <!-- 调用存储过程进行单据记账 -->
