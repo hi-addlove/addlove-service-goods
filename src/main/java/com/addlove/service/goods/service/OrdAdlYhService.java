@@ -132,10 +132,15 @@ public class OrdAdlYhService {
         List<SkuPluModel> deptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
         //获取模板商品
         List<OrdYhTempletBodyModel> templetSkus = this.ordAdlYhDao.getTempletSkus(orgCode, modelCode);
+        //获取要货参数商品（包括：最小、最大要货量及倍数）
+        List<SkuYhPSBodyModel> pSSkus = this.ordAdlYhDao.getYhPSSkus(orgCode);
         if (null == deptSkus || deptSkus.isEmpty() ) {
             return backArray;
         }
         if (null == templetSkus || templetSkus.isEmpty() ) {
+            return backArray;
+        }
+        if (null == pSSkus || pSSkus.isEmpty() ) {
             return backArray;
         }
         //将模板商品合并到部门商品
@@ -175,7 +180,6 @@ public class OrdAdlYhService {
             }
         }
         //获取要货参数商品（包括：最小、最大要货量及倍数）
-        List<SkuYhPSBodyModel> pSSkus = this.ordAdlYhDao.getYhPSSkus(orgCode);
         Map<String, SkuYhPSBodyModel> psMap = new HashMap<String, SkuYhPSBodyModel>();
         if (null != pSSkus && !pSSkus.isEmpty()) {
             for (SkuYhPSBodyModel psModel : pSSkus) {
@@ -214,7 +218,11 @@ public class OrdAdlYhService {
             backJson.put("times", psModel.getTimes());
             backJson.put("kcCount", Double.valueOf(kcMap.get(pluModel.getPluId()).toString()));
             OrdAdlYhPluCursorModel cursorModel = mrMap.get(key);
-            backJson.put("mRJhCount", cursorModel.getmRJhCount());
+            if (null != cursorModel) {
+                backJson.put("mRJhCount", cursorModel.getmRJhCount());
+            }else {
+                backJson.put("mRJhCount", 0.0);
+            }
             backArray.add(backJson);
         }
         return backArray;
@@ -303,6 +311,10 @@ public class OrdAdlYhService {
     
     public void test(Map<String, Object> map) {
         this.ordAdlYhDao.execMrCountsProcedure(map);
+    }
+    
+    public void getPcDatas(Map<String, Object> map) {
+        this.ordAdlYhDao.getPcDatas(map);
     }
     
     /**

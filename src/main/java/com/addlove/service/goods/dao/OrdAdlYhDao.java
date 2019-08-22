@@ -101,6 +101,8 @@ public interface OrdAdlYhDao {
      */
     void execMrCountsProcedure(Map<String, Object> map);
     
+    void getPcDatas(Map<String, Object> map);
+    
     /**
      * 调用存储过程进行要货单据记账
      * @param map

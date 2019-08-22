@@ -120,18 +120,18 @@
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   
-  <resultMap id="CursorMap" type="com.addlove.service.goods.model.OrdAdlYhPluCursorModel" >
-      <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
-      <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
-      <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
-      <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
-     <result column="SPEC" jdbcType="VARCHAR" property="spec" />
-     <result column="UNIT" jdbcType="VARCHAR" property="unit" />
-     <result column="PRICE" jdbcType="NUMERIC" property="price" />
+  <resultMap id="cursorMap" type="com.addlove.service.goods.model.OrdAdlYhPluCursorModel" >
+      <result column="pluid" jdbcType="NUMERIC" property="pluId" />
+      <result column="Plucode" jdbcType="VARCHAR" property="pluCode" />
+      <result column="pluname" jdbcType="VARCHAR" property="pluName" />
+      <result column="BarCode" jdbcType="VARCHAR" property="barCode" />
+     <result column="Spec" jdbcType="VARCHAR" property="spec" />
+     <result column="Unit" jdbcType="VARCHAR" property="unit" />
+     <result column="Price" jdbcType="NUMERIC" property="price" />
      <result column="kccount" jdbcType="NUMERIC" property="kcCount" />
      <result column="mrjhcount" jdbcType="NUMERIC" property="mRJhCount" />
-     <result column="Packunit" jdbcType="NUMERIC" property="packUnit" />
-     <result column="Packqty" jdbcType="NUMERIC" property="packQty" />
+     <result column="packUnit" jdbcType="NUMERIC" property="packUnit" />
+     <result column="packqty" jdbcType="NUMERIC" property="packQty" />
   </resultMap>
   
   <sql id="Base_Column_List_Head">
@@ -388,14 +388,26 @@
   </select>
   
   <!-- 调用存储过程进行单据记账 -->
-  <select id="execMrCountsProcedure" statementType="CALLABLE" parameterType="map">
+  <select id="execMrCountsProcedure" statementType="CALLABLE" parameterType="java.util.Map" resultMap="cursorMap">
      {
        CALL sOrd_ModelYh_GetPlu
        (
          #{ps_OrgCode,mode=IN,jdbcType=VARCHAR}, #{ps_ModelCode,mode=IN,jdbcType=VARCHAR},
          #{ps_DepId,mode=IN,jdbcType=VARCHAR}, #{ps_Type,mode=IN,jdbcType=VARCHAR}, 
          #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR},
-         #{pc_Data,mode=OUT,jdbcType=CURSOR,javaType=java.sql.ResultSet,resultMap=CursorMap}
+         #{pc_Data,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=cursorMap}
+       )
+     }
+  </select>
+  
+  <select id="getPcDatas" statementType="CALLABLE" parameterType="java.util.Map" resultMap="cursorMap">
+    {
+       CALL sOrd_ModelYh_GetPlu
+       (
+         #{ps_OrgCode,mode=IN,jdbcType=VARCHAR}, #{ps_ModelCode,mode=IN,jdbcType=VARCHAR},
+         #{ps_DepId,mode=IN,jdbcType=VARCHAR}, #{ps_Type,mode=IN,jdbcType=VARCHAR}, 
+         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR},
+         #{result,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=cursorMap}
        )
      }
   </select>
