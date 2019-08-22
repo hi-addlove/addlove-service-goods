@@ -28,6 +28,7 @@ import com.addlove.service.goods.model.OrdYhCycleModel;
 import com.addlove.service.goods.model.OrdYhTempletBodyModel;
 import com.addlove.service.goods.model.OrdYhTempletHeadModel;
 import com.addlove.service.goods.model.SkuPluModel;
+import com.addlove.service.goods.model.SkuPluPacketModel;
 import com.addlove.service.goods.model.SkuYhPSBodyModel;
 import com.addlove.service.goods.util.DateUtil;
 import com.addlove.service.goods.util.LoggerEnhance;
@@ -179,6 +180,15 @@ public class OrdAdlYhService {
                 pluList.add(queryMap);
             }
         }
+        //获取包装数据
+        List<SkuPluPacketModel> packets = this.ordAdlYhDao.getPackets();
+        Map<Long, SkuPluPacketModel> packetMap = new HashMap<Long, SkuPluPacketModel>();
+        if (null != packets && !packets.isEmpty()) {
+            for (SkuPluPacketModel packetModel : packets) {
+                packetMap.put(packetModel.getPluId(), packetModel);
+            }
+        }
+        
         //获取要货参数商品（包括：最小、最大要货量及倍数）
         Map<String, SkuYhPSBodyModel> psMap = new HashMap<String, SkuYhPSBodyModel>();
         if (null != pSSkus && !pSSkus.isEmpty()) {
@@ -223,6 +233,9 @@ public class OrdAdlYhService {
             }else {
                 backJson.put("mRJhCount", 0.0);
             }
+            SkuPluPacketModel packetModel = packetMap.get(pluModel.getPluId());
+            backJson.put("packUnit", packetModel.getPackUnit());
+            backJson.put("packQty", packetModel.getPackQty());
             backArray.add(backJson);
         }
         return backArray;

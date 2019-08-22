@@ -29,6 +29,14 @@ public class OrdAdlYhBodyReq {
     /** 规格*/
     private String spec;
     
+    /** 包装单位*/
+    @NotBlank(message = "包装单位不能为空")
+    private String packUnit;
+
+    /** 包装细数*/
+    @NotNull(message = "包装细数不能为空")
+    private Double packQty;
+    
     /** 要货数量*/
     @NotNull(message = "要货数量不能为空")
     private Double yhCount;
@@ -136,6 +144,34 @@ public class OrdAdlYhBodyReq {
      */
     public void setSpec(String spec) {
         this.spec = spec;
+    }
+
+    /**
+     * @return the packUnit
+     */
+    public String getPackUnit() {
+        return packUnit;
+    }
+
+    /**
+     * @param packUnit the packUnit to set
+     */
+    public void setPackUnit(String packUnit) {
+        this.packUnit = packUnit;
+    }
+
+    /**
+     * @return the packQty
+     */
+    public Double getPackQty() {
+        return packQty;
+    }
+
+    /**
+     * @param packQty the packQty to set
+     */
+    public void setPackQty(Double packQty) {
+        this.packQty = packQty;
     }
 
     /**

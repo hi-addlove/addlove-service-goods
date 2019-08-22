@@ -12,6 +12,7 @@ import com.addlove.service.goods.model.OrdAdlYhPageModel;
 import com.addlove.service.goods.model.OrdYhCycleModel;
 import com.addlove.service.goods.model.OrdYhTempletBodyModel;
 import com.addlove.service.goods.model.OrdYhTempletHeadModel;
+import com.addlove.service.goods.model.SkuPluPacketModel;
 import com.addlove.service.goods.model.SkuYhPSBodyModel;
 
 /**
@@ -94,6 +95,12 @@ public interface OrdAdlYhDao {
      * @return List<SkuYhPSBodyModel>
      */
     List<SkuYhPSBodyModel> getYhPSSkus(String orgCode);
+    
+    /**
+     * 获取包装数据
+     * @return List<SkuPluPacketModel>
+     */
+    List<SkuPluPacketModel> getPackets();
     
     /**
      * 获取明日到货数量

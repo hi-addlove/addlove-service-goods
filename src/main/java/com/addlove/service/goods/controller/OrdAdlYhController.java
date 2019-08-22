@@ -299,6 +299,8 @@ public class OrdAdlYhController extends BaseController{
             bodyModel.setBarCode(bodyReq.getBarCode());
             bodyModel.setSpec(bodyReq.getSpec());
             bodyModel.setUnit(bodyReq.getUnit());
+            bodyModel.setPackUnit(bodyReq.getPackUnit());
+            bodyModel.setPackQty(bodyReq.getPackQty());
             bodyModel.setYhCount(bodyReq.getYhCount());
             bodyModel.setQrCount(bodyReq.getQrCount());
             bodyModel.setPrice(bodyReq.getPrice());
