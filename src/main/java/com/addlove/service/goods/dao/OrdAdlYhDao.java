@@ -81,7 +81,7 @@ public interface OrdAdlYhDao {
      * @param modelCode
      * @return List<OrdYhTempletBodyModel>
      */
-    List<OrdYhTempletBodyModel> getTempletSkus(@Param("orgCode") String orgCode, @Param("modelCode") String modelCode);
+    List<OrdYhTempletBodyModel> getTempletSkus(@Param("orgCode") String orgCode, @Param("depId") Long depId, @Param("modelCode") String modelCode);
     
     /**
      * 获取要货周期的商品
@@ -101,7 +101,7 @@ public interface OrdAdlYhDao {
      * 获取包装数据
      * @return List<SkuPluPacketModel>
      */
-    List<SkuPluPacketModel> getPackets();
+    List<SkuPluPacketModel> getPackets(@Param("orgCode") String orgCode, @Param("depId") Long depId);
     
     /**
      * 获取组织地址
@@ -123,8 +123,6 @@ public interface OrdAdlYhDao {
      * @param map
      */
     void execMrCountsProcedure(Map<String, Object> map);
-    
-    void getPcDatas(Map<String, Object> map);
     
     /**
      * 调用存储过程进行要货单据记账

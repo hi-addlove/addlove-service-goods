@@ -4,24 +4,19 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.addlove.service.goods.constants.GoodsAdlYhConstants.yhType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.SaveType;
 import com.addlove.service.goods.controller.GoodsCommonController;
 import com.addlove.service.goods.controller.StkDbController;
-import com.addlove.service.goods.model.OrdAdlYhPluCursorModel;
 import com.addlove.service.goods.model.valid.CommonOrgAndDeptReq;
 import com.addlove.service.goods.model.valid.CommonOrgAndSupAndCntReq;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.StkDbBodyReq;
 import com.addlove.service.goods.model.valid.StkDbHeadReq;
-import com.addlove.service.goods.service.OrdAdlYhService;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 
@@ -30,8 +25,6 @@ public class StkDbTest extends AddloveServiceGoodsApplicationTests{
     private StkDbController stkDbController;
     @Autowired
     private GoodsCommonController commonController;
-    @Autowired
-    private OrdAdlYhService ordAdlYhService;
     
     @Test
     public void testQueryDbDetail() {
@@ -64,37 +57,6 @@ public class StkDbTest extends AddloveServiceGoodsApplicationTests{
         req.setCntId(10000000421L);
         req.setCkCode("01");
         this.commonController.getPurchaseReturnSkus(req);
-    }
-    
-    @SuppressWarnings("unchecked")
-    @Test
-    public void testExecMrCountsProcedure() {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("ps_OrgCode", "999999");
-        map.put("ps_ModelCode", "001");
-        map.put("ps_DepId", "10000000021");
-        map.put("ps_Type", yhType.ORDINARY_YH.getValue());
-        map.put("pc_Data", new ArrayList<OrdAdlYhPluCursorModel>());
-        this.ordAdlYhService.test(map);
-        List<OrdAdlYhPluCursorModel> models = (List<OrdAdlYhPluCursorModel>) map.get("pc_Data");
-        if (!models.isEmpty()) {
-            System.out.println("---------------有数据--------------------");
-        }
-        System.out.println(map);
-        
-        Map<String, Object> map2 = new HashMap<String, Object>();
-        map2.put("ps_OrgCode", "999999");
-        map2.put("ps_ModelCode", "001");
-        map2.put("ps_DepId", "10000000021");
-        map2.put("ps_Type", yhType.ORDINARY_YH.getValue());
-        List<?> result = new ArrayList<Map<String, Object>>();
-//        map2.put("pc_Data", result);
-        this.ordAdlYhService.getPcDatas(map2);
-        result = (List<?>) map2.get("result");
-        if (!result.isEmpty()) {
-            System.out.println("---------------来一波大数据--------------------");
-        }
-        System.out.println(result);
     }
     
     @Test

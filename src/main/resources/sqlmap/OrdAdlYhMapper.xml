@@ -385,8 +385,11 @@
   <!-- 获取模板商品 -->
   <select id="getTempletSkus" resultMap="BaseResultMapTemBody">
     select t2.pluid,t2.plucode,t2.pluname,t2.barcode,t2.unit,t2.spec,t3.price
-    from tOrdYhModelOrg t,tOrdYhModelHead t1,tOrdYhModelBody t2,TSKUPLU t3
+    from tOrdYhModelOrg t,tOrdYhModelHead t1,tOrdYhModelBody t2,TSKUPLU t3,TSKUPLUEX t4
     where t.modelcode = t1.modelcode and t1.modelcode = t2.modelcode
+    and t2.pluid = t3.pluid and t3.PLUID = t4.PLUID
+    and t.ORGCODE = t3.ORGCODE and t3.ORGCODE = t4.ORGCODE 
+    and t4.IsSale = '1' and t4.depid = #{depId,jdbcType=NUMERIC}
     and t2.pluid = t3.pluid and t.orgcode = #{orgCode,jdbcType=VARCHAR} and t1.modelcode = #{modelCode,jdbcType=VARCHAR}
   </select>
   
@@ -404,7 +407,12 @@
   
   <!-- 获取包装数据 -->
   <select id="getPackets" resultMap="PacketMap">
-    select t.pluid,t.packunit,t.packqty FROM tSkuPluPacket t 
+    Select Distinct t.pluid,t.packunit,t.packqty
+    From tSkuPluPacket t,TSKUPLU t1,TSKUPLUEX t2
+    Where t1.ISACTIVE = '1' 
+    And t.PLUID = t1.PLUID And t1.PLUID = t2.PLUID
+    And t1.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
+    And t1.ORGCODE = #{orgCode,jdbcType=VARCHAR} and t2.depid = #{depId,jdbcType=NUMERIC}
   </select>
   
   <!-- 获取组织地址 -->
@@ -432,18 +440,6 @@
          #{ps_DepId,mode=IN,jdbcType=VARCHAR}, #{ps_Type,mode=IN,jdbcType=VARCHAR}, 
          #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR},
          #{pc_Data,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=cursorMap}
-       )
-     }
-  </select>
-  
-  <select id="getPcDatas" statementType="CALLABLE" parameterType="java.util.Map" resultMap="cursorMap">
-    {
-       CALL sOrd_ModelYh_GetPlu
-       (
-         #{ps_OrgCode,mode=IN,jdbcType=VARCHAR}, #{ps_ModelCode,mode=IN,jdbcType=VARCHAR},
-         #{ps_DepId,mode=IN,jdbcType=VARCHAR}, #{ps_Type,mode=IN,jdbcType=VARCHAR}, 
-         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR},
-         #{result,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=cursorMap}
        )
      }
   </select>

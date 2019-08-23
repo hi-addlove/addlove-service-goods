@@ -131,11 +131,12 @@ public class OrdAdlYhService {
      * @return List<SkuPluExtendModel>
      */
     public JSONArray getYhSkuList(String orgCode, Long depId, String modelCode) {
+        long startTime = System.currentTimeMillis();
         JSONArray backArray = new JSONArray();
         //获取部门商品
         List<SkuPluModel> deptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
         //获取模板商品
-        List<OrdYhTempletBodyModel> templetSkus = this.ordAdlYhDao.getTempletSkus(orgCode, modelCode);
+        List<OrdYhTempletBodyModel> templetSkus = this.ordAdlYhDao.getTempletSkus(orgCode, depId, modelCode);
         if (null == templetSkus || templetSkus.isEmpty() ) {
             return backArray;
         }
@@ -181,14 +182,13 @@ public class OrdAdlYhService {
             }
         }
         //获取包装数据
-        List<SkuPluPacketModel> packets = this.ordAdlYhDao.getPackets();
+        List<SkuPluPacketModel> packets = this.ordAdlYhDao.getPackets(orgCode, depId);
         Map<Long, SkuPluPacketModel> packetMap = new HashMap<Long, SkuPluPacketModel>();
         if (null != packets && !packets.isEmpty()) {
             for (SkuPluPacketModel packetModel : packets) {
                 packetMap.put(packetModel.getPluId(), packetModel);
             }
         }
-        
         //获取要货参数商品（包括：最小、最大要货量及倍数）
         Map<String, SkuYhPSBodyModel> psMap = new HashMap<String, SkuYhPSBodyModel>();
         if (null != pSSkus && !pSSkus.isEmpty()) {
@@ -272,6 +272,8 @@ public class OrdAdlYhService {
             }
             backArray.add(backJson);
         }
+        long endTime = System.currentTimeMillis();
+        LoggerEnhance.info(LOGGER, "查询要货商品消耗时间:{}", (endTime - startTime));
         return backArray;
     }
     
@@ -282,16 +284,6 @@ public class OrdAdlYhService {
      */
     public List<OrdYhTempletHeadModel> getTempletsByOrgCode(String orgCode) {
         return this.ordAdlYhDao.getTempletsByOrgCode(orgCode);
-    }
-    
-    /**
-     * 获取模板商品
-     * @param orgCode
-     * @param modelCode
-     * @return List<OrdYhTempletBodyModel>
-     */
-    List<OrdYhTempletBodyModel> getTempletSkus(String orgCode, String modelCode) {
-        return this.ordAdlYhDao.getTempletSkus(orgCode, modelCode);
     }
     
     /**
@@ -367,10 +359,6 @@ public class OrdAdlYhService {
     
     public void test(Map<String, Object> map) {
         this.ordAdlYhDao.execMrCountsProcedure(map);
-    }
-    
-    public void getPcDatas(Map<String, Object> map) {
-        this.ordAdlYhDao.getPcDatas(map);
     }
     
     /**
