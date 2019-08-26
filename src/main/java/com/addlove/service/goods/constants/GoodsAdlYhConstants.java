@@ -1,7 +1,7 @@
 package com.addlove.service.goods.constants;
 
 /**
- * 门店盘点枚举类
+ * 门店要货枚举类
  * @author lw
  *
  */

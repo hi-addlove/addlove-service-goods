@@ -1,5 +1,7 @@
 package com.addlove.service.goods.model;
 
+import java.util.List;
+
 /**
  * 加工单主表
  * @author lw
@@ -333,6 +335,16 @@ public class FrsJgHeadModel {
      * @mbggenerated Tue Jun 04 15:32:25 CST 2019
      */
     private String ckName;
+    
+    /**
+     * 预料集合
+     */
+    private List<FrsJgYlModel> ylList;
+    
+    /**
+     * 成品集合
+     */
+    private List<FrsJgCpModel> cpList;
 
     /**
      * @return the billNo
@@ -906,5 +918,33 @@ public class FrsJgHeadModel {
      */
     public void setCkName(String ckName) {
         this.ckName = ckName;
+    }
+
+    /**
+     * @return the ylList
+     */
+    public List<FrsJgYlModel> getYlList() {
+        return ylList;
+    }
+
+    /**
+     * @param ylList the ylList to set
+     */
+    public void setYlList(List<FrsJgYlModel> ylList) {
+        this.ylList = ylList;
+    }
+
+    /**
+     * @return the cpList
+     */
+    public List<FrsJgCpModel> getCpList() {
+        return cpList;
+    }
+
+    /**
+     * @param cpList the cpList to set
+     */
+    public void setCpList(List<FrsJgCpModel> cpList) {
+        this.cpList = cpList;
     }
 }

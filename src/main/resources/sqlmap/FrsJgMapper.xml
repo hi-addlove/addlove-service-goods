@@ -94,6 +94,19 @@
     <result column="FPPERCENT" jdbcType="NUMERIC" property="fpPercent" />
   </resultMap>
   
+   <resultMap id="BaseResultMapGy" type="com.addlove.service.goods.model.FrsGyModel">
+    <id column="GYCODE" jdbcType="VARCHAR" property="gyCode" />
+    <result column="GYNAME" jdbcType="VARCHAR" property="gyName" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORGCNAME" jdbcType="VARCHAR" property="orgcName" />
+    <result column="DEPTID" jdbcType="VARCHAR" property="deptId" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depCode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depName" />
+    <result column="FLCOST" jdbcType="NUMERIC" property="flCost" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="USESTATUS" jdbcType="VARCHAR" property="useStatus" />
+  </resultMap>
+  
   <resultMap id="BaseResultMapSkuO" type="com.addlove.service.goods.model.SkuLyBsSetOrgModel" >
     <result column="PROCODE" property="proCode" jdbcType="VARCHAR" />
     <result column="SERIALNO" property="serialNo" jdbcType="NUMERIC" />
@@ -125,6 +138,100 @@
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   
+  <resultMap id="BaseResultMapSkuEx" type="com.addlove.service.goods.model.SkuPluExtendModel">
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="PLUENAME" jdbcType="VARCHAR" property="pluEName" />
+    <result column="PLUABBRNAME" jdbcType="VARCHAR" property="pluAbbrName" />
+    <result column="PLUMN" jdbcType="VARCHAR" property="plumn" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="PLUWEIGHT" jdbcType="NUMERIC" property="pluWeight" />
+    <result column="PLUHEIGHT" jdbcType="NUMERIC" property="pluHeight" />
+    <result column="PLULONG" jdbcType="NUMERIC" property="pluLong" />
+    <result column="PLUWIDTH" jdbcType="NUMERIC" property="pluWidth" />
+    <result column="ISMULPACKET" jdbcType="VARCHAR" property="isMulPacket" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="CGYID" jdbcType="NUMERIC" property="cgyId" />
+    <result column="CGYCODE" jdbcType="VARCHAR" property="cgyCode" />
+    <result column="CGYNAME" jdbcType="VARCHAR" property="cgyName" />
+    <result column="CARGONO" jdbcType="VARCHAR" property="carGoNo" />
+    <result column="PRODUCE" jdbcType="VARCHAR" property="produce" />
+    <result column="GRADE" jdbcType="VARCHAR" property="grade" />
+    <result column="QUALITY" jdbcType="VARCHAR" property="quality" />
+    <result column="ISSEASON" jdbcType="VARCHAR" property="isSeason" />
+    <result column="SALESEASON" jdbcType="VARCHAR" property="saleSeason" />
+    <result column="BZDAYS" jdbcType="NUMERIC" property="bzDays" />
+    <result column="CLSID" jdbcType="NUMERIC" property="clsId" />
+    <result column="BRANDCODE" jdbcType="VARCHAR" property="brandCode" />
+    <result column="JTAXCALTYPE" jdbcType="VARCHAR" property="jTaxCalType" />
+    <result column="WJPRICE" jdbcType="NUMERIC" property="wjPrice" />
+    <result column="HJPRICE" jdbcType="NUMERIC" property="hjPrice" />
+    <result column="JTAXRATE" jdbcType="NUMERIC" property="jTaxRate" />
+    <result column="PRICE" jdbcType="NUMERIC" property="price" />
+    <result column="XTAXRATE" jdbcType="NUMERIC" property="xTaxRate" />
+    <result column="PROMDECIMAL" jdbcType="NUMERIC" property="promDecimal" />
+    <result column="PROMFORMULA" jdbcType="VARCHAR" property="promFormula" />
+    <result column="DOTDECIMAL" jdbcType="NUMERIC" property="dotDecimal" />
+    <result column="ISWEIGHT" jdbcType="VARCHAR" property="isWeight" />
+    <result column="ISCOUTQTY" jdbcType="VARCHAR" property="isCoutQty" />
+    <result column="ISSELFBRAND" jdbcType="VARCHAR" property="isSelfBrand" />
+    <result column="ISKC" jdbcType="VARCHAR" property="isKc" />
+    <result column="ISFRESH" jdbcType="VARCHAR" property="isFresh" />
+    <result column="ISEXPLUCODE" jdbcType="VARCHAR" property="isExPluCode" />
+    <result column="ISCURRDAY" jdbcType="VARCHAR" property="isCurrDay" />
+    <result column="JHBFBZDAYS" jdbcType="NUMERIC" property="jhBfBzDays" />
+    <result column="PSBFBZDAYS" jdbcType="NUMERIC" property="psBfBzDays" />
+    <result column="ISNEWPLU" jdbcType="VARCHAR" property="isNewPlu" />
+    <result column="ISACTIVE" jdbcType="VARCHAR" property="isActive" />
+    <result column="CXINFO" jdbcType="VARCHAR" property="cxInfo" />
+    <result column="YWSTATUS" jdbcType="VARCHAR" property="ywStatus" />
+    <result column="LRDATE" jdbcType="VARCHAR" property="lrDate" />
+    <result column="LRUSERID" jdbcType="NUMERIC" property="lrUserId" />
+    <result column="LRUSERCODE" jdbcType="VARCHAR" property="lrUserCode" />
+    <result column="LRUSERNAME" jdbcType="VARCHAR" property="lrUserName" />
+    <result column="ZXDATE" jdbcType="VARCHAR" property="zxDate" />
+    <result column="ZXUSERID" jdbcType="NUMERIC" property="zxUserId" />
+    <result column="ZXUSERCODE" jdbcType="VARCHAR" property="zxUserCode" />
+    <result column="ZXUSERNAME" jdbcType="VARCHAR" property="zxUserName" />
+    <result column="UDP1" jdbcType="VARCHAR" property="udp1" />
+    <result column="UDP2" jdbcType="VARCHAR" property="udp2" />
+    <result column="UDP3" jdbcType="VARCHAR" property="udp3" />
+    <result column="UDP4" jdbcType="VARCHAR" property="udp4" />
+    <result column="UDP5" jdbcType="VARCHAR" property="udp5" />
+    <result column="UDP6" jdbcType="VARCHAR" property="udp6" />
+    <result column="UDP7" jdbcType="VARCHAR" property="udp7" />
+    <result column="UDP8" jdbcType="VARCHAR" property="udp8" />
+    <result column="UDP9" jdbcType="VARCHAR" property="udp9" />
+    <result column="DATASTATUS" jdbcType="VARCHAR" property="dataStatus" />
+    <result column="HYPRICE" jdbcType="NUMERIC" property="hyPrice" />
+    <result column="PLUCLS" jdbcType="VARCHAR" property="pluCls" />
+    <result column="PLUMODEL" jdbcType="VARCHAR" property="pluModel" />
+    <result column="UDP10" jdbcType="VARCHAR" property="udp10" />
+    <result column="UDP11" jdbcType="VARCHAR" property="udp11" />
+    <result column="UDP12" jdbcType="VARCHAR" property="udp12" />
+    <result column="UDP13" jdbcType="VARCHAR" property="udp13" />
+    <result column="UDP14" jdbcType="VARCHAR" property="udp14" />
+    <result column="MATERIALCODE" jdbcType="VARCHAR" property="materialCode" />
+    <result column="LRORGCODE" jdbcType="VARCHAR" property="lrOrgCode" />
+    <result column="LRORGNAME" jdbcType="VARCHAR" property="lrOrgName" />
+    <result column="DATASRC" jdbcType="VARCHAR" property="dataSrc" />
+    <result column="MINTHDAYS" jdbcType="NUMERIC" property="minThDays" />
+    <result column="MAXTHDAYS" jdbcType="NUMERIC" property="maxThDays" />
+    <result column="ISONLINE" jdbcType="VARCHAR" property="isOnline" />
+    <result column="LINEDATE" jdbcType="VARCHAR" property="lineDate" />
+    <result column="PLUDESC" jdbcType="VARCHAR" property="pluDesc" />
+    <result column="EXPLUCODE" jdbcType="VARCHAR" property="exPluCode" />
+    <result column="KCCOUNT" jdbcType="VARCHAR" property="kcCount" />
+    <result column="HCOST" jdbcType="VARCHAR" property="hCost" />
+    <result column="WCOST" jdbcType="VARCHAR" property="wCost" />
+    <result column="PLUTYPE" jdbcType="VARCHAR" property="pluType" />
+    <result column="PACKQTY" jdbcType="VARCHAR" property="packQty" />
+  </resultMap>
+  
   <sql id="Base_Column_List">
     BILLNO, LRDATE, USERID, USERCODE, USERNAME, JZDATE, JZRID, JZRCODE, JZRNAME, JZTYPE, 
     RPTDATE, PRNTIMES, PRNDATE, TIMEMARK, YWTYPE, YWIOTYPE, ZDRID, ZDRCODE, ZDRNAME, 
@@ -144,4 +251,216 @@
     HJPRICE, WJPRICE, PRICE, JTAXRATE, CPPERCENT, CPCOUNT, CPHCOST, CPWCOST, CPTOTAL, 
     REMARK, JTAXCALTYPE, FPPERCENT
   </sql>
+  
+  <!-- 查询加工单列表 -->
+  <select id="queryJgPage" resultMap="BaseResultMap">
+    Select Distinct t.BILLNO,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.YWTYPE,
+                t.YWIOTYPE,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.GYCODE, 
+                t.GYNAME, 
+                t.YLCOUNT, 
+                t.YLHCOST, 
+                t.YLWCOST, 
+                t.YLTOTAL, 
+                t.CPCOUNT, 
+                t.CPHCOST, 
+                t.CPWCOST, 
+                t.CPTOTAL, 
+                t.FLCOST, 
+                t.REMARK, 
+                t.DATASTATUS,
+                t.CKCODE, 
+                t.CKNAME
+    From TFRSJGHEAD t Where t.YWTYPE = '1401'
+    <if test="queryModel.billNo != '' and queryModel.billNo != null">
+        and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="queryModel.startDate != '' and queryModel.startDate != null">
+        and t.LRDATE &gt;= to_date(#{queryModel.startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.endDate != '' and queryModel.endDate != null">
+        and t.LRDATE &lt;= to_date(#{queryModel.endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    </if>
+    <if test="queryModel.depId != null ">
+        and t.DEPID = #{queryModel.depId,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.dataStatus != null and queryModel.dataStatus != '' ">
+        and t.YWSTATUS = #{queryModel.dataStatus,jdbcType=VARCHAR}
+    </if>
+    and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 通过单号获取加工单主表 -->
+  <select id="getJgHead" resultMap="BaseResultMap">
+     Select Distinct t.BILLNO,
+                t.USERID,
+                t.USERCODE,
+                t.USERNAME,
+                t.JZDATE,
+                t.JZRID,
+                t.JZRCODE,
+                t.JZRNAME,
+                t.YWTYPE,
+                t.YWIOTYPE,
+                t.ORGCODE,
+                t.ORGNAME,
+                t.DEPID,
+                t.DEPCODE,
+                t.DEPNAME,
+                t.GYCODE, 
+                t.GYNAME, 
+                t.YLCOUNT, 
+                t.YLHCOST, 
+                t.YLWCOST, 
+                t.YLTOTAL, 
+                t.CPCOUNT, 
+                t.CPHCOST, 
+                t.CPWCOST, 
+                t.CPTOTAL, 
+                t.FLCOST, 
+                t.REMARK, 
+                t.DATASTATUS,
+                t.CKCODE, 
+                t.CKNAME
+    From TFRSJGHEAD t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 通过单号获取加工单原料数据 -->
+  <select id="getJgYls" resultMap="BaseResultMapYl">
+    Select Distinct t.BILLNO,
+        t.SERIALNO, 
+        t.PLUID, 
+        t.PLUCODE, 
+        t.PLUNAME, 
+        t.BARCODE, 
+        t.SPEC, 
+        t.UNIT, 
+        t.EXPLUCODE, 
+        t.EXPLUNAME, 
+        t.HJPRICE, 
+        t.WJPRICE, 
+        t.PRICE, 
+        t.JTAXRATE, 
+        t.YLPERCENT, 
+        t.YLCOUNT, 
+        t.YLHCOST, 
+        t.YLWCOST, 
+        t.YLTOTAL, 
+        t.REMARK, 
+        t.JTAXCALTYPE
+    From TFRSJGYL t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 通过单号获取加工单成品数据 -->
+  <select id="getJgCps" resultMap="BaseResultMapCp">
+    Select Distinct t.BILLNO,
+        t.SERIALNO, 
+        t.PLUID, 
+        t.PLUCODE, 
+        t.PLUNAME, 
+        t.BARCODE, 
+        t.SPEC, 
+        t.UNIT, 
+        t.EXPLUCODE, 
+        t.EXPLUNAME, 
+        t.HJPRICE, 
+        t.WJPRICE, 
+        t.PRICE, 
+        t.JTAXRATE, 
+        t.CPPERCENT, 
+        t.CPCOUNT, 
+        t.CPHCOST, 
+        t.CPWCOST, 
+        t.CPTOTAL, 
+        t.REMARK, 
+        t.JTAXCALTYPE, 
+        t.FPPERCENT
+    From TFRSJGCP t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 删除加工主表 -->
+  <delete id="delJgHead" parameterType="java.lang.String">
+    DELETE FROM TFRSJGHEAD WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 删除加工原料 -->
+  <delete id="delJgYls" parameterType="java.lang.String">
+    DELETE FROM TFRSJGYL WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 删除加工成品 -->
+  <delete id="delJgCps" parameterType="java.lang.String">
+    DELETE FROM TFRSJGCP WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 获取多经营部门商品数据 -->
+  <select id="getMultiSkus" resultMap="BaseResultMapSkuEx">
+    Select Distinct t.PLUID,t.PLUCODE,t.PLUNAME,t.PLUENAME,t.PLUABBRNAME,t.PLUMN,t.BARCODE,t.UNIT,t.SPEC,t.PLUWEIGHT,
+    t.PLUHEIGHT,t.PLULONG,t.PLUWIDTH,t.ISMULPACKET,t.ORGCODE,t.ORGNAME,t.CGYID,t.CGYCODE,t.CGYNAME,t.CARGONO,
+    t.PRODUCE,t.GRADE,t.QUALITY,t.BZDAYS,t.CLSID,t.BRANDCODE,t.JTAXCALTYPE,t.WJPRICE,t.HJPRICE,t.JTAXRATE,
+    t.PRICE,t.XTAXRATE,t.ISWEIGHT,t.ISCOUTQTY,t.ISKC,t.ISCURRDAY,t.JHBFBZDAYS,t.PSBFBZDAYS,t.CXINFO,t.YWSTATUS,t.LRDATE,
+    t.LRUSERCODE,t.LRUSERNAME,t.ZXDATE,t.ZXUSERCODE,t.ZXUSERNAME,t.UDP1,t.UDP2,t.UDP3,t.UDP4,t.PLUCLS,
+    t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,t.MINTHDAYS,t.MAXTHDAYS,t.ISONLINE,t.LINEDATE,t.PLUDESC,
+    t4.EXPLUCODE,t4.HCOST,t4.WCOST,t4.PLUTYPE,t4.PACKQTY
+    From TSKUPLU t,TSKUPLUEX t2,TSKUPLUOTHERDEPT t3,TSTKLSKC t4
+    Where t.ISACTIVE = '1' And t.ISKC='1' 
+    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
+    And t.PLUID = t3.PLUID And t3.IsSale = '1'
+    And t.PLUID = t4.PLUID And t.ORGCODE = t4.ORGCODE
+    And t3.DEPId = t4.DEPId
+    And t3.ORGCODE = #{orgCode,jdbcType=VARCHAR} 
+    And t3.DEPId = #{depId,jdbcType=NUMERIC} 
+    And t4.CKCODE = #{ckCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 获取商品领用及报损商品 -->
+  <select id="getLyAndBsSkus" resultMap="BaseResultMapSkuEx">
+    Select Distinct t.PLUID,t.PLUCODE,t.PLUNAME,t.PLUENAME,t.PLUABBRNAME,t.PLUMN,t.BARCODE,t.UNIT,t.SPEC,t.PLUWEIGHT,
+    t.PLUHEIGHT,t.PLULONG,t.PLUWIDTH,t.ISMULPACKET,t.ORGCODE,t.ORGNAME,t.CGYID,t.CGYCODE,t.CGYNAME,t.CARGONO,
+    t.PRODUCE,t.GRADE,t.QUALITY,t.BZDAYS,t.CLSID,t.BRANDCODE,t.JTAXCALTYPE,t.WJPRICE,t.HJPRICE,t.JTAXRATE,
+    t.PRICE,t.XTAXRATE,t.ISWEIGHT,t.ISCOUTQTY,t.ISKC,t.ISCURRDAY,t.JHBFBZDAYS,t.PSBFBZDAYS,t.CXINFO,t.YWSTATUS,t.LRDATE,
+    t.LRUSERCODE,t.LRUSERNAME,t.ZXDATE,t.ZXUSERCODE,t.ZXUSERNAME,t.UDP1,t.UDP2,t.UDP3,t.UDP4,t.PLUCLS,
+    t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,t.MINTHDAYS,t.MAXTHDAYS,t.ISONLINE,t.LINEDATE,t.PLUDESC,
+    t3.EXPLUCODE,t3.HCOST,t3.WCOST,t3.PLUTYPE,t3.PACKQTY
+    From TSKUPLU t,TSKUPLUEX t2,TSTKLSKC t3,tSkuLyBsSetOrg t4,tSkuLyBsSetHead t5,tSkuLyBsSetBody t6
+    Where t.ISACTIVE = '1' And t.ISKC='1' 
+    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
+    And t.PLUID = t3.PLUID And t.ORGCODE = t3.ORGCODE
+    And t.PLUID = t6.PLUID And t.ORGCODE = t4.usorgcode
+    And t5.ctrltype = '2'
+    And t4.procode = t5.procode And t5.procode = t6.procode
+    And t4.usorgcode = #{orgCode,jdbcType=VARCHAR} 
+    And t2.depid = #{depId,jdbcType=NUMERIC} 
+    And t3.CKCODE = #{ckCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 获取加工工艺数据 -->
+  <select id="getJgGys" resultMap="BaseResultMapGy">
+    Select Distinct t.BILLNO,
+        t.GYCODE, 
+        t.GYNAME, 
+        t.ORGCODE, 
+        t.ORGCNAME, 
+        t.DEPTID, 
+        t.DEPCODE, 
+        t.DEPNAME, 
+        t.FLCOST, 
+        t.REMARK, 
+        t.USESTATUS
+     From TFRSGY t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t.DEPCODE = #{depCode,jdbcType=VARCHAR}
+     And t.USESTATUS = '2'
+  </select>
 </mapper>
