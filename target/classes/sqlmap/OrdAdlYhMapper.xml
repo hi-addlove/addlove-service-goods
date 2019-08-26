@@ -102,7 +102,7 @@
   
    <resultMap id="BaseResultMapPsOrg" type="com.addlove.service.goods.model.SkuYhPSOrgModel" >
     <result column="PROCODE" property="proCode" jdbcType="VARCHAR" />
-    <result column="SERIALNO" property="serialno" jdbcType="NUMERIC" />
+    <result column="SERIALNO" property="serialNo" jdbcType="NUMERIC" />
     <result column="USORGCODE" property="usOrgCode" jdbcType="VARCHAR" />
     <result column="USORGNAME" property="usOrgName" jdbcType="VARCHAR" />
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />

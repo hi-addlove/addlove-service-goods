@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.addlove.service.goods.dao.FrsJgDao">
+  <resultMap id="BaseResultMap" type="com.addlove.service.goods.model.FrsJgHeadModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="LRDATE" jdbcType="TIMESTAMP" property="lrDate" />
+    <result column="USERID" jdbcType="NUMERIC" property="userId" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="userName" />
+    <result column="JZDATE" jdbcType="DATE" property="jzDate" />
+    <result column="JZRID" jdbcType="NUMERIC" property="jzrId" />
+    <result column="JZRCODE" jdbcType="VARCHAR" property="jzrCode" />
+    <result column="JZRNAME" jdbcType="VARCHAR" property="jzrName" />
+    <result column="JZTYPE" jdbcType="VARCHAR" property="jzType" />
+    <result column="RPTDATE" jdbcType="VARCHAR" property="rptDate" />
+    <result column="PRNTIMES" jdbcType="NUMERIC" property="prnTimes" />
+    <result column="PRNDATE" jdbcType="DATE" property="prnDate" />
+    <result column="TIMEMARK" jdbcType="NUMERIC" property="timeMark" />
+    <result column="YWTYPE" jdbcType="VARCHAR" property="ywType" />
+    <result column="YWIOTYPE" jdbcType="VARCHAR" property="ywIoType" />
+    <result column="ZDRID" jdbcType="NUMERIC" property="zdrId" />
+    <result column="ZDRCODE" jdbcType="VARCHAR" property="zdrCode" />
+    <result column="ZDRNAME" jdbcType="VARCHAR" property="zdrName" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgName" />
+   <result column="DEPID" jdbcType="NUMERIC" property="depId" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depCode" />
+    <result column="DEPNAME" jdbcType="VARCHAR" property="depName" />
+    <result column="GYCODE" jdbcType="VARCHAR" property="gyCode" />
+    <result column="GYNAME" jdbcType="VARCHAR" property="gyName" />
+    <result column="YLCOUNT" jdbcType="NUMERIC" property="ylCount" />
+    <result column="YLHCOST" jdbcType="NUMERIC" property="ylhCost" />
+    <result column="YLWCOST" jdbcType="NUMERIC" property="ylwCost" />
+    <result column="YLTOTAL" jdbcType="NUMERIC" property="ylTotal" />
+    <result column="CPCOUNT" jdbcType="NUMERIC" property="cpCount" />
+    <result column="CPHCOST" jdbcType="NUMERIC" property="cphCost" />
+    <result column="CPWCOST" jdbcType="NUMERIC" property="cpwCost" />
+    <result column="CPTOTAL" jdbcType="NUMERIC" property="cpTotal" />
+    <result column="FLCOST" jdbcType="NUMERIC" property="flCost" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="DATASTATUS" jdbcType="VARCHAR" property="dataStatus" />
+    <result column="REFBILLTYPE" jdbcType="VARCHAR" property="refBillType" />
+    <result column="REFBILLNO" jdbcType="VARCHAR" property="refBillNo" />
+    <result column="CKCODE" jdbcType="VARCHAR" property="ckCode" />
+    <result column="CKNAME" jdbcType="VARCHAR" property="ckName" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapYl" type="com.addlove.service.goods.model.FrsJgYlModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="EXPLUCODE" jdbcType="VARCHAR" property="exPluCode" />
+    <result column="EXPLUNAME" jdbcType="VARCHAR" property="exPluName" />
+    <result column="HJPRICE" jdbcType="NUMERIC" property="hjPrice" />
+    <result column="WJPRICE" jdbcType="NUMERIC" property="wjPrice" />
+    <result column="PRICE" jdbcType="NUMERIC" property="price" />
+    <result column="JTAXRATE" jdbcType="NUMERIC" property="jTaxRate" />
+    <result column="YLPERCENT" jdbcType="NUMERIC" property="ylPercent" />
+    <result column="YLCOUNT" jdbcType="NUMERIC" property="ylCount" />
+    <result column="YLHCOST" jdbcType="NUMERIC" property="ylhCost" />
+    <result column="YLWCOST" jdbcType="NUMERIC" property="ylwCost" />
+    <result column="YLTOTAL" jdbcType="NUMERIC" property="ylTotal" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="JTAXCALTYPE" jdbcType="VARCHAR" property="jTaxcalType" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapCp" type="com.addlove.service.goods.model.FrsJgCpModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="EXPLUCODE" jdbcType="VARCHAR" property="exPluCode" />
+    <result column="EXPLUNAME" jdbcType="VARCHAR" property="exPluName" />
+    <result column="HJPRICE" jdbcType="NUMERIC" property="hjPrice" />
+    <result column="WJPRICE" jdbcType="NUMERIC" property="wjPrice" />
+    <result column="PRICE" jdbcType="NUMERIC" property="price" />
+    <result column="JTAXRATE" jdbcType="NUMERIC" property="jTaxRate" />
+    <result column="CPPERCENT" jdbcType="NUMERIC" property="cpPercent" />
+    <result column="CPCOUNT" jdbcType="NUMERIC" property="cpCount" />
+    <result column="CPHCOST" jdbcType="NUMERIC" property="cphCost" />
+    <result column="CPWCOST" jdbcType="NUMERIC" property="cpwCost" />
+    <result column="CPTOTAL" jdbcType="NUMERIC" property="cpTotal" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="JTAXCALTYPE" jdbcType="VARCHAR" property="jTaxcalType" />
+    <result column="FPPERCENT" jdbcType="NUMERIC" property="fpPercent" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapSkuO" type="com.addlove.service.goods.model.SkuLyBsSetOrgModel" >
+    <result column="PROCODE" property="proCode" jdbcType="VARCHAR" />
+    <result column="SERIALNO" property="serialNo" jdbcType="NUMERIC" />
+    <result column="USORGCODE" property="usOrgCode" jdbcType="VARCHAR" />
+    <result column="USORGNAME" property="usOrgName" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="BaseResultMapSkuH" type="com.addlove.service.goods.model.SkuLyBsSetHeadModel" >
+    <result column="PROCODE" property="proCode" jdbcType="VARCHAR" />
+    <result column="CTRLTYPE" property="ctrlType" jdbcType="VARCHAR" />
+    <result column="CTRLTYPEEX" property="ctrlTypeEx" jdbcType="VARCHAR" />
+    <result column="PRONAME" property="proName" jdbcType="VARCHAR" />
+    <result column="LRDATE" jdbcType="TIMESTAMP" property="lrDate" />
+    <result column="USERID" jdbcType="NUMERIC" property="userId" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="userName" />
+    <result column="CTRLTYPEEXNAME" property="ctrlTypeExName" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="TIMEMARK" property="timemark" jdbcType="NUMERIC" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapSkuB" type="com.addlove.service.goods.model.SkuLyBsSetBodyModel" >
+    <result column="PROCODE" property="proCode" jdbcType="VARCHAR" />
+    <result column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    BILLNO, LRDATE, USERID, USERCODE, USERNAME, JZDATE, JZRID, JZRCODE, JZRNAME, JZTYPE, 
+    RPTDATE, PRNTIMES, PRNDATE, TIMEMARK, YWTYPE, YWIOTYPE, ZDRID, ZDRCODE, ZDRNAME, 
+    ORGCODE, ORGNAME, DEPID, DEPCODE, DEPNAME, GYCODE, GYNAME, YLCOUNT, YLHCOST, YLWCOST, 
+    YLTOTAL, CPCOUNT, CPHCOST, CPWCOST, CPTOTAL, FLCOST, REMARK, DATASTATUS, REFBILLTYPE, 
+    REFBILLNO, CKCODE, CKNAME
+  </sql>
+  
+  <sql id="Base_Column_List_Yl">
+    BILLNO, SERIALNO, PLUID, PLUCODE, PLUNAME, BARCODE, SPEC, UNIT, EXPLUCODE, EXPLUNAME, 
+    HJPRICE, WJPRICE, PRICE, JTAXRATE, YLPERCENT, YLCOUNT, YLHCOST, YLWCOST, YLTOTAL, 
+    REMARK, JTAXCALTYPE
+  </sql>
+  
+  <sql id="Base_Column_List_Cp">
+    BILLNO, SERIALNO, PLUID, PLUCODE, PLUNAME, BARCODE, SPEC, UNIT, EXPLUCODE, EXPLUNAME, 
+    HJPRICE, WJPRICE, PRICE, JTAXRATE, CPPERCENT, CPCOUNT, CPHCOST, CPWCOST, CPTOTAL, 
+    REMARK, JTAXCALTYPE, FPPERCENT
+  </sql>
+</mapper>
