@@ -1,6 +1,7 @@
 package com.addlove.service.goods.controller;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.addlove.service.goods.constants.GoodsJgConstants.ClType;
 import com.addlove.service.goods.constants.GoodsJgConstants.DataStatus;
 import com.addlove.service.goods.constants.GoodsJgConstants.SaveType;
 import com.addlove.service.goods.constants.GoodsJgConstants.YwType;
@@ -19,8 +22,10 @@ import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.FrsGyModel;
+import com.addlove.service.goods.model.FrsJgCpModel;
 import com.addlove.service.goods.model.FrsJgHeadModel;
 import com.addlove.service.goods.model.FrsJgPageModel;
+import com.addlove.service.goods.model.FrsJgYlModel;
 import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
@@ -93,6 +98,21 @@ public class FrsJgController extends BaseController{
                     GoodsResponseCode.SAVE_BEFORE_ACCOUNT.getMsg());
         }
         FrsJgHeadModel headModel = this.getJgHeadModel(req);
+        if (req.getSaveType() == SaveType.SAVE.getValue()) {
+            this.frsJgService.addJg(headModel);
+        }else if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
+            Map<String, Object> accountMap = new HashMap<String, Object>();
+            accountMap.put("ps_BillNo", headModel.getBillNo());
+            accountMap.put("pd_Date", headModel.getJzDate());
+            accountMap.put("pf_UserID", headModel.getJzrId());
+            accountMap.put("ps_UserCode", headModel.getJzrCode());
+            accountMap.put("ps_UserName", headModel.getJzrName());
+            accountMap.put("ps_ClType", ClType.MANUAL_EXEC.getValue());
+            this.frsJgService.execJgAccountProcedure(accountMap);
+        }else {
+            throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
+                    GoodsResponseCode.BILL_OPRATE_ERROR.getMsg());
+        }
         JSONObject json = new JSONObject();
         json.put("billNo", headModel.getBillNo());
         return ResponseMessage.ok(json);
@@ -111,6 +131,21 @@ public class FrsJgController extends BaseController{
                     GoodsResponseCode.BILLNO_NOT_BLANK.getMsg());
         }
         FrsJgHeadModel headModel = this.getJgHeadModel(req);
+        if (req.getSaveType() == SaveType.SAVE.getValue()) {
+            this.frsJgService.editJg(headModel);
+        }else if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
+            Map<String, Object> accountMap = new HashMap<String, Object>();
+            accountMap.put("ps_BillNo", headModel.getBillNo());
+            accountMap.put("pd_Date", headModel.getJzDate());
+            accountMap.put("pf_UserID", headModel.getJzrId());
+            accountMap.put("ps_UserCode", headModel.getJzrCode());
+            accountMap.put("ps_UserName", headModel.getJzrName());
+            accountMap.put("ps_ClType", ClType.MANUAL_EXEC.getValue());
+            this.frsJgService.execJgAccountProcedure(accountMap);
+        }else {
+            throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
+                    GoodsResponseCode.BILL_OPRATE_ERROR.getMsg());
+        }
         JSONObject json = new JSONObject();
         json.put("billNo", headModel.getBillNo());
         return ResponseMessage.ok(json);
@@ -192,6 +227,10 @@ public class FrsJgController extends BaseController{
         headModel.setDepCode(req.getDepCode());
         headModel.setDepName(req.getDepName());
         List<FrsGyModel> jgGys = this.frsJgService.getJgGys(req.getOrgCode(), req.getDepCode());
+        if (null == jgGys || jgGys.isEmpty()) {
+            throw new ServiceException(GoodsResponseCode.JG_GY_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.JG_GY_NOT_BLANK.getMsg());
+        }
         headModel.setGyCode(jgGys.get(0).getGyCode());
         headModel.setGyName(jgGys.get(0).getGyName());
         headModel.setYlCount(req.getYlCount());
@@ -221,6 +260,61 @@ public class FrsJgController extends BaseController{
         }else {
             headModel.setBillNo(req.getBillNo());
         }
+        List<FrsJgYlModel> ylModels = new LinkedList<FrsJgYlModel>();
+        long ylSerialNo = 1;
+        for (FrsJgYlReq ylReq : ylList) {
+            FrsJgYlModel ylModel = new FrsJgYlModel();
+            ylModel.setBillNo(headModel.getBillNo());
+            ylModel.setSerialNo(ylSerialNo++);
+            ylModel.setPluId(ylReq.getPluId());
+            ylModel.setPluCode(ylReq.getPluCode());
+            ylModel.setPluName(ylReq.getPluName());
+            ylModel.setBarCode(ylReq.getBarCode());
+            ylModel.setSpec(ylReq.getSpec());
+            ylModel.setUnit(ylReq.getUnit());
+            ylModel.setExPluCode("*");
+            ylModel.setHjPrice(ylReq.getHjPrice());
+            ylModel.setWjPrice(ylReq.getWjPrice());
+            ylModel.setPrice(ylReq.getPrice());
+            ylModel.setjTaxRate(ylReq.getjTaxRate());
+            ylModel.setYlPercent(ylReq.getYlPercent());
+            ylModel.setYlCount(ylReq.getYlCount());
+            ylModel.setYlhCost(ylReq.getYlhCost());
+            ylModel.setYlwCost(ylReq.getYlwCost());
+            ylModel.setYlTotal(ylReq.getYlTotal());
+            ylModel.setRemark(ylReq.getRemark());
+            ylModel.setjTaxcalType(ylReq.getjTaxcalType());
+            ylModels.add(ylModel);
+        }
+        headModel.setYlList(ylModels);
+        List<FrsJgCpModel> cpModels = new LinkedList<FrsJgCpModel>();
+        long cpSerialNo = 1;
+        for (FrsJgCpReq cpReq : cpList) {
+            FrsJgCpModel cpModel = new FrsJgCpModel();
+            cpModel.setBillNo(headModel.getBillNo());
+            cpModel.setSerialNo(cpSerialNo++);
+            cpModel.setPluId(cpReq.getPluId());
+            cpModel.setPluCode(cpReq.getPluCode());
+            cpModel.setPluName(cpReq.getPluName());
+            cpModel.setBarCode(cpReq.getBarCode());
+            cpModel.setSpec(cpReq.getSpec());
+            cpModel.setUnit(cpReq.getUnit());
+            cpModel.setExPluCode("*");
+            cpModel.setHjPrice(cpReq.getHjPrice());
+            cpModel.setWjPrice(cpReq.getWjPrice());
+            cpModel.setPrice(cpReq.getPrice());
+            cpModel.setjTaxRate(cpReq.getjTaxRate());
+            cpModel.setCpPercent(cpReq.getCpPercent());
+            cpModel.setCpCount(cpReq.getCpCount());
+            cpModel.setCphCost(cpReq.getCphCost());
+            cpModel.setCpwCost(cpReq.getCpwCost());
+            cpModel.setCpTotal(cpReq.getCpTotal());
+            cpModel.setRemark(cpReq.getRemark());
+            cpModel.setjTaxcalType(cpReq.getjTaxcalType());
+            cpModel.setFpPercent(cpReq.getFpPercent());
+            cpModels.add(cpModel);
+        }
+        headModel.setCpList(cpModels);
         return headModel;
     }
 }

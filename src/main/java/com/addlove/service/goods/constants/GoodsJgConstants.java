@@ -59,7 +59,7 @@ public interface GoodsJgConstants {
     }
     
     /**
-     * 门店报损业务类型
+     * 门店加工业务类型
      * @author lw
      *
      */
@@ -141,6 +141,59 @@ public interface GoodsJgConstants {
         private String name;
         
         private DataStatus(String value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        /**
+         * @return the value
+         */
+        public String getValue() {
+            return value;
+        }
+
+        /**
+         * @param value the value to set
+         */
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
+    
+    /**
+     * 记账调用类型
+     * @author lw
+     *
+     */
+    public enum ClType {
+        /**
+         * 0-为手工制作加工单调用
+         */
+        MANUAL_EXEC("0", "为手工制作加工单调用"),
+        
+        /**
+         * 1-为日结生成加工单调用
+         */
+        DAY_ACCOUNT_EXEC("1", "为日结生成加工单调用");
+        
+        private String value;
+        private String name;
+        
+        private ClType(String value, String name) {
             this.value = value;
             this.name = name;
         }

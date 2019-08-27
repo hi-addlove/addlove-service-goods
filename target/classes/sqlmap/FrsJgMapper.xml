@@ -303,6 +303,172 @@
     and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
   </select>
   
+  <!-- 插入加工单主表 -->
+  <insert id="insertJgHead">
+    INSERT INTO TFRSJGHEAD
+    (
+        BILLNO,
+        LRDATE, 
+        USERID, 
+        USERCODE, 
+        USERNAME,
+        YWTYPE, 
+        ORGCODE, 
+        ORGNAME, 
+        DEPID, 
+        DEPCODE, 
+        DEPNAME, 
+        GYCODE, 
+        GYNAME, 
+        YLCOUNT, 
+        YLHCOST, 
+        YLWCOST, 
+        YLTOTAL, 
+        CPCOUNT, 
+        CPHCOST, 
+        CPWCOST, 
+        CPTOTAL, 
+        FLCOST, 
+        REMARK, 
+        DATASTATUS,
+        CKCODE, 
+        CKNAME
+    )
+    VALUES
+    (
+        #{billNo,jdbcType=VARCHAR},
+        to_date(#{lrDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'),
+        #{userId,jdbcType=NUMERIC},
+        #{userCode,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR},
+        #{ywType,jdbcType=VARCHAR},
+        #{orgCode,jdbcType=VARCHAR},
+        #{orgName,jdbcType=VARCHAR},
+        #{depId,jdbcType=NUMERIC},
+        #{depCode,jdbcType=VARCHAR},
+        #{depName,jdbcType=VARCHAR},
+        #{gyCode,jdbcType=VARCHAR},
+        #{gyName,jdbcType=VARCHAR},
+        #{ylCount,jdbcType=NUMERIC},
+        #{ylhCost,jdbcType=NUMERIC},
+        #{ylwCost,jdbcType=NUMERIC},
+        #{ylTotal,jdbcType=NUMERIC},
+        #{cpCount,jdbcType=NUMERIC},
+        #{cphCost,jdbcType=NUMERIC},
+        #{cpwCost,jdbcType=NUMERIC},
+        #{cpTotal,jdbcType=NUMERIC},
+        #{flCost,jdbcType=NUMERIC},
+        #{remark,jdbcType=VARCHAR},
+        #{dataStatus,jdbcType=VARCHAR},
+        #{ckCode,jdbcType=VARCHAR},
+        #{ckName,jdbcType=VARCHAR}
+    )
+  </insert>
+  
+  <!-- 插入原料数据 -->
+  <insert id="insertJgYls">
+    INSERT INTO TFRSJGYL
+    (
+        BILLNO, 
+        SERIALNO, 
+        PLUID, 
+        PLUCODE, 
+        PLUNAME, 
+        BARCODE, 
+        SPEC, 
+        UNIT, 
+        EXPLUCODE, 
+        HJPRICE, 
+        WJPRICE, 
+        PRICE, 
+        JTAXRATE, 
+        YLPERCENT, 
+        YLCOUNT, 
+        YLHCOST, 
+        YLWCOST, 
+        YLTOTAL, 
+        REMARK, 
+        JTAXCALTYPE
+    )
+    <foreach collection="bodys" item="body" separator="union all">
+        SELECT
+          #{body.billNo,jdbcType=VARCHAR},
+          #{body.serialNo,jdbcType=NUMERIC},
+          #{body.pluId,jdbcType=NUMERIC},
+          #{body.pluCode,jdbcType=VARCHAR},
+          #{body.pluName,jdbcType=VARCHAR},
+          #{body.barCode,jdbcType=VARCHAR},
+          #{body.spec,jdbcType=VARCHAR},
+          #{body.unit,jdbcType=VARCHAR},
+          #{body.exPluCode,jdbcType=VARCHAR},
+          #{body.hjPrice,jdbcType=NUMERIC},
+          #{body.wjPrice,jdbcType=NUMERIC},
+          #{body.price,jdbcType=NUMERIC},
+          #{body.jTaxRate,jdbcType=NUMERIC},
+          #{body.ylPercent,jdbcType=NUMERIC},
+          #{body.ylCount,jdbcType=NUMERIC},
+          #{body.ylhCost,jdbcType=NUMERIC},
+          #{body.ylwCost,jdbcType=NUMERIC},
+          #{body.ylTotal,jdbcType=NUMERIC},
+          #{body.remark,jdbcType=VARCHAR},
+          #{body.jTaxcalType,jdbcType=VARCHAR}
+        FROM DUAL
+    </foreach>
+  </insert>
+  
+  <!-- 插入成品数据 -->
+  <insert id="insertJgCps">
+    INSERT INTO TFRSJGCP
+    (
+        BILLNO, 
+        SERIALNO, 
+        PLUID, 
+        PLUCODE, 
+        PLUNAME, 
+        BARCODE, 
+        SPEC, 
+        UNIT, 
+        EXPLUCODE, 
+        HJPRICE, 
+        WJPRICE, 
+        PRICE, 
+        JTAXRATE, 
+        CPPERCENT, 
+        CPCOUNT, 
+        CPHCOST, 
+        CPWCOST, 
+        CPTOTAL, 
+        REMARK, 
+        JTAXCALTYPE, 
+        FPPERCENT
+    )
+    <foreach collection="bodys" item="body" separator="union all">
+        SELECT
+          #{body.billNo,jdbcType=VARCHAR},
+          #{body.serialNo,jdbcType=NUMERIC},
+          #{body.pluId,jdbcType=NUMERIC},
+          #{body.pluCode,jdbcType=VARCHAR},
+          #{body.pluName,jdbcType=VARCHAR},
+          #{body.barCode,jdbcType=VARCHAR},
+          #{body.spec,jdbcType=VARCHAR},
+          #{body.unit,jdbcType=VARCHAR},
+          #{body.exPluCode,jdbcType=VARCHAR},
+          #{body.hjPrice,jdbcType=NUMERIC},
+          #{body.wjPrice,jdbcType=NUMERIC},
+          #{body.price,jdbcType=NUMERIC},
+          #{body.jTaxRate,jdbcType=NUMERIC},
+          #{body.cpPercent,jdbcType=NUMERIC},
+          #{body.cpCount,jdbcType=NUMERIC},
+          #{body.cphCost,jdbcType=NUMERIC},
+          #{body.cpwCost,jdbcType=NUMERIC},
+          #{body.cpTotal,jdbcType=NUMERIC},
+          #{body.remark,jdbcType=VARCHAR},
+          #{body.jTaxcalType,jdbcType=VARCHAR},
+          #{body.fpPercent,jdbcType=NUMERIC}
+        FROM DUAL
+    </foreach>
+  </insert>
+  
   <!-- 通过单号获取加工单主表 -->
   <select id="getJgHead" resultMap="BaseResultMap">
      Select Distinct t.BILLNO,
@@ -462,5 +628,20 @@
         t.USESTATUS
      From TFRSGY t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t.DEPCODE = #{depCode,jdbcType=VARCHAR}
      And t.USESTATUS = '2'
+  </select>
+  
+  <!-- 调用存储过程进行加工单据记账 -->
+  <select id="execJgAccountProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
+    <![CDATA[
+     {
+       CALL sFrs_JgBill_Account
+       (
+         #{ps_BillNo,mode=IN,jdbcType=VARCHAR}, to_date(#{pd_Date,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), 
+         #{pf_UserID,mode=IN,jdbcType=NUMERIC}, #{ps_UserCode,mode=IN,jdbcType=VARCHAR}, 
+         #{ps_UserName,mode=IN,jdbcType=VARCHAR}, #{ps_ClType,mode=IN,jdbcType=VARCHAR},
+         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR}
+       )
+     }
+    ]]>
   </select>
 </mapper>

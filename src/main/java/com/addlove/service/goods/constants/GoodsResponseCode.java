@@ -79,7 +79,12 @@ public enum GoodsResponseCode {
     /**
      * 要货波次不能为空
      */
-    YH_BC_NOT_BLANK(20014, "要货波次不能为空");
+    YH_BC_NOT_BLANK(20014, "要货波次不能为空"),
+    
+    /**
+     * 系统加工工艺设置不能为空
+     */
+    JG_GY_NOT_BLANK(20015, "系统加工工艺设置不能为空");
     
     private int code;
     private String msg;

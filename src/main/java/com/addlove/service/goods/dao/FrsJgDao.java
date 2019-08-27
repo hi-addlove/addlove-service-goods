@@ -1,6 +1,7 @@
 package com.addlove.service.goods.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -25,6 +26,24 @@ public interface FrsJgDao {
      * @return List<FrsJgHeadModel>
      */
     List<FrsJgHeadModel> queryJgPage(@Param("queryModel") FrsJgPageModel queryModel);
+    
+    /**
+     * 插入加工单主表
+     * @param headModel
+     */
+    void insertJgHead(FrsJgHeadModel headModel);
+    
+    /**
+     * 插入原料数据
+     * @param ylList
+     */
+    void insertJgYls(@Param("bodys") List<FrsJgYlModel> ylList);
+    
+    /**
+     * 插入成品数据
+     * @param cpModels
+     */
+    void insertJgCps(@Param("bodys") List<FrsJgCpModel> cpList);
     
     /**
      * 通过单号获取加工单主表
@@ -94,4 +113,10 @@ public interface FrsJgDao {
      * @return List<FrsJgYlModel>
      */
     List<FrsGyModel> getJgGys(@Param("orgCode")String orgCode, @Param("depCode")String depCode);
+    
+    /**
+     * 调用存储过程进行加工单据记账
+     * @param map
+     */
+    void execJgAccountProcedure(Map<String, Object> map);
 }
