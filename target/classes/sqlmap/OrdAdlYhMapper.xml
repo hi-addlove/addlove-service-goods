@@ -420,7 +420,7 @@
     select t.EtpCode,t.Address FROM vEtpAddress t where t.etpCode = #{etpCode,jdbcType=VARCHAR}
   </select>
   
-  <!-- 获取要货商品的库存总数 -->
+  <!-- 获取商品的库存总数 -->
   <select id="getYhKcSum" resultType="java.util.HashMap">
    Select SUM(t.KYCOUNT) AS KCCOUNT,t.PLUID
    From VSTKKYCOUNT t where t.OrgCode = #{orgCode,jdbcType=VARCHAR}

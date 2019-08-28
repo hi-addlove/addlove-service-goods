@@ -298,7 +298,7 @@
         and t.DEPID = #{queryModel.depId,jdbcType=VARCHAR}
     </if>
     <if test="queryModel.dataStatus != null and queryModel.dataStatus != '' ">
-        and t.YWSTATUS = #{queryModel.dataStatus,jdbcType=VARCHAR}
+        and t.DATASTATUS = #{queryModel.dataStatus,jdbcType=VARCHAR}
     </if>
     and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
   </select>
@@ -313,6 +313,7 @@
         USERCODE, 
         USERNAME,
         YWTYPE, 
+        YWIOTYPE, 
         ORGCODE, 
         ORGNAME, 
         DEPID, 
@@ -342,6 +343,7 @@
         #{userCode,jdbcType=VARCHAR},
         #{userName,jdbcType=VARCHAR},
         #{ywType,jdbcType=VARCHAR},
+        #{ywIoType,jdbcType=VARCHAR},
         #{orgCode,jdbcType=VARCHAR},
         #{orgName,jdbcType=VARCHAR},
         #{depId,jdbcType=NUMERIC},
@@ -615,7 +617,7 @@
   
   <!-- 获取加工工艺数据 -->
   <select id="getJgGys" resultMap="BaseResultMapGy">
-    Select Distinct t.BILLNO,
+    Select Distinct 
         t.GYCODE, 
         t.GYNAME, 
         t.ORGCODE, 

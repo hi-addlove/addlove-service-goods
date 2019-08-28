@@ -1,6 +1,9 @@
 package com.addlove.service.goods.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.GoodsCommonConstants.ProcedureResult;
 import com.addlove.service.goods.dao.FrsJgDao;
+import com.addlove.service.goods.dao.OrdAdlYhDao;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.model.FrsGyModel;
 import com.addlove.service.goods.model.FrsJgCpModel;
@@ -34,8 +38,16 @@ public class FrsJgService {
     /**FrsJgService类日志 */
     private static final Logger LOGGER = LoggerFactory.getLogger(FrsJgService.class);
     
+    /**
+     * 默认单次批量查询plu数量
+     */
+    public static final int DEFAULT_BATCH_QUERY_SIZE = 500;
+    
     @Autowired
     private FrsJgDao frsJgDao;
+    
+    @Autowired
+    private OrdAdlYhDao ordAdlYhDao;
     
     
     public List<FrsJgHeadModel> queryJgPage(FrsJgPageModel queryModel) {
@@ -120,11 +132,49 @@ public class FrsJgService {
         if (null != multiSkus && !multiSkus.isEmpty()) {
             multiSkus.addAll(lyAndBsSkus);
             skuSet.addAll(multiSkus);
-            return skuSet;
         }else {
             skuSet.addAll(lyAndBsSkus);
-            return skuSet;
         }
+        List<Map<String, Object>> pluList = new LinkedList<Map<String, Object>>();
+        for (SkuPluExtendModel pluModel : skuSet) {
+            Map<String, Object> queryMap = new HashMap<String, Object>();
+            queryMap.put("pluId", pluModel.getPluId());
+            pluList.add(queryMap);
+        }
+       //获取商品可用库存数量
+        List<Map<String, Object>> kcList = new ArrayList<>();
+        int size = pluList.size();
+        if (size > 0) {
+            if (DEFAULT_BATCH_QUERY_SIZE < size) {
+                int part = size / DEFAULT_BATCH_QUERY_SIZE; // 分批数
+                for (int i = 0; i < part; i++) {
+                    List<Map<String, Object>> partPluList = new LinkedList<Map<String, Object>>();
+                    partPluList.addAll(pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE));
+                    List<Map<String,Object>> kcPartList = this.ordAdlYhDao.getYhKcSum(partPluList, orgCode);
+                    kcList.addAll(kcPartList);
+                    pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE).clear();
+                }
+                if (!pluList.isEmpty()) {
+                    List<Map<String,Object>> kcPartList = this.ordAdlYhDao.getYhKcSum(pluList, orgCode);
+                    kcList.addAll(kcPartList);
+                }
+            }else {
+                kcList = this.ordAdlYhDao.getYhKcSum(pluList, orgCode);
+            }
+        }
+        Map<Long, Object> kcMap = new HashMap<Long, Object>();
+        for (Map<String, Object> map : kcList) {
+            long pluId = Long.parseLong(null != map.get("PLUID") ? map.get("PLUID").toString() : "0") ;
+            kcMap.put(pluId, null != map.get("KCCOUNT") ? map.get("KCCOUNT").toString() : "0");
+        }
+        for (SkuPluExtendModel pluModel : skuSet) {
+            double kcCount = 0.0;
+            if (null != kcMap.get(pluModel.getPluId())) {
+                kcCount = Double.valueOf(kcMap.get(pluModel.getPluId()).toString());
+            }
+            pluModel.setKcCount(kcCount);
+        }
+        return skuSet;
     }
     
     /**

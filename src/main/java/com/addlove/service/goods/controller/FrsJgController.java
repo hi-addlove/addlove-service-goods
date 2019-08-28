@@ -221,6 +221,7 @@ public class FrsJgController extends BaseController{
         headModel.setUserCode("1");
         headModel.setUserName("超级户");
         headModel.setYwType(YwType.MD_JG.getValue());
+        headModel.setYwIoType("0");
         headModel.setOrgCode(req.getOrgCode());
         headModel.setOrgName(req.getOrgName());
         headModel.setDepId(req.getDepId());
@@ -263,6 +264,9 @@ public class FrsJgController extends BaseController{
         List<FrsJgYlModel> ylModels = new LinkedList<FrsJgYlModel>();
         long ylSerialNo = 1;
         for (FrsJgYlReq ylReq : ylList) {
+            if (null == ylReq.getYlCount() || ylReq.getYlCount() == 0) {
+                continue;
+            }
             FrsJgYlModel ylModel = new FrsJgYlModel();
             ylModel.setBillNo(headModel.getBillNo());
             ylModel.setSerialNo(ylSerialNo++);
@@ -290,6 +294,9 @@ public class FrsJgController extends BaseController{
         List<FrsJgCpModel> cpModels = new LinkedList<FrsJgCpModel>();
         long cpSerialNo = 1;
         for (FrsJgCpReq cpReq : cpList) {
+            if (null == cpReq.getCpCount() || cpReq.getCpCount() == 0) {
+                continue;
+            }
             FrsJgCpModel cpModel = new FrsJgCpModel();
             cpModel.setBillNo(headModel.getBillNo());
             cpModel.setSerialNo(cpSerialNo++);
