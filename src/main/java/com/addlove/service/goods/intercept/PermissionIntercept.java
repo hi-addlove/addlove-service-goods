@@ -66,8 +66,20 @@ public class PermissionIntercept implements HandlerInterceptor {
         }
         String userCode = DES3.decrypt(encryptUserCode, key);
         UsrUserModel userModel = this.commonService.getUserByCode(userCode.trim().toString());
+        if (null == userModel) {
+            PrintWriter print = response.getWriter();
+            print.write(JsonUtil.toJSONString(
+                    ResponseMessage.fail(LoginCode.ACCOUNT.getMsg(), LoginCode.ACCOUNT.getCode())));
+            return false;
+        }
         String orgCode = DES3.decrypt(encryptOrgCode, key);
         OrgManageModel orgModel = this.commonService.getOrgModel(orgCode.trim().toString());
+        if (null == orgModel) {
+            PrintWriter print = response.getWriter();
+            print.write(JsonUtil.toJSONString(
+                    ResponseMessage.fail(LoginCode.ORGANIZE.getMsg(), LoginCode.ORGANIZE.getCode())));
+            return false;
+        }
         SysUserDataContextHolder.clearSysUserData();
         SysUserModel sysUserModel = new SysUserModel();
         sysUserModel.setUserModel(userModel);
@@ -95,7 +107,6 @@ public class PermissionIntercept implements HandlerInterceptor {
                 }
             }
         }
-        response.setCharacterEncoding("UTF-8");
         PrintWriter writer = response.getWriter();
         JSONObject json = new JSONObject();
         json.put("code", LoginCode.SESSION.getCode());
