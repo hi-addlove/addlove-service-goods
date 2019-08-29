@@ -5,10 +5,23 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import com.addlove.service.goods.config.UserInit;
+import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.LoginMsgCode.LoginCode;
+import com.addlove.service.goods.context.SysUserDataContextHolder;
+import com.addlove.service.goods.message.ResponseMessage;
+import com.addlove.service.goods.model.OrgManageModel;
+import com.addlove.service.goods.model.SysUserModel;
+import com.addlove.service.goods.model.UsrUserModel;
+import com.addlove.service.goods.service.GoodsCommonService;
+import com.addlove.service.goods.util.DES3;
+import com.addlove.service.goods.util.JsonUtil;
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -16,7 +29,13 @@ import com.alibaba.fastjson.JSONObject;
  * @author lw
  *
  */
+@Component
 public class PermissionIntercept implements HandlerInterceptor {
+    @Autowired
+    private GoodsCommonService commonService;
+    
+    @Value("${addlove.user.key}")
+    private String key;
 
     /**
      * 权限验证
@@ -29,6 +48,31 @@ public class PermissionIntercept implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8");
+        String encryptUserCode = request.getHeader("userCode");
+        if (StringUtils.isBlank(encryptUserCode)) {
+            PrintWriter print = response.getWriter();
+            print.write(JsonUtil.toJSONString(
+                    ResponseMessage.fail("非法请求,消息头缺少userCode", GoodsResponseCode.HEADER_ERROR_CODE.getCode())));
+            return false;
+        }
+        String encryptOrgCode = request.getHeader("orgCode");
+        if (StringUtils.isBlank(encryptOrgCode)) {
+            PrintWriter print = response.getWriter();
+            print.write(JsonUtil.toJSONString(
+                    ResponseMessage.fail("非法请求,消息头缺少orgCode", GoodsResponseCode.HEADER_ERROR_CODE.getCode())));
+            return false;
+        }
+        String userCode = DES3.decrypt(encryptUserCode, key);
+        UsrUserModel userModel = this.commonService.getUserByCode(userCode.trim().toString());
+        String orgCode = DES3.decrypt(encryptOrgCode, key);
+        OrgManageModel orgModel = this.commonService.getOrgModel(orgCode.trim().toString());
+        SysUserDataContextHolder.clearSysUserData();
+        SysUserModel sysUserModel = new SysUserModel();
+        sysUserModel.setUserModel(userModel);
+        sysUserModel.setOrgModel(orgModel);
+        SysUserDataContextHolder.setSysUserData(sysUserModel);
         if (request.getRequestURI().equals(UserInit.LOGINURL)) {
             return true;
         }

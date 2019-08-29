@@ -20,6 +20,10 @@ import com.addlove.service.goods.intercept.PermissionIntercept;
  */
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
+    @Bean
+    PermissionIntercept permissionIntercept() {
+        return new PermissionIntercept();
+    }
 
     /**
      * 设值静态资源能直接访问
@@ -50,7 +54,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 多个拦截器组成一个拦截器链 (addPathPatterns, excludePathPatterns )
-        registry.addInterceptor(new PermissionIntercept());
+        registry.addInterceptor(permissionIntercept()).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 

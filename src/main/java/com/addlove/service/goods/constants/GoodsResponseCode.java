@@ -89,7 +89,15 @@ public enum GoodsResponseCode {
     /**
      * DES3加解密错误
      */
-    DES3_ENCRYPT_DECRYPT_ERROR(20016, "DES3加解密错误");
+    DES3_ENCRYPT_DECRYPT_ERROR(20016, "DES3加解密错误"),
+    
+    /**
+     * 请重新登录
+     */
+    LOGIN_AGAIN(20017, "请重新登录"),
+    
+    /** 消息头错误 **/
+    HEADER_ERROR_CODE(20018, "消息头错误");
     
     private int code;
     private String msg;

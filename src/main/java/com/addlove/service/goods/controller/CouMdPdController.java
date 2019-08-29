@@ -105,6 +105,10 @@ public class CouMdPdController extends BaseController{
             this.couMdPdService.editPdInfo(headModel);
         }else if (req.getSaveType() == SaveType.PD_ACCOUNT.getValue()) {
             SysUserModel sysUserModel = SysUserDataContextHolder.getSysUserData();
+            if (null == sysUserModel) {
+                throw new ServiceException(GoodsResponseCode.LOGIN_AGAIN.getCode(), 
+                        GoodsResponseCode.LOGIN_AGAIN.getMsg());
+            }
             UsrUserModel userModel = sysUserModel.getUserModel();
             headModel.setJzrId(userModel.getUserId());
             headModel.setJzrCode(userModel.getUserCode());
@@ -270,6 +274,10 @@ public class CouMdPdController extends BaseController{
         }
         headModel.setLrDate(DateUtil.getCurrentTime());
         SysUserModel sysUserModel = SysUserDataContextHolder.getSysUserData();
+        if (null == sysUserModel) {
+            throw new ServiceException(GoodsResponseCode.LOGIN_AGAIN.getCode(), 
+                    GoodsResponseCode.LOGIN_AGAIN.getMsg());
+        }
         UsrUserModel userModel = sysUserModel.getUserModel();
         headModel.setUserId(userModel.getUserId());
         headModel.setUserCode(userModel.getUserCode());

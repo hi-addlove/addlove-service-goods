@@ -284,6 +284,10 @@
             <version>1.46</version>
         </dependency>
         <!-- 加密算法 end-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc-portlet</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

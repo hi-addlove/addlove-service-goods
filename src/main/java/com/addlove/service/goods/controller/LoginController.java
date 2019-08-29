@@ -72,10 +72,10 @@ public class LoginController extends BaseController{
                 return ResponseMessage.fail(LoginCode.ORGANIZE.getMsg(), LoginCode.ORGANIZE.getCode());
             }
             //将用户和组织设置进全局
+            SysUserDataContextHolder.clearSysUserData();
             SysUserModel sysUserModel = new SysUserModel();
             sysUserModel.setUserModel(userModel);
             sysUserModel.setOrgModel(orgModel);
-            SysUserDataContextHolder.clearSysUserData();
             SysUserDataContextHolder.setSysUserData(sysUserModel);
             //返回给前端用户和组织信息
             backJson.put("userId", userModel.getUserId());
@@ -96,9 +96,6 @@ public class LoginController extends BaseController{
             resMsg.setCode(LoginCode.SUCCESS.getCode());
             resMsg.setMsg(LoginCode.SUCCESS.getMsg());
             resMsg.setData(backJson);
-            SysUserModel sy = SysUserDataContextHolder.getSysUserData();
-            UsrUserModel user = sy.getUserModel();
-            System.out.println(user.getUserId() + "---" + user.getUserCode());
             return resMsg;
         } catch (Exception e) {
             LoggerEnhance.error(LOGGER, GoodsResponseCode.DES3_ENCRYPT_DECRYPT_ERROR.getCode(), 

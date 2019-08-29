@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.GoodsCommonConstants.BillType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.ModelTags;
 import com.addlove.service.goods.constants.GoodsOrdThConstants.ApplyStatus;
 import com.addlove.service.goods.constants.GoodsOrdThConstants.YwType;
 import com.addlove.service.goods.context.SysUserDataContextHolder;
+import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.OrdJhBodyModel;
 import com.addlove.service.goods.model.OrdJhHeadModel;
@@ -97,6 +99,10 @@ public class OrdThApplyController extends BaseController{
     public ResponseMessage generateDifferentBill(@RequestBody @Valid OrdThApplyHeadDiffReq req) {
         List<OrdThApplyBodyDiffReq> bodyReqList = req.getBodyList();
         SysUserModel sysUserModel = SysUserDataContextHolder.getSysUserData();
+        if (null == sysUserModel) {
+            throw new ServiceException(GoodsResponseCode.LOGIN_AGAIN.getCode(), 
+                    GoodsResponseCode.LOGIN_AGAIN.getMsg());
+        }
         UsrUserModel userModel = sysUserModel.getUserModel();
         //没有差异商品，直接更新配送验收主表
         if (null == bodyReqList || bodyReqList.isEmpty()) {
