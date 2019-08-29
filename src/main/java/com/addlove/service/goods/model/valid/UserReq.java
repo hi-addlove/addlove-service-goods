@@ -2,36 +2,45 @@ package com.addlove.service.goods.model.valid;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+/**
+ * 用户请求参数
+ * @author lw
+ *
+ */
 public class UserReq {
-    /**用户名 */
-    @NotBlank(message = "用户名不能为空")
-    private String userName;
+    /**用户编码 */
+    @NotBlank(message = "用户编码不能为空")
+    private String userCode;
     
-    /**密码 */
-    @NotBlank(message = "密码不能为空")
-    private String password;
+    /**组织编码 */
+    @NotBlank(message = "组织编码不能为空")
+    private String orgCode;
+
     /**
-     * @return the userName
+     * @return the userCode
      */
-    public String getUserName() {
-        return userName;
+    public String getUserCode() {
+        return userCode;
     }
+
     /**
-     * @param userName the userName to set
+     * @param userCode the userCode to set
      */
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
+
     /**
-     * @return the password
+     * @return the orgCode
      */
-    public String getPassword() {
-        return password;
+    public String getOrgCode() {
+        return orgCode;
     }
+
     /**
-     * @param password the password to set
+     * @param orgCode the orgCode to set
      */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
     }
 }

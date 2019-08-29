@@ -100,6 +100,13 @@ public interface GoodsCommonDao {
     List<UsrUserModel> getAllUsers(Map<String, Object> map);
     
     /**
+     * 通过编码获取用户
+     * @param userCode
+     * @return UsrUserModel
+     */
+    UsrUserModel getUserByCode(String userCode);
+    
+    /**
      * 获取采购员
      * @param map
      * @return List<UserEmployeeModel>

@@ -633,15 +633,14 @@
   </select>
   
   <!-- 调用存储过程进行加工单据记账 -->
-  <select id="execJgAccountProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
+    <select id="execJgAccountProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
     <![CDATA[
      {
        CALL sFrs_JgBill_Account
        (
-         #{ps_BillNo,mode=IN,jdbcType=VARCHAR}, to_date(#{pd_Date,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), 
-         #{pf_UserID,mode=IN,jdbcType=NUMERIC}, #{ps_UserCode,mode=IN,jdbcType=VARCHAR}, 
-         #{ps_UserName,mode=IN,jdbcType=VARCHAR}, #{ps_ClType,mode=IN,jdbcType=VARCHAR},
-         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR}
+         #{ps_BillNo,mode=IN,jdbcType=VARCHAR}, to_date(#{pd_Date,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), #{pf_UserID,mode=IN,jdbcType=NUMERIC}, 
+         #{ps_UserCode,mode=IN,jdbcType=VARCHAR}, #{ps_UserName,mode=IN,jdbcType=VARCHAR},  
+         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR}, #{ps_ClType,mode=IN,jdbcType=VARCHAR}
        )
      }
     ]]>

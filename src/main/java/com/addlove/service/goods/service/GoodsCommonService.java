@@ -167,6 +167,15 @@ public class GoodsCommonService {
     }
     
     /**
+     * 通过编码获取用户
+     * @param userCode
+     * @return UsrUserModel
+     */
+    public UsrUserModel getUserByCode(String userCode) {
+        return this.commonDao.getUserByCode(userCode);
+    }
+    
+    /**
      * 获取采购员
      * @param map
      * @return List<UserEmployeeModel>

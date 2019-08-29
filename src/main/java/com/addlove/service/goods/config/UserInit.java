@@ -20,6 +20,11 @@ public class UserInit {
      * sessionKey
      */
     public final static String SESSIONKEY = "user_session_key";
+    
+    /**
+     * 登录Url
+     */
+    public final static String LOGINURL = "/addlove/gateway/login";
 
     /**
      * @return session

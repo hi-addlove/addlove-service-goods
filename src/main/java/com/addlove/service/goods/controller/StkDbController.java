@@ -17,6 +17,7 @@ import com.addlove.service.goods.constants.GoodsCommonConstants.BillType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.DataStatus;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.SaveType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.YwType;
+import com.addlove.service.goods.context.SysUserDataContextHolder;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.PageModel;
@@ -24,6 +25,8 @@ import com.addlove.service.goods.model.StkDbBodyModel;
 import com.addlove.service.goods.model.StkDbHeadModel;
 import com.addlove.service.goods.model.StkDbQueryPageModel;
 import com.addlove.service.goods.model.StkStoreModel;
+import com.addlove.service.goods.model.SysUserModel;
+import com.addlove.service.goods.model.UsrUserModel;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.StkDbBodyReq;
 import com.addlove.service.goods.model.valid.StkDbHeadReq;
@@ -283,9 +286,11 @@ public class StkDbController extends BaseController {
         }
         StkDbHeadModel headModel = new StkDbHeadModel();
         headModel.setLrDate(DateUtil.getCurrentTime());
-        headModel.setUserId(10000000041L);
-        headModel.setUserCode("1");
-        headModel.setUserName("超级户");
+        SysUserModel sysUserModel = SysUserDataContextHolder.getSysUserData();
+        UsrUserModel userModel = sysUserModel.getUserModel();
+        headModel.setUserId(userModel.getUserId());
+        headModel.setUserCode(userModel.getUserCode());
+        headModel.setUserName(userModel.getUserName());
         headModel.setEmpId(req.getEmpId());
         headModel.setEmpCode(req.getEmpCode());
         headModel.setEmpName(req.getEmpName());
@@ -335,9 +340,9 @@ public class StkDbController extends BaseController {
         }
         if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
             headModel.setJzDate(DateUtil.getCurrentTime());
-            headModel.setJzrId(10000000041L);
-            headModel.setJzrCode("1");
-            headModel.setJzrName("超级户");
+            headModel.setJzrId(userModel.getUserId());
+            headModel.setJzrCode(userModel.getUserCode());
+            headModel.setJzrName(userModel.getUserName());
         }
         //组织明细
         List<StkDbBodyModel> bodyModels = new LinkedList<StkDbBodyModel>();

@@ -2,7 +2,6 @@ package com.addlove.service.goods.intercept;
 
 import java.io.PrintWriter;
 import java.util.Map;
-import java.util.UUID;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +29,10 @@ public class PermissionIntercept implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        /*Cookie[] cookies = request.getCookies();
+        if (request.getRequestURI().equals(UserInit.LOGINURL)) {
+            return true;
+        }
+        Cookie[] cookies = request.getCookies();
         if (null != cookies) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(UserInit.SESSIONKEY)) {
@@ -54,7 +56,7 @@ public class PermissionIntercept implements HandlerInterceptor {
         JSONObject json = new JSONObject();
         json.put("code", LoginCode.SESSION.getCode());
         json.put("msg", LoginCode.SESSION.getMsg());
-        writer.write(json.toJSONString());*/
+        writer.write(json.toJSONString());
         return true;
     }
 

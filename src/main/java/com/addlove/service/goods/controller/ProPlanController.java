@@ -16,6 +16,7 @@ import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.GoodsCommonConstants.BillType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.SaveType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.YwType;
+import com.addlove.service.goods.context.SysUserDataContextHolder;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.PageModel;
@@ -24,6 +25,8 @@ import com.addlove.service.goods.model.ProPlanDoneModel;
 import com.addlove.service.goods.model.ProPlanHeadModel;
 import com.addlove.service.goods.model.ProPlanQueryPageModel;
 import com.addlove.service.goods.model.StkStoreModel;
+import com.addlove.service.goods.model.SysUserModel;
+import com.addlove.service.goods.model.UsrUserModel;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.ProPlanBodyReq;
 import com.addlove.service.goods.model.valid.ProPlanDoneDetailReq;
@@ -295,9 +298,11 @@ public class ProPlanController extends BaseController{
         headModel.setCkName(storeList.get(0).getCkName());
         headModel.setRequestDate(req.getRequestDate());
         headModel.setLrDate(DateUtil.getCurrentTime());
-        headModel.setUserId(10000000041L);
-        headModel.setUserCode("1");
-        headModel.setUserName("超级户");
+        SysUserModel sysUserModel = SysUserDataContextHolder.getSysUserData();
+        UsrUserModel userModel = sysUserModel.getUserModel();
+        headModel.setUserId(userModel.getUserId());
+        headModel.setUserCode(userModel.getUserCode());
+        headModel.setUserName(userModel.getUserName());
         headModel.setYwType(YwType.PRO_PLAN_ORDER.getValue());
         headModel.setRemark(req.getRemark());
         //调用存储过程生成计划单号
@@ -311,9 +316,9 @@ public class ProPlanController extends BaseController{
         }
         if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
             headModel.setJzDate(DateUtil.getCurrentTime());
-            headModel.setJzrId(10000000041L);
-            headModel.setJzrCode("1");
-            headModel.setJzrName("超级户");
+            headModel.setJzrId(userModel.getUserId());
+            headModel.setJzrCode(userModel.getUserCode());
+            headModel.setJzrName(userModel.getUserName());
         }
         List<ProPlanBodyModel> bodyModels = new LinkedList<ProPlanBodyModel>();
         long serialNo = 1;

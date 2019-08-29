@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.GoodsCommonConstants.ProcedureResult;
 import com.addlove.service.goods.dao.FrsJgDao;
@@ -113,6 +112,12 @@ public class FrsJgService {
         List<FrsJgCpModel> cpList = this.frsJgDao.getJgCps(billNo);
         headModel.setYlList(ylList);
         headModel.setCpList(cpList);
+        if (StringUtils.isNotBlank(headModel.getLrDate()) && headModel.getLrDate().length() > 19) {
+            headModel.setLrDate(headModel.getLrDate().substring(0, 19));
+        }
+        if (StringUtils.isNotBlank(headModel.getJzDate()) && headModel.getJzDate().length() > 19) {
+            headModel.setJzDate(headModel.getJzDate().substring(0, 19));
+        }
         return headModel;
     }
     

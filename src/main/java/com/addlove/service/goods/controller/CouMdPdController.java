@@ -17,6 +17,7 @@ import com.addlove.service.goods.constants.GoodsMdPdConstants.CouStatus;
 import com.addlove.service.goods.constants.GoodsMdPdConstants.SaveType;
 import com.addlove.service.goods.constants.GoodsMdPdConstants.YwType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.DataStatus;
+import com.addlove.service.goods.context.SysUserDataContextHolder;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.message.ResponseMessage;
 import com.addlove.service.goods.model.CouMdPdBodyModel;
@@ -27,6 +28,8 @@ import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.model.StkStoreModel;
+import com.addlove.service.goods.model.SysUserModel;
+import com.addlove.service.goods.model.UsrUserModel;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.CouMdPdBodyReq;
 import com.addlove.service.goods.model.valid.CouMdPdHeadReq;
@@ -101,9 +104,11 @@ public class CouMdPdController extends BaseController{
         if (req.getSaveType() == SaveType.EDIT_SAVE.getValue()) {
             this.couMdPdService.editPdInfo(headModel);
         }else if (req.getSaveType() == SaveType.PD_ACCOUNT.getValue()) {
-            headModel.setJzrId(10000000041L);
-            headModel.setJzrCode("1");
-            headModel.setJzrName("超级户");
+            SysUserModel sysUserModel = SysUserDataContextHolder.getSysUserData();
+            UsrUserModel userModel = sysUserModel.getUserModel();
+            headModel.setJzrId(userModel.getUserId());
+            headModel.setJzrCode(userModel.getUserCode());
+            headModel.setJzrName(userModel.getUserName());
             headModel.setJzDate(DateUtil.getCurrentTime());
             this.couMdPdService.execPdAccountProcedure(headModel);
         }
@@ -264,9 +269,11 @@ public class CouMdPdController extends BaseController{
                     GoodsResponseCode.SKU_NOT_BLANK.getMsg());
         }
         headModel.setLrDate(DateUtil.getCurrentTime());
-        headModel.setUserId(10000000041L);
-        headModel.setUserCode("1");
-        headModel.setUserName("超级户");
+        SysUserModel sysUserModel = SysUserDataContextHolder.getSysUserData();
+        UsrUserModel userModel = sysUserModel.getUserModel();
+        headModel.setUserId(userModel.getUserId());
+        headModel.setUserCode(userModel.getUserCode());
+        headModel.setUserName(userModel.getUserName());
         headModel.setOrgCode(req.getOrgCode());
         headModel.setOrgName(req.getOrgName());
         OrgManageModel orgModel = this.commonService.getOrgModel(req.getOrgCode());

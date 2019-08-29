@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.addlove.service.goods.constants.GoodsJgConstants.ClType;
 import com.addlove.service.goods.constants.GoodsJgConstants.DataStatus;
 import com.addlove.service.goods.constants.GoodsJgConstants.SaveType;
 import com.addlove.service.goods.constants.GoodsJgConstants.YwType;
+import com.addlove.service.goods.context.SysUserDataContextHolder;
 import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.message.ResponseMessage;
@@ -28,6 +28,8 @@ import com.addlove.service.goods.model.FrsJgPageModel;
 import com.addlove.service.goods.model.FrsJgYlModel;
 import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
+import com.addlove.service.goods.model.SysUserModel;
+import com.addlove.service.goods.model.UsrUserModel;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.FrsJgCpReq;
 import com.addlove.service.goods.model.valid.FrsJgHeadReq;
@@ -217,9 +219,11 @@ public class FrsJgController extends BaseController{
                     GoodsResponseCode.SKU_NOT_BLANK.getMsg());
         }
         headModel.setLrDate(DateUtil.getCurrentTime());
-        headModel.setUserId(10000000041L);
-        headModel.setUserCode("1");
-        headModel.setUserName("超级户");
+        SysUserModel sysUserModel = SysUserDataContextHolder.getSysUserData();
+        UsrUserModel userModel = sysUserModel.getUserModel();
+        headModel.setUserId(userModel.getUserId());
+        headModel.setUserCode(userModel.getUserCode());
+        headModel.setUserName(userModel.getUserName());
         headModel.setYwType(YwType.MD_JG.getValue());
         headModel.setYwIoType("0");
         headModel.setOrgCode(req.getOrgCode());
@@ -249,9 +253,9 @@ public class FrsJgController extends BaseController{
         headModel.setCkName(req.getCkName());
         if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
             headModel.setJzDate(DateUtil.getCurrentTime());
-            headModel.setJzrId(10000000041L);
-            headModel.setJzrCode("1");
-            headModel.setJzrName("超级户");
+            headModel.setJzrId(userModel.getUserId());
+            headModel.setJzrCode(userModel.getUserCode());
+            headModel.setJzrName(userModel.getUserName());
         }
         if (StringUtils.isBlank(req.getBillNo())) {
             Map<String, Object> map = new HashMap<>();

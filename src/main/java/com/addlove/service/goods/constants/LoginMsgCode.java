@@ -11,13 +11,17 @@ public interface LoginMsgCode {
      */
     public enum LoginCode {
         /**
-         * 账户不存在
+         * 用户不存在
          */
-        ACCOUNT(1000, "账户不存在"),
+        ACCOUNT(1000, "用户不存在"),
         /**
-         * 密码错误
+         * 组织不存在
          */
-        PASSWORD(1001, "密码错误"),
+        ORGANIZE(1001, "组织不存在"),
+        /**
+         * 用户或组织错误
+         */
+        USER_OR_ORG_ERROR(1002, "用户或组织错误"),
         /**
          * 请先登录
          */

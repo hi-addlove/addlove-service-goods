@@ -84,7 +84,12 @@ public enum GoodsResponseCode {
     /**
      * 系统加工工艺设置不能为空
      */
-    JG_GY_NOT_BLANK(20015, "系统加工工艺设置不能为空");
+    JG_GY_NOT_BLANK(20015, "系统加工工艺设置不能为空"),
+    
+    /**
+     * DES3加解密错误
+     */
+    DES3_ENCRYPT_DECRYPT_ERROR(20016, "DES3加解密错误");
     
     private int code;
     private String msg;
