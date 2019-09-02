@@ -10,11 +10,13 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.addlove.service.goods.constants.GoodsAdlYhConstants.yhType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.SaveType;
+import com.addlove.service.goods.controller.FrsJgController;
 import com.addlove.service.goods.controller.GoodsCommonController;
 import com.addlove.service.goods.controller.StkDbController;
 import com.addlove.service.goods.model.valid.CommonOrgAndDeptReq;
 import com.addlove.service.goods.model.valid.CommonOrgAndSupAndCntReq;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
+import com.addlove.service.goods.model.valid.FrsJgPageReq;
 import com.addlove.service.goods.model.valid.StkDbBodyReq;
 import com.addlove.service.goods.model.valid.StkDbHeadReq;
 import oracle.jdbc.OracleCallableStatement;
@@ -25,6 +27,16 @@ public class StkDbTest extends AddloveServiceGoodsApplicationTests{
     private StkDbController stkDbController;
     @Autowired
     private GoodsCommonController commonController;
+    @Autowired
+    private FrsJgController frsJgController;
+    
+    @Test
+    public void testQueryJgCakePage() {
+        FrsJgPageReq req = new FrsJgPageReq();
+        req.setOrgCode("690001");
+        req.setStartDate("2019-08-22");
+        this.frsJgController.queryJgCakePage(req);
+    }
     
     @Test
     public void testQueryDbDetail() {

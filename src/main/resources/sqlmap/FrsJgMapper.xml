@@ -105,6 +105,7 @@
     <result column="FLCOST" jdbcType="NUMERIC" property="flCost" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     <result column="USESTATUS" jdbcType="VARCHAR" property="useStatus" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
   </resultMap>
   
   <resultMap id="BaseResultMapSkuO" type="com.addlove.service.goods.model.SkuLyBsSetOrgModel" >
@@ -232,6 +233,81 @@
     <result column="PACKQTY" jdbcType="VARCHAR" property="packQty" />
   </resultMap>
   
+  <resultMap id="BaseResultMapCake" type="com.addlove.service.goods.model.WslCakeBillTPModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="SAPBILLNO" jdbcType="VARCHAR" property="sapBillNo" />
+    <result column="POSNO" jdbcType="VARCHAR" property="posNo" />
+    <result column="ORGCODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORGNAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="ORDTYPE" jdbcType="VARCHAR" property="ordType" />
+    <result column="TRADEDATE" jdbcType="VARCHAR" property="tradeDate" />
+    <result column="ORDDATE" jdbcType="VARCHAR" property="ordDate" />
+    <result column="ORDTIME" jdbcType="VARCHAR" property="ordTime" />
+    <result column="CREATDATE" jdbcType="VARCHAR" property="creatDate" />
+    <result column="CREATTIME" jdbcType="VARCHAR" property="creatTime" />
+    <result column="MODIFYDATE" jdbcType="VARCHAR" property="modifyDate" />
+    <result column="MODIFYTIME" jdbcType="VARCHAR" property="modifyTime" />
+    <result column="CUSTOMNAME" jdbcType="VARCHAR" property="customName" />
+    <result column="CUSTOMMOBILE" jdbcType="VARCHAR" property="customMobile" />
+    <result column="CUSTOMTEL" jdbcType="VARCHAR" property="customTel" />
+    <result column="ORDSTATUS" jdbcType="VARCHAR" property="ordStatus" />
+    <result column="JGORGCODE" jdbcType="VARCHAR" property="jgOrgCode" />
+    <result column="JGORGNAME" jdbcType="VARCHAR" property="jgOrgName" />
+    <result column="SAPJGORGCODE" jdbcType="VARCHAR" property="sapJgOrgCode" />
+    <result column="SAPJGORGNAME" jdbcType="VARCHAR" property="sapJgOrgName" />
+    <result column="ISMULTI" jdbcType="VARCHAR" property="isMulti" />
+    <result column="YJTOTAL" jdbcType="NUMERIC" property="yjTotal" />
+    <result column="DJDATE" jdbcType="VARCHAR" property="djDate" />
+    <result column="THDATE" jdbcType="VARCHAR" property="thDate" />
+    <result column="THTIME" jdbcType="VARCHAR" property="thTime" />
+    <result column="THMODE" jdbcType="VARCHAR" property="thMode" />
+    <result column="THORGCODE" jdbcType="VARCHAR" property="thOrgCode" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="POSUSERCODE" jdbcType="VARCHAR" property="posUserCode" />
+    <result column="POSUSERNAME" jdbcType="VARCHAR" property="posUserName" />
+    <result column="ORDTOTAL" jdbcType="NUMERIC" property="ordTotal" />
+    <result column="TOTALDSC" jdbcType="NUMERIC" property="totalDsc" />
+    <result column="FKTOTAL" jdbcType="NUMERIC" property="fkTotal" />
+    <result column="YFKTOTAL" jdbcType="NUMERIC" property="yfkTotal" />
+    <result column="WFKTOTAL" jdbcType="NUMERIC" property="wfkTotal" />
+    <result column="TOTALPAY" jdbcType="NUMERIC" property="totalpay" />
+    <result column="CHANGE" jdbcType="NUMERIC" property="change" />
+    <result column="COMSERIALNO" jdbcType="NUMERIC" property="comserialNo" />
+    <result column="ISRTNED" jdbcType="VARCHAR" property="isRtned" />
+    <result column="JZDATE" jdbcType="DATE" property="jzDate" />
+    <result column="JZRID" jdbcType="NUMERIC" property="jzrId" />
+    <result column="JZRCODE" jdbcType="VARCHAR" property="jzrCode" />
+    <result column="JZRNAME" jdbcType="VARCHAR" property="jzrName" />
+    <result column="PRNTIMES" jdbcType="NUMERIC" property="prnTimes" />
+    <result column="PRNDATE" jdbcType="TIMESTAMP" property="prnDate" />
+    <result column="POSTDDATE" jdbcType="TIMESTAMP" property="postdDate" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapCakePlu" type="com.addlove.service.goods.model.WslCakeBillPluTPModel">
+    <result column="BILLNO" jdbcType="VARCHAR" property="billNo" />
+    <result column="SERIALNO" jdbcType="NUMERIC" property="serialNo" />
+    <result column="PLUID" jdbcType="NUMERIC" property="pluId" />
+    <result column="PLUCODE" jdbcType="VARCHAR" property="pluCode" />
+    <result column="PLUNAME" jdbcType="VARCHAR" property="pluName" />
+    <result column="EXPLUCODE" jdbcType="VARCHAR" property="exPluCode" />
+    <result column="EXPLUNAME" jdbcType="VARCHAR" property="exPluName" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barCode" />
+    <result column="SPEC" jdbcType="VARCHAR" property="spec" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="PLUQTY" jdbcType="NUMERIC" property="pluQty" />
+    <result column="PRICE" jdbcType="NUMERIC" property="price" />
+    <result column="YHPRICE" jdbcType="NUMERIC" property="yhPrice" />
+    <result column="DSCCOUNT" jdbcType="NUMERIC" property="dscCount" />
+    <result column="PLUDSC" jdbcType="NUMERIC" property="pluDsc" />
+    <result column="PLUTOTAL" jdbcType="NUMERIC" property="pluTotal" />
+    <result column="PLUDSCTYPE" jdbcType="VARCHAR" property="pluDscType" />
+    <result column="FONTTYPE" jdbcType="VARCHAR" property="fontType" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CLSCODE" jdbcType="VARCHAR" property="clsCode" />
+    <result column="DEPCODE" jdbcType="VARCHAR" property="depCode" />
+  </resultMap>
+  
   <sql id="Base_Column_List">
     BILLNO, LRDATE, USERID, USERCODE, USERNAME, JZDATE, JZRID, JZRCODE, JZRNAME, JZTYPE, 
     RPTDATE, PRNTIMES, PRNDATE, TIMEMARK, YWTYPE, YWIOTYPE, ZDRID, ZDRCODE, ZDRNAME, 
@@ -250,6 +326,21 @@
     BILLNO, SERIALNO, PLUID, PLUCODE, PLUNAME, BARCODE, SPEC, UNIT, EXPLUCODE, EXPLUNAME, 
     HJPRICE, WJPRICE, PRICE, JTAXRATE, CPPERCENT, CPCOUNT, CPHCOST, CPWCOST, CPTOTAL, 
     REMARK, JTAXCALTYPE, FPPERCENT
+  </sql>
+  
+  <sql id="Base_Column_List_Cake">
+    BILLNO, SAPBILLNO, POSNO, ORGCODE, ORGNAME, ORDTYPE, TRADEDATE, ORDDATE, ORDTIME, 
+    CREATDATE, CREATTIME, MODIFYDATE, MODIFYTIME, CUSTOMNAME, CUSTOMMOBILE, CUSTOMTEL, 
+    ORDSTATUS, JGORGCODE, JGORGNAME, SAPJGORGCODE, SAPJGORGNAME, ISMULTI, YJTOTAL, DJDATE, 
+    THDATE, THTIME, THMODE, THORGCODE, ADDRESS, REMARK, POSUSERCODE, POSUSERNAME, ORDTOTAL, 
+    TOTALDSC, FKTOTAL, YFKTOTAL, WFKTOTAL, TOTALPAY, CHANGE, COMSERIALNO, ISRTNED, JZDATE, 
+    JZRID, JZRCODE, JZRNAME, PRNTIMES, PRNDATE, POSTDDATE
+  </sql>
+  
+   <sql id="Base_Column_List_Cake_Plu">
+    BILLNO, SERIALNO, PLUID, PLUCODE, PLUNAME, EXPLUCODE, EXPLUNAME, BARCODE, SPEC, UNIT, 
+    PLUQTY, PRICE, YHPRICE, DSCCOUNT, PLUDSC, PLUTOTAL, PLUDSCTYPE, FONTTYPE, REMARK, 
+    CLSCODE, DEPCODE
   </sql>
   
   <!-- 查询加工单列表 -->
@@ -301,6 +392,22 @@
         and t.DATASTATUS = #{queryModel.dataStatus,jdbcType=VARCHAR}
     </if>
     and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 查询生日蛋糕加工列表 -->
+  <select id="queryJgCakePage" resultMap="BaseResultMapCake">
+    select 
+    <include refid="Base_Column_List_Cake"/>
+    From TWSLCAKEBILL_TOPOS where ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+     <if test="queryModel.billNo != '' and queryModel.billNo != null">
+        and BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="queryModel.startDate != '' and queryModel.startDate != null">
+        and CREATDATE &gt;= #{queryModel.startDate,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.endDate != '' and queryModel.endDate != null">
+        and CREATDATE &lt;= #{queryModel.endDate,jdbcType=VARCHAR}
+    </if>
   </select>
   
   <!-- 插入加工单主表 -->
@@ -559,6 +666,20 @@
     From TFRSJGCP t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
   </select>
   
+  <!-- 通过单号获取生日蛋糕加工单主表 -->
+  <select id="getJgCakeHead" resultMap="BaseResultMapCake">
+    select 
+    <include refid="Base_Column_List_Cake"/>
+    From TWSLCAKEBILL_TOPOS where BILLNO = #{billNo,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 通过单号获取生日蛋糕加工单明细表 -->
+  <select id="getJgCakeBodys" resultMap="BaseResultMapCakePlu">
+    select 
+    <include refid="Base_Column_List_Cake_Plu"/>
+    From TWSLCAKEBILLPLU_TOPOS where BILLNO = #{billNo,jdbcType=VARCHAR}
+  </select>
+  
   <!-- 删除加工主表 -->
   <delete id="delJgHead" parameterType="java.lang.String">
     DELETE FROM TFRSJGHEAD WHERE BILLNO = #{billNo,jdbcType=VARCHAR}
@@ -634,8 +755,21 @@
      And t.USESTATUS = '2'
   </select>
   
+  <!-- 通过商品获取加工工艺部门 -->
+  <select id="getDeptByGyPlu" resultMap="BaseResultMapGy">
+    Select Distinct t.DEPTID,t.DEPCODE,t.DEPNAME,t1.pluid
+    From TFRSGY t,TFRSGYCP t1 where t.gycode = t1.gycode 
+    And t1.pluid = #{pluId,jdbcType=NUMERIC}
+  </select>
+  
+   <!-- 更新生日蛋糕加工单备注 -->
+  <update id="updateRemark">
+    Update TWSLCAKEBILL_TOPOS Set REMARK=#{remark,jdbcType=VARCHAR}
+    Where BILLNO = #{billNo,jdbcType=VARCHAR}
+  </update>
+  
   <!-- 调用存储过程进行加工单据记账 -->
-    <select id="execJgAccountProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
+  <select id="execJgAccountProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
     <![CDATA[
      {
        CALL sFrs_JgBill_Account
@@ -643,6 +777,21 @@
          #{ps_BillNo,mode=IN,jdbcType=VARCHAR}, to_date(#{pd_Date,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), #{pf_UserID,mode=IN,jdbcType=NUMERIC}, 
          #{ps_UserCode,mode=IN,jdbcType=VARCHAR}, #{ps_UserName,mode=IN,jdbcType=VARCHAR},  
          #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR}, #{ps_ClType,mode=IN,jdbcType=VARCHAR}
+       )
+     }
+    ]]>
+  </select>
+  
+  <!-- 调用存储过程进行生日蛋糕加工单据记账 -->
+  <select id="execJgCakeAccountProcedure" statementType="CALLABLE" parameterType="java.util.HashMap">
+    <![CDATA[
+     {
+       CALL sWsl_CakeJg_DealRk
+       (
+         #{ps_BillNo,mode=IN,jdbcType=VARCHAR}, #{ps_OrgCode,mode=IN,jdbcType=VARCHAR},
+         to_date(#{pd_Date,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'), #{ps_UserID,mode=IN,jdbcType=NUMERIC}, 
+         #{ps_UserCode,mode=IN,jdbcType=VARCHAR}, #{ps_UserName,mode=IN,jdbcType=VARCHAR},  
+         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR}
        )
      }
     ]]>

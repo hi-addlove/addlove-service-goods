@@ -6,6 +6,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,7 @@ import com.addlove.service.goods.model.UsrUserModel;
 import com.addlove.service.goods.service.GoodsCommonService;
 import com.addlove.service.goods.util.DES3;
 import com.addlove.service.goods.util.JsonUtil;
+import com.addlove.service.goods.util.LoggerEnhance;
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -31,6 +34,9 @@ import com.alibaba.fastjson.JSONObject;
  */
 @Component
 public class PermissionIntercept implements HandlerInterceptor {
+    /**PermissionIntercept类日志 */
+    private static final Logger LOGGER = LoggerFactory.getLogger(PermissionIntercept.class);
+    
     @Autowired
     private GoodsCommonService commonService;
     
@@ -51,6 +57,7 @@ public class PermissionIntercept implements HandlerInterceptor {
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
         String encryptUserCode = request.getHeader("userCode");
+        LoggerEnhance.info(LOGGER, "拦截器拦截外部系统传输的UserCode密文为:{}", encryptUserCode);
         if (StringUtils.isBlank(encryptUserCode)) {
             PrintWriter print = response.getWriter();
             print.write(JsonUtil.toJSONString(
@@ -58,6 +65,7 @@ public class PermissionIntercept implements HandlerInterceptor {
             return false;
         }
         String encryptOrgCode = request.getHeader("orgCode");
+        LoggerEnhance.info(LOGGER, "拦截器拦截外部系统传输的OrgCode密文为:{}", encryptOrgCode);
         if (StringUtils.isBlank(encryptOrgCode)) {
             PrintWriter print = response.getWriter();
             print.write(JsonUtil.toJSONString(

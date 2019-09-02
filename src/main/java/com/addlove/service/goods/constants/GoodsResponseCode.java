@@ -97,7 +97,12 @@ public enum GoodsResponseCode {
     LOGIN_AGAIN(20017, "请重新登录"),
     
     /** 消息头错误 **/
-    HEADER_ERROR_CODE(20018, "消息头错误");
+    HEADER_ERROR_CODE(20018, "消息头错误"),
+    
+    /**
+     * 生日蛋糕加工单不能为空
+     */
+    JG_CAKE_NOT_BLANK(20019, "生日蛋糕加工单不能为空");
     
     private int code;
     private String msg;

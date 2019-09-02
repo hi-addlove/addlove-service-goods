@@ -315,7 +315,7 @@ public class StkDbController extends BaseController {
         }
         headModel.setCkCode(storeList.get(0).getCkCode());
         headModel.setCkName(storeList.get(0).getCkName());
-        List<StkStoreModel> shStoreList = this.commonService.getStoreList(req.getOrgCode());
+        List<StkStoreModel> shStoreList = this.commonService.getStoreList(req.getShOrgCode());
         if (null == shStoreList || shStoreList.isEmpty()) {
             throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 
                     GoodsResponseCode.CK_NOT_BLANK.getMsg());

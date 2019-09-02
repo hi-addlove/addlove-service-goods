@@ -17,6 +17,7 @@ import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.GoodsCommonConstants.ProcedureResult;
 import com.addlove.service.goods.dao.FrsJgDao;
 import com.addlove.service.goods.dao.OrdAdlYhDao;
+import com.addlove.service.goods.dao.StkDbDao;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.model.FrsGyModel;
 import com.addlove.service.goods.model.FrsJgCpModel;
@@ -24,6 +25,9 @@ import com.addlove.service.goods.model.FrsJgHeadModel;
 import com.addlove.service.goods.model.FrsJgPageModel;
 import com.addlove.service.goods.model.FrsJgYlModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
+import com.addlove.service.goods.model.StkDbHeadModel;
+import com.addlove.service.goods.model.WslCakeBillPluTPModel;
+import com.addlove.service.goods.model.WslCakeBillTPModel;
 import com.addlove.service.goods.util.LoggerEnhance;
 import com.github.pagehelper.PageHelper;
 
@@ -48,7 +52,17 @@ public class FrsJgService {
     @Autowired
     private OrdAdlYhDao ordAdlYhDao;
     
+    @Autowired
+    private StkDbDao stkDbDao;
     
+    @Autowired
+    private GoodsCommonService commonService;
+    
+    /**
+     * 查询加工单列表
+     * @param queryModel
+     * @return List<FrsJgHeadModel>
+     */
     public List<FrsJgHeadModel> queryJgPage(FrsJgPageModel queryModel) {
         PageHelper.startPage(queryModel.getPageNo(), queryModel.getPageSize(), true);
         List<FrsJgHeadModel> jgList = this.frsJgDao.queryJgPage(queryModel);
@@ -63,6 +77,24 @@ public class FrsJgService {
             }
         }
         return jgList;
+    }
+    
+    /**
+     * 查询生日蛋糕加工列表
+     * @param queryModel
+     * @return List<WslCakeBillTPModel>
+     */
+    public List<WslCakeBillTPModel> queryJgCakePage(FrsJgPageModel queryModel) {
+        PageHelper.startPage(queryModel.getPageNo(), queryModel.getPageSize(), true);
+        List<WslCakeBillTPModel> cakeList = this.frsJgDao.queryJgCakePage(queryModel);
+        if (null != cakeList && !cakeList.isEmpty()) {
+            for (WslCakeBillTPModel model : cakeList) {
+                if (StringUtils.isNotBlank(model.getJzDate()) && model.getJzDate().length() > 19) {
+                    model.setJzDate(model.getJzDate().substring(0, 19));
+                }
+            }
+        }
+        return cakeList;
     }
     
     /**
@@ -118,6 +150,18 @@ public class FrsJgService {
         if (StringUtils.isNotBlank(headModel.getJzDate()) && headModel.getJzDate().length() > 19) {
             headModel.setJzDate(headModel.getJzDate().substring(0, 19));
         }
+        return headModel;
+    }
+    
+    /**
+     * 查询生日蛋糕加工单详情
+     * @param billNo
+     * @return WslCakeBillTPModel
+     */
+    public WslCakeBillTPModel queryJgCakeDetails(String billNo) {
+        WslCakeBillTPModel headModel = this.frsJgDao.getJgCakeHead(billNo);
+        List<WslCakeBillPluTPModel> bodyList = this.frsJgDao.getJgCakeBodys(billNo);
+        headModel.setBodyList(bodyList);
         return headModel;
     }
     
@@ -193,6 +237,34 @@ public class FrsJgService {
     }
     
     /**
+     * 通过商品获取加工工艺部门
+     * @param pluId
+     * @return FrsGyModel
+     */
+    public  FrsGyModel getDeptByGyPlu(Long pluId) {
+        return this.frsJgDao.getDeptByGyPlu(pluId);
+    }
+    
+    /**
+     * 插入调拨并执行记账
+     * @param headModel
+     */
+    @Transactional
+    public void insertDbAndExecAccount(StkDbHeadModel headModel) {
+        this.stkDbDao.insertStkDbHead(headModel);
+        this.stkDbDao.insertStkDbBody(headModel.getBodyList());
+        Map<String, Object> accountMap = new HashMap<String, Object>();
+        accountMap.put("ps_BillNo", headModel.getBillNo());
+        accountMap.put("ps_YwType", headModel.getYwType());
+        accountMap.put("pi_UserId", headModel.getJzrId());
+        accountMap.put("ps_UserCode", headModel.getJzrCode());
+        accountMap.put("ps_UserName", headModel.getJzrName());
+        accountMap.put("pd_JzDate", headModel.getJzDate());
+        this.commonService.execAccountByCallProcedure(accountMap);
+        this.frsJgDao.updateRemark(headModel.getBillNo(), "自动生成调拨单号" + headModel.getBillNo());
+    }
+    
+    /**
      * 调用存储过程进行单据记账
      * @param map
      * @return Map<String, Object>
@@ -208,6 +280,31 @@ public class FrsJgService {
                     GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
         }
         LoggerEnhance.info(LOGGER, "加工单据记账结果为--------------------：{}", null != map.get("ps_Message") ? map.get("ps_Message").toString() : "");
+        int resultCode = null != map.get("pi_Result") ? Integer.valueOf(map.get("pi_Result").toString()) : -1;
+        if (ProcedureResult.EXEC_ERROR_RECORD.getValue() == resultCode 
+                || ProcedureResult.EXEC_ERROR_EXIT.getValue() == resultCode) {
+            throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
+                    null != map.get("ps_Message") ? map.get("ps_Message").toString() : GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
+        }
+        return map;
+    }
+    
+    /**
+     * 调用存储过程进行生日蛋糕单据记账
+     * @param map
+     * @return Map<String, Object>
+     */
+    @Transactional
+    public Map<String, Object> execJgCakeAccountProcedure(Map<String, Object> map) {
+        long startTime = System.currentTimeMillis();
+        this.frsJgDao.execJgCakeAccountProcedure(map);
+        long endTime = System.currentTimeMillis();
+        LoggerEnhance.info(LOGGER, "调用生日蛋糕加工单据记账存储过程-【CALL sWsl_CakeJg_DealRk()】消耗时间:{}", (endTime - startTime));
+        if (null == map) {
+            throw new ServiceException(GoodsResponseCode.EXEC_PROCEDURE_ERROR.getCode(), 
+                    GoodsResponseCode.EXEC_PROCEDURE_ERROR.getMsg());
+        }
+        LoggerEnhance.info(LOGGER, "生日蛋糕加工单据记账结果为--------------------：{}", null != map.get("ps_Message") ? map.get("ps_Message").toString() : "");
         int resultCode = null != map.get("pi_Result") ? Integer.valueOf(map.get("pi_Result").toString()) : -1;
         if (ProcedureResult.EXEC_ERROR_RECORD.getValue() == resultCode 
                 || ProcedureResult.EXEC_ERROR_EXIT.getValue() == resultCode) {
