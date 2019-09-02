@@ -96,35 +96,6 @@ public class FrsJgController extends BaseController{
     }
     
     /**
-     * 查询生日蛋糕加工单列表
-     * @param req
-     * @return ResponseMessage
-     */
-    @RequestMapping(value = "/queryJgCakePage", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseMessage queryJgCakePage(@RequestBody @Valid FrsJgPageReq req) {
-        FrsJgPageModel queryModel = new FrsJgPageModel();
-        queryModel.setPageNo(req.getPageNo());
-        queryModel.setPageSize(req.getPageSize());
-        queryModel.setOrgCode(req.getOrgCode());
-        queryModel.setBillNo(req.getBillNo());
-        if (StringUtils.isNotBlank(req.getStartDate())) {
-            queryModel.setStartDate(req.getStartDate() + " 00:00:00");
-        }
-        if (StringUtils.isNotBlank(req.getEndDate())) {
-            queryModel.setEndDate(req.getEndDate() + " 23:59:59");
-        }
-        List<WslCakeBillTPModel> cakeList = this.frsJgService.queryJgCakePage(queryModel);
-        Page<WslCakeBillTPModel> page = (Page<WslCakeBillTPModel>) cakeList;
-        PageModel pageModel = new PageModel();
-        pageModel.setPageNo(page.getPageNum());
-        pageModel.setPageSize(page.getPageSize());
-        pageModel.setResult(page.getResult());
-        pageModel.setTotal(page.getTotal());
-        return ResponseMessage.ok(pageModel);
-    }
-    
-    /**
      * 新增加工单
      * @param req
      * @return ResponseMessage
@@ -215,18 +186,6 @@ public class FrsJgController extends BaseController{
     }
     
     /**
-     * 查询生日蛋糕加工单详情
-     * @param req
-     * @return ResponseMessage
-     */
-    @RequestMapping(value = "/queryJgCakeDetails", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseMessage queryJgCakeDetails(@RequestBody @Valid CommonQueryDetailReq req) {
-        WslCakeBillTPModel model = this.frsJgService.queryJgCakeDetails(req.getBillNo());
-        return ResponseMessage.ok(model);
-    }
-    
-    /**
      * 获取加工商品
      * @param req
      * @return ResponseMessage
@@ -248,6 +207,47 @@ public class FrsJgController extends BaseController{
         }
        Set<SkuPluExtendModel> skuList = this.frsJgService.getJgSkuList(req.getOrgCode(), req.getDepId(), req.getCkCode());
        return ResponseMessage.ok(skuList);
+    }
+    
+    /**
+     * 查询生日蛋糕加工单列表
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/queryJgCakePage", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage queryJgCakePage(@RequestBody @Valid FrsJgPageReq req) {
+        FrsJgPageModel queryModel = new FrsJgPageModel();
+        queryModel.setPageNo(req.getPageNo());
+        queryModel.setPageSize(req.getPageSize());
+        queryModel.setOrgCode(req.getOrgCode());
+        queryModel.setBillNo(req.getBillNo());
+        if (StringUtils.isNotBlank(req.getStartDate())) {
+            queryModel.setStartDate(req.getStartDate() + " 00:00:00");
+        }
+        if (StringUtils.isNotBlank(req.getEndDate())) {
+            queryModel.setEndDate(req.getEndDate() + " 23:59:59");
+        }
+        List<WslCakeBillTPModel> cakeList = this.frsJgService.queryJgCakePage(queryModel);
+        Page<WslCakeBillTPModel> page = (Page<WslCakeBillTPModel>) cakeList;
+        PageModel pageModel = new PageModel();
+        pageModel.setPageNo(page.getPageNum());
+        pageModel.setPageSize(page.getPageSize());
+        pageModel.setResult(page.getResult());
+        pageModel.setTotal(page.getTotal());
+        return ResponseMessage.ok(pageModel);
+    }
+    
+    /**
+     * 查询生日蛋糕加工单详情
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/queryJgCakeDetails", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage queryJgCakeDetails(@RequestBody @Valid CommonQueryDetailReq req) {
+        WslCakeBillTPModel model = this.frsJgService.queryJgCakeDetails(req.getBillNo());
+        return ResponseMessage.ok(model);
     }
     
     /**
