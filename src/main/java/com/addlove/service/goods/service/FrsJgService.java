@@ -166,18 +166,79 @@ public class FrsJgService {
     }
     
     /**
-     * 获取加工商品
+     * 获取加工原料商品
      * @param orgCode
      * @param depId
      * @param ckCode
      * @return Set<SkuPluExtendModel>
      */
-    public Set<SkuPluExtendModel> getJgSkuList(String orgCode, Long depId, String ckCode) {
+    public Set<SkuPluExtendModel> getJgYlSkuList(String orgCode, Long depId, String ckCode) {
         //获取部门商品
         List<SkuPluExtendModel> multiSkus = this.frsJgDao.getMultiSkus(orgCode, depId, ckCode);
         List<SkuPluExtendModel> lyAndBsSkus = this.frsJgDao.getLyAndBsSkus(orgCode, depId, ckCode);
         //去重商品
-        Set<SkuPluExtendModel> skuSet = new HashSet<>();
+        Set<SkuPluExtendModel> skuSet = new HashSet<SkuPluExtendModel>();
+        if (null != multiSkus && !multiSkus.isEmpty()) {
+            multiSkus.addAll(lyAndBsSkus);
+            skuSet.addAll(multiSkus);
+        }else {
+            skuSet.addAll(lyAndBsSkus);
+        }
+        List<Map<String, Object>> pluList = new LinkedList<Map<String, Object>>();
+        for (SkuPluExtendModel pluModel : skuSet) {
+            Map<String, Object> queryMap = new HashMap<String, Object>();
+            queryMap.put("pluId", pluModel.getPluId());
+            pluList.add(queryMap);
+        }
+       //获取商品可用库存数量
+        List<Map<String, Object>> kcList = new ArrayList<>();
+        int size = pluList.size();
+        if (size > 0) {
+            if (DEFAULT_BATCH_QUERY_SIZE < size) {
+                int part = size / DEFAULT_BATCH_QUERY_SIZE; // 分批数
+                for (int i = 0; i < part; i++) {
+                    List<Map<String, Object>> partPluList = new LinkedList<Map<String, Object>>();
+                    partPluList.addAll(pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE));
+                    List<Map<String,Object>> kcPartList = this.ordAdlYhDao.getYhKcSum(partPluList, orgCode);
+                    kcList.addAll(kcPartList);
+                    pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE).clear();
+                }
+                if (!pluList.isEmpty()) {
+                    List<Map<String,Object>> kcPartList = this.ordAdlYhDao.getYhKcSum(pluList, orgCode);
+                    kcList.addAll(kcPartList);
+                }
+            }else {
+                kcList = this.ordAdlYhDao.getYhKcSum(pluList, orgCode);
+            }
+        }
+        Map<Long, Object> kcMap = new HashMap<Long, Object>();
+        for (Map<String, Object> map : kcList) {
+            long pluId = Long.parseLong(null != map.get("PLUID") ? map.get("PLUID").toString() : "0") ;
+            kcMap.put(pluId, null != map.get("KCCOUNT") ? map.get("KCCOUNT").toString() : "0");
+        }
+        for (SkuPluExtendModel pluModel : skuSet) {
+            double kcCount = 0.0;
+            if (null != kcMap.get(pluModel.getPluId())) {
+                kcCount = Double.valueOf(kcMap.get(pluModel.getPluId()).toString());
+            }
+            pluModel.setKcCount(kcCount);
+        }
+        return skuSet;
+    }
+    
+    /**
+     * 获取加工成品商品
+     * @param orgCode
+     * @param depId
+     * @param ckCode
+     * @return Set<SkuPluExtendModel>
+     */
+    public Set<SkuPluExtendModel> getJgCpSkuList(String orgCode, Long depId) {
+        //获取部门商品
+        List<SkuPluExtendModel> multiSkus = this.frsJgDao.getMultiCpSkus(orgCode, depId);
+        List<SkuPluExtendModel> lyAndBsSkus = this.frsJgDao.getLyAndBsCpSkus(orgCode, depId);
+        //去重商品
+        Set<SkuPluExtendModel> skuSet = new HashSet<SkuPluExtendModel>();
         if (null != multiSkus && !multiSkus.isEmpty()) {
             multiSkus.addAll(lyAndBsSkus);
             skuSet.addAll(multiSkus);

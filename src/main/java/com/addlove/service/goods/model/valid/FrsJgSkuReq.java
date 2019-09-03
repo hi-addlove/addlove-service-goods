@@ -9,6 +9,9 @@ public class FrsJgSkuReq {
     
     /** 仓库编码*/
     private String ckCode;
+    
+    /** 商品类型：1-原料;2-成品*/
+    private Integer skuType;
 
     /**
      * @return the orgCode
@@ -50,5 +53,19 @@ public class FrsJgSkuReq {
      */
     public void setCkCode(String ckCode) {
         this.ckCode = ckCode;
+    }
+
+    /**
+     * @return the skuType
+     */
+    public Integer getSkuType() {
+        return skuType;
+    }
+
+    /**
+     * @param skuType the skuType to set
+     */
+    public void setSkuType(Integer skuType) {
+        this.skuType = skuType;
     }
 }

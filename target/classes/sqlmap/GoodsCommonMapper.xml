@@ -551,7 +551,7 @@
     And t.ORGCODE = t4.ORGCODE
     And t.PLUID = t4.PLUID
     And t4.KYCOUNT > 0
-    and Exists(select M.PluID from tSkuPluEx M
+    <!-- 20190903去掉 and Exists(select M.PluID from tSkuPluEx M
                Where M.PluId=t.PluId
                And (
                      (M.CgMode != '0') 
@@ -562,7 +562,7 @@
                         Or #{orgCode,jdbcType=VARCHAR} = #{shOrgCode,jdbcType=VARCHAR})
                        )
                     )
-               )
+               ) -->
   </select>
   
   <!-- 通过组织、部门查询生产计划商品 -->
@@ -682,8 +682,8 @@
   <!-- 获取每个商品的库存总数 -->
   <select id="getKcSum" resultType="java.util.HashMap">
    Select SUM(t.KYCOUNT) AS KCCOUNT,t.PLUID 
-   From VSTKKYCOUNT t 
-   Where t.PLUID IN 
+   From VSTKKYCOUNT t where t.OrgCode = #{orgCode,jdbcType=VARCHAR}
+   And t.PLUID IN 
    <foreach collection="list" item="item" separator="," open="(" close=")">
        #{item.pluId,jdbcType=NUMERIC}
    </foreach>

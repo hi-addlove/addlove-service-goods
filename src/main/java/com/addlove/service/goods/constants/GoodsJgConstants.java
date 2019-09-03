@@ -59,6 +59,58 @@ public interface GoodsJgConstants {
     }
     
     /**
+     * 商品类型：1-原料;2-成品
+     * @author lw
+     *
+     */
+    public enum SkuType {
+        /**
+         * 1-原料
+         */
+        SKU_YL(1, "保存"),
+        /**
+         * 2-成品
+         */
+        SKU_CP(2, "记账");
+        
+        private int value;
+        private String name;
+        
+        private SkuType(int value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        /**
+         * @return the value
+         */
+        public int getValue() {
+            return value;
+        }
+
+        /**
+         * @param value the value to set
+         */
+        public void setValue(int value) {
+            this.value = value;
+        }
+
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+    
+    /**
      * 门店加工业务类型
      * @author lw
      *

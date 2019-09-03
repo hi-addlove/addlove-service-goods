@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.addlove.service.goods.constants.GoodsJgConstants.ClType;
 import com.addlove.service.goods.constants.GoodsJgConstants.DataStatus;
 import com.addlove.service.goods.constants.GoodsJgConstants.SaveType;
+import com.addlove.service.goods.constants.GoodsJgConstants.SkuType;
 import com.addlove.service.goods.constants.GoodsJgConstants.YwType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants;
 import com.addlove.service.goods.context.SysUserDataContextHolder;
@@ -205,8 +206,18 @@ public class FrsJgController extends BaseController{
             throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 
                     GoodsResponseCode.CK_NOT_BLANK.getMsg());
         }
-       Set<SkuPluExtendModel> skuList = this.frsJgService.getJgSkuList(req.getOrgCode(), req.getDepId(), req.getCkCode());
-       return ResponseMessage.ok(skuList);
+        if (null == req.getSkuType()) {
+            throw new ServiceException(GoodsResponseCode.JG_SKU_TYPE_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.JG_SKU_TYPE_NOT_BLANK.getMsg());
+        }
+        Set<SkuPluExtendModel> skuList = null;
+        if (SkuType.SKU_YL.getValue() == req.getSkuType()) {
+            skuList = this.frsJgService.getJgYlSkuList(req.getOrgCode(), req.getDepId(), req.getCkCode());
+            return ResponseMessage.ok(skuList);
+        }else if (SkuType.SKU_CP.getValue() == req.getSkuType()) {
+            skuList = this.frsJgService.getJgCpSkuList(req.getOrgCode(), req.getDepId());
+        }
+        return ResponseMessage.ok(skuList);
     }
     
     /**

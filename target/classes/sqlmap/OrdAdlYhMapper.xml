@@ -187,7 +187,7 @@
                 t.REMARK,
                 t.MODELCODE,
                 t.YHBC
-    From TORDCDADLYHHEAD t Where t.YWTYPE = '6205'
+    From TORDCDADLYHHEAD t Where t.YWTYPE = '6205' and t.ISURGENT = '0'
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
         and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
     </if>
@@ -431,7 +431,7 @@
    GROUP BY t.PLUID
   </select>
   
-  <!-- 调用存储过程进行单据记账 -->
+  <!-- 获取明日到货数量 -->
   <select id="execMrCountsProcedure" statementType="CALLABLE" parameterType="java.util.Map" resultMap="cursorMap">
      {
        CALL sOrd_ModelYh_GetPlu

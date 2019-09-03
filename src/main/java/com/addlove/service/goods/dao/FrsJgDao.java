@@ -117,6 +117,14 @@ public interface FrsJgDao {
             @Param("ckCode")String ckCode);
     
     /**
+     * 获取多经营部门成品商品数据
+     * @param orgCode
+     * @param depId
+     * @return List<SkuPluExtendModel>
+     */
+    List<SkuPluExtendModel> getMultiCpSkus(@Param("orgCode")String orgCode, @Param("depId")Long depId);
+    
+    /**
      * 获取商品领用及报损商品
      * @param orgCode
      * @param shOrgCode
@@ -126,6 +134,14 @@ public interface FrsJgDao {
      */
     List<SkuPluExtendModel> getLyAndBsSkus(@Param("orgCode")String orgCode, @Param("depId")Long depId, 
             @Param("ckCode")String ckCode);
+    
+    /**
+     * 获取商品领用及报损成品商品
+     * @param orgCode
+     * @param depId
+     * @return List<SkuPluExtendModel>
+     */
+    List<SkuPluExtendModel> getLyAndBsCpSkus(@Param("orgCode")String orgCode, @Param("depId")Long depId);
     
     /**
      * 获取加工工艺数据

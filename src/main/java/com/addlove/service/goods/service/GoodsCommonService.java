@@ -1,5 +1,6 @@
 package com.addlove.service.goods.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -38,6 +39,11 @@ import com.addlove.service.goods.util.LoggerEnhance;
 public class GoodsCommonService {
     /**GoodsCommonService类日志 */
     private static final Logger LOGGER = LoggerFactory.getLogger(GoodsCommonService.class);
+    
+    /**
+     * 默认单次批量查询plu数量
+     */
+    public static final int DEFAULT_BATCH_QUERY_SIZE = 500;
     
     @Autowired
     private GoodsCommonDao commonDao;
@@ -125,8 +131,27 @@ public class GoodsCommonService {
             queryMap.put("pluId", skuModel.getPluId());
             pluList.add(queryMap);
         }
-        //得到商品的可用库存
-        List<Map<String, Object>> kcList = this.commonDao.getKcSum(pluList);
+        //获取商品可用库存数量
+        List<Map<String, Object>> kcList = new ArrayList<>();
+        int size = pluList.size();
+        if (size > 0) {
+            if (DEFAULT_BATCH_QUERY_SIZE < size) {
+                int part = size / DEFAULT_BATCH_QUERY_SIZE; // 分批数
+                for (int i = 0; i < part; i++) {
+                    List<Map<String, Object>> partPluList = new LinkedList<Map<String, Object>>();
+                    partPluList.addAll(pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE));
+                    List<Map<String,Object>> kcPartList = this.commonDao.getKcSum(partPluList, orgCode);
+                    kcList.addAll(kcPartList);
+                    pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE).clear();
+                }
+                if (!pluList.isEmpty()) {
+                    List<Map<String,Object>> kcPartList = this.commonDao.getKcSum(pluList, orgCode);
+                    kcList.addAll(kcPartList);
+                }
+            }else {
+                kcList = this.commonDao.getKcSum(pluList, orgCode);
+            }
+        }
         Map<Long, Object> kcMap = new HashMap<Long, Object>();
         for (Map<String, Object> map : kcList) {
             long pluId = Long.parseLong(null != map.get("PLUID") ? map.get("PLUID").toString() : "0") ;
@@ -137,8 +162,10 @@ public class GoodsCommonService {
         skuSet.addAll(skuList);
         //将可用库存返回
         for (SkuPluExtendModel skuModel : skuSet) {
-            long key = skuModel.getPluId();
-            Double kcCount = Double.valueOf(kcMap.get(key).toString());
+            double kcCount = 0.0;
+            if (null != kcMap.get(skuModel.getPluId())) {
+                kcCount = Double.valueOf(kcMap.get(skuModel.getPluId()).toString());
+            }
             if (kcCount > 0) {
                 skuModel.setKcCount(kcCount);
                 backSkuList.add(skuModel);
@@ -222,7 +249,7 @@ public class GoodsCommonService {
             pluList.add(queryMap);
         }
         //得到商品的可用库存
-        List<Map<String, Object>> kcList = this.commonDao.getKcSum(pluList);
+        List<Map<String, Object>> kcList = this.commonDao.getKcSum(pluList, orgCode);
         Map<Long, Object> kcMap = new HashMap<Long, Object>();
         for (Map<String, Object> map : kcList) {
             long pluId = Long.parseLong(null != map.get("PLUID") ? map.get("PLUID").toString() : "0") ;
@@ -260,7 +287,7 @@ public class GoodsCommonService {
              pluList.add(queryMap);
          }
          //得到商品的可用库存
-         List<Map<String, Object>> kcList = this.commonDao.getKcSum(pluList);
+         List<Map<String, Object>> kcList = this.commonDao.getKcSum(pluList, orgCode);
          Map<Long, Object> kcMap = new HashMap<Long, Object>();
          for (Map<String, Object> map : kcList) {
              long pluId = Long.parseLong(null != map.get("PLUID") ? map.get("PLUID").toString() : "0") ;
@@ -288,15 +315,6 @@ public class GoodsCommonService {
      */
     public List<SkuPluExtendModel> getCanUseSkuCounts(String orgCode) {
         return this.commonDao.getCanUseSkuCounts(orgCode);
-    }
-    
-    /**
-     * 获取每个商品的库存总数
-     * @param pluSet
-     * @return List<Map<String, Object>>
-     */
-    public List<Map<String, Object>> getKcSum(List<Map<String, Object>> pluIds) {
-        return this.commonDao.getKcSum(pluIds);
     }
     
     /**

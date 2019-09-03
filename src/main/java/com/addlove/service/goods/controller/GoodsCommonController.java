@@ -167,7 +167,7 @@ public class GoodsCommonController extends BaseController{
     }
     
     /**
-     * 通过组织、部门、仓库查询商品
+     * 通过组织、部门、仓库查询商品（查询调拨商品）
      * @param req
      * @return ResponseMessage
      */

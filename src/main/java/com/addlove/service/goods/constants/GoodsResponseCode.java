@@ -102,7 +102,12 @@ public enum GoodsResponseCode {
     /**
      * 生日蛋糕加工单不能为空
      */
-    JG_CAKE_NOT_BLANK(20019, "生日蛋糕加工单不能为空");
+    JG_CAKE_NOT_BLANK(20019, "生日蛋糕加工单不能为空"),
+    
+    /**
+     * 加工商品类型不能为空
+     */
+    JG_SKU_TYPE_NOT_BLANK(20020, "加工商品类型不能为空");
     
     private int code;
     private String msg;
