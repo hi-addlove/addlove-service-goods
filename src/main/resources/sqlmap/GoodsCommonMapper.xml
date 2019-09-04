@@ -509,6 +509,13 @@
     From TORGDEPT t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t.ISACTIVE = '1'
   </select>
   
+  <!-- 通过编码获取部门 -->
+  <select id="getDeptByCode" resultMap="BaseResultMapDept">
+    select t.DEPID,t.ORGCODE,t.ORGCLASS,t.DEPCODE,t.DEPNAME,t.DEPENAME
+    From TORGDEPT t Where t.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t.DEPCODE = #{depCode,jdbcType=VARCHAR}
+    And t.ISACTIVE = '1'
+  </select>
+  
   <!-- 获取组织 -->
   <select id="getOrgModel" parameterType="java.lang.String" resultMap="BaseResultMapOrg">
     select t.ORGCODE,t.INORGCODE,t.ORGNAME,t.PREORGCODE,t.ORGCLASS,t.FORGCODE,t.ZBORGCODE

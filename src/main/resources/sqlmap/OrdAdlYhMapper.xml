@@ -433,15 +433,17 @@
   
   <!-- 获取明日到货数量 -->
   <select id="execMrCountsProcedure" statementType="CALLABLE" parameterType="java.util.Map" resultMap="cursorMap">
-     {
-       CALL sOrd_ModelYh_GetPlu
-       (
-         #{ps_OrgCode,mode=IN,jdbcType=VARCHAR}, #{ps_ModelCode,mode=IN,jdbcType=VARCHAR},
-         #{ps_DepId,mode=IN,jdbcType=VARCHAR}, #{ps_Type,mode=IN,jdbcType=VARCHAR}, 
-         #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR},
-         #{pc_Data,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=cursorMap}
-       )
-     }
+     <![CDATA[
+         {
+           CALL sOrd_ModelYh_GetPlu
+           (
+             #{ps_OrgCode,mode=IN,jdbcType=VARCHAR}, #{ps_ModelCode,mode=IN,jdbcType=VARCHAR},
+             #{ps_DepId,mode=IN,jdbcType=VARCHAR}, #{ps_Type,mode=IN,jdbcType=VARCHAR}, 
+             #{pi_Result,mode=OUT,jdbcType=NUMERIC}, #{ps_Message,mode=OUT,jdbcType=VARCHAR},
+             #{pc_Data,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=cursorMap}
+           )
+         }
+     ]]>
   </select>
   
   <!-- 调用存储过程进行要货单据记账 -->

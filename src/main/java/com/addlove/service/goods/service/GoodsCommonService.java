@@ -87,6 +87,15 @@ public class GoodsCommonService {
     }
     
     /**
+     * 通过编码获取部门
+     * @param orgCode
+     * @return List<OrgDeptModel>
+     */
+    public OrgDeptModel getDeptByCode(String orgCode, String depCode) {
+        return this.commonDao.getDeptByCode(orgCode, depCode);
+    }
+    
+    /**
      * 获取组织
      * @param orgCode
      * @return OrgManageModel

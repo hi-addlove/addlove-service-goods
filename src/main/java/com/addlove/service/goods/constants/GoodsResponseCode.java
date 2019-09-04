@@ -107,7 +107,12 @@ public enum GoodsResponseCode {
     /**
      * 加工商品类型不能为空
      */
-    JG_SKU_TYPE_NOT_BLANK(20020, "加工商品类型不能为空");
+    JG_SKU_TYPE_NOT_BLANK(20020, "加工商品类型不能为空"),
+    
+    /**
+     * 加工工艺部门不能为空
+     */
+    JG_GY_DEPT_NOT_BLANK(20021, "加工工艺部门不能为空");
     
     private int code;
     private String msg;

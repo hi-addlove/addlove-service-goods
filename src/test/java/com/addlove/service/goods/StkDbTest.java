@@ -4,21 +4,32 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.addlove.service.goods.constants.GoodsAdlYhConstants.yhType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.SaveType;
+import com.addlove.service.goods.context.SysUserDataContextHolder;
 import com.addlove.service.goods.controller.FrsJgController;
 import com.addlove.service.goods.controller.GoodsCommonController;
+import com.addlove.service.goods.controller.OrdAdlYhController;
 import com.addlove.service.goods.controller.StkDbController;
+import com.addlove.service.goods.model.OrgManageModel;
+import com.addlove.service.goods.model.SysUserModel;
+import com.addlove.service.goods.model.UsrUserModel;
+import com.addlove.service.goods.model.valid.AdlYhSkuReq;
 import com.addlove.service.goods.model.valid.CommonOrgAndDeptReq;
 import com.addlove.service.goods.model.valid.CommonOrgAndSupAndCntReq;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.FrsJgPageReq;
 import com.addlove.service.goods.model.valid.StkDbBodyReq;
 import com.addlove.service.goods.model.valid.StkDbHeadReq;
+import com.addlove.service.goods.service.OrdAdlYhService;
+
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 
@@ -29,6 +40,25 @@ public class StkDbTest extends AddloveServiceGoodsApplicationTests{
     private GoodsCommonController commonController;
     @Autowired
     private FrsJgController frsJgController;
+    @Autowired
+    private OrdAdlYhService ordAdlYhService;
+    @Autowired
+    private OrdAdlYhController adlYhController;
+    
+    @Test
+    public void testexecMrCount() {
+        this.ordAdlYhService.getMrCounts("999999", 10000000021L,"901");
+    }
+    
+    @Test
+    public void testGetYhSkuList() {
+        AdlYhSkuReq req = new AdlYhSkuReq();
+        req.setOrgCode("999999");
+        req.setDepId(10000000021L);
+        req.setModelCode("901");
+        req.setYhBc("01");
+        this.adlYhController.getYhSkuList(req);
+    }
     
     @Test
     public void testQueryJgCakePage() {
@@ -36,6 +66,25 @@ public class StkDbTest extends AddloveServiceGoodsApplicationTests{
         req.setOrgCode("690001");
         req.setStartDate("2019-08-22");
         this.frsJgController.queryJgCakePage(req);
+    }
+    
+    @Test
+    public void testDbJgCakeFaster() {
+        SysUserDataContextHolder.clearSysUserData();
+        SysUserModel sysUserModel = new SysUserModel();
+        UsrUserModel userModel = new UsrUserModel();
+        userModel.setUserId(10000000041L);
+        userModel.setUserCode("1");
+        userModel.setUserName("超级户");
+        sysUserModel.setUserModel(userModel);
+        OrgManageModel orgModel = new OrgManageModel();
+        orgModel.setOrgCode("999999");
+        orgModel.setOrgName("ADL");
+        sysUserModel.setOrgModel(orgModel);
+        SysUserDataContextHolder.setSysUserData(sysUserModel);
+        CommonQueryDetailReq req = new CommonQueryDetailReq();
+        req.setBillNo("690001042019082204");
+        this.frsJgController.dbJgCakeFaster(req);
     }
     
     @Test

@@ -392,6 +392,8 @@ public class WslCakeBillTPModel {
      */
     private String postdDate;
     
+    private String thOrgName;
+    
     private List<WslCakeBillPluTPModel> bodyList;
 
     /**
@@ -1078,5 +1080,19 @@ public class WslCakeBillTPModel {
      */
     public void setBodyList(List<WslCakeBillPluTPModel> bodyList) {
         this.bodyList = bodyList;
+    }
+
+    /**
+     * @return the thOrgName
+     */
+    public String getThOrgName() {
+        return thOrgName;
+    }
+
+    /**
+     * @param thOrgName the thOrgName to set
+     */
+    public void setThOrgName(String thOrgName) {
+        this.thOrgName = thOrgName;
     }
 }

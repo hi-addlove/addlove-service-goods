@@ -55,6 +55,13 @@ public interface GoodsCommonDao {
     List<OrgDeptModel> getDeptList(String orgCode);
     
     /**
+     * 通过编码获取部门
+     * @param orgCode
+     * @return List<OrgDeptModel>
+     */
+    OrgDeptModel getDeptByCode(@Param("orgCode")String orgCode, @Param("depCode")String depCode);
+    
+    /**
      * 获取组织
      * @param orgCode
      * @return OrgManageModel

@@ -130,6 +130,7 @@ public class OrdAdlYhService {
      * @param modelCode
      * @return List<SkuPluExtendModel>
      */
+    @Transactional
     public JSONArray getYhSkuList(String orgCode, Long depId, String modelCode) {
         long startTime = System.currentTimeMillis();
         JSONArray backArray = new JSONArray();
@@ -303,6 +304,7 @@ public class OrdAdlYhService {
      * @return List<OrdAdlYhPluCursorModel>
      */
     @SuppressWarnings("unchecked")
+    @Transactional
     public List<OrdAdlYhPluCursorModel> getMrCounts(String orgCode, Long depId, String modelCode) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("ps_OrgCode", orgCode);

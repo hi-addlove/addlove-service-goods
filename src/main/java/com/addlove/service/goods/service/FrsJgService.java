@@ -24,6 +24,7 @@ import com.addlove.service.goods.model.FrsJgCpModel;
 import com.addlove.service.goods.model.FrsJgHeadModel;
 import com.addlove.service.goods.model.FrsJgPageModel;
 import com.addlove.service.goods.model.FrsJgYlModel;
+import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
 import com.addlove.service.goods.model.StkDbHeadModel;
 import com.addlove.service.goods.model.WslCakeBillPluTPModel;
@@ -92,6 +93,8 @@ public class FrsJgService {
                 if (StringUtils.isNotBlank(model.getJzDate()) && model.getJzDate().length() > 19) {
                     model.setJzDate(model.getJzDate().substring(0, 19));
                 }
+                OrgManageModel orgModel = this.commonService.getOrgModel(model.getThOrgCode());
+                model.setThOrgName(orgModel.getOrgName());
             }
         }
         return cakeList;
@@ -160,6 +163,8 @@ public class FrsJgService {
      */
     public WslCakeBillTPModel queryJgCakeDetails(String billNo) {
         WslCakeBillTPModel headModel = this.frsJgDao.getJgCakeHead(billNo);
+        OrgManageModel orgModel = this.commonService.getOrgModel(headModel.getThOrgCode());
+        headModel.setThOrgName(orgModel.getOrgName());
         List<WslCakeBillPluTPModel> bodyList = this.frsJgDao.getJgCakeBodys(billNo);
         headModel.setBodyList(bodyList);
         return headModel;
@@ -311,18 +316,18 @@ public class FrsJgService {
      * @param headModel
      */
     @Transactional
-    public void insertDbAndExecAccount(StkDbHeadModel headModel) {
+    public void insertDbAndExecAccount(String cakeBillNo ,StkDbHeadModel headModel) {
         this.stkDbDao.insertStkDbHead(headModel);
         this.stkDbDao.insertStkDbBody(headModel.getBodyList());
         Map<String, Object> accountMap = new HashMap<String, Object>();
         accountMap.put("ps_BillNo", headModel.getBillNo());
         accountMap.put("ps_YwType", headModel.getYwType());
-        accountMap.put("pi_UserId", headModel.getJzrId());
-        accountMap.put("ps_UserCode", headModel.getJzrCode());
-        accountMap.put("ps_UserName", headModel.getJzrName());
-        accountMap.put("pd_JzDate", headModel.getJzDate());
+        accountMap.put("pi_UserId", headModel.getUserId());
+        accountMap.put("ps_UserCode", headModel.getUserCode());
+        accountMap.put("ps_UserName", headModel.getUserName());
+        accountMap.put("pd_JzDate", headModel.getLrDate());
         this.commonService.execAccountByCallProcedure(accountMap);
-        this.frsJgDao.updateRemark(headModel.getBillNo(), "自动生成调拨单号" + headModel.getBillNo());
+        this.frsJgDao.updateRemark(cakeBillNo, "自动生成调拨单号" + headModel.getBillNo());
     }
     
     /**

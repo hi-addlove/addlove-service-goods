@@ -29,6 +29,7 @@ import com.addlove.service.goods.model.FrsJgCpModel;
 import com.addlove.service.goods.model.FrsJgHeadModel;
 import com.addlove.service.goods.model.FrsJgPageModel;
 import com.addlove.service.goods.model.FrsJgYlModel;
+import com.addlove.service.goods.model.OrgDeptModel;
 import com.addlove.service.goods.model.OrgManageModel;
 import com.addlove.service.goods.model.PageModel;
 import com.addlove.service.goods.model.SkuPluExtendModel;
@@ -329,14 +330,24 @@ public class FrsJgController extends BaseController{
             throw new ServiceException(GoodsResponseCode.JG_GY_NOT_BLANK.getCode(), 
                     GoodsResponseCode.JG_GY_NOT_BLANK.getMsg());
         }
-        headModel.setDepId(Long.parseLong(gyModel.getDeptId()));
-        headModel.setDepCode(gyModel.getDepCode());
-        headModel.setDepName(gyModel.getDepName());
+        OrgDeptModel dept = this.commonService.getDeptByCode(headModel.getOrgCode(), gyModel.getDepCode());
+        if (null == dept) {
+            throw new ServiceException(GoodsResponseCode.JG_GY_DEPT_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.JG_GY_DEPT_NOT_BLANK.getMsg());
+        }
+        headModel.setDepId(dept.getDepId());
+        headModel.setDepCode(dept.getDepCode());
+        headModel.setDepName(dept.getDepName());
         headModel.setShOrgCode(cakeModel.getThOrgCode());
         headModel.setShOrgName("");
-        headModel.setShDepId(1L);
+        OrgDeptModel shDept = this.commonService.getDeptByCode(headModel.getShOrgCode(), "01");
+        if (null == shDept) {
+            throw new ServiceException(GoodsResponseCode.JG_GY_DEPT_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.JG_GY_DEPT_NOT_BLANK.getMsg());
+        }
+        headModel.setShDepId(shDept.getDepId());
         headModel.setShDepCode("01");
-        headModel.setShDepName("前场");
+        headModel.setShDepName(shDept.getDepName());
         List<StkStoreModel> storeList = this.commonService.getStoreList(headModel.getOrgCode());
         if (null == storeList || storeList.isEmpty()) {
             throw new ServiceException(GoodsResponseCode.CK_NOT_BLANK.getCode(), 
@@ -419,7 +430,7 @@ public class FrsJgController extends BaseController{
         headModel.setDbCount(headDbCount);
         headModel.setsTotal(headSTotal);
         headModel.setBodyList(bodyModels);
-        this.frsJgService.insertDbAndExecAccount(headModel);
+        this.frsJgService.insertDbAndExecAccount(cakeModel.getBillNo() ,headModel);
         return ResponseMessage.ok();
     }
     
