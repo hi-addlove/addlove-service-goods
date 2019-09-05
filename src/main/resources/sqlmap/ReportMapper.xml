@@ -3,7 +3,7 @@
 <mapper namespace="com.addlove.service.goods.dao.ReportDao">
   <!-- 库存查询报表 -->
   <select id="queryStockReport" resultType="java.util.HashMap">
-    select * from  
+    select * from 
             (select (select orgcode || ''-'' || Orgname from torgmanage where A.orgcode = orgcode) orginfo,
             (select depcode || ''-'' || depname from torgdept where A.depid = depid) depinfo,
             (select Ckcode || ''-'' || Ckname from tstkstore where A.ckcode = ckcode and A.orgcode = orgcode) ckinfo,

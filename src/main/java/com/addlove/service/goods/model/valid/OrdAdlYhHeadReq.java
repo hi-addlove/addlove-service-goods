@@ -47,7 +47,6 @@ public class OrdAdlYhHeadReq {
     private String remark;
     
     /** 模板编码*/
-    @NotBlank(message = "模板编码不能为空")
     private String modelCode;
 
     /** 要货波次*/
