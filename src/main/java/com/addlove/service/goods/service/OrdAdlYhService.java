@@ -118,6 +118,9 @@ public class OrdAdlYhService {
      */
     public OrdAdlYhHeadModel queryYhDetails(String billNo) {
         OrdAdlYhHeadModel yhHead = this.ordAdlYhDao.getYhHead(billNo);
+        if (StringUtils.isNotBlank(yhHead.getLrDate()) && yhHead.getLrDate().length() > 19) {
+            yhHead.setLrDate(yhHead.getLrDate().substring(0, 19));
+        }
         List<OrdAdlYhBodyModel> bodyList = this.ordAdlYhDao.getYhBodys(billNo);
         yhHead.setBodyList(bodyList);
         return yhHead;
@@ -136,6 +139,8 @@ public class OrdAdlYhService {
         JSONArray backArray = new JSONArray();
         //获取部门商品
         List<SkuPluModel> deptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
+        List<SkuPluModel> otherDeptSkus = this.skuPdCSDao.getOtherDeptSkus(orgCode, depId);
+        deptSkus.addAll(otherDeptSkus);
         //获取模板商品
         List<OrdYhTempletBodyModel> templetSkus = this.ordAdlYhDao.getTempletSkus(orgCode, depId, modelCode);
         if (null == templetSkus || templetSkus.isEmpty() ) {
@@ -290,6 +295,8 @@ public class OrdAdlYhService {
         JSONArray backArray = new JSONArray();
         //获取部门商品
         List<SkuPluModel> deptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
+        List<SkuPluModel> otherDeptSkus = this.skuPdCSDao.getOtherDeptSkus(orgCode, depId);
+        deptSkus.addAll(otherDeptSkus);
         //获取要货参数商品（包括：最小、最大要货量及倍数）
         List<SkuYhPSBodyModel> pSSkus = this.ordAdlYhDao.getYhPSSkus(orgCode);
         if (null == pSSkus || pSSkus.isEmpty() ) {

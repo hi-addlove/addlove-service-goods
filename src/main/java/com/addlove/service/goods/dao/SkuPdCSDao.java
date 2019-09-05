@@ -21,6 +21,14 @@ public interface SkuPdCSDao {
     List<SkuPluModel> getPdSkuListByDept(@Param("orgCode")String orgCode, @Param("depId")Long depId);
     
     /**
+     * 获取多部门可用商品
+     * @param orgCode
+     * @param depId
+     * @return List<SkuPluModel>
+     */
+    List<SkuPluModel> getOtherDeptSkus(@Param("orgCode")String orgCode, @Param("depId")Long depId);
+    
+    /**
      * 通过组织编码和盘点类型获取盘点商品
      * @param orgCode
      * @param cycleType：0-日盘；1-周盘；2-月盘
