@@ -187,7 +187,7 @@
                 t.REMARK,
                 t.MODELCODE,
                 t.YHBC
-    From TORDCDADLYHHEAD t Where t.YWTYPE = '6205' and t.ISURGENT = '0'
+    From TORDCDADLYHHEAD t Where t.YWTYPE = '6205'
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
         and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
     </if>
@@ -202,6 +202,9 @@
     </if>
     <if test="queryModel.depId != null ">
         and t.DEPID = #{queryModel.depId,jdbcType=VARCHAR}
+    </if>
+    <if test="queryModel.isUrgent != null and queryModel.isUrgent != '' ">
+        and t.ISURGENT = #{queryModel.isUrgent,jdbcType=VARCHAR}
     </if>
     and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
   </select>
@@ -231,7 +234,8 @@
         YHTOTAL, 
         REMARK, 
         MODELCODE, 
-        YHBC
+        YHBC,
+        ISURGENT
     )
     VALUES
     (
@@ -256,7 +260,8 @@
         #{yhTotal,jdbcType=NUMERIC},
         #{remark,jdbcType=VARCHAR},
         #{modelCode,jdbcType=VARCHAR},
-        #{yhBc,jdbcType=VARCHAR}
+        #{yhBc,jdbcType=VARCHAR},
+        #{isUrgent,jdbcType=VARCHAR}
     )
   </insert>
   

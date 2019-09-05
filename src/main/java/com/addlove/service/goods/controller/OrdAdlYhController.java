@@ -84,6 +84,7 @@ public class OrdAdlYhController extends BaseController{
         }
         queryModel.setYwStatus(req.getYwStatus());
         queryModel.setDepId(req.getDepId());
+        queryModel.setIsUrgent(req.getIsUrgent());
         List<OrdAdlYhHeadModel> yhList = this.ordAdlYhService.queryYhPage(queryModel);
         Page<OrdAdlYhHeadModel> page = (Page<OrdAdlYhHeadModel>) yhList;
         PageModel pageModel = new PageModel();
@@ -242,6 +243,26 @@ public class OrdAdlYhController extends BaseController{
     }
     
     /**
+     * 获取紧急要货商品
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getUrgentYhSkuList", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getUrgentYhSkuList(@RequestBody @Valid AdlYhSkuReq req) {
+        if (StringUtils.isBlank(req.getOrgCode())) {
+            throw new ServiceException(GoodsResponseCode.ORGCODE_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.ORGCODE_NOT_BLANK.getMsg());
+        }
+        if (null == req.getDepId()) {
+            throw new ServiceException(GoodsResponseCode.DEP_ID_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.DEP_ID_NOT_BLANK.getMsg());
+        }
+        JSONArray backArray = this.ordAdlYhService.getUrgentYhSkuList(req.getOrgCode(), req.getDepId());
+        return ResponseMessage.ok(backArray);
+    }
+    
+    /**
      * 封装要货单数据
      * @param req
      * @return OrdAdlYhHeadModel
@@ -283,6 +304,7 @@ public class OrdAdlYhController extends BaseController{
         headModel.setRemark(req.getRemark());
         headModel.setModelCode(req.getModelCode());
         headModel.setYhBc(req.getYhBc());
+        headModel.setIsUrgent(req.getIsUrgent());
         if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
             headModel.setJzDate(DateUtil.getCurrentTime());
             headModel.setJzrId(userModel.getUserId());

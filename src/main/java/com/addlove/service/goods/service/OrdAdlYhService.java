@@ -128,7 +128,7 @@ public class OrdAdlYhService {
      * @param orgCode
      * @param depId
      * @param modelCode
-     * @return List<SkuPluExtendModel>
+     * @return JSONArray
      */
     @Transactional
     public JSONArray getYhSkuList(String orgCode, Long depId, String modelCode) {
@@ -275,6 +275,111 @@ public class OrdAdlYhService {
         }
         long endTime = System.currentTimeMillis();
         LoggerEnhance.info(LOGGER, "查询要货商品消耗时间:{}", (endTime - startTime));
+        return backArray;
+    }
+    
+    /**
+     * 获取紧急要货商品
+     * @param orgCode
+     * @param depId
+     * @return JSONArray
+     */
+    @Transactional
+    public JSONArray getUrgentYhSkuList(String orgCode, Long depId) {
+        long startTime = System.currentTimeMillis();
+        JSONArray backArray = new JSONArray();
+        //获取部门商品
+        List<SkuPluModel> deptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
+        //获取要货参数商品（包括：最小、最大要货量及倍数）
+        List<SkuYhPSBodyModel> pSSkus = this.ordAdlYhDao.getYhPSSkus(orgCode);
+        if (null == pSSkus || pSSkus.isEmpty() ) {
+            return backArray;
+        }
+        //获取要货参数商品（包括：最小、最大要货量及倍数）
+        Map<String, SkuYhPSBodyModel> psMap = new HashMap<String, SkuYhPSBodyModel>();
+        if (null != pSSkus && !pSSkus.isEmpty()) {
+            for (SkuYhPSBodyModel psModel : pSSkus) {
+                psMap.put(psModel.getPluCode(), psModel);
+            }
+        }
+        Iterator<SkuPluModel> iterator = deptSkus.iterator();
+        List<Map<String, Object>> pluList = new LinkedList<Map<String, Object>>();
+        while (iterator.hasNext()) {
+            SkuPluModel pluModel = iterator.next();
+            Map<String, Object> queryMap = new HashMap<String, Object>();
+            queryMap.put("pluId", pluModel.getPluId());
+            pluList.add(queryMap);
+        }
+        //获取商品可用库存数量
+        List<Map<String, Object>> kcList = new ArrayList<>();
+        int size = pluList.size();
+        if (size > 0) {
+            if (DEFAULT_BATCH_QUERY_SIZE < size) {
+                int part = size / DEFAULT_BATCH_QUERY_SIZE; // 分批数
+                for (int i = 0; i < part; i++) {
+                    List<Map<String, Object>> partPluList = new LinkedList<Map<String, Object>>();
+                    partPluList.addAll(pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE));
+                    List<Map<String,Object>> kcPartList = this.ordAdlYhDao.getYhKcSum(partPluList, orgCode);
+                    kcList.addAll(kcPartList);
+                    pluList.subList(0, DEFAULT_BATCH_QUERY_SIZE).clear();
+                }
+                if (!pluList.isEmpty()) {
+                    List<Map<String,Object>> kcPartList = this.ordAdlYhDao.getYhKcSum(pluList, orgCode);
+                    kcList.addAll(kcPartList);
+                }
+            }else {
+                kcList = this.ordAdlYhDao.getYhKcSum(pluList, orgCode);
+            }
+        }
+        Map<Long, Object> kcMap = new HashMap<Long, Object>();
+        for (Map<String, Object> map : kcList) {
+            long pluId = Long.parseLong(null != map.get("PLUID") ? map.get("PLUID").toString() : "0") ;
+            kcMap.put(pluId, null != map.get("KCCOUNT") ? map.get("KCCOUNT").toString() : "0");
+        }
+        //获取包装数据
+        List<SkuPluPacketModel> packets = this.ordAdlYhDao.getPackets(orgCode, depId);
+        Map<Long, SkuPluPacketModel> packetMap = new HashMap<Long, SkuPluPacketModel>();
+        if (null != packets && !packets.isEmpty()) {
+            for (SkuPluPacketModel packetModel : packets) {
+                packetMap.put(packetModel.getPluId(), packetModel);
+            }
+        }
+        //整合商品
+        for (SkuPluModel pluModel : deptSkus) {
+            String key = pluModel.getPluCode();
+            JSONObject backJson = new JSONObject();
+            backJson.put("pluId", pluModel.getPluId());
+            backJson.put("pluCode", pluModel.getPluCode());
+            backJson.put("pluName", pluModel.getPluName());
+            backJson.put("barCode", pluModel.getBarCode());
+            backJson.put("unit", pluModel.getUnit());
+            backJson.put("spec", pluModel.getSpec());
+            backJson.put("price", pluModel.getPrice());
+            SkuYhPSBodyModel psModel = psMap.get(key);
+            if (null != psModel) {
+                backJson.put("minCount", psModel.getMinCount());
+                backJson.put("times", psModel.getTimes());
+            }else {
+                backJson.put("minCount", 0);
+                backJson.put("times", 1);
+            }
+            if (null != kcMap.get(pluModel.getPluId())) {
+                backJson.put("kcCount", Double.valueOf(kcMap.get(pluModel.getPluId()).toString()));
+            }else {
+                backJson.put("kcCount", 0);
+            }
+            SkuPluPacketModel packetModel = packetMap.get(pluModel.getPluId());
+            if (null != packetModel) {
+                backJson.put("packUnit", packetModel.getPackUnit());
+                backJson.put("packQty", packetModel.getPackQty());
+            }else {
+                backJson.put("packUnit", "");
+                backJson.put("packQty", 0);
+            }
+            backArray.add(backJson);
+        }
+        long endTime = System.currentTimeMillis();
+        LoggerEnhance.info(LOGGER, "查询紧急要货商品消耗时间:{}", (endTime - startTime));
         return backArray;
     }
     

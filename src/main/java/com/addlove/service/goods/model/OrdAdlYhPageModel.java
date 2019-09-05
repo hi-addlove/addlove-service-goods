@@ -32,6 +32,9 @@ public class OrdAdlYhPageModel {
     
     /** 部门ID*/
     private Long depId;
+    
+    /** 是否紧急要货：0-否；1-是*/
+    private String isUrgent;
 
     /**
      * @return the pageNo
@@ -143,5 +146,19 @@ public class OrdAdlYhPageModel {
      */
     public void setDepId(Long depId) {
         this.depId = depId;
+    }
+
+    /**
+     * @return the isUrgent
+     */
+    public String getIsUrgent() {
+        return isUrgent;
+    }
+
+    /**
+     * @param isUrgent the isUrgent to set
+     */
+    public void setIsUrgent(String isUrgent) {
+        this.isUrgent = isUrgent;
     }
 }

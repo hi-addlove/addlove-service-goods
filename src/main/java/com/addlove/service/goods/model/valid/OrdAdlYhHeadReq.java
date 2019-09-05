@@ -54,6 +54,10 @@ public class OrdAdlYhHeadReq {
     @NotBlank(message = "要货波次不能为空")
     private String yhBc;
     
+    /** 是否紧急要货：0-否；1-是*/
+    @NotBlank(message = "是否紧急要货不能为空")
+    private String isUrgent;
+    
     /**
      * 保存类型：1-保存;2-记账
      */
@@ -228,6 +232,20 @@ public class OrdAdlYhHeadReq {
      */
     public void setYhBc(String yhBc) {
         this.yhBc = yhBc;
+    }
+
+    /**
+     * @return the isUrgent
+     */
+    public String getIsUrgent() {
+        return isUrgent;
+    }
+
+    /**
+     * @param isUrgent the isUrgent to set
+     */
+    public void setIsUrgent(String isUrgent) {
+        this.isUrgent = isUrgent;
     }
 
     /**

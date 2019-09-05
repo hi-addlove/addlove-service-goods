@@ -32,6 +32,10 @@ public class OrdAdlYhPageReq {
     
     /** 部门ID*/
     private Long depId;
+    
+    /** 是否紧急要货：0-否；1-是*/
+    @NotBlank(message = "是否紧急要货不能为空")
+    private String isUrgent;
 
     /**
      * @return the pageNo
@@ -143,5 +147,19 @@ public class OrdAdlYhPageReq {
      */
     public void setDepId(Long depId) {
         this.depId = depId;
+    }
+
+    /**
+     * @return the isUrgent
+     */
+    public String getIsUrgent() {
+        return isUrgent;
+    }
+
+    /**
+     * @param isUrgent the isUrgent to set
+     */
+    public void setIsUrgent(String isUrgent) {
+        this.isUrgent = isUrgent;
     }
 }
