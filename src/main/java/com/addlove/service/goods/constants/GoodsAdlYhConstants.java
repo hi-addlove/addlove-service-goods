@@ -338,7 +338,7 @@ public interface GoodsAdlYhConstants {
      * @author lw
      *
      */
-    public enum yhType {
+    public enum YhType {
         /**
          * 0-普通要货
          */
@@ -351,7 +351,7 @@ public interface GoodsAdlYhConstants {
         private String value;
         private String name;
         
-        private yhType(String value, String name) {
+        private YhType(String value, String name) {
             this.value = value;
             this.name = name;
         }

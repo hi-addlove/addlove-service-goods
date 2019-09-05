@@ -4,14 +4,11 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.addlove.service.goods.constants.GoodsAdlYhConstants.yhType;
+import com.addlove.service.goods.constants.GoodsAdlYhConstants.YhType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.SaveType;
 import com.addlove.service.goods.context.SysUserDataContextHolder;
 import com.addlove.service.goods.controller.FrsJgController;
@@ -130,7 +127,7 @@ public class StkDbTest extends AddloveServiceGoodsApplicationTests{
             pc.setString(1, "999999");
             pc.setString(2, "001");
             pc.setString(3, "10000000021");
-            pc.setString(4, yhType.ORDINARY_YH.getValue());
+            pc.setString(4, YhType.ORDINARY_YH.getValue());
             pc.registerOutParameter(5, OracleTypes.NUMERIC);
             pc.registerOutParameter(6, OracleTypes.VARCHAR);
             pc.registerOutParameter(7, OracleTypes.CURSOR);
@@ -160,7 +157,7 @@ public class StkDbTest extends AddloveServiceGoodsApplicationTests{
             ocs.setString(1, "999999");
             ocs.setString(2, "001");
             ocs.setString(3, "10000000021");
-            ocs.setString(4, yhType.ORDINARY_YH.getValue());
+            ocs.setString(4, YhType.ORDINARY_YH.getValue());
             ocs.registerOutParameter(5, OracleTypes.NUMERIC);
             ocs.registerOutParameter(6, OracleTypes.VARCHAR);
             ocs.registerOutParameter(7, OracleTypes.CURSOR);

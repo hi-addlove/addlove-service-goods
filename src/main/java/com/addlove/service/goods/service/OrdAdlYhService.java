@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.GoodsAdlYhConstants.isUse;
-import com.addlove.service.goods.constants.GoodsAdlYhConstants.yhType;
+import com.addlove.service.goods.constants.GoodsAdlYhConstants.YhType;
 import com.addlove.service.goods.constants.GoodsCommonConstants.ProcedureResult;
 import com.addlove.service.goods.dao.OrdAdlYhDao;
 import com.addlove.service.goods.dao.SkuPdCSDao;
@@ -415,7 +415,7 @@ public class OrdAdlYhService {
         map.put("ps_OrgCode", orgCode);
         map.put("ps_ModelCode", modelCode);
         map.put("ps_DepId", depId.toString());
-        map.put("ps_Type", yhType.ORDINARY_YH.getValue());
+        map.put("ps_Type", YhType.ORDINARY_YH.getValue());
         this.ordAdlYhDao.execMrCountsProcedure(map);
         LoggerEnhance.info(LOGGER, "查询明日数量结果为--------------------：{}", null != map.get("ps_Message") ? map.get("ps_Message").toString() : "");
         int resultCode = null != map.get("pi_Result") ? Integer.valueOf(map.get("pi_Result").toString()) : -1;

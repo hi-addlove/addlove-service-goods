@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.addlove.service.goods.constants.GoodsAdlYhConstants.DataStatus;
 import com.addlove.service.goods.constants.GoodsAdlYhConstants.FlCode;
 import com.addlove.service.goods.constants.GoodsAdlYhConstants.SaveType;
+import com.addlove.service.goods.constants.GoodsAdlYhConstants.YhType;
 import com.addlove.service.goods.constants.GoodsAdlYhConstants.YwStatus;
 import com.addlove.service.goods.constants.GoodsAdlYhConstants.YwType;
 import com.addlove.service.goods.context.SysUserDataContextHolder;
@@ -305,6 +306,9 @@ public class OrdAdlYhController extends BaseController{
         headModel.setModelCode(req.getModelCode());
         headModel.setYhBc(req.getYhBc());
         headModel.setIsUrgent(req.getIsUrgent());
+        if (YhType.URGENT_YH.getValue().equals(req.getIsUrgent())) {
+            headModel.setModelCode("*");
+        }
         if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
             headModel.setJzDate(DateUtil.getCurrentTime());
             headModel.setJzrId(userModel.getUserId());
