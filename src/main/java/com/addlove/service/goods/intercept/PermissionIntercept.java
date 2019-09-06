@@ -28,7 +28,7 @@ import com.addlove.service.goods.util.LoggerEnhance;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * 
+ * 拦截器
  * @author lw
  *
  */
@@ -45,11 +45,10 @@ public class PermissionIntercept implements HandlerInterceptor {
 
     /**
      * 权限验证
-     *
      * @param request  request
      * @param response response
      * @param handler  handler
-     * @return
+     * @return boolean
      * @throws Exception
      */
     @Override
@@ -101,12 +100,12 @@ public class PermissionIntercept implements HandlerInterceptor {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(UserInit.SESSIONKEY)) {
                     Map<String, Long> session = UserInit.getSession();
-                    Long loginTiem = session.get(cookie.getValue());
-                    if (loginTiem == null) {
+                    Long loginTime = session.get(cookie.getValue());
+                    if (null == loginTime) {
                         continue;
                     }
                     long now = System.currentTimeMillis();
-                    if ((60 * 1000 * 30) > (now - loginTiem)) {
+                    if ((60 * 1000 * 30) > (now - loginTime)) {
                         session.put(cookie.getValue(), now); //重置登录时间
                         return true;
                     } else {
@@ -129,6 +128,5 @@ public class PermissionIntercept implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
     }
 }

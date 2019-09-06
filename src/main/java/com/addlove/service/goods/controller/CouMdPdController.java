@@ -131,8 +131,6 @@ public class CouMdPdController extends BaseController{
     public ResponseMessage startUp(@RequestBody @Valid CouMdPdHeadReq req) {
         CouMdPdHeadModel headModel = this.getMdPdHeadModel(req);
         this.couMdPdService.addPdInfoAndStartUp(headModel);
-        /*this.couMdPdService.addPdInfo(headModel);
-        this.couMdPdService.execStartPdProcedure(headModel.getBillNo());*/
         JSONObject backJson = new JSONObject();
         String pdType = this.couMdPdService.getPdType(headModel.getOrgCode());
         JSONObject pdTypeJson = new JSONObject();
