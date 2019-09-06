@@ -106,7 +106,7 @@ public interface FrsJgDao {
     void delJgCps(String billNo);
     
     /**
-     * 获取多经营部门商品数据
+     * 获取加工原料部门商品数据
      * @param orgCode
      * @param shOrgCode
      * @param depId
@@ -117,12 +117,31 @@ public interface FrsJgDao {
             @Param("ckCode")String ckCode);
     
     /**
-     * 获取多经营部门成品商品数据
+     * 获取多经营部门商品数据
+     * @param orgCode
+     * @param shOrgCode
+     * @param depId
+     * @param ckCode
+     * @return List<SkuPluExtendModel>
+     */
+    List<SkuPluExtendModel> getOtherDeptSkus (@Param("orgCode")String orgCode, @Param("depId")Long depId, 
+            @Param("ckCode")String ckCode);
+    
+    /**
+     * 获取部门成品商品数据
      * @param orgCode
      * @param depId
      * @return List<SkuPluExtendModel>
      */
     List<SkuPluExtendModel> getMultiCpSkus(@Param("orgCode")String orgCode, @Param("depId")Long depId);
+    
+    /**
+     * 获取多部门成品可用商品
+     * @param orgCode
+     * @param depId
+     * @return List<SkuPluExtendModel>
+     */
+    List<SkuPluExtendModel> getOtherDeptCpSkus (@Param("orgCode")String orgCode, @Param("depId")Long depId);
     
     /**
      * 获取商品领用及报损商品

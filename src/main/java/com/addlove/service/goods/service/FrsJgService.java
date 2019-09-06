@@ -179,7 +179,12 @@ public class FrsJgService {
      */
     public Set<SkuPluExtendModel> getJgYlSkuList(String orgCode, Long depId, String ckCode) {
         //获取部门商品
-        List<SkuPluExtendModel> multiSkus = this.frsJgDao.getMultiSkus(orgCode, depId, ckCode);
+        List<SkuPluExtendModel> multiSkus = new LinkedList<SkuPluExtendModel>();
+        multiSkus = this.frsJgDao.getMultiSkus(orgCode, depId, ckCode);
+        List<SkuPluExtendModel> otherDeptSkus = this.frsJgDao.getOtherDeptSkus(orgCode, depId, ckCode);
+        if (null != otherDeptSkus && !otherDeptSkus.isEmpty()) {
+            multiSkus.addAll(otherDeptSkus);
+        }
         List<SkuPluExtendModel> lyAndBsSkus = this.frsJgDao.getLyAndBsSkus(orgCode, depId, ckCode);
         //去重商品
         Set<SkuPluExtendModel> skuSet = new HashSet<SkuPluExtendModel>();
@@ -240,7 +245,12 @@ public class FrsJgService {
      */
     public Set<SkuPluExtendModel> getJgCpSkuList(String orgCode, Long depId) {
         //获取部门商品
-        List<SkuPluExtendModel> multiSkus = this.frsJgDao.getMultiCpSkus(orgCode, depId);
+        List<SkuPluExtendModel> multiSkus = new LinkedList<SkuPluExtendModel>();
+        multiSkus = this.frsJgDao.getMultiCpSkus(orgCode, depId);
+        List<SkuPluExtendModel> otherDeptCpSkus = this.frsJgDao.getOtherDeptCpSkus(orgCode, depId);
+        if (null != otherDeptCpSkus && !otherDeptCpSkus.isEmpty()) {
+            multiSkus.addAll(otherDeptCpSkus);
+        }
         List<SkuPluExtendModel> lyAndBsSkus = this.frsJgDao.getLyAndBsCpSkus(orgCode, depId);
         //去重商品
         Set<SkuPluExtendModel> skuSet = new HashSet<SkuPluExtendModel>();

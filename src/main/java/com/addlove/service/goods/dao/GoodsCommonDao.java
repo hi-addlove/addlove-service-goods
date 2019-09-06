@@ -100,6 +100,14 @@ public interface GoodsCommonDao {
     List<SkuPluModel> getProPlanSkuListByDept(@Param("orgCode")String orgCode, @Param("depId")Long depId);
     
     /**
+     * 查询多部门生产计划商品
+     * @param orgCode
+     * @param depId
+     * @return List<SkuPluModel>
+     */
+    List<SkuPluModel> getOtherDeptProPlanSkus (@Param("orgCode")String orgCode, @Param("depId")Long depId);
+    
+    /**
      * 搜索用户
      * @param searchContent：用户ID、用户编码、用户名
      * @return List<UsrUserModel>

@@ -190,7 +190,13 @@ public class GoodsCommonService {
      * @return List<SkuPluModel>
      */
     public List<SkuPluModel> getProPlanSkuListByDept(String orgCode, Long depId) {
-        return this.commonDao.getProPlanSkuListByDept(orgCode, depId);
+        List<SkuPluModel> planSkus = new LinkedList<SkuPluModel>();
+        planSkus = this.commonDao.getProPlanSkuListByDept(orgCode, depId);
+        List<SkuPluModel> otherPlanSkus = this.commonDao.getOtherDeptProPlanSkus(orgCode, depId);
+        if (null != otherPlanSkus && !otherPlanSkus.isEmpty()) {
+            planSkus.addAll(otherPlanSkus);
+        }
+        return planSkus;
     }
     
     /**
