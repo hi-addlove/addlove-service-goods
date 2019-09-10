@@ -260,7 +260,6 @@
                 t.DATASTATUS, 
                 t.REMARK, 
                 t.YWSTATUS, 
-                CURRCODE, 
                 t.ZEROTOTAL, 
                 t.SKTOTAL, 
                 t.FKTOTAL
@@ -282,6 +281,123 @@
     </if>
     and t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
   </select>
+  
+  <!-- 插入领用主表 -->
+  <insert id="insertLyHead">
+    INSERT INTO TWSLLYHEAD
+    (
+        BILLNO, 
+        LRDATE, 
+        USERID, 
+        USERCODE, 
+        USERNAME,
+        YWTYPE, 
+        ORGCODE, 
+        ORGNAME, 
+        INORGCODE, 
+        DEPID, 
+        DEPCODE, 
+        DEPNAME, 
+        CKCODE, 
+        CKNAME, 
+        LYORGCODE, 
+        LYORGNAME, 
+        LYDEPID, 
+        LYDEPCODE, 
+        LYDEPNAME, 
+        PURPOSE, 
+        PRICETYPE, 
+        LYCOUNT, 
+        STOTAL, 
+        SSTOTAL,
+        DATASTATUS, 
+        REMARK
+    )
+    VALUES
+    (
+        #{billNo,jdbcType=VARCHAR},
+        to_date(#{lrDate,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss'),
+        #{userId,jdbcType=NUMERIC},
+        #{userCode,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR},
+        #{ywType,jdbcType=VARCHAR},
+        #{orgCode,jdbcType=VARCHAR},
+        #{orgName,jdbcType=VARCHAR},
+        #{inOrgCode,jdbcType=VARCHAR},
+        #{depId,jdbcType=NUMERIC},
+        #{depCode,jdbcType=VARCHAR},
+        #{depName,jdbcType=VARCHAR},
+        #{ckCode,jdbcType=VARCHAR},
+        #{ckName,jdbcType=VARCHAR},
+        #{lyOrgCode,jdbcType=VARCHAR},
+        #{lyOrgName,jdbcType=VARCHAR},
+        #{lyDepId,jdbcType=NUMERIC},
+        #{lyDepCode,jdbcType=VARCHAR},
+        #{lyDepName,jdbcType=VARCHAR},
+        #{purpose,jdbcType=VARCHAR},
+        #{priceType,jdbcType=VARCHAR},
+        #{lyCount,jdbcType=NUMERIC},
+        #{sTotal,jdbcType=NUMERIC},
+        #{ssTotal,jdbcType=NUMERIC},
+        #{dataStatus,jdbcType=VARCHAR},
+        #{remark,jdbcType=VARCHAR}
+    )
+  </insert>
+  
+  <!-- 插入领用明细表 -->
+  <insert id="insertLyBodys">
+    INSERT INTO TWSLLYBODY
+    (
+        BILLNO, 
+        SERIALNO, 
+        DEPID, 
+        DEPCODE, 
+        DEPNAME, 
+        PLUID, 
+        PLUCODE, 
+        PLUNAME, 
+        BARCODE, 
+        SPEC, 
+        UNIT, 
+        EXPLUCODE, 
+        LYCOUNT, 
+        PRICE, 
+        STOTAL, 
+        SSTOTAL, 
+        REMARK, 
+        PRICETYPE, 
+        CKPRICE, 
+        CKSSTOTAL, 
+        TOSERIALNO
+    )
+    <foreach collection="bodys" item="body" separator="union all">
+    (
+        SELECT
+          #{body.billNo,jdbcType=VARCHAR},
+          #{body.serialNo,jdbcType=NUMERIC},
+          #{body.depId,jdbcType=NUMERIC},
+          #{body.depCode,jdbcType=VARCHAR},
+          #{body.depName,jdbcType=VARCHAR},
+          #{body.pluId,jdbcType=NUMERIC},
+          #{body.pluCode,jdbcType=VARCHAR},
+          #{body.pluName,jdbcType=VARCHAR},
+          #{body.barCode,jdbcType=VARCHAR},
+          #{body.spec,jdbcType=VARCHAR},
+          #{body.unit,jdbcType=VARCHAR},
+          #{body.exPluCode,jdbcType=VARCHAR},
+          #{body.lyCount,jdbcType=NUMERIC},
+          #{body.price,jdbcType=NUMERIC},
+          #{body.sTotal,jdbcType=NUMERIC},
+          #{body.ssTotal,jdbcType=NUMERIC},
+          #{body.remark,jdbcType=VARCHAR},
+          #{body.priceType,jdbcType=VARCHAR},
+          #{body.ckPrice,jdbcType=NUMERIC},
+          #{body.ckSsTotal,jdbcType=NUMERIC},
+          #{body.toSerialNo,jdbcType=NUMERIC}
+        FROM DUAL
+    )
+    </foreach>
+  </insert>
   
   <!-- 查询领用单主表 -->
   <select id="getLyHead" resultMap="BaseResultMapHead">
