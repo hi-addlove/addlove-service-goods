@@ -199,6 +199,14 @@
     <result column="PLUDESC" jdbcType="VARCHAR" property="pluDesc" />
   </resultMap>
   
+  <resultMap id="BaseResultMapFl" type="com.addlove.service.goods.model.BasFlContentModel">
+    <id column="FLCODE" jdbcType="VARCHAR" property="flCode" />
+    <id column="LXCODE" jdbcType="VARCHAR" property="lxCode" />
+    <result column="LXNAME" jdbcType="VARCHAR" property="lxName" />
+    <result column="LXTYPE" jdbcType="VARCHAR" property="lxType" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
   <sql id="Base_Column_List_Head">
     BILLNO, LRDATE, USERID, USERCODE, USERNAME, TJDATE, TJRID, TJRCODE, TJRNAME, ISNEEDTJWL, 
     JZDATE, JZTYPE, JZRID, JZRCODE, JZRNAME, RPTDATE, PRNTIMES, PRNDATE, TIMEMARK, YWTYPE, 
@@ -514,6 +522,24 @@
     And t4.ctrltype = '0'
     And t3.procode = t4.procode And t4.procode = t5.procode   
     And t2.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t2.DEPId = #{depId,jdbcType=NUMERIC} 
+    order by t.PLUID desc
+  </select>
+  
+  <!-- 获取多部门领用商品 -->
+  <select id="getOtherDeptLySkus" resultMap="BaseResultMapSku">
+    Select Distinct t.PLUID,t.PLUCODE,t.PLUNAME,t.PLUENAME,t.PLUABBRNAME,t.PLUMN,t.BARCODE,t.UNIT,t.SPEC,t.PLUWEIGHT,
+    t.PLUHEIGHT,t.PLULONG,t.PLUWIDTH,t.ISMULPACKET,t.ORGCODE,t.ORGNAME,t.CGYID,t.CGYCODE,t.CGYNAME,t.CARGONO,
+    t.PRODUCE,t.GRADE,t.QUALITY,t.BZDAYS,t.CLSID,t.BRANDCODE,t.XTAXRATE,t.ISWEIGHT,t.ISCOUTQTY,t.ISKC,t.ISCURRDAY,
+    t.JHBFBZDAYS,t.PSBFBZDAYS,t.CXINFO,t.YWSTATUS,t.LRDATE, t.LRUSERCODE,t.LRUSERNAME,t.ZXDATE,t.ZXUSERCODE,t.ZXUSERNAME,
+    t.UDP1,t.UDP2,t.UDP3,t.UDP4,t.PLUCLS,t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,t.MINTHDAYS,t.MAXTHDAYS,
+    t.ISONLINE,t.LINEDATE,t.PLUDESC,t.PRICE
+    From TSKUPLU t,TSKUPLUOTHERDEPT t2,tSkuLyBsSetOrg t3,tSkuLyBsSetHead t4,tSkuLyBsSetBody t5
+    Where t.ISACTIVE = '1' 
+    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
+    And t.PLUID = t5.PLUID And t.ORGCODE = t3.usorgcode
+    And t4.ctrltype = '0'
+    And t3.procode = t4.procode And t4.procode = t5.procode   
+    And t2.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t2.DEPId = #{depId,jdbcType=NUMERIC}
     order by t.PLUID desc
   </select>
 </mapper>

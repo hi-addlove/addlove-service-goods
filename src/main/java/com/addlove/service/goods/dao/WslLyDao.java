@@ -77,4 +77,12 @@ public interface WslLyDao {
      * @return List<SkuPluModel>
      */
     List<SkuPluModel> getLySkus(@Param("orgCode")String orgCode, @Param("depId")Long depId);
+    
+    /**
+     * 获取多部门领用商品
+     * @param orgCode
+     * @param depId
+     * @return List<SkuPluModel>
+     */
+    List<SkuPluModel> getOtherDeptLySkus(@Param("orgCode")String orgCode, @Param("depId")Long depId);
 }

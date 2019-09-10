@@ -8,16 +8,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.addlove.service.goods.dao.GoodsCommonDao;
-import com.addlove.service.goods.dao.SkuPdCSDao;
 import com.addlove.service.goods.dao.WslLyDao;
 import com.addlove.service.goods.model.BasFlContentModel;
 import com.addlove.service.goods.model.SkuPluModel;
@@ -48,9 +45,6 @@ public class WslLyService {
     
     @Autowired
     private GoodsCommonDao commonDao;
-    
-    @Autowired
-    private SkuPdCSDao skuPdCSDao;
     
     /**
      * 查询领用单列表
@@ -142,19 +136,15 @@ public class WslLyService {
         long startTime = System.currentTimeMillis();
         JSONArray backArray = new JSONArray();
         Set<SkuPluModel> allSkus = new HashSet<SkuPluModel>();
-        //获取部门商品
-        List<SkuPluModel> deptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
-        if (null != deptSkus && !deptSkus.isEmpty()) {
-            allSkus.addAll(deptSkus);
-        }
-        List<SkuPluModel> otherDeptSkus = this.skuPdCSDao.getOtherDeptSkus(orgCode, depId);
-        if (null != otherDeptSkus && !otherDeptSkus.isEmpty()) {
-            allSkus.addAll(otherDeptSkus);
-        }
         //获取领用单可用商品
         List<SkuPluModel> lySkus = this.wslLyDao.getLySkus(orgCode, depId);
         if (null != lySkus && !lySkus.isEmpty()) {
             allSkus.addAll(lySkus);
+        }
+        //获取多部门领用商品
+        List<SkuPluModel> otherDeptSkus = this.wslLyDao.getOtherDeptLySkus(orgCode, depId);
+        if (null != otherDeptSkus && !otherDeptSkus.isEmpty()) {
+            allSkus.addAll(otherDeptSkus);
         }
         //获取商品可用库存数量
         Iterator<SkuPluModel> iterator = allSkus.iterator();
