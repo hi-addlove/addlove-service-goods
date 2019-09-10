@@ -2,10 +2,13 @@ package com.addlove.service.goods.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -138,18 +141,23 @@ public class WslLyService {
     public JSONArray getLySkuList(String orgCode, Long depId) {
         long startTime = System.currentTimeMillis();
         JSONArray backArray = new JSONArray();
+        Set<SkuPluModel> allSkus = new HashSet<SkuPluModel>();
         //获取部门商品
-        List<SkuPluModel> deptSkus = new ArrayList<SkuPluModel>();
-        deptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
+        List<SkuPluModel> deptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
+        if (null != deptSkus && !deptSkus.isEmpty()) {
+            allSkus.addAll(deptSkus);
+        }
         List<SkuPluModel> otherDeptSkus = this.skuPdCSDao.getOtherDeptSkus(orgCode, depId);
         if (null != otherDeptSkus && !otherDeptSkus.isEmpty()) {
-            deptSkus.addAll(otherDeptSkus);
+            allSkus.addAll(otherDeptSkus);
         }
         //获取领用单可用商品
         List<SkuPluModel> lySkus = this.wslLyDao.getLySkus(orgCode, depId);
-        deptSkus.addAll(lySkus);
+        if (null != lySkus && !lySkus.isEmpty()) {
+            allSkus.addAll(lySkus);
+        }
         //获取商品可用库存数量
-        Iterator<SkuPluModel> iterator = deptSkus.iterator();
+        Iterator<SkuPluModel> iterator = allSkus.iterator();
         List<Map<String, Object>> pluList = new LinkedList<Map<String, Object>>();
         while (iterator.hasNext()) {
             SkuPluModel pluModel = iterator.next();
@@ -183,7 +191,7 @@ public class WslLyService {
             kcMap.put(pluId, null != map.get("KCCOUNT") ? map.get("KCCOUNT").toString() : "0");
         }
         //整合商品
-        for (SkuPluModel pluModel : deptSkus) {
+        for (SkuPluModel pluModel : allSkus) {
             JSONObject backJson = new JSONObject();
             backJson.put("pluId", pluModel.getPluId());
             backJson.put("pluCode", pluModel.getPluCode());
