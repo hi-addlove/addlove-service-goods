@@ -112,7 +112,12 @@ public enum GoodsResponseCode {
     /**
      * 加工工艺部门不能为空
      */
-    JG_GY_DEPT_NOT_BLANK(20021, "加工工艺部门不能为空");
+    JG_GY_DEPT_NOT_BLANK(20021, "加工工艺部门不能为空"),
+    
+    /**
+     * 内部返还类型领用单据号不能为空
+     */
+    FH_TYPE_BILL_NOT_BLANK(20022, "内部返还类型领用单据号不能为空");
     
     private int code;
     private String msg;

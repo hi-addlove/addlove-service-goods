@@ -63,6 +63,17 @@ public class WslLyHeadReq {
     @NotNull(message = "保存类型不能为空")
     private Integer saveType;
     
+    /** 业务类型:1608-内部领用；1610-内部返还*/
+    @NotBlank(message = "业务类型不能为空")
+    private String ywType;
+    
+    /** 单据类型:0-内部领用；1-内部返还 */
+    @NotBlank(message = "单据类型不能为空")
+    private String billType;
+    
+    /** 内部领用单据号*/
+    private String lyBillNo;
+    
     private List<WslLyBodyReq> bodyList;
 
     /**
@@ -259,6 +270,48 @@ public class WslLyHeadReq {
      */
     public void setSaveType(Integer saveType) {
         this.saveType = saveType;
+    }
+
+    /**
+     * @return the ywType
+     */
+    public String getYwType() {
+        return ywType;
+    }
+
+    /**
+     * @param ywType the ywType to set
+     */
+    public void setYwType(String ywType) {
+        this.ywType = ywType;
+    }
+
+    /**
+     * @return the billType
+     */
+    public String getBillType() {
+        return billType;
+    }
+
+    /**
+     * @param billType the billType to set
+     */
+    public void setBillType(String billType) {
+        this.billType = billType;
+    }
+
+    /**
+     * @return the lyBillNo
+     */
+    public String getLyBillNo() {
+        return lyBillNo;
+    }
+
+    /**
+     * @param lyBillNo the lyBillNo to set
+     */
+    public void setLyBillNo(String lyBillNo) {
+        this.lyBillNo = lyBillNo;
     }
 
     /**

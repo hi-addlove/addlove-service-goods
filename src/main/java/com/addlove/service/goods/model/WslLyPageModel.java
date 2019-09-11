@@ -32,6 +32,9 @@ public class WslLyPageModel {
     
     /** 数据状态：0－录入；1－审批；2－转审；3－提交；4-可记账；9-关闭 */
     private String dataStatus;
+    
+    /** 业务类型:1608-内部领用；1610-内部返还*/
+    private String ywType;
 
     /**
      * @return the pageNo
@@ -143,5 +146,19 @@ public class WslLyPageModel {
      */
     public void setDataStatus(String dataStatus) {
         this.dataStatus = dataStatus;
+    }
+
+    /**
+     * @return the ywType
+     */
+    public String getYwType() {
+        return ywType;
+    }
+
+    /**
+     * @param ywType the ywType to set
+     */
+    public void setYwType(String ywType) {
+        this.ywType = ywType;
     }
 }

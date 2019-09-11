@@ -271,7 +271,7 @@
                 t.ZEROTOTAL, 
                 t.SKTOTAL, 
                 t.FKTOTAL
-    From TWSLLYHEAD t Where t.YWTYPE = '1608'
+    From TWSLLYHEAD t Where t.YWTYPE = #{queryModel.ywType,jdbcType=VARCHAR}
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
         and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
     </if>
@@ -319,7 +319,10 @@
         STOTAL, 
         SSTOTAL,
         DATASTATUS, 
-        REMARK
+        REMARK,
+        YWTYPE, 
+        BILLTYPE,
+        LYBILLNO
     )
     VALUES
     (
@@ -348,7 +351,10 @@
         #{sTotal,jdbcType=NUMERIC},
         #{ssTotal,jdbcType=NUMERIC},
         #{dataStatus,jdbcType=VARCHAR},
-        #{remark,jdbcType=VARCHAR}
+        #{remark,jdbcType=VARCHAR},
+        #{ywType,jdbcType=VARCHAR},
+        #{billType,jdbcType=VARCHAR},
+        #{lyBillNo,jdbcType=VARCHAR}
     )
   </insert>
   
@@ -542,4 +548,24 @@
     And t2.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t2.DEPId = #{depId,jdbcType=NUMERIC}
     order by t.PLUID desc
   </select>
+  
+  <!-- 模糊查询领用单据号 -->
+  <select id="getInnerLyBills" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO From TWSLLYHEAD t Where t.YWTYPE = '1608'
+    And t.DEPID = #{depId,jdbcType=NUMERIC}
+    And t.BILLNO LIKE CONCAT(#{billNo,jdbcType=VARCHAR},'%') 
+  </select>
+  
+  <!-- 模糊查询领用单据号 -->
+  <select id="getThirtyLyBills" resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO From TWSLLYHEAD t Where t.YWTYPE = '1608'
+    And t.DEPID = #{depId,jdbcType=NUMERIC}
+    And t.LRDATE &gt;= to_date(#{startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+    And t.LRDATE &lt;= to_date(#{endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
+  </select>
+  
+  <!-- 更新领用单状态 -->
+  <update id="updateYwStatus">
+    update TWSLLYHEAD t set t.ywstatus = #{ywStatus,jdbcType=VARCHAR} where t.billno = #{billNo,jdbcType=VARCHAR}
+  </update>
 </mapper>

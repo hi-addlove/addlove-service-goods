@@ -67,7 +67,11 @@ public interface GoodsLyConstants {
         /**
          * 1608-领用
          */
-        LY("1608", "领用");
+        LY("1608", "领用"),
+        /**
+         * 1610-返还
+         */
+        FH("1610", "返还");
         
         private String value;
         private String name;
@@ -105,7 +109,6 @@ public interface GoodsLyConstants {
             this.value = value;
         }
     }
-    
     
     /**
      * 数据状态：0－录入；1－审批；2－转审；3－提交；4-可记账；9-关闭
@@ -220,6 +223,112 @@ public interface GoodsLyConstants {
          */
         public void setName(String name) {
             this.name = name;
+        }
+    }
+    
+    /**
+     * 单据类型:0-内部领用；1-内部返还
+     * @author lw
+     *
+     */
+    public enum BillType {
+        /**
+         * 0-内部领用
+         */
+        INNER_LY("0", "内部领用"),
+        
+        /**
+         * 1-内部返还
+         */
+        INNER_FH("1", "内部返还");
+        
+        private String value;
+        private String name;
+        
+        private BillType(String value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        /**
+         * @return the value
+         */
+        public String getValue() {
+            return value;
+        }
+
+        /**
+         * @param value the value to set
+         */
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
+    
+    /**
+     * 业务状态:0-未返还 1-已返还
+     * @author lw
+     *
+     */
+    public enum YwStatus {
+        /**
+         * 0-未返还
+         */
+        NOT_FH("0", "未返还"),
+        
+        /**
+         * 1-已返还
+         */
+        HAS_FH("1", "已返还");
+        
+        private String value;
+        private String name;
+        
+        private YwStatus(String value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        /**
+         * @return the value
+         */
+        public String getValue() {
+            return value;
+        }
+
+        /**
+         * @param value the value to set
+         */
+        public void setValue(String value) {
+            this.value = value;
         }
     }
 }

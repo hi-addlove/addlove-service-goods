@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.GoodsLyConstants.DataStatus;
 import com.addlove.service.goods.constants.GoodsLyConstants.FlCode;
 import com.addlove.service.goods.constants.GoodsLyConstants.SaveType;
+import com.addlove.service.goods.constants.GoodsLyConstants.YwStatus;
 import com.addlove.service.goods.constants.GoodsLyConstants.YwType;
 import com.addlove.service.goods.context.SysUserDataContextHolder;
 import com.addlove.service.goods.exception.ServiceException;
@@ -30,6 +30,7 @@ import com.addlove.service.goods.model.WslLyBodyModel;
 import com.addlove.service.goods.model.WslLyHeadModel;
 import com.addlove.service.goods.model.WslLyPageModel;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
+import com.addlove.service.goods.model.valid.WslLyBillReq;
 import com.addlove.service.goods.model.valid.WslLyBodyReq;
 import com.addlove.service.goods.model.valid.WslLyHeadReq;
 import com.addlove.service.goods.model.valid.WslLyPageReq;
@@ -76,6 +77,7 @@ public class WslLyController extends BaseController {
         }
         queryModel.setDepId(req.getDepId());
         queryModel.setDataStatus(req.getDataStatus());
+        queryModel.setYwType(req.getYwType());
         List<WslLyHeadModel> lyList = this.wslLyService.queryLyPage(queryModel);
         Page<WslLyHeadModel> page = (Page<WslLyHeadModel>) lyList;
         PageModel pageModel = new PageModel();
@@ -111,6 +113,10 @@ public class WslLyController extends BaseController {
             accountMap.put("ps_UserName", headModel.getJzrName());
             accountMap.put("pd_JzDate", headModel.getJzDate());
             this.commonService.execAccountByCallProcedure(accountMap);
+            //如果是返还类型，还需更新领用单业务状态为“已返还”
+            if (YwType.FH.getValue() == headModel.getYwType()) {
+                this.wslLyService.updateYwStatus(headModel.getLyBillNo(), YwStatus.HAS_FH.getValue());
+            }
         }else {
             throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
                     GoodsResponseCode.BILL_OPRATE_ERROR.getMsg());
@@ -145,6 +151,10 @@ public class WslLyController extends BaseController {
             accountMap.put("ps_UserName", headModel.getJzrName());
             accountMap.put("pd_JzDate", headModel.getJzDate());
             this.commonService.execAccountByCallProcedure(accountMap);
+            //如果是返还类型，还需更新领用单业务状态为“已返还”
+            if (YwType.FH.getValue() == headModel.getYwType()) {
+                this.wslLyService.updateYwStatus(headModel.getLyBillNo(), YwStatus.HAS_FH.getValue());
+            }
         }else {
             throw new ServiceException(GoodsResponseCode.BILL_OPRATE_ERROR.getCode(), 
                     GoodsResponseCode.BILL_OPRATE_ERROR.getMsg());
@@ -210,6 +220,18 @@ public class WslLyController extends BaseController {
     }
     
     /**
+     * 获取内部领用单据号
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getInnerLyBills", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getInnerLyBills(@RequestBody @Valid WslLyBillReq req) {
+        List<WslLyHeadModel> bills = this.wslLyService.getInnerLyBills(req.getDepId(), req.getBillNo());
+        return ResponseMessage.ok(bills);
+    }
+    
+    /**
      * 封装领用单数据
      * @param req
      * @return WslLyHeadModel
@@ -220,6 +242,10 @@ public class WslLyController extends BaseController {
         if (null == bodyList || bodyList.isEmpty() || req.getLyCount() == 0) {
             throw new ServiceException(GoodsResponseCode.SKU_NOT_BLANK.getCode(), 
                     GoodsResponseCode.SKU_NOT_BLANK.getMsg());
+        }
+        if (YwType.FH.getValue() == req.getYwType() && StringUtils.isBlank(req.getLyBillNo())) {
+            throw new ServiceException(GoodsResponseCode.FH_TYPE_BILL_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.FH_TYPE_BILL_NOT_BLANK.getMsg());
         }
         headModel.setLrDate(DateUtil.getCurrentTime());
         SysUserModel sysUserModel = SysUserDataContextHolder.getSysUserData();
@@ -253,6 +279,9 @@ public class WslLyController extends BaseController {
         headModel.setSsTotal(req.getSsTotal());
         headModel.setDataStatus(DataStatus.ENTRY.getValue());
         headModel.setRemark(req.getRemark());
+        headModel.setYwType(req.getYwType());
+        headModel.setBillType(req.getBillType());
+        headModel.setLyBillNo(req.getLyBillNo());
         if (req.getSaveType() == SaveType.EXEC_ACCOUNT.getValue()) {
             headModel.setJzDate(DateUtil.getCurrentTime());
             headModel.setJzrId(userModel.getUserId());
@@ -261,7 +290,7 @@ public class WslLyController extends BaseController {
         }
         if (StringUtils.isBlank(req.getBillNo())) {
             Map<String, Object> map = new HashMap<>();
-            map.put("ps_BillType", YwType.LY.getValue());
+            map.put("ps_BillType", headModel.getYwType());
             String billNo = this.commonService.getBillNoByCallProcedure(map);
             headModel.setBillNo(billNo);
         }else {

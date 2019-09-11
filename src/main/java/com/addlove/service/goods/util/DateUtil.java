@@ -145,7 +145,7 @@ public class DateUtil {
      *            字符串日期
      * @return String 格式化后的日期
      */
-    public String getStrDate(String backDay) {
+    public static String getStrDate(String backDay) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, Integer.parseInt("-" + backDay));
         SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_YYYY_MM_DD);

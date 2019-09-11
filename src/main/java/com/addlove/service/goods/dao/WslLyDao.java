@@ -85,4 +85,29 @@ public interface WslLyDao {
      * @return List<SkuPluModel>
      */
     List<SkuPluModel> getOtherDeptLySkus(@Param("orgCode")String orgCode, @Param("depId")Long depId);
+    
+    /**
+     * 模糊查询领用单据号
+     * @param depId
+     * @param billNo
+     * @return List<WslLyHeadModel>
+     */
+    List<WslLyHeadModel> getInnerLyBills(@Param("depId")Long depId, @Param("billNo")String billNo);
+    
+    /**
+     * 获取30天内的领用单据号
+     * @param depId
+     * @param startDate
+     * @param endDate
+     * @return List<WslLyHeadModel>
+     */
+    List<WslLyHeadModel> getThirtyLyBills(@Param("depId")Long depId, @Param("startDate")String startDate, 
+            @Param("endDate")String endDate);
+    
+    /**
+     * 更新领用单状态
+     * @param billNo：领用单号
+     * @param ywStatus
+     */
+    void updateYwStatus(@Param("billNo")String billNo, @Param("ywStatus")String ywStatus);
 }

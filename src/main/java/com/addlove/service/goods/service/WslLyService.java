@@ -21,6 +21,7 @@ import com.addlove.service.goods.model.SkuPluModel;
 import com.addlove.service.goods.model.WslLyBodyModel;
 import com.addlove.service.goods.model.WslLyHeadModel;
 import com.addlove.service.goods.model.WslLyPageModel;
+import com.addlove.service.goods.util.DateUtil;
 import com.addlove.service.goods.util.LoggerEnhance;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -200,5 +201,25 @@ public class WslLyService {
         long endTime = System.currentTimeMillis();
         LoggerEnhance.info(LOGGER, "查询领用单商品消耗时间:{}", (endTime - startTime));
         return backArray;
+    }
+    
+    /**
+     * 获取内部领用单据号
+     * @param depId
+     * @param billNo
+     * @return List<WslLyHeadModel>
+     */
+    public List<WslLyHeadModel> getInnerLyBills(Long depId, String billNo) {
+        if (StringUtils.isNotBlank(billNo)) {
+            return this.wslLyDao.getInnerLyBills(depId, billNo);
+        }else {
+            String startDate = DateUtil.getStrDate("30") + " 00:00:00";
+            String endDate = DateUtil.getCurrentTime();
+            return this.wslLyDao.getThirtyLyBills(depId, startDate, endDate);
+        }
+    }
+    
+    public void updateYwStatus(String billNo, String ywStatus) {
+        
     }
 }
