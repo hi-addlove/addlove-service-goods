@@ -257,7 +257,6 @@ public class WslLyController extends BaseController {
         headModel.setUserId(userModel.getUserId());
         headModel.setUserCode(userModel.getUserCode());
         headModel.setUserName(userModel.getUserName());
-        headModel.setYwType(YwType.LY.getValue());
         headModel.setOrgCode(req.getOrgCode());
         headModel.setOrgName(req.getOrgName());
         headModel.setDepId(req.getDepId());
