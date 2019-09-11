@@ -219,7 +219,13 @@ public class WslLyService {
         }
     }
     
+    /**
+     * 更新领用单状态
+     * @param billNo：领用单号
+     * @param ywStatus
+     */
+    @Transactional
     public void updateYwStatus(String billNo, String ywStatus) {
-        
+        this.wslLyDao.updateYwStatus(billNo, ywStatus);
     }
 }
