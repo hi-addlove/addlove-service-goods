@@ -114,7 +114,7 @@ public class WslLyController extends BaseController {
             accountMap.put("pd_JzDate", headModel.getJzDate());
             this.commonService.execAccountByCallProcedure(accountMap);
             //如果是返还类型，还需更新领用单业务状态为“已返还”
-            if (YwType.FH.getValue() == headModel.getYwType()) {
+            if (YwType.FH.getValue().equals(headModel.getYwType())) {
                 this.wslLyService.updateYwStatus(headModel.getLyBillNo(), YwStatus.HAS_FH.getValue());
             }
         }else {
@@ -152,7 +152,7 @@ public class WslLyController extends BaseController {
             accountMap.put("pd_JzDate", headModel.getJzDate());
             this.commonService.execAccountByCallProcedure(accountMap);
             //如果是返还类型，还需更新领用单业务状态为“已返还”
-            if (YwType.FH.getValue() == headModel.getYwType()) {
+            if (YwType.FH.getValue().equals(headModel.getYwType())) {
                 this.wslLyService.updateYwStatus(headModel.getLyBillNo(), YwStatus.HAS_FH.getValue());
             }
         }else {
@@ -243,7 +243,7 @@ public class WslLyController extends BaseController {
             throw new ServiceException(GoodsResponseCode.SKU_NOT_BLANK.getCode(), 
                     GoodsResponseCode.SKU_NOT_BLANK.getMsg());
         }
-        if (YwType.FH.getValue() == req.getYwType() && StringUtils.isBlank(req.getLyBillNo())) {
+        if (YwType.FH.getValue().equals(headModel.getYwType()) && StringUtils.isBlank(req.getLyBillNo())) {
             throw new ServiceException(GoodsResponseCode.FH_TYPE_BILL_NOT_BLANK.getCode(), 
                     GoodsResponseCode.FH_TYPE_BILL_NOT_BLANK.getMsg());
         }
