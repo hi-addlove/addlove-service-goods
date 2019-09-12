@@ -26,6 +26,7 @@ import com.addlove.service.goods.model.valid.FrsJgPageReq;
 import com.addlove.service.goods.model.valid.StkDbBodyReq;
 import com.addlove.service.goods.model.valid.StkDbHeadReq;
 import com.addlove.service.goods.service.OrdAdlYhService;
+import com.addlove.service.goods.service.WslLyService;
 
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
@@ -41,6 +42,13 @@ public class StkDbTest extends AddloveServiceGoodsApplicationTests{
     private OrdAdlYhService ordAdlYhService;
     @Autowired
     private OrdAdlYhController adlYhController;
+    @Autowired
+    private WslLyService wslLyService;
+    
+    @Test
+    public void testgetInnerLyBills() {
+        this.wslLyService.getInnerLyBills(10000000021L, "00");
+    }
     
     @Test
     public void testexecMrCount() {
