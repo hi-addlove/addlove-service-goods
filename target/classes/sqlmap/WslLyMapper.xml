@@ -552,7 +552,7 @@
   <!-- 模糊查询领用单据号 -->
   <select id="getInnerLyBills" resultMap="BaseResultMapHead">
     Select Distinct t.BILLNO From TWSLLYHEAD t Where t.YWTYPE = '1608'
-    And t.YWSTATUS = '0'
+    And t.YWSTATUS = '0' And t.DATASTATUS = '9'
     And t.DEPID = #{depId,jdbcType=NUMERIC}
     And t.BILLNO LIKE CONCAT(CONCAT('%',#{billNo,jdbcType=VARCHAR}),'%')
   </select>
@@ -560,7 +560,7 @@
   <!-- 模糊查询领用单据号 -->
   <select id="getThirtyLyBills" resultMap="BaseResultMapHead">
     Select Distinct t.BILLNO From TWSLLYHEAD t Where t.YWTYPE = '1608'
-    And t.YWSTATUS = '0'
+    And t.YWSTATUS = '0' And t.DATASTATUS = '9'
     And t.DEPID = #{depId,jdbcType=NUMERIC}
     And t.LRDATE &gt;= to_date(#{startDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
     And t.LRDATE &lt;= to_date(#{endDate,jdbcType=VARCHAR},'yyyy-MM-dd HH24:mi:ss')
