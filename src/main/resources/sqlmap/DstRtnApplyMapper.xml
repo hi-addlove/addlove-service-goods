@@ -63,8 +63,8 @@
     <result column="WLCHECKRID" jdbcType="NUMERIC" property="wlcheckrid" />
     <result column="WLCHECKRCODE" jdbcType="VARCHAR" property="wlcheckrcode" />
     <result column="WLCHECKRNAME" jdbcType="VARCHAR" property="wlcheckrname" />
-    <result column="ZBCHECKCOUNT" jdbcType="NUMERIC" property="zbcheckcount" />
-    <result column="WLCHECKCOUNT" jdbcType="NUMERIC" property="wlcheckcount" />
+    <result column="ZBCHECKCOUNT" jdbcType="NUMERIC" property="zbCheckCount" />
+    <result column="WLCHECKCOUNT" jdbcType="NUMERIC" property="wlCheckCount" />
     <result column="REMARK1" jdbcType="VARCHAR" property="remark1" />
     <result column="REMARK2" jdbcType="VARCHAR" property="remark2" />
     <result column="REMARK3" jdbcType="VARCHAR" property="remark3" />
@@ -275,6 +275,8 @@
                 t.STOTAL, 
                 t.STLCURRTHTOTAL,
                 t.BILLSTATUS, 
+                t.ZBCHECKCOUNT, 
+                t.WLCHECKCOUNT,
                 t.ADLPSTHSQTYPE
     From TDSTRTNAPPLYHEAD t Where t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
