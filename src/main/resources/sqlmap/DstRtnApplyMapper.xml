@@ -278,7 +278,7 @@
                 t.ZBCHECKCOUNT, 
                 t.WLCHECKCOUNT,
                 t.ADLPSTHSQTYPE
-    From TDSTRTNAPPLYHEAD t Where t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
+    From TDSTRTNAPPLYHEAD t Where t.THORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
         and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
     </if>
