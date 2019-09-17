@@ -302,7 +302,7 @@ public class DstRtnApplyController extends BaseController {
             bodyModel.setThCount(bodyReq.getThCount());
             bodyModel.setThTotal(bodyReq.getThTotal());
             bodyModel.setRemark(bodyReq.getRemark());
-            bodyModel.setDepId(bodyReq.getDepId());
+            bodyModel.setDepId(headModel.getDepId());
             bodyModel.setThReason(bodyReq.getThReason());
             bodyModel.setwThPrice(bodyReq.getwThPrice());
             bodyModel.setwThTotal(bodyReq.getwThTotal());

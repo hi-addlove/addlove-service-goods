@@ -44,10 +44,6 @@ public class DstRtnApplyBodyReq {
     /** 备注*/
     private String remark;
     
-    /** 部门Id*/
-    @NotNull(message = "部门Id不能为空")
-    private Long depId;
-    
     /** 退货原因*/
     private String thReason;
     
@@ -213,20 +209,6 @@ public class DstRtnApplyBodyReq {
      */
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-
-    /**
-     * @return the depId
-     */
-    public Long getDepId() {
-        return depId;
-    }
-
-    /**
-     * @param depId the depId to set
-     */
-    public void setDepId(Long depId) {
-        this.depId = depId;
     }
 
     /**
