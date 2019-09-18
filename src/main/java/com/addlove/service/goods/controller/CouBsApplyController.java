@@ -278,6 +278,9 @@ public class CouBsApplyController extends BaseController{
             bodyModel.setCarGoNo(bodyReq.getCarGoNo());
             bodyModel.setYkReason(req.getBsReason());
             bodyModel.setRemark(bodyReq.getRemark());
+            if (StringUtils.isNotBlank(headModel.getBsBillNo()) ) {
+                bodyModel.setRemark("冲红原报损单号为：" + headModel.getBsBillNo());
+            }
             bodyModels.add(bodyModel);
         }
         headModel.setBodyList(bodyModels);

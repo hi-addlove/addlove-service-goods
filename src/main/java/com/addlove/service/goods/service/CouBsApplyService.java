@@ -41,11 +41,15 @@ public class CouBsApplyService {
                 if (StringUtils.isNotBlank(model.getShDate()) && model.getShDate().length() > 19) {
                     model.setShDate(model.getShDate().substring(0, 19));
                 }
-                if (BsType.BS.getValue() == queryModel.getQueryType() && StringUtils.isNotBlank(model.getBsBillNo())) {
-                    iterator.remove();
+                if (BsType.BS.getValue() == queryModel.getQueryType()) {
+                    if (StringUtils.isNotBlank(model.getRemark()) && model.getRemark().contains("冲红原报损单号为")) {
+                        iterator.remove();
+                    }
                 }else {
-                    StringUtils.isBlank(model.getBsBillNo());
-                    iterator.remove();
+                    if (StringUtils.isBlank(model.getRemark()) || 
+                            (StringUtils.isNotBlank(model.getRemark()) && !model.getRemark().contains("冲红原报损单号为"))) {
+                        iterator.remove();
+                    }
                 }
             }
         }
@@ -107,7 +111,7 @@ public class CouBsApplyService {
             Iterator<CouBsApplyHeadModel> iterator = bills.iterator();
             if (iterator.hasNext()) {
                 CouBsApplyHeadModel model = iterator.next();
-                if (StringUtils.isNotBlank(model.getBsBillNo())) {
+                if (StringUtils.isNotBlank(model.getRemark()) && model.getRemark().contains("冲红原报损单号为")) {
                     iterator.remove();
                 }
             }
