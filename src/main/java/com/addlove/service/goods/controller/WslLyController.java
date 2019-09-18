@@ -215,7 +215,11 @@ public class WslLyController extends BaseController {
             throw new ServiceException(GoodsResponseCode.DEP_ID_NOT_BLANK.getCode(), 
                     GoodsResponseCode.DEP_ID_NOT_BLANK.getMsg());
         }
-        JSONArray backArray = this.wslLyService.getLySkuList(req.getOrgCode(), req.getDepId());
+        if (StringUtils.isBlank(req.getFlCode())) {
+            throw new ServiceException(GoodsResponseCode.FL_TYPE_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.FL_TYPE_NOT_BLANK.getMsg());
+        }
+        JSONArray backArray = this.wslLyService.getLySkuList(req.getOrgCode(), req.getDepId(), req.getFlCode());
         return ResponseMessage.ok(backArray);
     }
     

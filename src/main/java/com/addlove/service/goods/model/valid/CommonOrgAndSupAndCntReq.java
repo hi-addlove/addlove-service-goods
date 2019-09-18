@@ -15,6 +15,9 @@ public class CommonOrgAndSupAndCntReq {
     
     /** 仓库编码 */
     private String ckCode;
+    
+    /**分类类型 */
+    private String flCode;
 
     /**
      * @return the orgCode
@@ -84,5 +87,19 @@ public class CommonOrgAndSupAndCntReq {
      */
     public void setCkCode(String ckCode) {
         this.ckCode = ckCode;
+    }
+
+    /**
+     * @return the flCode
+     */
+    public String getFlCode() {
+        return flCode;
+    }
+
+    /**
+     * @param flCode the flCode to set
+     */
+    public void setFlCode(String flCode) {
+        this.flCode = flCode;
     }
 }

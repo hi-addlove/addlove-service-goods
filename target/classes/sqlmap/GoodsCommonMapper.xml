@@ -680,13 +680,17 @@
     t.JHBFBZDAYS,t.PSBFBZDAYS,t.CXINFO,t.YWSTATUS,t.LRDATE, t.LRUSERCODE,t.LRUSERNAME,t.ZXDATE,t.ZXUSERCODE,t.ZXUSERNAME,
     t.UDP1,t.UDP2,t.UDP3,t.UDP4,t.PLUCLS,t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,
     t.MINTHDAYS,t.MAXTHDAYS,t.ISONLINE,t.LINEDATE,t.PLUDESC,t.PRICE,t3.KYCOUNT AS KCCOUNT
-    From TSKUPLU t,TSKUPLUEX t2,VSTKKYCOUNT t3
+    From TSKUPLU t,TSKUPLUEX t2,VSTKKYCOUNT t3,tSkuLyBsSetOrg t4,tSkuLyBsSetHead t5,tSkuLyBsSetBody t6
     Where t.ISACTIVE = '1' And t.YwStatus != '3'
     And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
     And t.ORGCODE = t3.ORGCODE
     And t.PLUID = t3.PLUID
     And t3.KYCOUNT > 0
+    And t.PLUID = t6.PLUID And t.ORGCODE = t4.usorgcode
+    And t5.ctrltype = '0'
+    And t4.procode = t5.procode And t5.procode = t6.procode   
     And t3.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t2.DEPId = #{depId,jdbcType=NUMERIC}
+    And t5.CTRLTYPEEX = #{flCode,jdbcType=VARCHAR}
    </select>
    
    <!-- 获取商品品牌 -->

@@ -133,17 +133,17 @@ public class WslLyService {
      * @param depId
      * @return JSONArray
      */
-    public JSONArray getLySkuList(String orgCode, Long depId) {
+    public JSONArray getLySkuList(String orgCode, Long depId, String flCode) {
         long startTime = System.currentTimeMillis();
         JSONArray backArray = new JSONArray();
         Set<SkuPluModel> allSkus = new HashSet<SkuPluModel>();
         //获取领用单可用商品
-        List<SkuPluModel> lySkus = this.wslLyDao.getLySkus(orgCode, depId);
+        List<SkuPluModel> lySkus = this.wslLyDao.getLySkus(orgCode, depId, flCode);
         if (null != lySkus && !lySkus.isEmpty()) {
             allSkus.addAll(lySkus);
         }
         //获取多部门领用商品
-        List<SkuPluModel> otherDeptSkus = this.wslLyDao.getOtherDeptLySkus(orgCode, depId);
+        List<SkuPluModel> otherDeptSkus = this.wslLyDao.getOtherDeptLySkus(orgCode, depId, flCode);
         if (null != otherDeptSkus && !otherDeptSkus.isEmpty()) {
             allSkus.addAll(otherDeptSkus);
         }

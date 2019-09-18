@@ -76,7 +76,8 @@ public interface WslLyDao {
      * @param depId
      * @return List<SkuPluModel>
      */
-    List<SkuPluModel> getLySkus(@Param("orgCode")String orgCode, @Param("depId")Long depId);
+    List<SkuPluModel> getLySkus(@Param("orgCode")String orgCode, @Param("depId")Long depId,
+            @Param("flCode")String flCode);
     
     /**
      * 获取多部门领用商品
@@ -84,7 +85,8 @@ public interface WslLyDao {
      * @param depId
      * @return List<SkuPluModel>
      */
-    List<SkuPluModel> getOtherDeptLySkus(@Param("orgCode")String orgCode, @Param("depId")Long depId);
+    List<SkuPluModel> getOtherDeptLySkus(@Param("orgCode")String orgCode, @Param("depId")Long depId,
+            @Param("flCode")String flCode);
     
     /**
      * 模糊查询领用单据号

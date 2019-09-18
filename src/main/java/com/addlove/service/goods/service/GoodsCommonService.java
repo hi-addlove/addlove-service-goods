@@ -289,8 +289,8 @@ public class GoodsCommonService {
      * @param depId
      * @return List<SkuPluExtendModel>
      */
-    public List<SkuPluExtendModel> getMdBsSkus(String orgCode, Long depId) {
-         List<SkuPluExtendModel> skuList = this.commonDao.getMdBsSkus(orgCode, depId);
+    public List<SkuPluExtendModel> getMdBsSkus(String orgCode, Long depId, String flCode) {
+         List<SkuPluExtendModel> skuList = this.commonDao.getMdBsSkus(orgCode, depId, flCode);
          List<SkuPluExtendModel> backSkuList = new LinkedList<SkuPluExtendModel>();
          if (null == skuList || skuList.isEmpty()) {
              return backSkuList;

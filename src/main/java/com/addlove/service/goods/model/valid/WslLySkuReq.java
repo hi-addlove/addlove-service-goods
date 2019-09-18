@@ -6,6 +6,9 @@ public class WslLySkuReq {
     
     /**部门ID */
     private Long depId;
+    
+    /**分类类型 */
+    private String flCode;
 
     /**
      * @return the orgCode
@@ -33,5 +36,19 @@ public class WslLySkuReq {
      */
     public void setDepId(Long depId) {
         this.depId = depId;
+    }
+
+    /**
+     * @return the flCode
+     */
+    public String getFlCode() {
+        return flCode;
+    }
+
+    /**
+     * @param flCode the flCode to set
+     */
+    public void setFlCode(String flCode) {
+        this.flCode = flCode;
     }
 }

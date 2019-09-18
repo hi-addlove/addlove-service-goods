@@ -158,7 +158,8 @@ public interface GoodsCommonDao {
      * @param depId
      * @return List<SkuPluExtendModel>
      */
-    List<SkuPluExtendModel> getMdBsSkus(@Param("orgCode")String orgCode, @Param("depId")Long depId);
+    List<SkuPluExtendModel> getMdBsSkus(@Param("orgCode")String orgCode, @Param("depId")Long depId,
+            @Param("flCode")String flCode);
     
     /**
      * 调用存储过程生成单据号

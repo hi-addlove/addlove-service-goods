@@ -172,7 +172,11 @@ public class CouBsApplyController extends BaseController{
             throw new ServiceException(GoodsResponseCode.DEP_ID_NOT_BLANK.getCode(), 
                     GoodsResponseCode.DEP_ID_NOT_BLANK.getMsg());
         }
-        List<SkuPluExtendModel> bsSkus = this.commonService.getMdBsSkus(orgCode, depId);
+        if (StringUtils.isBlank(req.getFlCode())) {
+            throw new ServiceException(GoodsResponseCode.FL_TYPE_NOT_BLANK.getCode(), 
+                    GoodsResponseCode.FL_TYPE_NOT_BLANK.getMsg());
+        }
+        List<SkuPluExtendModel> bsSkus = this.commonService.getMdBsSkus(orgCode, depId, req.getFlCode());
         return ResponseMessage.ok(bsSkus);
     }
     

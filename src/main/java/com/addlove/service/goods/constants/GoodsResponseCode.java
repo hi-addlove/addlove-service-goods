@@ -117,7 +117,12 @@ public enum GoodsResponseCode {
     /**
      * 内部返还类型领用单据号不能为空
      */
-    FH_TYPE_BILL_NOT_BLANK(20022, "内部返还类型领用单据号不能为空");
+    FH_TYPE_BILL_NOT_BLANK(20022, "内部返还类型领用单据号不能为空"),
+    
+    /**
+     * 分类类型不能为空
+     */
+    FL_TYPE_NOT_BLANK(20023, "分类类型不能为空");
     
     private int code;
     private String msg;
