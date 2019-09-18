@@ -285,4 +285,52 @@ public interface GoodsMdBsConstants {
             this.name = name;
         }
     }
+    
+    /** 报损类型：1-报损；2-冲红*/
+    public enum BsType {
+        /**
+         * 1-报损
+         */
+        BS(1, "报损"),
+        /**
+         * 2-冲红
+         */
+        CH(2, "冲红");
+        
+        private int value;
+        private String name;
+        
+        private BsType(int value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        /**
+         * @return the value
+         */
+        public int getValue() {
+            return value;
+        }
+
+        /**
+         * @param value the value to set
+         */
+        public void setValue(int value) {
+            this.value = value;
+        }
+
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
 }

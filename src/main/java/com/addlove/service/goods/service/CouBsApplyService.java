@@ -1,11 +1,13 @@
 package com.addlove.service.goods.service;
 
+import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.addlove.service.goods.constants.GoodsMdBsConstants.BsType;
 import com.addlove.service.goods.dao.CouBsApplyDao;
 import com.addlove.service.goods.model.BasFlContentModel;
 import com.addlove.service.goods.model.CouBsApplyBodyModel;
@@ -27,7 +29,9 @@ public class CouBsApplyService {
         PageHelper.startPage(queryModel.getPageNo(), queryModel.getPageSize(), true);
         List<CouBsApplyHeadModel> bsList = this.couBsApplyDao.queryMdBsPage(queryModel);
         if (null != bsList && !bsList.isEmpty()) {
-            for (CouBsApplyHeadModel model : bsList) {
+            Iterator<CouBsApplyHeadModel> iterator = bsList.iterator();
+            if (iterator.hasNext()) {
+                CouBsApplyHeadModel model = iterator.next();
                 if (StringUtils.isNotBlank(model.getLrDate()) && model.getLrDate().length() > 19) {
                     model.setLrDate(model.getLrDate().substring(0, 19));
                 }
@@ -36,6 +40,12 @@ public class CouBsApplyService {
                 }
                 if (StringUtils.isNotBlank(model.getShDate()) && model.getShDate().length() > 19) {
                     model.setShDate(model.getShDate().substring(0, 19));
+                }
+                if (BsType.BS.getValue() == queryModel.getQueryType() && StringUtils.isNotBlank(model.getBsBillNo())) {
+                    iterator.remove();
+                }else {
+                    StringUtils.isBlank(model.getBsBillNo());
+                    iterator.remove();
                 }
             }
         }
@@ -83,5 +93,25 @@ public class CouBsApplyService {
      */
     public List<BasFlContentModel> getFls(String flCode) {
         return this.couBsApplyDao.getFls(flCode);
+    }
+    
+    /**
+     * 获取部门报损单号
+     * @param depId
+     * @param billNo
+     * @return List<CouBsApplyHeadModel>
+     */
+    public List<CouBsApplyHeadModel> getBillsByDep(Long depId, String billNo) {
+        List<CouBsApplyHeadModel> bills = this.couBsApplyDao.getBillsByDep(depId, billNo);
+        if (null != bills && !bills.isEmpty()) {
+            Iterator<CouBsApplyHeadModel> iterator = bills.iterator();
+            if (iterator.hasNext()) {
+                CouBsApplyHeadModel model = iterator.next();
+                if (StringUtils.isNotBlank(model.getBsBillNo())) {
+                    iterator.remove();
+                }
+            }
+        }
+        return bills;
     }
 }

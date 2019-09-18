@@ -122,7 +122,12 @@ public enum GoodsResponseCode {
     /**
      * 分类类型不能为空
      */
-    FL_TYPE_NOT_BLANK(20023, "分类类型不能为空");
+    FL_TYPE_NOT_BLANK(20023, "分类类型不能为空"),
+    
+    /**
+     * 冲红时报损数量必须小于0
+     */
+    BS_COUNT_LESS_THAN_ZERO(20024, "冲红时报损数量必须小于0");
     
     private int code;
     private String msg;

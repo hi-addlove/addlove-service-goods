@@ -43,6 +43,9 @@ public class CouBsApplyHeadReq {
     @NotBlank(message = "报损原因不能为空")
     private String bsReason;
     
+    /** 原报损单号*/
+    private String bsBillNo;
+    
     /**
      * 保存类型：1-保存;2-提交
      */
@@ -175,6 +178,20 @@ public class CouBsApplyHeadReq {
      */
     public void setBsReason(String bsReason) {
         this.bsReason = bsReason;
+    }
+
+    /**
+     * @return the bsBillNo
+     */
+    public String getBsBillNo() {
+        return bsBillNo;
+    }
+
+    /**
+     * @param bsBillNo the bsBillNo to set
+     */
+    public void setBsBillNo(String bsBillNo) {
+        this.bsBillNo = bsBillNo;
     }
 
     /**

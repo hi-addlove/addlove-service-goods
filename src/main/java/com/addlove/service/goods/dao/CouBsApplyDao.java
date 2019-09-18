@@ -68,4 +68,12 @@ public interface CouBsApplyDao {
      * @return List<BasFlContentModel>
      */
     List<BasFlContentModel> getFls(String flCode);
+    
+    /**
+     * 获取部门报损单号
+     * @param depId
+     * @param billNo
+     * @return List<CouBsApplyHeadModel>
+     */
+    List<CouBsApplyHeadModel> getBillsByDep(@Param("depId")Long depId, @Param("billNo")String billNo);
 }

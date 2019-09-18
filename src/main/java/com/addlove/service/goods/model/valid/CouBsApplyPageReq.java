@@ -1,5 +1,7 @@
 package com.addlove.service.goods.model.valid;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -41,6 +43,10 @@ public class CouBsApplyPageReq {
     
     /** 仓库编码*/
     private String ckCode;
+    
+    /** 查询类型：1-报损；2-冲红*/
+    @NotNull(message = "查询类型不能为空")
+    private Integer queryType;
 
     /**
      * @return the pageNo
@@ -194,5 +200,19 @@ public class CouBsApplyPageReq {
      */
     public void setCkCode(String ckCode) {
         this.ckCode = ckCode;
+    }
+
+    /**
+     * @return the queryType
+     */
+    public Integer getQueryType() {
+        return queryType;
+    }
+
+    /**
+     * @param queryType the queryType to set
+     */
+    public void setQueryType(Integer queryType) {
+        this.queryType = queryType;
     }
 }

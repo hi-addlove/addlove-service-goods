@@ -33,6 +33,7 @@ import com.addlove.service.goods.model.SysUserModel;
 import com.addlove.service.goods.model.UsrUserModel;
 import com.addlove.service.goods.model.valid.CommonOrgAndSupAndCntReq;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
+import com.addlove.service.goods.model.valid.CouBsApplyBillReq;
 import com.addlove.service.goods.model.valid.CouBsApplyBodyReq;
 import com.addlove.service.goods.model.valid.CouBsApplyHeadReq;
 import com.addlove.service.goods.model.valid.CouBsApplyPageReq;
@@ -80,6 +81,7 @@ public class CouBsApplyController extends BaseController{
         queryModel.setUserCode(req.getUserCode());
         queryModel.setDepId(req.getDepId());
         queryModel.setCkCode(req.getCkCode());
+        queryModel.setQueryType(req.getQueryType());
         List<CouBsApplyHeadModel> bsList = this.couBsApplyService.queryMdBsPage(queryModel);
         Page<CouBsApplyHeadModel> page = (Page<CouBsApplyHeadModel>) bsList;
         PageModel pageModel = new PageModel();
@@ -192,6 +194,18 @@ public class CouBsApplyController extends BaseController{
     }
     
     /**
+     * 获取原报损单据号
+     * @param req
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "/getOriginBsBills", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getOriginBsBills(@RequestBody @Valid CouBsApplyBillReq req) {
+        List<CouBsApplyHeadModel> bills = this.couBsApplyService.getBillsByDep(req.getDepId(), req.getBillNo());
+        return ResponseMessage.ok(bills);
+    }
+    
+    /**
      * 封装报损单数据
      * @param req
      * @return CouBsApplyHeadModel
@@ -231,6 +245,7 @@ public class CouBsApplyController extends BaseController{
         headModel.setCkName(storeList.get(0).getCkName());
         headModel.setBsCount(req.getBsCount());
         headModel.setRemark(req.getRemark());
+        headModel.setBsBillNo(req.getBsBillNo());
         if (StringUtils.isBlank(req.getBillNo())) {
             Map<String, Object> map = new HashMap<>();
             map.put("ps_BillType", YwType.MD_BS.getValue());
@@ -242,6 +257,10 @@ public class CouBsApplyController extends BaseController{
         List<CouBsApplyBodyModel> bodyModels = new LinkedList<CouBsApplyBodyModel>();
         long serialNo = 1;
         for (CouBsApplyBodyReq bodyReq : bodyList) {
+            if (StringUtils.isNotBlank(headModel.getBsBillNo()) && bodyReq.getBsCount() > 0) {
+                throw new ServiceException(GoodsResponseCode.BS_COUNT_LESS_THAN_ZERO.getCode(), 
+                        GoodsResponseCode.BS_COUNT_LESS_THAN_ZERO.getMsg());
+            }
             CouBsApplyBodyModel bodyModel = new CouBsApplyBodyModel();
             bodyModel.setBillNo(headModel.getBillNo());
             bodyModel.setSerialNo(serialNo++);

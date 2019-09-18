@@ -101,7 +101,8 @@
                 t.CKCODE,
                 t.CKNAME,
                 t.BSCOUNT,
-                t.REMARK
+                t.REMARK,
+                t.BSBILLNO
     From TCOUBSAPPLYHEAD t Where t.ORGCODE = #{queryModel.orgCode,jdbcType=VARCHAR}
     <if test="queryModel.billNo != '' and queryModel.billNo != null">
         and t.BILLNO LIKE CONCAT(#{queryModel.billNo,jdbcType=VARCHAR},'%')
@@ -150,7 +151,8 @@
         CKCODE, 
         CKNAME,
         BSCOUNT,
-        REMARK
+        REMARK,
+        BSBILLNO
     )
     VALUES
     (
@@ -170,7 +172,8 @@
         #{ckCode,jdbcType=VARCHAR},
         #{ckName,jdbcType=VARCHAR},
         #{bsCount,jdbcType=NUMERIC},
-        #{remark,jdbcType=VARCHAR}
+        #{remark,jdbcType=VARCHAR},
+        #{bsBillNo,jdbcType=VARCHAR}
     )
   </insert>
   
@@ -243,7 +246,8 @@
                 t.CKCODE,
                 t.CKNAME,
                 t.BSCOUNT,
-                t.REMARK
+                t.REMARK,
+                t.BSBILLNO
     From TCOUBSAPPLYHEAD t Where t.BILLNO = #{billNo,jdbcType=VARCHAR}
   </select>
   
@@ -283,5 +287,15 @@
   <!-- 获取分类内容 -->
   <select id="getFls" resultMap="BaseResultMapFl">
     select t.FLCODE,t.LXCODE,t.LXNAME,t.LXTYPE,t.REMARK from TBASFLCONTENT t where FLCODE = #{flCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 获取部门报损单号 -->
+  <select id="getBillsByDep"  resultMap="BaseResultMapHead">
+    Select Distinct t.BILLNO From TCOUBSAPPLYHEAD t 
+    Where t.COUSTATUS = '2' And t.DATASTATUS = '9' And t.BSCOUNT &gt; 0
+    And t.DEPID = #{depId,jdbcType=NUMERIC}
+    <if test="billNo != '' and billNo != null">
+        And t.BILLNO LIKE CONCAT(CONCAT('%',#{billNo,jdbcType=VARCHAR}),'%')
+    </if>
   </select>
 </mapper>
