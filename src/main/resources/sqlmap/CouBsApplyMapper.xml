@@ -70,7 +70,7 @@
     BSBILLNO
   </sql>
   
-    <sql id="Base_Column_List_Body" >
+  <sql id="Base_Column_List_Body" >
     BILLNO, SERIALNO, DEPID, DEPCODE, DEPNAME, PLUID, PLUCODE, PLUNAME, EXPLUCODE, EXPLUNAME, 
     BARCODE, UNIT, SPEC, BSCOUNT, KWCODE, CARGONO, YKREASON, REMARK
   </sql>

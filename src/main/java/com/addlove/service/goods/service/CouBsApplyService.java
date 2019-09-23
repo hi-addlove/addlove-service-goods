@@ -32,15 +32,6 @@ public class CouBsApplyService {
             Iterator<CouBsApplyHeadModel> iterator = bsList.iterator();
             if (iterator.hasNext()) {
                 CouBsApplyHeadModel model = iterator.next();
-                if (StringUtils.isNotBlank(model.getLrDate()) && model.getLrDate().length() > 19) {
-                    model.setLrDate(model.getLrDate().substring(0, 19));
-                }
-                if (StringUtils.isNotBlank(model.getJzDate()) && model.getJzDate().length() > 19) {
-                    model.setJzDate(model.getJzDate().substring(0, 19));
-                }
-                if (StringUtils.isNotBlank(model.getShDate()) && model.getShDate().length() > 19) {
-                    model.setShDate(model.getShDate().substring(0, 19));
-                }
                 if (BsType.BS.getValue() == queryModel.getQueryType()) {
                     if (StringUtils.isNotBlank(model.getRemark()) && model.getRemark().contains("冲红原报损单号为")) {
                         iterator.remove();
@@ -50,6 +41,19 @@ public class CouBsApplyService {
                             (StringUtils.isNotBlank(model.getRemark()) && !model.getRemark().contains("冲红原报损单号为"))) {
                         iterator.remove();
                     }
+                }
+            }
+        }
+        if (null != bsList && !bsList.isEmpty()) {
+            for (CouBsApplyHeadModel model : bsList) {
+                if (StringUtils.isNotBlank(model.getLrDate()) && model.getLrDate().length() > 19) {
+                    model.setLrDate(model.getLrDate().substring(0, 19));
+                }
+                if (StringUtils.isNotBlank(model.getJzDate()) && model.getJzDate().length() > 19) {
+                    model.setJzDate(model.getJzDate().substring(0, 19));
+                }
+                if (StringUtils.isNotBlank(model.getShDate()) && model.getShDate().length() > 19) {
+                    model.setShDate(model.getShDate().substring(0, 19));
                 }
             }
         }
@@ -74,10 +78,19 @@ public class CouBsApplyService {
      * @return CouBsApplyHeadModel
      */
     public CouBsApplyHeadModel queryMdBsDetails(String billNo) {
-        CouBsApplyHeadModel bsHead = this.couBsApplyDao.getBsHead(billNo);
+        CouBsApplyHeadModel model = this.couBsApplyDao.getBsHead(billNo);
+        if (StringUtils.isNotBlank(model.getLrDate()) && model.getLrDate().length() > 19) {
+            model.setLrDate(model.getLrDate().substring(0, 19));
+        }
+        if (StringUtils.isNotBlank(model.getJzDate()) && model.getJzDate().length() > 19) {
+            model.setJzDate(model.getJzDate().substring(0, 19));
+        }
+        if (StringUtils.isNotBlank(model.getShDate()) && model.getShDate().length() > 19) {
+            model.setShDate(model.getShDate().substring(0, 19));
+        }
         List<CouBsApplyBodyModel> bodyList = this.couBsApplyDao.getBsBodys(billNo);
-        bsHead.setBodyList(bodyList);
-        return bsHead;
+        model.setBodyList(bodyList);
+        return model;
     }
     
     /**
