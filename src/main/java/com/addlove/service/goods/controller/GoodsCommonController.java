@@ -38,7 +38,7 @@ import com.addlove.service.goods.service.GoodsCommonService;
  *
  */
 @Controller
-@RequestMapping(value = "/common")
+@RequestMapping(value = "/addlove/common")
 public class GoodsCommonController extends BaseController{
     @Autowired
     private GoodsCommonService commonService;

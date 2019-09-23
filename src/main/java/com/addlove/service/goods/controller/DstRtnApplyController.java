@@ -48,7 +48,7 @@ import com.github.pagehelper.Page;
  *
  */
 @Controller
-@RequestMapping(value = "/dstRtn")
+@RequestMapping(value = "/addlove/dstRtn")
 public class DstRtnApplyController extends BaseController {
     @Autowired
     private DstRtnApplyService rtnApplyService;

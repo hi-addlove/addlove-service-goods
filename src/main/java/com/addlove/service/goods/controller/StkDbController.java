@@ -44,7 +44,7 @@ import com.github.pagehelper.Page;
  *
  */
 @Controller
-@RequestMapping(value = "/stkDb")
+@RequestMapping(value = "/addlove/stkDb")
 public class StkDbController extends BaseController {
     @Autowired
     private StkDbService stkDbService;

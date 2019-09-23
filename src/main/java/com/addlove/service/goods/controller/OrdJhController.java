@@ -47,7 +47,7 @@ import com.github.pagehelper.PageInfo;
  *
  */
 @Controller
-@RequestMapping(value = "/ordJh")
+@RequestMapping(value = "/addlove/ordJh")
 public class OrdJhController extends BaseController{
     @Autowired
     private OrdJhService ordJhService;

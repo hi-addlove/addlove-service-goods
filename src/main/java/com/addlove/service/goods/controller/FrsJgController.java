@@ -58,7 +58,7 @@ import com.github.pagehelper.Page;
  *
  */
 @Controller
-@RequestMapping(value = "/jg")
+@RequestMapping(value = "/addlove/jg")
 public class FrsJgController extends BaseController{
     @Autowired
     private FrsJgService frsJgService;

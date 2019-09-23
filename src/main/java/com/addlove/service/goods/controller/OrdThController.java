@@ -44,7 +44,7 @@ import com.github.pagehelper.Page;
  *
  */
 @Controller
-@RequestMapping(value = "/ordTh")
+@RequestMapping(value = "/addlove/ordTh")
 public class OrdThController extends BaseController {
     @Autowired
     private OrdThService ordThService;

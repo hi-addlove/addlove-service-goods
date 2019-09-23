@@ -49,7 +49,7 @@ import com.github.pagehelper.Page;
  *
  */
 @Controller
-@RequestMapping(value = "/mdBs")
+@RequestMapping(value = "/addlove/mdBs")
 public class CouBsApplyController extends BaseController{
     @Autowired
     private CouBsApplyService couBsApplyService;

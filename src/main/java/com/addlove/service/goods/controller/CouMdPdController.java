@@ -48,7 +48,7 @@ import com.github.pagehelper.Page;
  *
  */
 @Controller
-@RequestMapping(value = "/mdPd")
+@RequestMapping(value = "/addlove/mdPd")
 public class CouMdPdController extends BaseController{
     @Autowired
     private CouMdPdService couMdPdService;

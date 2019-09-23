@@ -46,7 +46,7 @@ import com.github.pagehelper.Page;
  *
  */
 @Controller
-@RequestMapping(value = "/proPlan")
+@RequestMapping(value = "/addlove/proPlan")
 public class ProPlanController extends BaseController{
     @Autowired
     private ProPlanService proPlanService;

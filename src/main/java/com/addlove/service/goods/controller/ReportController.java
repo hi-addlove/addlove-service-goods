@@ -28,7 +28,7 @@ import com.alibaba.fastjson.JSONObject;
  *
  */
 @Controller
-@RequestMapping(value = "/report")
+@RequestMapping(value = "/addlove/report")
 public class ReportController extends BaseController{
     @Autowired
     private ReportService reportService;

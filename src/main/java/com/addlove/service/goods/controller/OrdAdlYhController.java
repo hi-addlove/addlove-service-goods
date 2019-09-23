@@ -53,7 +53,7 @@ import com.github.pagehelper.Page;
  *
  */
 @Controller
-@RequestMapping(value = "/adlYh")
+@RequestMapping(value = "/addlove/adlYh")
 public class OrdAdlYhController extends BaseController{
     @Autowired
     private OrdAdlYhService ordAdlYhService;

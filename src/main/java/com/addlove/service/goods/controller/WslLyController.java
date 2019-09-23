@@ -48,7 +48,7 @@ import com.github.pagehelper.Page;
  *
  */
 @Controller
-@RequestMapping(value = "/ly")
+@RequestMapping(value = "/addlove/ly")
 public class WslLyController extends BaseController {
     @Autowired
     private WslLyService wslLyService;
