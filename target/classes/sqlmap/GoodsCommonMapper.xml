@@ -496,13 +496,13 @@
     t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,t.MINTHDAYS,t.MAXTHDAYS,t.ISONLINE,t.LINEDATE,t.PLUDESC
     From TSKUPLU t,TSKUPLUEX t2,TCNTPLU t3,tCntCntOrg t4
     Where t.ISACTIVE = '1' And t.ISKC='1' And t.PLUCLS != '3' 
-    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE 
+    And t.PLUID = t2.PLUID 
     And t2.ISJH='1'
     And t.PLUID = t3.PLUID
-    And t.ORGCODE = t4.usORGCODE And t3.CNTID=t4.CNTID
-    And t.ORGCODE =  #{orgCode,jdbcType=VARCHAR} And t3.CNTID = #{cntId,jdbcType=NUMERIC}
+    And t2.ORGCODE = t4.usORGCODE And t3.CNTID=t4.CNTID
+    And t2.ORGCODE =  #{orgCode,jdbcType=VARCHAR} And t3.CNTID = #{cntId,jdbcType=NUMERIC}
   </select>
-  
+
   <!-- 获取部门 -->
   <select id="getDeptList" parameterType="java.lang.String" resultMap="BaseResultMapDept">
     select t.DEPID,t.ORGCODE,t.ORGCLASS,t.DEPCODE,t.DEPNAME,t.DEPENAME
