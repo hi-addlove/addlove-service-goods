@@ -145,7 +145,7 @@
     t.ISONLINE,t.LINEDATE,t.PLUDESC,t.PRICE
     From TSKUPLU t,TSKUPLUEX t2
     Where t.ISACTIVE = '1' 
-    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
+    And t.PLUID = t2.PLUID And t2.IsSale = '1'
     And t2.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t2.DEPId = #{depId,jdbcType=NUMERIC}
   </select>
   
@@ -173,9 +173,8 @@
     t.ISONLINE,t.LINEDATE,t.PLUDESC,t.PRICE
     From TSKUPLU t,TSKUPLUEX t2,tSkuPdCycleScheme t3,tSkuPdCycleSchemeDt t4,tSkuPdCycleSchemeOrg t5
     Where t.ISACTIVE = '1'
-    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
+    And t.PLUID = t2.PLUID And t2.IsSale = '1'
     And t3.grpno = t4.grpno And t3.grpno = t5.grpno And t4.grpno = t5.grpno
-    And t.orgcode = t5.orgcode
     And t.PLUID = t4.PLUID 
     And t5.ORGCODE = #{orgCode,jdbcType=VARCHAR}
     <if test="cycleType != '' and cycleType != null and cycleType == 0">
@@ -184,5 +183,38 @@
     <if test="cycleType != '' and cycleType != null and cycleType == 1">
         And t4.cycleType in ('0','1')
     </if>
+  </select>
+  
+  <!-- 通过组织编码、部门、盘点类型获取盘点商品  2019.10.23add -->
+  <select id="getPdSkuList" resultMap="BaseResultMapSku">
+    select Distinct t.PLUID,t.PLUCODE,t.PLUNAME,t.PLUENAME,t.PLUABBRNAME,t.PLUMN,t.BARCODE,t.UNIT,t.SPEC,t.PLUWEIGHT,
+    t.PLUHEIGHT,t.PLULONG,t.PLUWIDTH,t.ISMULPACKET,t.ORGCODE,t.ORGNAME,t.CGYID,t.CGYCODE,t.CGYNAME,t.CARGONO,
+    t.PRODUCE,t.GRADE,t.QUALITY,t.BZDAYS,t.CLSID,t.BRANDCODE,t.XTAXRATE,t.ISWEIGHT,t.ISCOUTQTY,t.ISKC,t.ISCURRDAY,
+    t.JHBFBZDAYS,t.PSBFBZDAYS,t.CXINFO,t.YWSTATUS,t.LRDATE, t.LRUSERCODE,t.LRUSERNAME,t.ZXDATE,t.ZXUSERCODE,t.ZXUSERNAME,
+    t.UDP1,t.UDP2,t.UDP3,t.UDP4,t.PLUCLS,t.PLUMODEL,t.MATERIALCODE,t.LRORGCODE,t.LRORGNAME,t.DATASRC,t.MINTHDAYS,t.MAXTHDAYS,
+    t.ISONLINE,t.LINEDATE,t.PLUDESC,t.PRICE from  TSKUPLU t where t.isactive='1' and t.pluid in
+    (
+        select t4.pluID from tSkuPdCycleSchemeDt t4,TSKUPLUEX t2
+        where t4.grpno in (select t5.grpno from tSkuPdCycleSchemeOrg t5 where t5.orgcode=#{orgCode,jdbcType=VARCHAR})
+        and t2.orgcode=#{orgCode,jdbcType=VARCHAR} and t2.depid=#{depId,jdbcType=NUMERIC} and t2.pluid=t4.pluid
+        <if test="cycleType != '' and cycleType != null and cycleType == 0">
+            And t4.cycleType = '0'
+        </if>
+        <if test="cycleType != '' and cycleType != null and cycleType == 1">
+            And t4.cycleType in ('0','1')
+        </if>
+        union
+        select t4.pluID from tSkuPdCycleSchemeDt t4, tskupluotherdept t6 
+        where t4.grpno in (select t5.grpno from tSkuPdCycleSchemeOrg t5 where t5.orgcode=#{orgCode,jdbcType=VARCHAR})
+        and t6.orgcode=#{orgCode,jdbcType=VARCHAR} and t6.depid=#{depId,jdbcType=NUMERIC} and t6.issale='1' 
+        and t6.pluid=t4.pluid
+        <if test="cycleType != '' and cycleType != null and cycleType == 0">
+        And t4.cycleType = '0'
+        </if>
+        <if test="cycleType != '' and cycleType != null and cycleType == 1">
+            And t4.cycleType in ('0','1')
+        </if>
+    )
+    order by t.plucode
   </select>
 </mapper>

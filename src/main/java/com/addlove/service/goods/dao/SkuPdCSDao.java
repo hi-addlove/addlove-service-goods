@@ -35,4 +35,14 @@ public interface SkuPdCSDao {
      * @return List<SkuPluModel>
      */
     List<SkuPluModel> getPdSkuListByCycleType(@Param("orgCode")String orgCode, @Param("cycleType")String cycleType);
+    
+    /**
+     * 通过组织编码、部门、盘点类型获取盘点商品  2019.10.23add
+     * @param orgCode
+     * @param depId
+     * @param cycleType
+     * @return List<SkuPluModel>
+     */
+    List<SkuPluModel> getPdSkuList(@Param("orgCode")String orgCode, @Param("depId")Long depId, 
+            @Param("cycleType")String cycleType);
 }

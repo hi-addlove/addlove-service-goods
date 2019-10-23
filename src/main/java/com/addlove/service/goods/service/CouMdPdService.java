@@ -103,9 +103,7 @@ public class CouMdPdService {
      * @return List<SkuPluModel>
      */
     public List<SkuPluModel> getPdSkuList(String orgCode, Long depId, String cycleType) {
-        List<SkuPluModel> deptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
-        List<SkuPluModel> cycleSkus = this.skuPdCSDao.getPdSkuListByCycleType(orgCode, cycleType);
-        deptSkus.addAll(cycleSkus);
+        List<SkuPluModel> deptSkus = this.skuPdCSDao.getPdSkuList(orgCode, depId, cycleType);
         return deptSkus;
     }
     

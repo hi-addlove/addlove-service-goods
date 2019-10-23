@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.addlove.service.goods.constants.GoodsAdlYhConstants.YhType;
 import com.addlove.service.goods.constants.GoodsOrdJhConstants.SaveType;
 import com.addlove.service.goods.context.SysUserDataContextHolder;
+import com.addlove.service.goods.controller.CouMdPdController;
 import com.addlove.service.goods.controller.FrsJgController;
 import com.addlove.service.goods.controller.GoodsCommonController;
 import com.addlove.service.goods.controller.OrdAdlYhController;
@@ -23,6 +24,7 @@ import com.addlove.service.goods.model.valid.CommonOrgAndDeptReq;
 import com.addlove.service.goods.model.valid.CommonOrgAndSupAndCntReq;
 import com.addlove.service.goods.model.valid.CommonQueryDetailReq;
 import com.addlove.service.goods.model.valid.FrsJgPageReq;
+import com.addlove.service.goods.model.valid.MdPdSkuReq;
 import com.addlove.service.goods.model.valid.StkDbBodyReq;
 import com.addlove.service.goods.model.valid.StkDbHeadReq;
 import com.addlove.service.goods.service.OrdAdlYhService;
@@ -44,6 +46,17 @@ public class StkDbTest extends AddloveServiceGoodsApplicationTests{
     private OrdAdlYhController adlYhController;
     @Autowired
     private WslLyService wslLyService;
+    @Autowired
+    private CouMdPdController pdController;
+    
+    @Test
+    public void testgetPdSkuList() {
+        MdPdSkuReq req = new MdPdSkuReq();
+        req.setOrgCode("999999");
+        req.setDepId(10000003130L);
+        req.setBillType("0");
+        this.pdController.getPdSkuList(req);
+    }
     
     @Test
     public void testgetInnerLyBills() {
