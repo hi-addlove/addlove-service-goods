@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.addlove.service.goods.constants.GoodsResponseCode;
 import com.addlove.service.goods.constants.GoodsCommonConstants.ProcedureResult;
+import com.addlove.service.goods.constants.GoodsMdPdConstants.YwType;
 import com.addlove.service.goods.controller.OrdJhController;
 import com.addlove.service.goods.exception.ServiceException;
 import com.addlove.service.goods.model.OrdJhHeadModel;
@@ -32,6 +33,16 @@ public class OrdJhTest {
     
     @Autowired
     private GoodsCommonService commonService;
+    
+    
+    
+    @Test
+    public void testgetBillNoByCallProcedure() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("ps_BillType", YwType.MD_PD.getValue());
+        String billNo = this.commonService.getBillNoByCallProcedure(map);
+        System.out.println("billNo================" + billNo);
+    }
     
     @Test
     public void testAddNoPurchaseJh() {
