@@ -706,11 +706,11 @@
     t4.EXPLUCODE,t4.HCOST,t4.WCOST,t4.PLUTYPE,t4.PACKQTY
     From TSKUPLU t,TSKUPLUEX t2,TSTKLSKC t4,VSTKKYCOUNT t5
     Where t.ISACTIVE = '1' And t.ISKC='1' 
-    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
-    And t.PLUID = t4.PLUID And t.ORGCODE = t4.ORGCODE
-    And t.PLUID = t5.PLUID And t.ORGCODE = t5.ORGCODE And t5.KyCount > 0
+    And t.PLUID = t2.PLUID And t2.IsSale = '1'
+    And t.PLUID = t4.PLUID 
+    And t.PLUID = t5.PLUID And t5.KyCount > 0
     And t2.DEPId = t4.DEPId
-    And t.ORGCODE = #{orgCode,jdbcType=VARCHAR}
+    And t4.ORGCODE = #{orgCode,jdbcType=VARCHAR}
     And t2.DEPId = #{depId,jdbcType=NUMERIC}
     And t4.CKCODE = #{ckCode,jdbcType=VARCHAR}
   </select>
@@ -726,9 +726,9 @@
     t3.EXPLUCODE,t3.HCOST,t3.WCOST,t3.PLUTYPE,t3.PACKQTY
     From TSKUPLU t,TSKUPLUOTHERDEPT t2,TSTKLSKC t3,VSTKKYCOUNT t5
     Where t.ISACTIVE = '1' And t.ISKC='1' 
-    And t.PLUID = t2.PLUID And t2.IsSale = '1' And t.ORGCODE = t2.ORGCODE
-    And t.PLUID = t3.PLUID And t.ORGCODE = t3.ORGCODE
-    And t.PLUID = t5.PLUID And t.ORGCODE = t5.ORGCODE And t5.KyCount > 0
+    And t.PLUID = t2.PLUID And t2.IsSale = '1' 
+    And t.PLUID = t3.PLUID 
+    And t.PLUID = t5.PLUID And t5.KyCount > 0
     And t2.DEPId = t3.DEPId
     And t2.ORGCODE = #{orgCode,jdbcType=VARCHAR}
     And t2.DEPId = #{depId,jdbcType=NUMERIC} 
@@ -746,8 +746,8 @@
     t4.EXPLUCODE,t4.HCOST,t4.WCOST,t4.PLUTYPE,t4.PACKQTY
     From TSKUPLU t,TSKUPLUEX t2,TSTKLSKC t4
     Where t.ISACTIVE = '1' And t.ISKC='1' 
-    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
-    And t.PLUID = t4.PLUID And t.ORGCODE = t4.ORGCODE
+    And t.PLUID = t2.PLUID And t2.IsSale = '1'
+    And t.PLUID = t4.PLUID 
     And t2.DEPId = t4.DEPId
     And t2.ORGCODE = #{orgCode,jdbcType=VARCHAR} 
     And t2.DEPId = #{depId,jdbcType=NUMERIC}
@@ -764,8 +764,8 @@
     t3.EXPLUCODE,t3.HCOST,t3.WCOST,t3.PLUTYPE,t3.PACKQTY
     From TSKUPLU t,TSKUPLUOTHERDEPT t2,TSTKLSKC t3
     Where t.ISACTIVE = '1' And t.ISKC='1' 
-    And t.PLUID = t2.PLUID And t2.IsSale = '1' And t.ORGCODE = t2.ORGCODE
-    And t.PLUID = t3.PLUID And t.ORGCODE = t3.ORGCODE
+    And t.PLUID = t2.PLUID And t2.IsSale = '1' 
+    And t.PLUID = t3.PLUID 
     And t2.DEPId = t3.DEPId
     And t2.ORGCODE = #{orgCode,jdbcType=VARCHAR} 
     And t2.DEPId = #{depId,jdbcType=NUMERIC} 
@@ -782,12 +782,12 @@
     t3.EXPLUCODE,t3.HCOST,t3.WCOST,t3.PLUTYPE,t3.PACKQTY
     From TSKUPLU t,TSKUPLUEX t2,TSTKLSKC t3,tSkuLyBsSetOrg t4,tSkuLyBsSetHead t5,tSkuLyBsSetBody t6,VSTKKYCOUNT t7
     Where t.ISACTIVE = '1' And t.ISKC='1' 
-    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
-    And t.PLUID = t3.PLUID And t.ORGCODE = t3.ORGCODE
-    And t.PLUID = t6.PLUID And t.ORGCODE = t4.usorgcode
+    And t.PLUID = t2.PLUID And t2.IsSale = '1'
+    And t.PLUID = t3.PLUID 
+    And t.PLUID = t6.PLUID 
     And t5.ctrltype = '2'
     And t4.procode = t5.procode And t5.procode = t6.procode
-    And t.PLUID = t7.PLUID And t.ORGCODE = t7.ORGCODE And t7.KyCount > 0
+    And t.PLUID = t7.PLUID And t7.KyCount > 0
     And t4.usorgcode = #{orgCode,jdbcType=VARCHAR} 
     And t2.depid = #{depId,jdbcType=NUMERIC} 
     And t3.CKCODE = #{ckCode,jdbcType=VARCHAR}
@@ -804,9 +804,9 @@
     t3.EXPLUCODE,t3.HCOST,t3.WCOST,t3.PLUTYPE,t3.PACKQTY
     From TSKUPLU t,TSKUPLUEX t2,TSTKLSKC t3,tSkuLyBsSetOrg t4,tSkuLyBsSetHead t5,tSkuLyBsSetBody t6
     Where t.ISACTIVE = '1' And t.ISKC='1' 
-    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
-    And t.PLUID = t3.PLUID And t.ORGCODE = t3.ORGCODE
-    And t.PLUID = t6.PLUID And t.ORGCODE = t4.usorgcode
+    And t.PLUID = t2.PLUID And t2.IsSale = '1'
+    And t.PLUID = t3.PLUID 
+    And t.PLUID = t6.PLUID 
     And t5.ctrltype = '2'
     And t4.procode = t5.procode And t5.procode = t6.procode
     And t4.usorgcode = #{orgCode,jdbcType=VARCHAR} 

@@ -95,8 +95,8 @@ public interface OrdAdlYhDao {
      * @param orgCode
      * @return List<SkuYhPSBodyModel>
      */
-    List<SkuYhPSBodyModel> getYhPSSkus(String orgCode);
     
+    List<SkuYhPSBodyModel> getYhPSSkus(String orgCode);
     /**
      * 获取包装数据
      * @return List<SkuPluPacketModel>

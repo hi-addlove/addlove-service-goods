@@ -523,8 +523,8 @@
     t.ISONLINE,t.LINEDATE,t.PLUDESC,t.PRICE
     From TSKUPLU t,TSKUPLUEX t2,tSkuLyBsSetOrg t3,tSkuLyBsSetHead t4,tSkuLyBsSetBody t5
     Where t.ISACTIVE = '1' 
-    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
-    And t.PLUID = t5.PLUID And t.ORGCODE = t3.usorgcode
+    And t.PLUID = t2.PLUID And t2.IsSale = '1'
+    And t.PLUID = t5.PLUID 
     And t4.ctrltype = '0'
     And t3.procode = t4.procode And t4.procode = t5.procode   
     And t2.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t2.DEPId = #{depId,jdbcType=NUMERIC} 
@@ -542,8 +542,8 @@
     t.ISONLINE,t.LINEDATE,t.PLUDESC,t.PRICE
     From TSKUPLU t,TSKUPLUOTHERDEPT t2,tSkuLyBsSetOrg t3,tSkuLyBsSetHead t4,tSkuLyBsSetBody t5
     Where t.ISACTIVE = '1' 
-    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE And t2.IsSale = '1'
-    And t.PLUID = t5.PLUID And t.ORGCODE = t3.usorgcode
+    And t.PLUID = t2.PLUID And t2.IsSale = '1'
+    And t.PLUID = t5.PLUID 
     And t4.ctrltype = '0'
     And t3.procode = t4.procode And t4.procode = t5.procode   
     And t2.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t2.DEPId = #{depId,jdbcType=NUMERIC}

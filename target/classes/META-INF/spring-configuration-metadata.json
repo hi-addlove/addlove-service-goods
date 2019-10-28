@@ -1,0 +1,30 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.addlove.service.goods.config.DataSourceConfig",
+      "name": "spring.datasource.mysql",
+      "sourceMethod": "public javax.sql.DataSource mysqlDatasource() ",
+      "type": "javax.sql.DataSource"
+    },
+    {
+      "sourceType": "com.addlove.service.goods.config.DataSourceConfig",
+      "name": "spring.datasource.primary",
+      "sourceMethod": "public javax.sql.DataSource defaultDataSource() ",
+      "type": "javax.sql.DataSource"
+    },
+    {
+      "sourceType": "com.addlove.service.goods.config.UserInit",
+      "name": "user",
+      "type": "com.addlove.service.goods.config.UserInit"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.addlove.service.goods.config.UserInit",
+      "name": "user.session",
+      "description": "保存session",
+      "type": "java.util.Map<java.lang.String,java.lang.Long>"
+    }
+  ]
+}

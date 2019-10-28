@@ -552,13 +552,12 @@
     t3.EXPLUCODE,t4.KYCOUNT AS KCCOUNT,t3.HCOST,t3.WCOST,t3.PLUTYPE,t3.PACKQTY
     From TSKUPLU t,TSKUPLUEX t2,TSTKLSKC t3,VSTKKYCOUNT t4
     Where t.ISACTIVE = '1' And t.ISKC='1' And t.PLUCLS != '3' 
-    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE 
-    And t.PLUID = t3.PLUID And t.ORGCODE = t3.ORGCODE
+    And t.PLUID = t2.PLUID 
+    And t.PLUID = t3.PLUID 
     And t2.DEPId = t3.DEPId
-    And t.ORGCODE =  #{orgCode,jdbcType=VARCHAR} 
+    And t3.ORGCODE =  #{orgCode,jdbcType=VARCHAR} 
     And t3.DEPId = #{depId,jdbcType=NUMERIC} 
     And t3.CKCODE = #{ckCode,jdbcType=VARCHAR}
-    And t.ORGCODE = t4.ORGCODE
     And t.PLUID = t4.PLUID
     And t4.KYCOUNT > 0
   </select>
@@ -574,13 +573,12 @@
     t3.EXPLUCODE,t4.KYCOUNT AS KCCOUNT,t3.HCOST,t3.WCOST,t3.PLUTYPE,t3.PACKQTY
     From TSKUPLU t,TSKUPLUOTHERDEPT t2,TSTKLSKC t3,VSTKKYCOUNT t4
     Where t.ISACTIVE = '1' And t.ISKC='1' And t.PLUCLS != '3' 
-    And t.PLUID = t2.PLUID And t.ORGCODE = t2.ORGCODE 
-    And t.PLUID = t3.PLUID And t.ORGCODE = t3.ORGCODE
+    And t.PLUID = t2.PLUID 
+    And t.PLUID = t3.PLUID 
     And t2.DEPId = t3.DEPId
-    And t.ORGCODE =  #{orgCode,jdbcType=VARCHAR} 
+    And t3.ORGCODE =  #{orgCode,jdbcType=VARCHAR} 
     And t3.DEPId = #{depId,jdbcType=NUMERIC} 
     And t3.CKCODE = #{ckCode,jdbcType=VARCHAR}
-    And t.ORGCODE = t4.ORGCODE
     And t.PLUID = t4.PLUID
     And t4.KYCOUNT > 0
   </select>
