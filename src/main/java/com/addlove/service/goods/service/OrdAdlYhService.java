@@ -2,10 +2,13 @@ package com.addlove.service.goods.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -138,8 +141,11 @@ public class OrdAdlYhService {
         long startTime = System.currentTimeMillis();
         JSONArray backArray = new JSONArray();
         //获取部门商品
-        List<SkuPluModel> deptSkus = new ArrayList<SkuPluModel>();
-        deptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
+        Set<SkuPluModel> deptSkus = new HashSet<>();
+        List<SkuPluModel> pdDeptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
+        if (null != pdDeptSkus && !pdDeptSkus.isEmpty()) {
+            deptSkus.addAll(pdDeptSkus);
+        }
         List<SkuPluModel> otherDeptSkus = this.skuPdCSDao.getOtherDeptSkus(orgCode, depId);
         if (null != otherDeptSkus && !otherDeptSkus.isEmpty()) {
             deptSkus.addAll(otherDeptSkus);
@@ -297,8 +303,11 @@ public class OrdAdlYhService {
         long startTime = System.currentTimeMillis();
         JSONArray backArray = new JSONArray();
         //获取部门商品
-        List<SkuPluModel> deptSkus = new ArrayList<SkuPluModel>();
-        deptSkus = this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
+        Set<SkuPluModel> deptSkus = new HashSet<>();
+        List<SkuPluModel> pdDeptSkus =  this.skuPdCSDao.getPdSkuListByDept(orgCode, depId);
+        if (null != pdDeptSkus && !pdDeptSkus.isEmpty()) {
+            deptSkus.addAll(pdDeptSkus);
+        }
         List<SkuPluModel> otherDeptSkus = this.skuPdCSDao.getOtherDeptSkus(orgCode, depId);
         if (null != otherDeptSkus && !otherDeptSkus.isEmpty()) {
             deptSkus.addAll(otherDeptSkus);
