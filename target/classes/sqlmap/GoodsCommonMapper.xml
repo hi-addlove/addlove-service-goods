@@ -685,7 +685,7 @@
     And t.PLUID = t3.PLUID
     And t3.KYCOUNT > 0
     And t.PLUID = t6.PLUID 
-    And t5.ctrltype = '0'
+    And t5.ctrltype = '1'
     And t4.procode = t5.procode And t5.procode = t6.procode   
     And t3.ORGCODE = #{orgCode,jdbcType=VARCHAR} And t2.DEPId = #{depId,jdbcType=NUMERIC}
     And t5.CTRLTYPEEX = #{flCode,jdbcType=VARCHAR}
